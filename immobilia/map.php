@@ -1,4 +1,11 @@
 <!-- TODO: Investigate this broken page -->
+<?php
+    
+    session_start();
+    
+    require_once("includes.php"); 
+	
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -33,7 +40,7 @@
   <!--[if lt IE 9]>
           <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
           <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-        <![endif]-->
+  <![endif]-->
 
 </head>
 
@@ -41,129 +48,13 @@
  <body class="nav-md footer_fixed">
     <div class="container body">
       <div class="main_container">
-        <div class="col-md-3 left_col">
-          <div class="left_col scroll-view">
-            <div class="navbar nav_title" style="border: 0;">
-              <a href="index.html" class="site_title"><span>Team Name</span></a>
-            </div>
 
-            <div class="clearfix"></div>
-
-            <!-- menu profile quick info -->
-            <div class="profile">
-              <div class="profile_pic">
-                <img src="images/img.jpg" alt="..." class="img-circle profile_img">
-              </div>
-              <div class="profile_info">
-                <span>Welcome,</span>
-                <h2>John Doe</h2>
-              </div>
-            </div>
-            <!-- /menu profile quick info -->
-
-            <br />
-
-            <!-- sidebar menu -->
-            <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
-              <div class="menu_section" >
-                <h3> - </h3>
-                <ul class="nav side-menu">
-                  <li><a><i class="fa fa-home"></i> Management Cockpit <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-					  <li><a href="index3.html">Übersicht</a></li>
-                      <li><a href="index.html">Markt</a></li>
-                      <li><a href="index2.html">Jahresabschluss</a></li>
-					  <li><a href="index2.html">Konkurrenz</a></li>
-					  <li><a href="index2.html">Strategie</a></li>
-                    </ul>
-                  </li>
-				  <li><a><i class="fa fa-edit"></i> Map</a>
-                  </li>
-                  <li><a><i class="fa fa-edit"></i> Immobilien / Grundstücke</a>
-                  </li>
-				  <li><a><i class="fa fa-edit"></i> Auktionen</span></a>
-                  </li>
-                </ul>
-              </div>
-              <div class="menu_section">
-                <h3>Dein Unternehmen</h3>
-                <ul class="nav side-menu">
-                  <li><a><i class="fa fa-bug"></i> Personal <span class="fa fa-chevron-down"></span></a>
-					<ul class="nav child_menu">
-                      <li><a href="page_403.html">Bestand</a></li>
-                      <li><a href="page_404.html">Einstellen</a></li>
-                    </ul>
-                  </li>
-                  <li><a><i class="fa fa-windows"></i> Buchungen <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-					  <li><a href="page_403.html">Bestands Konten</a></li>
-                      <li><a href="page_403.html">Aufwand Ertrags Konten</a></li>
-                      <li><a href="page_404.html">SBK </a></li>
-                      <li><a href="page_500.html">GV</a></li>
-                    </ul>
-                  </li>                 
-                </ul>
-              </div>
-
-            </div>
-            <!-- /sidebar menu -->
-
-            <!-- /menu footer buttons -->
-            <div class="sidebar-footer hidden-small">
-              <a data-toggle="tooltip" data-placement="top" title="Settings">
-                <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-              </a>
-              <a data-toggle="tooltip" data-placement="top" title="FullScreen">
-                <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
-              </a>
-              <a data-toggle="tooltip" data-placement="top" title="Lock">
-                <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
-              </a>
-              <a data-toggle="tooltip" data-placement="top" title="Logout">
-                <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
-              </a>
-            </div>
-            <!-- /menu footer buttons -->
-          </div>
-        </div>
+	  <?php 
+		require_once("menu.php");
+		Menu::createMenu(); ?>
 
       <!-- page content -->
-
-
-      <!DOCTYPE html>
-      <html lang="en">
-
-      <head>
-        <meta name="author" content="Anthony Mutisya | https://www.linkedin.com/profile/view?id=239476959">
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <!-- Meta, title, CSS, favicons, etc. -->
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="Vodacom Sim Registration reporting">
-        <meta name="keywords" content="Vodacom Sim Registration Dashboard">
-
-        <title>SixxmReg Dashboard</title>
-
-        <!-- Bootstrap core CSS -->
-        <link href="http://vodacom.registersim.com/assets/dashboard/template_files/bootstrap.css" rel="stylesheet">
-        <link rel="stylesheet" type="text/css" media="all" href="http://vodacom.registersim.com/assets/dashboard/js/daterangepicker-bs3.css" />
-
-        <link rel="stylesheet" href="http://vodacom.registersim.com/assets/dashboard/js/colorbox.css" />
-        <link href="http://vodacom.registersim.com/assets/dashboard/css/font/css/font-awesome.min.css" rel="stylesheet">
-
-        <script src="http://vodacom.registersim.com/assets/dashboard/template_files/jquery.min.js"></script>
-        <script src="http://vodacom.registersim.com/assets/dashboard/template_files/bootstrap.min.js"></script>
-        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-        <!--[if lt IE 9]>
-          <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-          <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-        <![endif]-->
-
-      </head>
-
-      <body data-twttr-rendered="true">
-        <style>
+       <style>
           body {
             background: #fff;
             color: #6F6F6F
@@ -309,37 +200,6 @@
           }
         </style>
 
-        <!DOCTYPE html>
-        <html lang="en">
-
-        <head>
-          <meta name="author" content="Anthony Mutisya | https://www.linkedin.com/profile/view?id=239476959">
-
-
-          <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-          <!-- Meta, title, CSS, favicons, etc. -->
-          <meta charset="utf-8">
-          <meta http-equiv="X-UA-Compatible" content="IE=edge">
-          <meta name="viewport" content="width=device-width, initial-scale=1">
-          <meta name="description" content="Tigo Sim Registration reporting">
-          <meta name="keywords" content="Tigo Sim Registration Dashboard">
-
-          <title>SimReg Dashboard</title>
-          <!-- Bootstrap core CSS -->
-          <link href="http://tigo.registersim.com/assets/dashboard/template_files/bootstrap.css" rel="stylesheet">
-          <link rel="stylesheet" type="text/css" media="all" href="http://tigo.registersim.com/assets/dashboard/js/daterangepicker-bs3.css" />
-
-          <link rel="stylesheet" href="http://tigo.registersim.com/assets/dashboard/js/colorbox.css" />
-          <link href="http://tigo.registersim.com/assets/dashboard/css/font/css/font-awesome.min.css" rel="stylesheet">
-          <script src="http://tigo.registersim.com/assets/dashboard/template_files/jquery.min.js"></script>
-          <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-          <!--[if lt IE 9]>
-          <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-          <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-        <![endif]-->
-        </head>
-
-        <body data-twttr-rendered="true">
           <style>
             body {
               background: rgb(80, 96, 186);
@@ -1162,12 +1022,14 @@
 
           <script type="text/javascript" data-rocketsrc="http://vodacom.registersim.com/assets/dashboard/maps/jquery.maphilight.min.js;" data-rocketoptimized="true"></script>
           <script type="text/javascript" src="http://vodacom.registersim.com/assets/dashboard/maps/jquery.maphilight.min.js"></script>
-        </body>
-
-        </html>        <!-- /page content -->
+    <!-- /page content -->
     </div>
 
     <!-- footer content -->
+	  <?php Menu::createFooter(); ?>
+      </div>
+    </div>
+	
   </div>
 
   <script src="js/bootstrap.min.js"></script>
