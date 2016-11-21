@@ -6,7 +6,14 @@
 ?>
 <?php 
 		require_once("menu.php");
-		Menu::createMenu("Immobilien"); ?>
+		Menu::createMenu("Immobilien"); 
+		
+		$query = "
+		SELECT * FROM Informationen;";
+		$result = Database::sqlSelect($query);
+		var_dump($result);
+		
+?>
 						
 						
 		<!-- page content -->

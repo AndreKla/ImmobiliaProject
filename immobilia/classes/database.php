@@ -14,7 +14,7 @@ class Database {
 		# Connection settings
 		# tobias-db.czo3mjccdla1.eu-cnetral-1.rdsamazonaws.com:3306
 		$dbPath = "localhost";
-		$dbDatabase = "Planspiel";
+		$dbDatabase = "tobias-db";
                 $dbUser = "root";
                 $dbPassword = "a7N13t20";
 		

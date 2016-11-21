@@ -6,6 +6,9 @@ class Menu {
 public static function createMenu($titel) {
 
 
+	Database::databaseConnect();
+
+
 ?>
 
 <!DOCTYPE html>
