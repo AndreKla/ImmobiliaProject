@@ -15,8 +15,9 @@
   <body class="nav-md footer_fixed">
     <div class="container body">
 
-	    <?php include 'menu.php'; ?>
-
+		<?php 
+		require_once("menu.php");
+		Menu::createMenu(); ?>
 
         <!-- page content -->
         <div class="right_col" role="main">

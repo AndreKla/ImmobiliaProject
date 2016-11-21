@@ -1,3 +1,4 @@
+
                 <div class="x_panel" style="">
                   <div class="x_title">
                     <h2>Grid Slider</h2>
@@ -52,3 +53,4 @@
                     </div>
                   </div>
                 </div>
+				
