@@ -1,4 +1,13 @@
-<div class="col-md-12 col-sm-12 col-xs-12">
+<?php
+
+class NetworkActivities {
+	
+	
+public static function createActivity() {
+
+
+?>
+			<div class="col-md-12 col-sm-12 col-xs-12">
               <div class="dashboard_graph">
 
                 <div class="row x_title">
@@ -67,3 +76,7 @@
                 <div class="clearfix"></div>
               </div>
             </div>
+			
+<?php
+}}
+?>

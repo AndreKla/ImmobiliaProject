@@ -1,4 +1,14 @@
-<div class="col-md-6 col-sm-6 col-xs-12">
+<?php
+
+class ToDoList {
+	
+	
+public static function createToDoList() {
+
+
+?>
+
+				<div class="col-md-6 col-sm-6 col-xs-12">
                   <div class="x_panel">
                     <div class="x_title">
                       <h2>To Do List <small>Sample tasks</small></h2>
@@ -64,3 +74,8 @@
                     </div>
                   </div>
                 </div>
+				
+						  
+<?php
+}}
+?>

@@ -1,3 +1,13 @@
+<?php
+
+class ProjectDetails {
+	
+	
+public static function createDetails() {
+
+
+?>
+
             <div class="clearfix"></div>
 
             <div class="row">
@@ -162,3 +172,7 @@
                 </div>
               </div>
             </div>
+			
+<?php
+}}
+?>

@@ -1,4 +1,12 @@
+<?php
 
+class BuchungUebersicht {
+	
+	
+public static function createUebersicht() {
+
+
+?>
             <div class="clearfix"></div>
 
             <div class="row">
@@ -179,3 +187,8 @@
                 </div>
               </div>
             </div>
+			
+						
+<?php
+}}
+?>

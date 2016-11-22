@@ -1,3 +1,12 @@
+<?php
+
+class Konkurrenz {
+	
+	
+public static function createKonkurrenz() {
+
+
+?>
             <div class="clearfix"></div>
 
             <div class="row">
@@ -254,3 +263,7 @@
                 </div>
               </div>
             </div>
+			
+<?php
+}}
+?>

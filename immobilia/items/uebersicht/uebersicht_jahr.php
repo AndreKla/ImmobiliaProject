@@ -1,3 +1,13 @@
+<?php
+
+class Jahresuebersicht {
+	
+	
+public static function createJahresuebersicht() {
+
+
+?>
+
                     <p>This is a basic form wizard example that inherits the colors from the selected scheme.</p>
                     <div id="wizard" class="form_wizard wizard_horizontal">
                       <ul class="wizard_steps">
@@ -123,3 +133,7 @@
                       </div>
 
                     </div>
+					
+<?php
+}}
+?>
