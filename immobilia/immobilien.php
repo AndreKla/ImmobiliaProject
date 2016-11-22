@@ -22,6 +22,10 @@
 		
 			News::createInfoPage();
 			Konkurrenz::createKonkurrenz();
+			BuchungUebersicht::createUebersicht();
+			Personal::bestand();
+			Personal::einstellen();
+			Personal::createBarometer();
 		?>
 		</div>
 		<!-- /page content -->
