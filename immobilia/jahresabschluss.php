@@ -2,17 +2,12 @@
     
     session_start();
     require_once("includes.php"); 
-	
-	//Schnick schnack schnuck
-	// STEIN!
 		
 ?>
 
 <?php 
 		require_once("menu.php");
-		Menu::createMenu("Jahresabschluss"); 
-		echo "Nuttensöhne gucken böse, ich bin back!";
-
+		Menu::createMenu("Jahresabschluss");
 ?>
 
 						
