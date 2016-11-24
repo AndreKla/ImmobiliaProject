@@ -9,7 +9,6 @@ require_once(__DIR__."/menu.php");
 #$itemsBasicFolder = "/items/basic/";
 
 
-require_once $itemsFolder . "auktion/auktion.php";
 require_once $itemsFolder . "auktion/gridslider.php";
 
 require_once $itemsFolder . "buchung/buchung_uebersicht.php";
