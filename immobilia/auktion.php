@@ -1,6 +1,7 @@
 
 <?php 
 		require_once("includes.php"); 
+		// NOCH TO COME!
 		Menu::createMenu("Auktion"); ?>
 
         <!-- page content -->
