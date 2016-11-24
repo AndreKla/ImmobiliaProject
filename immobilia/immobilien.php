@@ -2,6 +2,8 @@
     
     session_start();
     require_once("classes/includes.php"); 
+	include 'classes/includes_css.php'; 
+
 		
 ?>
 <?php 
