@@ -22,7 +22,13 @@ public static function createMenu($titel) {
 
     <title><?php echo $titel; ?> </title>
 
+<<<<<<< HEAD:immobilia/menu.php
 	<?php   include('includes_css.php'); ?>
+=======
+<?php
+	include(__DIR__.'/includes_css.php'); 	
+?>
+>>>>>>> origin/master:immobilia/classes/menu.php
 
   </head>
 
