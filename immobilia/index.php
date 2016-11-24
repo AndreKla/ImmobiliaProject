@@ -4,9 +4,9 @@
     
     require_once("classes/includes.php"); 
 	
+		Menu::createMenu("Index"); 
+
 ?>
-<?php 
-		Menu::createMenu("Index"); ?>
 						
         <!-- page content -->
         <div class="right_col" role="main">
