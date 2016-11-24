@@ -2,6 +2,9 @@
     
     session_start();
     require_once("includes.php"); 
+	
+	//Schnick schnack schnuck
+	// STEIN!
 		
 ?>
 
