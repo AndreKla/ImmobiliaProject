@@ -10,7 +10,11 @@
 
 <?php 
 		require_once("menu.php");
-		Menu::createMenu("Jahresabschluss"); ?>
+		Menu::createMenu("Jahresabschluss"); 
+		echo "Nuttensöhne gucken böse, ich bin back!";
+
+?>
+
 						
 						
 		<!-- page content -->
