@@ -1,14 +1,12 @@
 <?php
-$classFolder = "";
-$itemsFolder = "../items/";
-$itemsBasicFolder = "../items/basic/";
+$itemsFolder = __DIR__."/../items/";
 
-
-
-require_once $classFolder . "database.php";
-require_once $classFolder . "globals.php";
+require_once(__DIR__."/database.php");
+require_once(__DIR__."/globals.php");
+require_once(__DIR__."/menu.php");
 
 #require_once $itemsBasicFolder . "widgets.php";
+#$itemsBasicFolder = "/items/basic/";
 
 
 require_once $itemsFolder . "auktion/auktion.php";
@@ -28,7 +26,6 @@ require_once $itemsFolder . "uebersicht/recent_activities.php";
 require_once $itemsFolder . "uebersicht/todolist.php";
 require_once $itemsFolder . "uebersicht/toplist_overview.php";
 require_once $itemsFolder . "uebersicht/uebersicht_jahr.php";
-require_once $classFolder . "menu.php";
 
 
 
