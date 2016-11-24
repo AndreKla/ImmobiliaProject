@@ -1,9 +1,9 @@
 <?php
-$itemsFolder = __DIR__."/../items/";
+$itemsFolder ="items/";
 
-require_once(__DIR__."/database.php");
-require_once(__DIR__."/globals.php");
-require_once(__DIR__."/menu.php");
+require_once("classes/database.php");
+require_once("classes//globals.php");
+require_once("menu.php");
 
 #require_once $itemsBasicFolder . "widgets.php";
 #$itemsBasicFolder = "/items/basic/";

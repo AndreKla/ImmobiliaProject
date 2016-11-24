@@ -22,7 +22,7 @@ public static function createMenu($titel) {
 
     <title><?php echo $titel; ?> </title>
 
-	<?php   include(__DIR__.'/includes_css.php'); ?>
+	<?php   include('includes_css.php'); ?>
 
   </head>
 

@@ -2,7 +2,7 @@
     
     session_start();
     
-    require_once("classes/includes.php"); 
+    require_once("includes.php"); 
 	
 ?>
 <?php 
@@ -300,7 +300,7 @@
       </div>
     </div>
 
-	<?php include 'classes/includes_js.php'; ?> 
+	<?php include 'includes_js.php'; ?> 
 
     <!-- Flot -->
     <script>
