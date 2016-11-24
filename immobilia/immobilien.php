@@ -1,11 +1,10 @@
 <?php
     
     session_start();
-    require_once("includes.php"); 
+    require_once("classes/includes.php"); 
 		
 ?>
 <?php 
-		require_once("menu.php");
 		Menu::createMenu("Immobilien"); 
 		
 		$query = "
@@ -34,7 +33,7 @@
       </div>
     </div>
 
-	<?php include 'includes_js.php'; ?> 
+	<?php include 'classes/includes_js.php'; ?> 
 	
   </body>
 </html>

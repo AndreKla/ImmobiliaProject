@@ -39,7 +39,7 @@
       <div class="main_container">
 
 	  <?php 
-		require_once("menu.php");
+
 		Menu::createMenu(); ?>
 
       <!-- page content -->

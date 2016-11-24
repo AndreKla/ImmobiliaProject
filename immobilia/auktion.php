@@ -1,6 +1,5 @@
 
 <?php 
-		require_once("menu.php");
 		Menu::createMenu("Auktion"); ?>
 
         <!-- page content -->
@@ -196,7 +195,7 @@
       </div>
     </div>
 
-        <?php include 'includes_js.php'; ?>
+        <?php include 'classes/includes_js.php'; ?>
 
   </body>
 </html>

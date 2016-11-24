@@ -2,11 +2,10 @@
     
     session_start();
     
-    require_once("includes.php"); 
+    require_once("classes/includes.php"); 
 	
 ?>
 <?php 
-		require_once("menu.php");
 		Menu::createMenu("Index"); ?>
 						
         <!-- page content -->
@@ -301,7 +300,7 @@
       </div>
     </div>
 
-	<?php include 'includes_js.php'; ?> 
+	<?php include 'classes/includes_js.php'; ?> 
 
     <!-- Flot -->
     <script>
