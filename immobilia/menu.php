@@ -20,15 +20,9 @@ public static function createMenu($titel) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title><?php echo $titel; ?> </title>
+    <title></title>
 
-<<<<<<< HEAD:immobilia/menu.php
 	<?php   include('includes_css.php'); ?>
-=======
-<?php
-	include(__DIR__.'/includes_css.php'); 	
-?>
->>>>>>> origin/master:immobilia/classes/menu.php
 
   </head>
 
@@ -76,7 +70,7 @@ public static function createMenu($titel) {
 		  </li>
 		  <li><a href="map.php"><i class="fa fa-edit"></i> Map</a>
 		  </li>
-		  <li><a href="immobilien.php"><i class="fa fa-edit"></i> Immobilien / Grundstücke</a>
+		  <li><a href="immobilien.php"><i class="fa fa-home"></i> Immobilien / Grundstücke</a>
 		  </li>
 		  <li><a href="auktion.php"><i class="fa fa-edit"></i> Auktionen</span></a>
 		  </li>

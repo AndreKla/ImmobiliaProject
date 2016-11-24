@@ -38,9 +38,10 @@
     <div class="container body">
       <div class="main_container">
 
-	  <?php 
+    <?php 
 
-		Menu::createMenu(); ?>
+		Menu::createMenu("MAP"); 
+	?>
 
       <!-- page content -->
        <style>
@@ -51,7 +52,7 @@
 
           @media (min-width: 1200px) {
             .container {
-              width: 1250px !important;
+              width: 100%;
             }
           }
 
@@ -197,7 +198,7 @@
 
             @media (min-width: 1200px) {
               .container {
-                width: 1250px !important;
+                width: 100% !important;
               }
             }
 
@@ -865,7 +866,7 @@
               var markerCluster = new MarkerClusterer(map, markers);
             }
           </script>
-          <div id="map-container" style="height:560px">
+          <div id="map-container" style="height:700px">
             <div id="map"></div>
           </div>
 
