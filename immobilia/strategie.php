@@ -10,7 +10,7 @@
 			
 		<style>
 		.selected_item{
-			color:#888888;
+			color:#DDDDDD;
 		}
 		
 		.not_selected_item{
@@ -21,11 +21,23 @@
 		<script>
 		
 		jQuery(document).ready(function(e){
-
-			$('.strategy_item').click(function(){
-				$('.strategy_item').addClass('selected_item');
+			
+			/*$('.tests').on('click', function() { 
+				alert('2nd click event');
+				//  Do something else
 			});
-		}); 
+			$('.icheckbox_flat-green.checked').click(function(){
+				('.strategy_item').addClass('selected_item');
+			});*/
+			
+			$(".icheckbox_flat-green").change(function(event){
+				if (this.checked){
+					alert("You have elected to show your checkout history.");
+				} else {
+					alert("You have elected to turn off checkout history.");
+				}
+			});
+			}); 
 		
 		</script>
 		

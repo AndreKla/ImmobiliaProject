@@ -6,7 +6,7 @@ class Strategie {
     ?>
       <li class="strategy_item">
         <p>
-          <input type="checkbox" class="flat"> <?php echo $beschreibung; ?> 
+          <input type="checkbox" class="flat tests"> <?php echo $beschreibung; ?> 
         </p>
       </li>
     <?php
