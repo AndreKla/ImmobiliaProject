@@ -12,7 +12,11 @@ public static function createMenu($titel) {
 ?>
 
 	<?php   include('includes_css.php'); ?>
-
+	<style>
+	.container, body{
+		overflow:hidden;
+	}
+	</style>
  <body class="nav-md footer_fixed">
     <div class="container body">
 
