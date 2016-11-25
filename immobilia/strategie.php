@@ -15,10 +15,7 @@
 		<?php
 			ToDoList::createToDoList();
 			Elements::createJumbotron();
-						ToDoList::createToDoList();
-			Elements::createJumbotron();			ToDoList::createToDoList();
-			Elements::createJumbotron();			ToDoList::createToDoList();
-			Elements::createJumbotron();
+
 		?>
 		
 		</div>
