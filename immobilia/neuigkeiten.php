@@ -13,7 +13,11 @@
 		<!-- page content -->
 		<div class="right_col" role="main">
 		<?php
-			RecentActivities::createActivities();
+
+			$width = 10;
+			$numberOfNews = 5;
+
+			RecentActivities::createActivities($width, $numberOfNews);
 		?>
 
 		</div>

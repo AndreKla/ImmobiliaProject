@@ -5,16 +5,14 @@ class Menu {
 	
 public static function createMenu($titel) {
 
-
 	Database::databaseConnect();
-
 
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <!-- Meta, title, CSS, favicons, etc. -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -71,7 +69,7 @@ public static function createMenu($titel) {
 		  <li><a><i class="fa fa-home"></i> Immobilien <span class="fa fa-chevron-down"></span></a>
 			<ul class="nav child_menu">
 			  <li><a href="map.php">Karte</a></li>
-			  <li><a href="immobilien.php">Immobilien / Grundstücke</a></li>
+			  <li><a href="immobilien.php">Immobilien / GrundstÃ¼cke</a></li>
 			  <li><a href="markt.php">Auktionen</a></li>
 			</ul>
 		  </li>
@@ -123,7 +121,7 @@ public static function createFooter() {
 <!-- footer content -->
 <footer style="background-color:#EDEDED;z-index:30" >
   <div class="pull-right fixed" >
-	Kapital: 10.000.000 €</a>
+	Kapital: 10.000.000 â‚¬</a>
   </div>
   <div class="clearfix"></div>
 </footer>

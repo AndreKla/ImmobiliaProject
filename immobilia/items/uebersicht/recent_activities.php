@@ -3,12 +3,13 @@
 class RecentActivities {
 	
 	
-public static function createActivities() {
+public static function createActivities($width, $numberOfNews) {
 
+echo $numberOfNews;
 
 ?>
 
-		<div class="col-md-4 col-sm-4 col-xs-12">
+		<div class=<?php echo "'col-md-$width col-sm-$width col-xs-12'"; ?>>
               <div class="x_panel">
                 <div class="x_title">
                   <h2>Recent Activities <small>Sessions</small></h2>
@@ -37,7 +38,7 @@ public static function createActivities() {
                         <div class="block">
                           <div class="block_content">
                             <h2 class="title">
-                                              <a>Who Needs Sundance When You’ve Got&nbsp;Crowdfunding?</a>
+                                              <a>Übertriebens't</a>
                                           </h2>
                             <div class="byline">
                               <span>13 hours ago</span> by <a>Jane Smith</a>
