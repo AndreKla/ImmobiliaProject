@@ -9,6 +9,7 @@ public static function createMenu($titel) {
 
 ?>
 
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="de">
   <head>
@@ -20,16 +21,19 @@ public static function createMenu($titel) {
 
     <title></title>
 
+=======
+>>>>>>> origin/master
 	<?php   include('includes_css.php'); ?>
-
-  </head>
-
-
+	<style>
+	.container, body{
+		overflow:hidden;
+	}
+	</style>
  <body class="nav-md footer_fixed">
     <div class="container body">
 
 
-<div class="main_container">
+<div class="main_container" style="overflow:hidden;">
 <div class="col-md-3 left_col">
   <div class="left_col scroll-view">
 	<div class="navbar nav_title" style="border: 0;">

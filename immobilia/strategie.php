@@ -13,6 +13,7 @@
 		
 		<?php
 			ToDoList::createToDoList();
+			Elements::createJumbotron();
 		?>
 		
 		</div>
