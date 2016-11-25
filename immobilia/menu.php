@@ -94,7 +94,7 @@ public static function createMenu($titel) {
 	</div>
 	<!-- /sidebar menu -->
 
-	<!-- /menu footer buttons -->
+	<!-- /menu footer buttons 
 	<div class="sidebar-footer hidden-small">
 	  <a data-toggle="tooltip" data-placement="top" title="Settings">
 		<span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
@@ -109,7 +109,7 @@ public static function createMenu($titel) {
 		<span class="glyphicon glyphicon-off" aria-hidden="true"></span>
 	  </a>
 	</div>
-	<!-- /menu footer buttons -->
+	 /menu footer buttons -->
   </div>
 </div>
 
@@ -121,7 +121,7 @@ public static function createFooter() {
 ?>
 
 <!-- footer content -->
-<footer style="background-color:#EDEDED">
+<footer style="background-color:#EDEDED;z-index:30" >
   <div class="pull-right fixed" >
 	Kapital: 10.000.000 €</a>
   </div>

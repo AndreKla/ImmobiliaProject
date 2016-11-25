@@ -5,42 +5,23 @@
     require_once("includes.php"); 
 	
 ?>
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+<?php 
 
-  <title>Immobilienübersichten</title>
-
-  <!-- Bootstrap core CSS -->
-
-  <link href="css/bootstrap.min.css" rel="stylesheet">
-
-  <link href="fonts/css/font-awesome.min.css" rel="stylesheet">
-  <link href="css/animate.min.css" rel="stylesheet">
-
-  <!-- Custom styling plus plugins -->
-  <link href="build/css/custom.min.css" rel="stylesheet">
-  <link href="css/icheck/flat/green.css" rel="stylesheet">
-
-
-  <script src="js/jquery.min.js"></script>
-  
-</head>
-
+	Menu::createMenu("MAP"); 
+	
+	Elements::createAccordion();
+	Radar::createRadar();
+?>
 
  <body class="nav-md footer_fixed">
     <div class="container body">
+	
+
+	
       <div class="main_container">
 
-    <?php 
 
-		Menu::createMenu("MAP"); 
-	?>
 
       <!-- page content -->
        <style>
@@ -1020,6 +1001,8 @@
     </div>
 	
   </div>
+  
+  <?php include 'includes_js.php'; ?> 
 
   <script src="js/bootstrap.min.js"></script>
 

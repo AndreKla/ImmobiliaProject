@@ -11,7 +11,7 @@ public static function createAccordion() {
               <div class="clearfix"></div>
 
 
-              <div class="col-md-6 col-sm-6 col-xs-12">
+              <div class="col-md-6 col-sm-6 col-xs-12" style="z-index:20;position:absolute;top:0;right:0;background:white;width:350px;">
                 <div class="x_panel">
                   <div class="x_title">
                     <h2><i class="fa fa-align-left"></i> Collapsible / Accordion <small>Sessions</small></h2>
@@ -35,7 +35,7 @@ public static function createAccordion() {
                   <div class="x_content">
 
                     <!-- start accordion -->
-                    <div class="accordion" id="accordion" role="tablist" aria-multiselectable="true">
+                    <div class="accordion" id="accordion" role="tablist" aria-multiselectable="true" style="overflow: auto;height:400px">
                       <div class="panel">
                         <a class="panel-heading" role="tab" id="headingOne" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                           <h4 class="panel-title">Collapsible Group Items #1</h4>
@@ -75,6 +75,12 @@ public static function createAccordion() {
                           </div>
                         </div>
                       </div>
+					  <!-- 
+					  
+						ein Panel muss in eine forschleife und befüllt werden!!!
+					  
+					  
+					  -->
                       <div class="panel">
                         <a class="panel-heading collapsed" role="tab" id="headingTwo" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                           <h4 class="panel-title">Collapsible Group Items #2</h4>
@@ -92,6 +98,18 @@ public static function createAccordion() {
                           <h4 class="panel-title">Collapsible Group Items #3</h4>
                         </a>
                         <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                          <div class="panel-body">
+                            <p><strong>Collapsible Item 3 data</strong>
+                            </p>
+                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor
+                          </div>
+                        </div>
+                      </div>
+					  <div class="panel">
+                        <a class="panel-heading collapsed" role="tab" id="headingThree" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                          <h4 class="panel-title">Collapsible Group Items #3</h4>
+                        </a>
+                        <div id="collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
                           <div class="panel-body">
                             <p><strong>Collapsible Item 3 data</strong>
                             </p>
