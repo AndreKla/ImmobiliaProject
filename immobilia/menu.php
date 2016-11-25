@@ -13,7 +13,7 @@ public static function createMenu($titel) {
 <!DOCTYPE html>
 <html lang="de">
   <head>
-    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta http-equiv="content-type" content="text/html">
     <!-- Meta, title, CSS, favicons, etc. -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
