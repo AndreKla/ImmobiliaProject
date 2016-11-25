@@ -61,25 +61,21 @@ public static function createMenu($titel) {
 		<ul class="nav side-menu">
 		  <li><a><i class="fa fa-home"></i> Management Cockpit <span class="fa fa-chevron-down"></span></a>
 			<ul class="nav child_menu">
-			  <li><a href="uebersicht.php">Übersicht</a></li>
+			  <li><a href="neuigkeiten.php">Neuigkeiten</a></li>
+			  <li><a href="finanzen.php">Finanzen</a></li>
 			  <li><a href="markt.php">Markt</a></li>
-			  <li><a href="jahresabschluss.php">Jahresabschluss</a></li>
 			  <li><a href="konkurrenz.php">Konkurrenz</a></li>
 			  <li><a href="strategie.php">Strategie</a></li>
 			</ul>
 		  </li>
-		  <li><a href="map.php"><i class="fa fa-edit"></i> Map</a>
+		  <li><a><i class="fa fa-home"></i> Immobilien <span class="fa fa-chevron-down"></span></a>
+			<ul class="nav child_menu">
+			  <li><a href="map.php">Karte</a></li>
+			  <li><a href="immobilien.php">Immobilien / Grundstücke</a></li>
+			  <li><a href="markt.php">Auktionen</a></li>
+			</ul>
 		  </li>
-		  <li><a href="immobilien.php"><i class="fa fa-home"></i> Immobilien / Grundstücke</a>
-		  </li>
-		  <li><a href="auktion.php"><i class="fa fa-edit"></i> Auktionen</span></a>
-		  </li>
-		</ul>
-	  </div>
-	  <div class="menu_section">
-		<h3>Dein Unternehmen</h3>
-		<ul class="nav side-menu">
-		  <li><a><i class="fa fa-bug"></i> Personal <span class="fa fa-chevron-down"></span></a>
+		  <li><a><i class="fa fa-home"></i> Personal <span class="fa fa-chevron-down"></span></a>
 			<ul class="nav child_menu">
 			  <li><a href="personal_bestand.php">Bestand</a></li>
 			  <li><a href="personal_einstellen.php">Einstellen</a></li>
@@ -92,10 +88,9 @@ public static function createMenu($titel) {
 			  <li><a href="sbk.php">SBK </a></li>
 			  <li><a href="gewinn_verlust.php">GV</a></li>
 			</ul>
-		  </li>                 
+		  </li>
 		</ul>
 	  </div>
-
 	</div>
 	<!-- /sidebar menu -->
 
