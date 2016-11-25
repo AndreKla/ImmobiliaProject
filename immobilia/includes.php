@@ -2,7 +2,7 @@
 $itemsFolder ="items/";
 
 require_once("classes/database.php");
-require_once("classes//globals.php");
+require_once("classes/globals.php");
 require_once("menu.php");
 
 #require_once $itemsBasicFolder . "widgets.php";
@@ -25,6 +25,9 @@ require_once $itemsFolder . "uebersicht/recent_activities.php";
 require_once $itemsFolder . "uebersicht/todolist.php";
 require_once $itemsFolder . "uebersicht/toplist_overview.php";
 require_once $itemsFolder . "uebersicht/uebersicht_jahr.php";
+
+require_once $itemsFolder . "basic/general_elements.php";
+
 
 
 
