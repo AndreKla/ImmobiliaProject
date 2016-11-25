@@ -2,23 +2,16 @@
     
     session_start();
     require_once("includes.php"); 
-		
-?>
-<?php 
-		Menu::createMenu("Aufwand/Ertrag"); ?>
-						
-						
-		<!-- page content -->
-		<div class="right_col" role="main">
-		
-		</div>
-		<!-- /page content -->
-		
-		<?php Menu::createFooter(); ?>
-      </div>
-    </div>
+	Menu::createMenu("Aufwand/Ertrag"); 
 
-	<?php include 'includes_js.php'; ?> 
+?>
+				
+	<!-- page content -->
+	<div class="right_col" role="main">
 	
-  </body>
-</html>
+	</div>
+	<!-- /page content -->
+		
+<?php 
+	Menu::createFooter(); 
+?>

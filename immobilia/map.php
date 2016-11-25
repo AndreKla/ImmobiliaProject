@@ -3,16 +3,12 @@
     session_start();
     
     require_once("includes.php"); 
-	
-?>
-
-	<?php 
-
-		Menu::createMenu("MAP"); 
+		Menu::createMenu("Immobilienkarte"); 
 		
 		Elements::createAccordion();
 		Radar::createRadar();
-	?>
+    
+?>
 
  <body class="nav-md footer_fixed">
     <div class="container body">
@@ -590,29 +586,6 @@
     </div>
 
     <!-- footer content -->
-	  <?php Menu::createFooter(); ?>
-      </div>
-    </div>
-	
-  </div>
-  
-  <?php include 'includes_js.php'; ?> 
-<!-- chart js 
-  <script src="js/bootstrap.min.js"></script>
-
-  
-  <script src="js/chartjs/chart.min.js"></script>
-  <!-- bootstrap progress js 
-  <script src="js/progressbar/bootstrap-progressbar.min.js"></script>
-  <!-- icheck 
-  <script src="js/icheck/icheck.min.js"></script>
-
-  <script src="build/js/custom.min.js"></script>
-
-   pace 
-  <script src="js/pace/pace.min.js"></script>-->
-
-  <!-- /footer content -->
-  </body>
-
-  </html>
+<?php 
+  Menu::createFooter(); 
+?>

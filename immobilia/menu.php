@@ -137,6 +137,14 @@ public static function createFooter() {
 </footer>
 <!-- /footer content -->
 
+      </div>
+    </div>
+
+	<?php include 'includes_js.php'; ?> 
+	
+  </body>
+</html>
+
 <?php
 }}
 ?>

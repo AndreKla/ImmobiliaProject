@@ -2,24 +2,16 @@
     
     session_start();
     require_once("includes.php"); 
-		
+	Menu::createMenu("Bestandskonten"); 
+
 ?>
-
-<?php 
-		Menu::createMenu("Bestandskonten"); ?>
-						
-						
-		<!-- page content -->
-		<div class="right_col" role="main">
-		
-		</div>
-		<!-- /page content -->
-		
-		<?php Menu::createFooter(); ?>
-      </div>
-    </div>
-
-	<?php include 'includes_js.php'; ?> 
+				
+	<!-- page content -->
+	<div class="right_col" role="main">
 	
-  </body>
-</html>
+	</div>
+	<!-- /page content -->
+		
+<?php 
+	Menu::createFooter(); 
+?>
