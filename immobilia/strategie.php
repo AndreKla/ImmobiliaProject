@@ -13,7 +13,10 @@
 		<div class="right_col" role="main">
 		
 		<?php
-			ToDoList::createToDoList();
+
+			$aktuellesGeschäftsjahr = 1;
+
+			Strategie::createStrategieListe($aktuellesGeschäftsjahr);
 			Elements::createJumbotron();
 
 		?>
