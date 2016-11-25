@@ -9,7 +9,7 @@
 		Menu::createMenu("Immobilien"); 
 		
 		$query = "
-		SELECT * FROM Informationen;";
+		SELECT * FROM Neuigkeiten;";
 		$result = Database::sqlSelect($query);
 		var_dump($result);
 		

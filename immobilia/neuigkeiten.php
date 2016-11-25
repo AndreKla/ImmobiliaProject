@@ -15,9 +15,9 @@
 		<?php
 
 			$width = 10;
-			$numberOfNews = 5;
+			$aktuellesGeschäftsjahr = 1;
 
-			RecentActivities::createActivities($width, $numberOfNews);
+			RecentActivities::createActivities($width, $numberOfNews, $aktuellesGeschäftsjahr);
 		?>
 
 		</div>
