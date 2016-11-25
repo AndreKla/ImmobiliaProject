@@ -11,7 +11,8 @@
 		<!-- page content -->
 		<div class="right_col" role="main">
 			<?php
-				Personal::bestand();
+				Personal::einstellenActivity();
+
 			?>
 		</div>
 		<!-- /page content -->

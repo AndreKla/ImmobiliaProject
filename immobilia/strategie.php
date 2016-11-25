@@ -18,7 +18,6 @@
 
 			Strategie::createStrategieListe($aktuellesGeschäftsjahr);
 			Elements::createJumbotron();
-
 		?>
 		
 		</div>
