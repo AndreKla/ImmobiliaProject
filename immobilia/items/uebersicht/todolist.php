@@ -4,7 +4,7 @@ class Strategie {
 
   public static function createStrategie($beschreibung) {
     ?>
-      <li>
+      <li class="strategy_item">
         <p>
           <input type="checkbox" class="flat"> <?php echo $beschreibung; ?> 
         </p>

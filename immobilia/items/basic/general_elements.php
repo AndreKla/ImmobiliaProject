@@ -3,7 +3,7 @@
 class Elements{
 
 
-public static function createAccordion() {
+public static function createAccordion($titel, $zeit, $autor, $text, $bild) {
 
 
 ?>

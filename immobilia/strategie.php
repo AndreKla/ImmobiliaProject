@@ -13,12 +13,35 @@
 		<div class="right_col" role="main">
 		
 		<?php
-
-			$aktuellesGeschäftsjahr = 1;
-
-			Strategie::createStrategieListe($aktuellesGeschäftsjahr);
+			Stategie::createStrategieListe("0");
 			Elements::createJumbotron();
+			
 		?>
+		
+		<style>
+			.selected_item{
+				
+			}
+			
+			.not_selected_item{
+				
+			}
+		</style>
+		<script>
+		$(document).ready(function(){
+
+			$(".strategy_item").click(){
+				this.toggleClass('.selected_item');
+			}
+			
+			$( 'ul li' ).click( function( e ) {
+				// by default, hide all li's
+				$( 'ul li' ).hide();
+				// show only the selected li
+				$( this ).show();
+			});
+		}); 
+		</script>
 		
 		</div>
 		<!-- /page content -->
