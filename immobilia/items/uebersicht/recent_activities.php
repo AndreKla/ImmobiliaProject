@@ -2,11 +2,11 @@
 
 class RecentActivities {
 
-  public static function createNews($titel, $zeit, $autor, $text) {
+  public static function createNews($titel, $zeit, $autor, $text, $bild) {
     ?>
 
     <li>
-      <div class="block">
+      <div class="block col-md-12">
         <div class="block_content">
           <h2 class="title">
                             <a><?php echo $titel; ?></a>
@@ -14,9 +14,10 @@ class RecentActivities {
           <div class="byline">
             <span><?php echo $zeit; ?></span> von <a><?php echo $autor; ?></a>
           </div>
-          <p class="excerpt">
-          <?php echo $text; ?>
+          <p class="excerpt col-md-8">
+          <?php echo $text . $text; ?>
           </p>
+          <img src=<?php echo "'$bild'"; ?> alt="News Bild" width="120px" height="85px">
         </div>
       </div>
     </li>
@@ -26,7 +27,7 @@ class RecentActivities {
   }
 	
 	
-  public static function createActivities($width, $numberOfNews, $aktuellesGeschäftsjahr) {
+  public static function createActivities($width, $aktuellesGeschäftsjahr) {
 
     $query = "
     SELECT *
@@ -54,7 +55,7 @@ class RecentActivities {
 
                   $zeit = date('d.m.Y');
 
-                  RecentActivities::createNews($aktuelleNeuigkeiten[$i]["Titel"], $zeit, $aktuelleNeuigkeiten[$i]["Autor"], $aktuelleNeuigkeiten[$i]["Beschreibung"]);
+                  RecentActivities::createNews($aktuelleNeuigkeiten[$i]["Titel"], $zeit, $aktuelleNeuigkeiten[$i]["Autor"], $aktuelleNeuigkeiten[$i]["Beschreibung"], $aktuelleNeuigkeiten[$i]["Bild"]);
 
                 }
 

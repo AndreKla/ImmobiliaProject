@@ -14,10 +14,10 @@
 		<div class="right_col" role="main">
 		<?php
 
-			$width = 10;
+			$width = 8;
 			$aktuellesGeschäftsjahr = 1;
 
-			RecentActivities::createActivities($width, $numberOfNews, $aktuellesGeschäftsjahr);
+			RecentActivities::createActivities($width, $aktuellesGeschäftsjahr);
 		?>
 
 		</div>
