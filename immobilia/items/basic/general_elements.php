@@ -11,7 +11,7 @@ public static function createAccordion() {
               <div class="clearfix"></div>
 
 
-              <div class="col-md-6 col-sm-6 col-xs-12" style="z-index:20;position:absolute;top:0;right:0;background:white;width:350px;">
+              <div class="col-md-6 col-sm-6 col-xs-12" style="z-index:20;position:absolute;top:15px;right:0;width:350px;">
                 <div class="x_panel">
                   <div class="x_title">
                     <h2><i class="fa fa-align-left"></i> Collapsible / Accordion <small>Sessions</small></h2>
@@ -35,7 +35,7 @@ public static function createAccordion() {
                   <div class="x_content">
 
                     <!-- start accordion -->
-                    <div class="accordion" id="accordion" role="tablist" aria-multiselectable="true" style="overflow: auto;height:400px">
+                    <div class="accordion" id="accordion" role="tablist" aria-multiselectable="true" style="overflow: auto;height:400px;background:white;">
                       <div class="panel">
                         <a class="panel-heading" role="tab" id="headingOne" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                           <h4 class="panel-title">Collapsible Group Items #1</h4>
