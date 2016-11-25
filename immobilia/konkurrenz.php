@@ -12,6 +12,10 @@
 		<!-- page content -->
 		<div class="right_col" role="main">
 		
+		<?php
+			TopListOverview::createTopList();
+		?>
+		
 		</div>
 		<!-- /page content -->
 		

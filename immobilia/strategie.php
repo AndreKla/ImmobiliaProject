@@ -11,6 +11,10 @@
 		<!-- page content -->
 		<div class="right_col" role="main">
 		
+		<?php
+			ToDoList::createToDoList();
+		?>
+		
 		</div>
 		<!-- /page content -->
 		

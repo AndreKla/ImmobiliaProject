@@ -20,21 +20,8 @@
 		<div class="right_col" role="main">
 		<?php
 		
-			News::createInfoPage();
-			Konkurrenz::createKonkurrenz();
-			BuchungUebersicht::createUebersicht();
-			Personal::bestand();
 			Personal::einstellen();
-			Personal::createBarometer();
-			
-			Jahresuebersicht::createJahresuebersicht();
-			TopListOverview::createTopList();
-			ToDoList::createToDoList();
-			RecentActivities::createActivities();
-			ProjectDetails::createDetails();
-			NetworkActivities::createActivity();
-			
-			GridSlider::createGridslider();
+
 		?>
 		</div>
 		<!-- /page content -->

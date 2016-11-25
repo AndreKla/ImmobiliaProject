@@ -12,7 +12,10 @@
 						
 		<!-- page content -->
 		<div class="right_col" role="main">
-		
+		<?php
+			RecentActivities::createActivities();
+		?>
+
 		</div>
 		<!-- /page content -->
 		

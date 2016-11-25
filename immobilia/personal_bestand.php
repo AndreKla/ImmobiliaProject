@@ -10,7 +10,9 @@
 						
 		<!-- page content -->
 		<div class="right_col" role="main">
-		
+			<?php
+				Personal::einstellen();
+			?>
 		</div>
 		<!-- /page content -->
 		
