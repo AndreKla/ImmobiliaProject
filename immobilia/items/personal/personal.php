@@ -3,7 +3,7 @@
 class Personal {
 	
 	
-public static function bestand() {
+public static function einstellen() {
 
 
 ?>
@@ -356,7 +356,7 @@ public static function bestand() {
 <?php
 }
 
-public static function einstellen(){
+public static function bestand(){
 	
 ?>
 

@@ -7,12 +7,7 @@
 ?>
 <?php 
 		Menu::createMenu("Immobilien"); 
-		
-		$query = "
-		SELECT * FROM Neuigkeiten;";
-		$result = Database::sqlSelect($query);
-		var_dump($result);
-		
+				
 ?>
 						
 						

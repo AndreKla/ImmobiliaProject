@@ -131,7 +131,7 @@ public static function createFooter() {
 <!-- footer content -->
 <footer style="background-color:#EDEDED;z-index:30" >
   <div class="pull-right fixed" >
-	Kapital: 10.000.000 €</a>
+	Kapital: 10.000.000 <i class="fa fa-euro"></i></a>
   </div>
   <div class="clearfix"></div>
 </footer>
