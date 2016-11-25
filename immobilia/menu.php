@@ -7,6 +7,13 @@ public static function createMenu($titel) {
 
 	Database::databaseConnect();
 
+	$query = "
+	SELECT * 
+	FROM Unternehmen
+	WHERE ID = 1
+	;";
+	$unternehmen = Database::sqlSelect($query);
+
 ?>
 
 	<?php   include('includes_css.php'); ?>
@@ -41,7 +48,7 @@ public static function createMenu($titel) {
 <div class="col-md-3 left_col">
   <div class="left_col scroll-view">
 	<div class="navbar nav_title" style="border: 0;">
-	  <a href="index.php" class="site_title"><span>Team Name</span></a>
+	  <a href="index.php" class="site_title"><span><?php echo $unternehmen[0]["Unternehmensname"]; ?></span></a>
 	</div>
 
 	<div class="clearfix"></div>
@@ -52,8 +59,8 @@ public static function createMenu($titel) {
 		<img src="images/img.jpg" alt="..." class="img-circle profile_img">
 	  </div>
 	  <div class="profile_info">
-		<span>Welcome,</span>
-		<h2>John Doe</h2>
+		<span>Willkommen,</span>
+		<h2><?php echo $unternehmen[0]["Spieler1"]; ?></h2>
 	  </div>
 	</div>
 	<!-- /menu profile quick info -->
@@ -65,7 +72,7 @@ public static function createMenu($titel) {
 	<!-- sidebar menu -->
 	<div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
 	  <div class="menu_section" >
-		<h3> - </h3>
+		<h3> <?php echo date('d.m.Y'); ?> </h3>
 		<ul class="nav side-menu">
 		  <li><a><i class="fa fa-home"></i> Management Cockpit <span class="fa fa-chevron-down"></span></a>
 			<ul class="nav child_menu">

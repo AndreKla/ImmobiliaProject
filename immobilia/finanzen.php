@@ -6,7 +6,9 @@
 	
 	<!-- page content -->
 	<div class="right_col" role="main">
-	
+	<?php
+		Finanzen::createFinanzenTopData();
+	?>
 	</div>
 	<!-- /page content -->
 		
