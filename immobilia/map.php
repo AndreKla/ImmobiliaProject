@@ -5,8 +5,8 @@
     require_once("includes.php"); 
 		Menu::createMenu("Immobilienkarte"); 
 		
-		Elements::createAccordion();
-		Radar::createRadar();
+		Elements::createAccordionTile();
+		#Radar::createRadar();
     
 ?>
 

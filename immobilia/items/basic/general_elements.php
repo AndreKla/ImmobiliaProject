@@ -3,7 +3,7 @@
 class Elements{
 
 
-public static function createAccordion($titel, $zeit, $autor, $text, $bild) {
+public static function createAccordion() {
 
 
 ?>
@@ -18,99 +18,65 @@ public static function createAccordion($titel, $zeit, $autor, $text, $bild) {
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
+			  
+			  
+<?php
+}
 
-                    <!-- start accordion -->
-                    <div class="accordion" id="accordion" role="tablist" aria-multiselectable="true" style="overflow: auto;height:400px;background:white;">
-                      <div class="panel">
-                        <a class="panel-heading" role="tab" id="headingOne" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                          <h4 class="panel-title">Collapsible Group Items #1</h4>
+public static function createAccordionTile(){
+	
+	$anzahlGewählteZiele = 0;
+
+    $query = "
+    SELECT *
+    FROM Objekt
+    ;";
+    $objekte = Database::sqlSelect($query);
+
+?>
+
+					<?php Elements::createAccordion();?>
+					<!-- start accordion -->
+                    <div class="accordion" id="accordion" role="tablist" aria-multiselectable="false" style="overflow: auto;height:575px;background:white;">
+                      
+						<?php
+						  for($i = 0; $i < sizeof($objekte); $i++) {
+							
+						
+						?>
+					  <div class="panel">
+                        <a class="panel-heading" role="tab" id="<?php echo "heading".$i;?>" data-toggle="collapse" data-parent="#accordion" href="<?php echo "#acc".$i;?>" aria-expanded="false" aria-controls="<?php echo "acc".$i;?>">
+                          <h4 class="panel-title"><?php echo $objekte[$i]["Beschreibung"];?></h4>
                         </a>
-                        <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                        <div id="<?php echo "acc".$i;?>" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="<?php echo "heading".$i;?>">
                           <div class="panel-body">
-                            <table class="table table-bordered">
-                              <thead>
-                                <tr>
-                                  <th>#</th>
-                                  <th>First Name</th>
-                                  <th>Last Name</th>
-                                  <th>Username</th>
-                                </tr>
-                              </thead>
-                              <tbody>
-                                <tr>
-                                  <th scope="row">1</th>
-                                  <td>Mark</td>
-                                  <td>Otto</td>
-                                  <td>@mdo</td>
-                                </tr>
-                                <tr>
-                                  <th scope="row">2</th>
-                                  <td>Jacob</td>
-                                  <td>Thornton</td>
-                                  <td>@fat</td>
-                                </tr>
-                                <tr>
-                                  <th scope="row">3</th>
-                                  <td>Larry</td>
-                                  <td>the Bird</td>
-                                  <td>@twitter</td>
-                                </tr>
-                              </tbody>
-                            </table>
+							<p><strong>Collapsible Item 2 data</strong>
+							<img src="<?php echo $objekte[$i]["Bild"] ?>" width="250px" height="auto">
+                            </p>
+                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, 
+							non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor,
                           </div>
                         </div>
                       </div>
+						<?php	
+						}
+						?>
 					  <!-- 
 					  
 						ein Panel muss in eine forschleife und befüllt werden!!!
 					  
 					  
 					  -->
-                      <div class="panel">
-                        <a class="panel-heading collapsed" role="tab" id="headingTwo" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                          <h4 class="panel-title">Collapsible Group Items #2</h4>
-                        </a>
-                        <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
-                          <div class="panel-body">
-                            <p><strong>Collapsible Item 2 data</strong>
-                            </p>
-                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor,
-                          </div>
-                        </div>
-                      </div>
-                      <div class="panel">
-                        <a class="panel-heading collapsed" role="tab" id="headingThree" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                          <h4 class="panel-title">Collapsible Group Items #3</h4>
-                        </a>
-                        <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
-                          <div class="panel-body">
-                            <p><strong>Collapsible Item 3 data</strong>
-                            </p>
-                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor
-                          </div>
-                        </div>
-                      </div>
-					  <div class="panel">
-                        <a class="panel-heading collapsed" role="tab" id="headingThree" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-                          <h4 class="panel-title">Collapsible Group Items #3</h4>
-                        </a>
-                        <div id="collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
-                          <div class="panel-body">
-                            <p><strong>Collapsible Item 3 data</strong>
-                            </p>
-                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <!-- end of accordion -->
+						 
+					  </div>
+					</div>
+				  </div>
+			  
+				</div>
+			  
 
 
-                  </div>
-                </div>
-              </div>
-			  
-			  
+
 <?php
 }
 

@@ -18,3 +18,4 @@
 	<!-- bootstrap-wysiwyg -->
     <link href="vendors/google-code-prettify/bin/prettify.min.css" rel="stylesheet">
 	
+	<script src="vendors/jquery/dist/jquery.min.js"></script>

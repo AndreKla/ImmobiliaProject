@@ -7,50 +7,42 @@
 <?php 
 	Menu::createMenu("Strategie"); 
 ?>
-						
-						
+			
+		<style>
+		.selected_item{
+			color:#888888;
+		}
+		
+		.not_selected_item{
+			
+		}
+		</style>
+
+		<script>
+		
+		jQuery(document).ready(function(e){
+
+			$('.strategy_item').click(function(){
+				$('.strategy_item').addClass('selected_item');
+			});
+		}); 
+		
+		</script>
+		
 		<!-- page content -->
 		<div class="right_col" role="main">
 		
 		<?php
-			Stategie::createStrategieListe("0");
+			Strategie::createStrategieListe(0);
 			Elements::createJumbotron();
 			
 		?>
 		
-		<style>
-			.selected_item{
-				
-			}
-			
-			.not_selected_item{
-				
-			}
-		</style>
-		<script>
-		$(document).ready(function(){
 
-			$(".strategy_item").click(){
-				this.toggleClass('.selected_item');
-			}
-			
-			$( 'ul li' ).click( function( e ) {
-				// by default, hide all li's
-				$( 'ul li' ).hide();
-				// show only the selected li
-				$( this ).show();
-			});
-		}); 
-		</script>
 		
 		</div>
 		<!-- /page content -->
 		
-		<?php Menu::createFooter(); ?>
-      </div>
-    </div>
-
-	<?php include 'includes_js.php'; ?> 
-	
-  </body>
-</html>
+<?php 
+	Menu::createFooter(); 
+?>
