@@ -5,7 +5,8 @@
 		
 ?>
 <?php 
-		Menu::createMenu("Strategie"); ?>
+	Menu::createMenu("Strategie"); 
+?>
 						
 						
 		<!-- page content -->
@@ -13,6 +14,10 @@
 		
 		<?php
 			ToDoList::createToDoList();
+			Elements::createJumbotron();
+						ToDoList::createToDoList();
+			Elements::createJumbotron();			ToDoList::createToDoList();
+			Elements::createJumbotron();			ToDoList::createToDoList();
 			Elements::createJumbotron();
 		?>
 		

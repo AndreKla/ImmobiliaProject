@@ -9,31 +9,35 @@ public static function createMenu($titel) {
 
 ?>
 
-<<<<<<< HEAD
-<!DOCTYPE html>
-<html lang="de">
-  <head>
-    <meta http-equiv="content-type" content="text/html">
-    <!-- Meta, title, CSS, favicons, etc. -->
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <title></title>
-
-=======
->>>>>>> origin/master
 	<?php   include('includes_css.php'); ?>
 	<style>
-	.container, body{
+	.right_col{
+		overflow:auto;
+		height: 100%;
+	}
+	
+	body{
 		overflow:hidden;
 	}
 	</style>
- <body class="nav-md footer_fixed">
+	
+	<style>
+		.main_container{
+			height:100%;
+		}
+		.left_col{
+			position:absolute;
+			z-index:50;
+			top:0;
+			left:0;
+			
+		}
+	</style>
+ <body class="nav-md footer_fixed" >
     <div class="container body">
 
 
-<div class="main_container" style="overflow:hidden;">
+<div class="main_container">
 <div class="col-md-3 left_col">
   <div class="left_col scroll-view">
 	<div class="navbar nav_title" style="border: 0;">
@@ -56,6 +60,8 @@ public static function createMenu($titel) {
 
 	<br />
 
+
+	
 	<!-- sidebar menu -->
 	<div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
 	  <div class="menu_section" >
