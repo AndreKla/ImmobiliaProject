@@ -24,8 +24,8 @@ class Strategie {
 
           <div class="bs-example" data-example-id="simple-jumbotron">
             <div class="jumbotron">
-              <h1><?php echo $titel; ?></h1>
-              <p><?php echo $beschreibung; ?></p>
+              <h1><?php echo $strategien[0]["Titel"]; ?></h1>
+              <p><?php echo $strategien[0]["Beschreibung"]; ?></p>
             </div>
           </div>
 
