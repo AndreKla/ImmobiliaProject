@@ -124,7 +124,7 @@ public static function createMarkers() {
                 var marker = new google.maps.Marker({
                   position: latLng
                 });
-                var html = "<div class='infowin'><strong>" + dataPhoto.registrant + "</strong><hr>";
+                var html = "<div class='infowin'><strong>" + dataPhoto.registrant + "</strong><br>";
                 html = html + "<img src='"+ dataPhoto.msisdn + "' width='150px' height='auto'>";
                 html = html + "<p><strong>Date: </strong>" + dataPhoto.created_date + "</p>";
                 html = html + "<p><strong>Agent: </strong>" + dataPhoto.created_by + "</p>";
