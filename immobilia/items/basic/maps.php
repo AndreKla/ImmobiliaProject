@@ -177,8 +177,8 @@ public static function createMarkers() {
             });
           </script>
 		  
-		 <!-- API KEY = AIzaSyCT1xkT-JLARFGSKrP_vU7ScHVp6N0NJKs -->
-	   <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCT1xkT-JLARFGSKrP_vU7ScHVp6N0NJKs&signed_in=true&callback=initMap"></script>
+		 <!-- API KEY = AIzaSyCT1xkT-JLARFGSKrP_vU7ScHVp6N0NJKs 
+	   <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCT1xkT-JLARFGSKrP_vU7ScHVp6N0NJKs&signed_in=true&callback=initMap"></script>-->
 		  
 <?php
 }}
