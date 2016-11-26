@@ -335,8 +335,8 @@
               var data = {
                 "count": 5,
                 "photos": [{
-                  "longitude": "52.51929194655397",
-                  "latitude": "13.405414583394304",
+                  "longitude": "13.405414583394304",
+                  "latitude": "52.51929194655397",
                   "created_by": "MFS Vodashop Moshi",
                   "created_date": "2015-01-10 09:01:09",
                   "msisdn": "255756972562",
