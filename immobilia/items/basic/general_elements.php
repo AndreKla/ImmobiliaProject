@@ -54,8 +54,10 @@ public static function createAccordionMap(){
 							<?php Radar::justRadar();?>
 							<!--<img src="<?php echo $objekte[$i]["Bild"] ?>" width="250px" height="auto">-->
                             </p>
-                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, 
-							non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor,
+							<p><strong>Fläche: </strong><?php echo $objekte[$i]["Flaeche"] ?> m²</p>
+							<p><strong>Wert: </strong><?php echo $objekte[$i]["Wert"] ?> €</p>
+							<p><strong>Miete: </strong><?php echo $objekte[$i]["Miete"] ?> €</p>
+							<p><strong>Kaufpreis: </strong><?php echo $objekte[$i]["Kaufpreis"] ?> €</p>
                           </div>
                         </div>
                       </div>

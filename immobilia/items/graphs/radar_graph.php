@@ -45,7 +45,7 @@ public static function createRadar() {
 	// Radar chart
       var ctx = document.getElementById("canvasRadar");
       var data = {
-        labels: ["Eating", "Drinking", "Sleeping", "Designing", "Coding", "Cycling", "Running"],
+        labels: ["Eating", "Drinking", "Sleeping", "Designing", "Coding"],
         datasets: [{
           label: "My First dataset",
           backgroundColor: "rgba(3, 88, 106, 0.2)",
@@ -54,7 +54,7 @@ public static function createRadar() {
           pointBackgroundColor: "rgba(3, 88, 106, 0.80)",
           pointHoverBackgroundColor: "#fff",
           pointHoverBorderColor: "rgba(220,220,220,1)",
-          data: [65, 59, 90, 81, 56, 55, 40]
+          data: [65, 59, 90, 81, 56]
         }, {
           label: "My Second dataset",
           backgroundColor: "rgba(38, 185, 154, 0.2)",
@@ -63,7 +63,7 @@ public static function createRadar() {
           pointStrokeColor: "#fff",
           pointHighlightFill: "#fff",
           pointHighlightStroke: "rgba(151,187,205,1)",
-          data: [28, 48, 40, 19, 96, 27, 100]
+          data: [28, 48, 40, 19, 96]
         }]
       };
 
@@ -82,8 +82,11 @@ public static function justRadar(){
 
 
 	<script src="vendors/Chart.js/dist/Chart.min.js"></script>
-	<div class="x_content">
-		<canvas id="canvasRadar"></canvas>
+	
+	<div class="x_panel">
+		<div class="x_content">
+			<canvas id="canvasRadar"></canvas>
+		</div>
 	</div>
 	<script>
       Chart.defaults.global.legend = {
@@ -92,7 +95,7 @@ public static function justRadar(){
 	// Radar chart
       var ctx = document.getElementById("canvasRadar");
       var data = {
-        labels: ["Eating", "Drinking", "Sleeping", "Designing", "Coding", "Cycling", "Running"],
+        labels: ["Eating", "Drinking", "Sleeping", "Designing", "Coding"],
         datasets: [{
           label: "My First dataset",
           backgroundColor: "rgba(3, 88, 106, 0.2)",
@@ -101,7 +104,7 @@ public static function justRadar(){
           pointBackgroundColor: "rgba(3, 88, 106, 0.80)",
           pointHoverBackgroundColor: "#fff",
           pointHoverBorderColor: "rgba(220,220,220,1)",
-          data: [65, 59, 90, 81, 56, 55, 40]
+          data: [65, 59, 90, 81, 56]
         }, {
           label: "My Second dataset",
           backgroundColor: "rgba(38, 185, 154, 0.2)",
@@ -110,7 +113,7 @@ public static function justRadar(){
           pointStrokeColor: "#fff",
           pointHighlightFill: "#fff",
           pointHighlightStroke: "rgba(151,187,205,1)",
-          data: [28, 48, 40, 19, 96, 27, 100]
+          data: [28, 48, 40, 19, 96]
         }]
       };
 
