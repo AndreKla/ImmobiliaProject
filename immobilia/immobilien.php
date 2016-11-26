@@ -9,7 +9,7 @@
 	<!-- page content -->
 	<div class="right_col" role="main">
 	<?php
-	
+		Immobilien::bestand();
 	?>
 	</div>
 	<!-- /page content -->

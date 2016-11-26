@@ -44,8 +44,8 @@ public static function createMenu($titel) {
     <div class="container body">
 
 
-<div class="main_container">
-<div class="col-md-3 left_col">
+<div class="main_container" >
+<div class="col-md-3 left_col" style="z-index:100">
   <div class="left_col scroll-view">
 	<div class="navbar nav_title" style="border: 0;">
 	  <a href="index.php" class="site_title"><span><?php echo $unternehmen[0]["Unternehmensname"]; ?></span></a>
