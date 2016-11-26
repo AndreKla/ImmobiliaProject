@@ -59,7 +59,7 @@
                   "created_date": "2014-11-26 17:09:33",
                   "msisdn": "255759121175",
                   "registrant": "Anton Mutisya"
-                }, ]
+                } ]
               };
 
               var center = new google.maps.LatLng(52.51929194655397, 13.405414583394304); //-7.0849437,35.8401773);
@@ -286,7 +286,7 @@
               });
 
             });
-          </script>
+          </script>-->
 
 
     <!-- /page content -->
