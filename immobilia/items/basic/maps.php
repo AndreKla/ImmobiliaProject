@@ -177,6 +177,8 @@ public static function createMarkers() {
             });
           </script>
 		  
+	   <!--<script async defer src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&signed_in=true&callback=initMap"></script>-->
+		  
 <?php
 }}
 ?>

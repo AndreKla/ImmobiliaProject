@@ -64,12 +64,7 @@ public static function createAccordionMap(){
 						<?php	
 						}
 						?>
-					  <!-- 
-					  
-						ein Panel muss in eine forschleife und befüllt werden!!!
-					  
-					  
-					  -->
+
 						 
 					  </div>
 					</div>
