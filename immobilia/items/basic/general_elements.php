@@ -51,7 +51,8 @@ public static function createAccordionMap(){
                         <div id="<?php echo "acc".$i;?>" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="<?php echo "heading".$i;?>">
                           <div class="panel-body">
 							<p><strong>Collapsible Item 2 data</strong>
-							<img src="<?php echo $objekte[$i]["Bild"] ?>" width="250px" height="auto">
+							<?php Radar::justRadar();?>
+							<!--<img src="<?php echo $objekte[$i]["Bild"] ?>" width="250px" height="auto">-->
                             </p>
                             Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, 
 							non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor,
