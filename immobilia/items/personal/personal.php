@@ -113,10 +113,11 @@ public static function bestand(){
                       <thead>
                         <tr>
                           <th style="width: 5%">Bild</th>
-                          <th style="width: 20%">Berufsbezeichnung</th>
-                          <th style="width: 20%">Zufriedenheit</th>
+                          <th style="width: 15%">Berufsbezeichnung</th>
+						  <th style="width: 20%">Beschreibung</th>
+                          <th style="width: 15%">Zufriedenheit</th>
                           <th style="width: 15%">Status</th>
-                          <th style="width: 40%">Optionen</th>
+                          <th style="width: 30%">Optionen</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -131,12 +132,15 @@ public static function bestand(){
                                 <img src="images/user.png" class="avatar" alt="Avatar">
                               </li>
                             </ul>
-                          </td>                          <td>
+                          </td>                          
+						  <td>
                             <a><?php echo $mitarbeiter[$i]["Fachrichtung"];?></a>
                             <br />
-                            <small>Gehalt: <?php echo $mitarbeiter[$i]["Gehalt"];?> €</small>
+                            <small><?php echo $mitarbeiter[$i]["Name"];?> - <?php echo $mitarbeiter[$i]["Gehalt"];?> €</small>
                           </td>
-
+						  <td>
+                            <p><?php echo $mitarbeiter[$i]["Beschreibung"];?></p>
+                          </td>
                           <td class="project_progress">
                             <div class="progress progress_sm">
                               <div class="progress-bar bg-green" role="progressbar" data-transitiongoal="<?php echo $mitarbeiter[$i]["Motivation"];?>"></div>
@@ -147,9 +151,9 @@ public static function bestand(){
                             <button type="button" class="btn btn-success btn-xs">Erfolgreich</button>
                           </td>
                           <td>
-                            <a href="#" class="btn btn-primary btn-xs"><i class="fa fa-folder"></i> Befördern </a>
-                            <a href="#" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Weiterbilden </a>
-                            <a href="#" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> Kündigen </a>
+                            <a href="#" class="btn btn-primary btn-xs befoerdern"><i class="fa fa-folder"></i> Befördern </a>
+                            <a href="#" class="btn btn-info btn-xs weiterbilden"><i class="fa fa-pencil"></i> Weiterbilden </a>
+                            <a href="#" class="btn btn-danger btn-xs kuendigen"><i class="fa fa-trash-o"></i> Kündigen </a>
                           </td>
                         </tr>
 						<?php 
@@ -157,12 +161,12 @@ public static function bestand(){
 						?>
                       </tbody>
                     </table>
-                    <!-- end project list -->
-
                   </div>
                 </div>
               </div>
             </div>
+
+
 
 
 <?php
@@ -226,6 +230,34 @@ public static function createBarometer(){
 
           </div>
 		  
+<?php
+}
+
+public static function befoerdern(){ 
+
+?>
+	<script type="text/javascript" language="Javascript"> 
+		alert("Danke für die Bestellung...")
+	</script>  
+
+<?php
+}
+
+public static function weiterbilden(){
+
+?>
+	<script type="text/javascript" language="Javascript"> 
+		alert("Danke für die Bestellung...")
+	</script>  
+<?php
+
+}
+public static function kuendigen(){
+
+?>
+	<script type="text/javascript" language="Javascript"> 
+		alert("Danke für die Bestellung...")
+	</script>  
 <?php
 }}
 ?>
