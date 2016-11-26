@@ -10,6 +10,8 @@
     
 ?>
 
+<link href="css/map.css" rel="stylesheet">
+
  <body class="nav-md footer_fixed">
     <div class="container body">
 	
@@ -20,299 +22,8 @@
 
 
       <!-- page content -->
-       <style>
-          body {
-            background: #fff;
-            color: #6F6F6F
-          }
 
-          @media (min-width: 1200px) {
-            .container {
-              width: 100%;
-            }
-          }
-
-          a {
-            color: #75787B;
-          }
-
-          .top_menu {
-            margin-top: 6px
-          }
-
-          .page_logo {
-            width: 25%;
-            float: left;
-            height: 75px;
-            font-size: 25px;
-          }
-
-          .page_nav {
-            width: 75%;
-            float: left
-          }
-
-          .report_title {
-            font-size: 20px;
-            color: #75787B;
-            font-weight: bold;
-            border-bottom: 2px solid #B4B4B4;
-            padding-bottom: 5px;
-          }
-
-          .report_title:hover {
-            color: #e00000;
-            border-bottom: 2px solid #7c7c7c;
-          }
-
-          @media (min-width: 992px) {
-            .col-md-4 {
-              width: 33%;
-            }
-            .col-md-8 {
-              width: 65%
-            }
-          }
-
-          .nav-tabs > li > a {
-            border: 0;
-          }
-
-          .nav-tabs {
-            border: 0;
-            margin-top: 22px
-          }
-
-          .nav-tabs > li.active > a,
-          .nav-tabs > li.active > a:hover,
-          .nav-tabs > li.active > a:focus {
-            color: #FFF;
-            cursor: default;
-            background-color: transparent;
-            border: 0px solid #ddd;
-            border-bottom-color: transparent;
-          }
-
-          .nav > li > a:hover,
-          .nav > li > a:focus {
-            text-decoration: none;
-            background-color: rgba(0, 0, 0, 0.13);
-            border: 0;
-            color: #C2C2C2;
-          }
-
-          .daterangepicker table {
-            width: 100%;
-            margin: 0;
-            color: #70757E;
-          }
-
-          .nav > li > a:hover,
-          .nav > li > a:focus {
-            text-decoration: none;
-            background-color: rgba(0, 0, 0, 0);
-            border: 0;
-            color: #C2C2C2;
-          }
-
-          .single_block {
-            overflow: hidden !important
-          }
-
-          #main-map canvas {
-            margin-top: 2px;
-          }
-
-          .map.anto {
-            zoom: 0.9%;
-            zoom: 0.87;
-            -ms-zoom: 0.9;
-            -webkit-zoom: 0.9;
-            -moz-transform: scale(0.9, 0.9);
-            -moz-transform-origin: left center;
-          }
-
-          #map-tooltip {
-            position: absolute;
-            background: #f2f2f2;
-            border: solid 2px #bababa;
-            margin-left: 5px;
-            margin-top: 0px;
-            padding: 7px;
-            border-radius: 5px;
-            -moz-border-radius: 5px;
-            -webkit-border-radius: 5px;
-            z-index: 1000;
-          }
-
-          .white {
-            background: #fff !important
-          }
-
-          .btn-primary {
-            color: #fff;
-            background-color: #9D9D9D;
-            border-color: #9D9D9D;
-          }
-
-          .btn-primary:hover,
-          .btn-primary:focus,
-          .btn-primary:active,
-          .btn-primary.active,
-          .open > .dropdown-toggle.btn-primary {
-            color: #fff;
-            background-color: #797878;
-            border-color: #797878;
-          }
-        </style>
-
-          <style>
-            body {
-              background: rgb(80, 96, 186);
-              color: #fff
-            }
-
-            @media (min-width: 1200px) {
-              .container {
-                width: 100% !important;
-              }
-            }
-
-            a {
-              color: rgb(255, 172, 42);
-            }
-
-            .top_menu {
-              margin-top: 6px
-            }
-
-            .page_logo {
-              width: 25%;
-              float: left;
-              height: 75px;
-              font-size: 25px;
-            }
-
-            .page_nav {
-              width: 75%;
-              float: left
-            }
-
-            .report_title {
-              font-size: 20px;
-              color: #F4F8FC;
-              font-weight: bold;
-              border-bottom: 2px solid #B4B4B4;
-              padding-bottom: 5px;
-            }
-
-            .report_title:hover {
-              color: rgb(255, 172, 42);
-              border-bottom: 2px solid #7c7c7c;
-            }
-
-            @media (min-width: 992px) {
-              .col-md-4 {
-                width: 33%;
-              }
-              .col-md-8 {
-                width: 65%
-              }
-            }
-
-            .nav-tabs > li > a {
-              border: 0;
-            }
-
-            .nav-tabs {
-              border: 0;
-              margin-top: 22px
-            }
-
-            .nav-tabs > li.active > a,
-            .nav-tabs > li.active > a:hover,
-            .nav-tabs > li.active > a:focus {
-              color: #FFF;
-              cursor: default;
-              background-color: transparent;
-              border: 0px solid #ddd;
-              border-bottom-color: transparent;
-            }
-
-            .nav > li > a:hover,
-            .nav > li > a:focus {
-              text-decoration: none;
-              background-color: rgba(0, 0, 0, 0.13);
-              border: 0;
-              color: #C2C2C2;
-            }
-
-            .daterangepicker table {
-              width: 100%;
-              margin: 0;
-              color: #70757E;
-            }
-
-            .nav > li > a:hover,
-            .nav > li > a:focus {
-              text-decoration: none;
-              background-color: rgba(0, 0, 0, 0);
-              border: 0;
-              color: #C2C2C2;
-            }
-
-            .single_block {
-              overflow: hidden !important
-            }
-
-            #main-map canvas {
-              margin-top: 2px;
-            }
-
-            .map.anto {
-              zoom: 0.9%;
-              zoom: 0.9;
-              -ms-zoom: 0.9;
-              -webkit-zoom: 0.9;
-              -moz-transform: scale(0.9, 0.9);
-              -moz-transform-origin: left center;
-            }
-
-            #map-tooltip {
-              position: absolute;
-              background: #f2f2f2;
-              border: solid 2px ##bababa;
-              margin-left: 5px;
-              margin-top: 0px;
-              padding: 7px;
-              border-radius: 5px;
-              -moz-border-radius: 5px;
-              -webkit-border-radius: 5px;
-              z-index: 1000;
-            }
-          </style>
-          <style type="text/css">
-            #map-container {
-              padding: 6px;
-              border-width: 1px;
-              border-style: solid;
-              border-color: #ccc #ccc #999 #ccc;
-              -webkit-box-shadow: rgba(64, 64, 64, 0.5) 0 2px 5px;
-              -moz-box-shadow: rgba(64, 64, 64, 0.5) 0 2px 5px;
-              box-shadow: rgba(64, 64, 64, 0.1) 0 2px 5px;
-              width: 100%;
-            }
-
-            body {
-              background: white !important;
-              color: #585757 !important;
-            }
-
-            #map {
-              width: 100%;
-              height: 100%;
-            }
-          </style>
+	  
           <script src="http://www.google.com/jsapi"></script>
           <script type="text/javascript">
             var script = '<script type="text/javascript" src="http://tigo.registersim.com/assets/js/src/markerclusterer';
@@ -341,7 +52,14 @@
                   "created_date": "2015-01-10 09:01:09",
                   "msisdn": "255756972562",
                   "registrant": "Paolo Ai"
-                }]
+                }, {
+                  "longitude": "13.509779",
+                  "latitude": "52.550645",
+                  "created_by": "AIM Testing5",
+                  "created_date": "2014-11-26 17:09:33",
+                  "msisdn": "255759121175",
+                  "registrant": "Anton Mutisya"
+                }, ]
               };
 
               var center = new google.maps.LatLng(52.51929194655397, 13.405414583394304); //-7.0849437,35.8401773);
@@ -441,9 +159,6 @@
           </div>
 
 
-
-
-          <script src="http://vodacom.registersim.com/assets/dashboard/js/jquery.masonry.min.js"></script>
           <script>
             $(function() {
               $('#report_blocks').masonry({
@@ -453,7 +168,6 @@
             });
           </script>
 
-          <script src="http://vodacom.registersim.com/assets/dashboard/js/jquery.colorbox.js"></script>
           <script>
             $(document).ready(function() {
               $(".iframe").colorbox({
@@ -474,8 +188,6 @@
             });
           </script>
 
-          <script type="text/javascript" src="http://vodacom.registersim.com/assets/dashboard/js/moment.min.js"></script>
-          <script type="text/javascript" src="http://vodacom.registersim.com/assets/dashboard/js/daterangepicker.js"></script>
           <script type="text/javascript">
             $(document).ready(function() {
 
@@ -576,12 +288,7 @@
             });
           </script>
 
-          <script type="text/javascript" src="http://vodacom.registersim.com/assets/dashboard/js/highcharts.js"></script>
 
-
-
-          <script type="text/javascript" data-rocketsrc="http://vodacom.registersim.com/assets/dashboard/maps/jquery.maphilight.min.js;" data-rocketoptimized="true"></script>
-          <script type="text/javascript" src="http://vodacom.registersim.com/assets/dashboard/maps/jquery.maphilight.min.js"></script>
     <!-- /page content -->
     </div>
 
@@ -589,3 +296,13 @@
 <?php 
   Menu::createFooter(); 
 ?>
+
+
+		<!--
+          <script type="text/javascript" src="http://vodacom.registersim.com/assets/dashboard/js/highcharts.js"></script>
+          <script type="text/javascript" data-rocketsrc="http://vodacom.registersim.com/assets/dashboard/maps/jquery.maphilight.min.js;" data-rocketoptimized="true"></script>
+          <script type="text/javascript" src="http://vodacom.registersim.com/assets/dashboard/maps/jquery.maphilight.min.js"></script>
+          <script src="http://vodacom.registersim.com/assets/dashboard/js/jquery.colorbox.js"></script>
+          <script type="text/javascript" src="http://vodacom.registersim.com/assets/dashboard/js/moment.min.js"></script>
+          <script type="text/javascript" src="http://vodacom.registersim.com/assets/dashboard/js/daterangepicker.js"></script>
+          <script src="http://vodacom.registersim.com/assets/dashboard/js/jquery.masonry.min.js"></script>-->
