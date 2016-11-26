@@ -25,7 +25,7 @@
 		
 		<?php
 			Strategie::createStrategieListe(0);
-			Elements::createJumbotron();
+			Strategie::createStrategieInfo()
 		?>
 		
 		</div>

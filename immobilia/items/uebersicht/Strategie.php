@@ -2,7 +2,42 @@
 
 class Strategie {
 
-  public static function createStrategie($beschreibung, $id) {
+  public static function createStrategieInfo() {
+  
+    $query = "
+    SELECT *
+    FROM Strategien
+    ;";
+    $strategien = Database::sqlSelect($query);
+
+    $überschrift = $strategien[0]["Titel"];
+
+?>
+
+    <div class="col-md-6 col-sm-6 col-xs-12">
+      <div class="x_panel">
+        <div class="x_title">
+          <h2><?php echo $überschrift; ?> <small><?php echo date('Y'); ?></small></h2>
+          <div class="clearfix"></div>
+        </div>
+        <div class="x_content">
+
+          <div class="bs-example" data-example-id="simple-jumbotron">
+            <div class="jumbotron">
+              <h1><?php echo $titel; ?></h1>
+              <p><?php echo $beschreibung; ?></p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  <?php
+
+  }
+
+  public static function createStrategie($titel, $id) {
 
     if(isset($_GET["1"])) {
           $checked = "checked";
@@ -43,9 +78,9 @@ class Strategie {
     
 
     ?>
-      <li class="strategy_item">
+      <li class="strategy_item" id=<?php echo "'strategie_" . $id . "'"; ?> style="cursor: pointer">
         <p>
-          <input type="checkbox" class="flat tests" name=<?php echo "'" . $id . "' " . $checked; ?>> <?php echo $beschreibung; ?> 
+          <input type="checkbox" class="flat tests" name=<?php echo "'" . $id . "' " . $checked; ?>> <?php echo $titel; ?> 
         </p>
       </li>
     <?php
@@ -93,7 +128,7 @@ class Strategie {
               }
 
               for($i = 0; $i < sizeof($strategien); $i++) {
-                Strategie::createStrategie($strategien[$i]["Beschreibung"], $i+1);
+                Strategie::createStrategie($strategien[$i]["Titel"], $i+1);
               }
             ?>
             </ul>
