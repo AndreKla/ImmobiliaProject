@@ -29,6 +29,9 @@ require_once $itemsFolder . "uebersicht/uebersicht_jahr.php";
 require_once $itemsFolder . "basic/general_elements.php";
 require_once $itemsFolder . "graphs/radar_graph.php";
 
+require_once $itemsFolder . "basic/maps.php";
+
+
 
 
 

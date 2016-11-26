@@ -11,7 +11,7 @@ public static function createAccordion() {
               <div class="clearfix"></div>
 
 
-              <div class="col-md-6 col-sm-6 col-xs-12" style="z-index:20;position:absolute;top:50px;right:5px;width:350px;">
+              <div class="col-md-6 col-sm-6 col-xs-12" style="z-index:20;position:absolute;top:10px;right:5px;width:350px;">
                 <div class="x_panel">
                   <div class="x_title">
                     <h2><i class="fa fa-align-left"></i> Immobilien <small>Verzeichniss</small></h2>
@@ -23,7 +23,7 @@ public static function createAccordion() {
 <?php
 }
 
-public static function createAccordionTile(){
+public static function createAccordionMap(){
 	
 	$anzahlGewählteZiele = 0;
 
