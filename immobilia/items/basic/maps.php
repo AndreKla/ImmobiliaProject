@@ -40,8 +40,8 @@ public static function createMarkers() {
 				  for($i = 0; $i < sizeof($objekte); $i++) {
 							
 				?>
-				 {"longitude": "<?php echo $objekte[$i]["Longitude"]?>" ,
-                  "latitude": "<?php echo $objekte[$i]["Latitude"] ?>" ,
+				 {"longitude": "<?php echo $objekte[$i]["Long"]?>" ,
+                  "latitude": "<?php echo $objekte[$i]["Lat"] ?>" ,
                   "created_by": "<?php echo $objekte[$i]["Beschreibung"] ?>",
                   "created_date": "2015-01-10 09:01:09",
                   "msisdn": "<?php echo $objekte[$i]["Bild"]?>",
