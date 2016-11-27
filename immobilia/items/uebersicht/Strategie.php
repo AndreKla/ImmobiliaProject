@@ -26,13 +26,8 @@ class Strategie {
 
           <div class="bs-example" data-example-id="simple-jumbotron">
             <div class="jumbotron">
-<<<<<<< Updated upstream
-              <h1><?php echo $strategien[0]["Titel"]; ?></h1>
-              <p><?php echo $strategien[0]["Beschreibung"]; ?></p>
-=======
               <h3 id="titel"><?php echo $titel; ?></h3>
               <span id="beschreibung"><?php echo $beschreibung; ?></span>
->>>>>>> Stashed changes
             </div>
           </div>
 
