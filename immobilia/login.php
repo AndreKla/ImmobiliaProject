@@ -1,3 +1,11 @@
+<?php
+    
+    session_start();
+
+    require_once("includes.php");
+    
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -7,7 +15,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Gentellela Alela! | </title>
+    <title>Immobilia! | Login</title>
 
     <!-- Bootstrap -->
     <link href="vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -23,6 +31,7 @@
   </head>
 
   <body class="login">
+  
     <div>
       <a class="hiddenanchor" id="signup"></a>
       <a class="hiddenanchor" id="signin"></a>
@@ -30,24 +39,24 @@
       <div class="login_wrapper">
         <div class="animate form login_form">
           <section class="login_content">
-            <form>
+            <form action="login.php" method="POST">
               <h1>Einloggen</h1>
               <div>
-                <input type="text" class="form-control" placeholder="Username" required="" />
+                <input type="text" class="form-control" placeholder="Benutzername" name="username" required="" />
               </div>
               <div>
-                <input type="password" class="form-control" placeholder="Password" required="" />
+                <input type="password" class="form-control" placeholder="Passwort" name="password" required="" />
               </div>
               <div>
-                <a class="btn btn-default submit" href="index.html">Log in</a>
-                <a class="reset_pass" href="#">Lost your password?</a>
+                <button class="btn btn-default submit" type="submit">Einloggen</a></button>
+                <a class="reset_pass" href="#">Passwort vergessen?</a>
               </div>
 
               <div class="clearfix"></div>
 
               <div class="separator">
-                <p class="change_link">New to site?
-                  <a href="#signup" class="to_register"> Create Account </a>
+                <p class="change_link">Noch keinen Account?
+                  <!--<a href="#signup" class="to_register"> Jetzt Account anfordern! </a>-->
                 </p>
 
                 <div class="clearfix"></div>
@@ -55,7 +64,7 @@
 
                 <div>
                   <h1><i class="fa fa-home"></i> Immobilia</h1>
-                  <p>©2016 Immobilia All Rights Reserved</p>
+                  <p>© 2016 Immobilia All Rights Reserved</p>
                 </div>
               </div>
             </form>
@@ -83,7 +92,7 @@
 
               <div class="separator">
                 <p class="change_link">Already a member ?
-                  <a href="#signin" class="to_register"> Log in </a>
+                  <a href="#signin" class="to_register"> Einloggen </a>
                 </p>
 
                 <div class="clearfix"></div>
@@ -91,7 +100,7 @@
 
                 <div>
                   <h1><i class="fa fa-paw"></i> Immobilia</h1>
-                  <p>©2016 Immobilia All Rights Reserved.</p>
+                  <p>© 2016 Immobilia All Rights Reserved.</p>
                 </div>
               </div>
             </form>
@@ -99,5 +108,58 @@
         </div>
       </div>
     </div>
+    <?php
+    $errormessage = "";
+    if(isset($_POST["username"]) && isset($_POST["password"])) {
+        
+        $username = $_POST["username"];
+        $password = $_POST["password"];
+        
+        require_once("includes.php");
+        
+        Database::databaseConnect();
+        
+        $query = "
+        SELECT ID, Nutzername, Passwort
+        FROM Unternehmen
+        WHERE Nutzername = '$username'
+        ;";
+        $user = Database::sqlSelect($query);
+        
+        if(sizeof($user) == 0) {
+          ?>
+            <script language="javascript">
+              alert("Benutzername nicht gefunden!");
+            </script>
+          <?php
+        }
+        else {
+            
+            if($user[0]["Passwort"] == md5($password)) {
+                
+                $_SESSION["ID"] = $user[0]["ID"];
+                
+                ?>
+
+                    <script language="javascript">
+                        window.location.href = "index.php"
+                    </script>
+
+                <?php
+                
+            }
+            else {
+                ?>
+                <script language="javascript">
+                  alert("Benutzername und Passwort stimmen nicht überein");
+                </script>
+                <?php
+            }
+            
+        }
+        
+    }
+?>
   </body>
 </html>
+
