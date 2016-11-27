@@ -1,6 +1,28 @@
 <?php
 
 class Finanzen {
+
+  public static function createKontostandEntwicklung($width) {
+
+    $timeToAdd = $_SESSION["Runde"] - 1;
+
+    ?>
+
+    <div class=<?php echo "'col-md-$width col-sm-$width col-xs-12'"; ?>>
+      <div class="x_panel">
+        <div class="x_title">
+          <h2>Kontostand<small>Aktuelles Jahr: <?php echo date('Y', strtotime("+" . $timeToAdd . " year")); ?></small></h2>
+          <div class="clearfix"></div>
+        </div>
+        <div class="x_content">
+          <canvas id="kontostand"></canvas>
+        </div>
+      </div>
+    </div>
+
+
+    <?php
+  }
 	
   public static function createFinanzenTopData() {
 

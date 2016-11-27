@@ -62,6 +62,8 @@ public static function createMenu($titel) {
     $yearsToAdd = $runde[0]["Runde"] - 1;
     $aktuelleRunde = $runde[0]["Runde"];
 
+    $_SESSION["Runde"] = $aktuelleRunde;
+
 	$query = "
 	SELECT * 
 	FROM Unternehmen
@@ -208,6 +210,7 @@ public static function createFooter() {
 <!-- footer content -->
 <footer style="background-color:#EDEDED;z-index:30" >
   <div class="pull-right fixed" >
+  	<p style="text-align: right"><i class="fa fa-bank"></i> Kontostand</p>
 	<h4 style="color: #1ABB9C"><?php echo number_format($kapital[0]["Kapital"], 2, ',', ' '); ?> <i class="fa fa-euro"></i></h4>
   </div>
   <div class="clearfix"></div>

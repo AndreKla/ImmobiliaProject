@@ -55,7 +55,7 @@ class Neuigkeiten {
 
                 for($i = 0; $i < sizeof($aktuelleNeuigkeiten); $i++) {
 
-                  $zeit = date('d.m.Y');
+                  $zeit = date('d.m.Y', strtotime("+" . $timeToAdd . " year"));
 
                   Neuigkeiten::createNews($aktuelleNeuigkeiten[$i]["Titel"], $zeit, $aktuelleNeuigkeiten[$i]["Autor"], $aktuelleNeuigkeiten[$i]["Beschreibung"], $aktuelleNeuigkeiten[$i]["Bild"]);
 

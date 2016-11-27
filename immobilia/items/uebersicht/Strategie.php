@@ -134,14 +134,19 @@ class Strategie {
             <?php
 
               if(isset($_GET["1"])) {
+
+                $unternehmensID = $_SESSION["UID"];
+                $spielID = $_SESSION["SID"];
+                $runde = $_SESSION["Runde"];
+
                 $strat1 = $_GET["1"];
                 $strat2 = $_GET["2"];
                 $strat3 = $_GET["3"];
 
                 $query = "
-                UPDATE Unternehmen
+                UPDATE Rundendaten
                 SET Strategie1 = '" . $strat1 . "', Strategie2 = '" . $strat2 ."', Strategie3 = '" . $strat3 ."'
-                WHERE ID = 1
+                WHERE UnternehmensID = $unternehmensID AND SpielID = $spielID AND Runde = $runde
                 ;";
                 Database::sqlUpdate($query);
               }
