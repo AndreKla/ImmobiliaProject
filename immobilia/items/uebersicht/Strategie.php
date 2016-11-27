@@ -10,16 +10,29 @@ class Strategie {
     ;";
     $strategien = Database::sqlSelect($query);
 
+    $spielID = $_SESSION["SID"];
+    $unternehmensID = $_SESSION["UID"];
+
+    $query = "
+    SELECT Runde
+    FROM Rundendaten
+    WHERE SpielID = $spielID AND UnternehmensID = $unternehmensID
+    ORDER BY Runde DESC
+    ;";
+    $runde = Database::sqlSelect($query);
+    $aktuelleRunde = $runde[0]["Runde"] - 1;
+
     $überschrift = $strategien[$id]["Titel"];
     $titel = $strategien[$id]["Kennzahl"];
     $beschreibung = $strategien[$id]["Beschreibung"];
+    
 
 ?>
 
     <div class="col-md-6 col-sm-6 col-xs-12" id=<?php echo "div" . $id; ?> hidden>
       <div class="x_panel">
         <div class="x_title">
-          <h2 id="ueberschrift"><?php echo $überschrift; ?> <small><?php echo date('Y'); ?></small></h2>
+          <h2 id="ueberschrift"><?php echo $überschrift; ?> <small><?php echo date('Y', strtotime("+" . $aktuelleRunde . " year")); ?></small></h2>
           <div class="clearfix"></div>
         </div>
         <div class="x_content">
@@ -50,10 +63,14 @@ class Strategie {
           }
         }
 
+    $spielID = $_SESSION["SID"];
+    $unternehmensID = $_SESSION["UID"];
+
     $query = "
     SELECT Strategie1, Strategie2, Strategie3
-    FROM Unternehmen
-    WHERE ID = 1
+    FROM Rundendaten
+    WHERE SpielID = $spielID AND UnternehmensID = $unternehmensID
+    ORDER BY Runde DESC
     ;";
     $unternehmensStrategie = Database::sqlSelect($query);
 

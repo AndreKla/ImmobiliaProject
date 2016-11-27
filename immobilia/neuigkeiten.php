@@ -10,10 +10,21 @@
 	<div class="right_col" role="main">
 	<?php
 
-		$width = 8;
-		$aktuellesGeschäftsjahr = 1;
+		$spielID = $_SESSION["SID"];
+		$unternehmensID = $_SESSION["UID"];
 
-		RecentActivities::createActivities($width, $aktuellesGeschäftsjahr);
+		$query = "
+		SELECT Runde
+		FROM Rundendaten
+		WHERE SpielID = $spielID AND UnternehmensID = $unternehmensID
+		ORDER BY Runde DESC
+		;";
+		$result = Database::sqlSelect($query);
+
+		$width = 8;
+		$aktuellesGeschäftsjahr = $result[0]["Runde"];
+
+		Neuigkeiten::createNeuigkeiten($width, $aktuellesGeschäftsjahr);
 	?>
 
 	</div>

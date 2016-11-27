@@ -47,10 +47,14 @@
 			;";
 			$strategien = Database::sqlSelect($query);
 
+			$spielID = $_SESSION["SID"];
+			$unternehmensID = $_SESSION["UID"];
+
 			$query = "
-		    SELECT Strategie1
-		    FROM Unternehmen
-		    WHERE ID = 1
+			SELECT Strategie1
+			FROM Rundendaten
+			WHERE SpielID = $spielID AND UnternehmensID = $unternehmensID
+			ORDER BY Runde DESC
 		    ;";
 		    $unternehmensStrategie = Database::sqlSelect($query);
 

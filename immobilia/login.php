@@ -120,7 +120,7 @@
         Database::databaseConnect();
         
         $query = "
-        SELECT ID, Nutzername, Passwort
+        SELECT *
         FROM Unternehmen
         WHERE Nutzername = '$username'
         ;";
@@ -137,7 +137,9 @@
             
             if($user[0]["Passwort"] == md5($password)) {
                 
-                $_SESSION["ID"] = $user[0]["ID"];
+                $_SESSION["UID"] = $user[0]["ID"];
+                $_SESSION["SID"] = $user[0]["SID"];
+
                 
                 ?>
 

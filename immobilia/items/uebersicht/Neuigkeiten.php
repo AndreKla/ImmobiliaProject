@@ -1,6 +1,6 @@
 <?php
 
-class RecentActivities {
+class Neuigkeiten {
 
   public static function createNews($titel, $zeit, $autor, $text, $bild) {
     ?>
@@ -27,7 +27,7 @@ class RecentActivities {
   }
 	
 	
-  public static function createActivities($width, $aktuellesGeschäftsjahr) {
+  public static function createNeuigkeiten($width, $aktuellesGeschäftsjahr) {
 
     $query = "
     SELECT *
@@ -36,12 +36,14 @@ class RecentActivities {
     ;";
     $aktuelleNeuigkeiten = Database::sqlSelect($query);
 
+    $timeToAdd = $aktuellesGeschäftsjahr - 1;
+
     ?>
 
   	<div class=<?php echo "'col-md-$width col-sm-$width col-xs-12'"; ?>>
       <div class="x_panel">
         <div class="x_title">
-          <h2>Aktuelle Neuigkeiten<small><?php echo date('Y'); ?></small></h2>
+          <h2>Aktuelle Neuigkeiten<small><?php echo date('Y', strtotime("+" . $timeToAdd . " year")); ?></small></h2>
           <div class="clearfix"></div>
         </div>
         <div class="x_content">
@@ -55,7 +57,7 @@ class RecentActivities {
 
                   $zeit = date('d.m.Y');
 
-                  RecentActivities::createNews($aktuelleNeuigkeiten[$i]["Titel"], $zeit, $aktuelleNeuigkeiten[$i]["Autor"], $aktuelleNeuigkeiten[$i]["Beschreibung"], $aktuelleNeuigkeiten[$i]["Bild"]);
+                  Neuigkeiten::createNews($aktuelleNeuigkeiten[$i]["Titel"], $zeit, $aktuelleNeuigkeiten[$i]["Autor"], $aktuelleNeuigkeiten[$i]["Beschreibung"], $aktuelleNeuigkeiten[$i]["Bild"]);
 
                 }
 

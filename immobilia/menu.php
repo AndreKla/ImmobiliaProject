@@ -4,10 +4,14 @@ class Menu {
 
 public static function checkForCompletion() {
 
+	$spielID = $_SESSION["SID"];
+	$unternehmensID = $_SESSION["UID"];
+
 	$query = "
 	SELECT Strategie1
-	FROM Unternehmen
-	WHERE ID = 1
+	FROM Rundendaten
+	WHERE SpielID = $spielID AND UnternehmensID = $unternehmensID
+	ORDER BY Runde DESC
 	;";
 	$result = Database::sqlSelect($query);
 
@@ -34,7 +38,29 @@ public static function checkForCompletion() {
 	
 public static function createMenu($titel) {
 
+	// REMOVE THIS TO ACTIVATE LOGIN
+
+	if($_SESSION["SID"] != 1 && $_SESSION["UID"] != 1) {
+
+		$_SESSION["SID"] = 1;
+		$_SESSION["UID"] = 1;
+
+	}
+
 	Database::databaseConnect();
+
+	$spielID = $_SESSION["SID"];
+	$unternehmensID = $_SESSION["UID"];
+
+	$query = "
+    SELECT Runde
+    FROM Rundendaten
+    WHERE SpielID = $spielID AND UnternehmensID = $unternehmensID
+    ORDER BY Runde DESC
+    ;";
+    $runde = Database::sqlSelect($query);
+    $yearsToAdd = $runde[0]["Runde"] - 1;
+    $aktuelleRunde = $runde[0]["Runde"];
 
 	$query = "
 	SELECT * 
@@ -101,9 +127,9 @@ public static function createMenu($titel) {
 	<!-- sidebar menu -->
 	<div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
 	  <div class="menu_section" >
-		<h3> <?php echo date('d.m.Y'); ?> </h3>
+		<h3> <?php echo date('d.m.Y', strtotime("+" . $yearsToAdd . " year")) . " - " . $aktuelleRunde . ". Geschäftsjahr"; ?> </h3>
 		<ul class="nav side-menu">
-		  <li><a><i class="fa fa-home"></i> Management Cockpit <span class="fa fa-chevron-down"></span></a>
+		  <li><a><i class="fa fa-cubes"></i> Management Cockpit <span class="fa fa-chevron-down"></span></a>
 			<ul class="nav child_menu">
 			  <li><a href="neuigkeiten.php">Neuigkeiten</a></li>
 			  <li><a href="finanzen.php">Finanzen</a></li>
@@ -119,13 +145,13 @@ public static function createMenu($titel) {
 			  <li><a href="auktion.php">Auktionen</a></li>
 			</ul>
 		  </li>
-		  <li><a><i class="fa fa-home"></i> Personal <span class="fa fa-chevron-down"></span></a>
+		  <li><a><i class="fa fa-users"></i> Personal <span class="fa fa-chevron-down"></span></a>
 			<ul class="nav child_menu">
 			  <li><a href="personal_bestand.php">Bestand</a></li>
 			  <li><a href="personal_einstellen.php">Einstellen</a></li>
 			</ul>
 		  </li>
-		  <li><a><i class="fa fa-windows"></i> Buchungen <span class="fa fa-chevron-down"></span></a>
+		  <li><a><i class="fa fa-exchange"></i> Buchungen <span class="fa fa-chevron-down"></span></a>
 			<ul class="nav child_menu">
 			  <li><a href="bestandskonten.php">Bestands Konten</a></li>
 			  <li><a href="aufwand_ertrag.php">Aufwand Ertrags Konten</a></li>
@@ -133,6 +159,7 @@ public static function createMenu($titel) {
 			  <li><a href="gewinn_verlust.php">GV</a></li>
 			</ul>
 		  </li>
+		  <li><a><i class="fa fa-spinner"></i> Geschäftsjahr abschließen</span></a></li>
 		</ul>
 	  </div>
 	</div>
@@ -165,12 +192,23 @@ Menu::checkForCompletion();
 
 public static function createFooter() {
 
+	$spielID = $_SESSION["SID"];
+	$unternehmensID = $_SESSION["UID"];
+
+	$query = "
+	SELECT Kapital
+	FROM Rundendaten
+	WHERE SpielID = $spielID AND UnternehmensID = $unternehmensID
+	ORDER BY Runde DESC
+    ;";
+    $kapital = Database::sqlSelect($query);
+
 ?>
 
 <!-- footer content -->
 <footer style="background-color:#EDEDED;z-index:30" >
   <div class="pull-right fixed" >
-	Kapital: 10.000.000 <i class="fa fa-euro"></i></a>
+	<h4 style="color: #1ABB9C"><?php echo number_format($kapital[0]["Kapital"], 2, ',', ' '); ?> <i class="fa fa-euro"></i></h4>
   </div>
   <div class="clearfix"></div>
 </footer>
