@@ -1,6 +1,35 @@
 <?php
 
 class Menu {
+
+public static function checkForCompletion() {
+
+	$query = "
+	SELECT Strategie1
+	FROM Unternehmen
+	WHERE ID = 1
+	;";
+	$result = Database::sqlSelect($query);
+
+	if(sizeof($result) > 0) {
+		if($result[0]["Strategie1"] != 0) {
+			?>
+
+				<script>
+
+				$(document).ready(function() {
+
+					$('#menu_strategie').css('color', '#1ABB9C');
+
+				});
+
+				</script>
+
+			<?php
+		}
+	}
+
+}
 	
 	
 public static function createMenu($titel) {
@@ -80,7 +109,7 @@ public static function createMenu($titel) {
 			  <li><a href="finanzen.php">Finanzen</a></li>
 			  <li><a href="markt.php">Markt</a></li>
 			  <li><a href="konkurrenz.php">Konkurrenz</a></li>
-			  <li><a href="strategie.php">Strategie</a></li>
+			  <li><a href="strategie.php" id="menu_strategie">Strategie</a></li>
 			</ul>
 		  </li>
 		  <li><a><i class="fa fa-home"></i> Immobilien <span class="fa fa-chevron-down"></span></a>
@@ -129,6 +158,9 @@ public static function createMenu($titel) {
 </div>
 
 <?php
+
+Menu::checkForCompletion();
+
 }
 
 public static function createFooter() {

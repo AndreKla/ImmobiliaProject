@@ -5,7 +5,8 @@
 		
 ?>
 <?php 
-	Menu::createMenu("Strategie"); 
+	Menu::createMenu("Strategie");
+	Menu::checkForCompletion();
 ?>
 			
 		<style>
@@ -25,7 +26,11 @@
 		
 		<?php
 			Strategie::createStrategieListe(0);
-			Strategie::createStrategieInfo()
+			Strategie::createStrategieInfo(0);
+			Strategie::createStrategieInfo(1);
+			Strategie::createStrategieInfo(2);
+			Strategie::createStrategieInfo(3);
+			Strategie::createStrategieInfo(4);
 		?>
 		
 		</div>
@@ -35,6 +40,12 @@
 		$(document).ready(function(){
 
 			<?php
+
+			$query = "
+			SELECT * 
+			FROM Strategien
+			;";
+			$strategien = Database::sqlSelect($query);
 
 			$query = "
 		    SELECT Strategie1
@@ -47,6 +58,7 @@
 				?>
 					var anzahl = 3;
 					$('#zielLabel').text(anzahl + " von 3 Zielen gewählt");
+					$('#menu_strategie').css('color', '#1ABB9C');
 				<?php
 			}
 			else {
@@ -56,6 +68,21 @@
 			}
 
 			?>
+
+			$('.to_do li').click(function(e){
+
+				for(var i = 0; i < 5; i++) {
+					var ids = "#div" + i;
+
+					$(ids).hide();
+				}
+
+				var id = "#div" + (this.id - 1);
+
+
+
+				$(id).show();
+			});
 
 		    $('input[type="checkbox"]').on('ifChecked', function(event){
 			  	$(this).iCheck('check', function(){

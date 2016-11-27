@@ -2,7 +2,7 @@
 
 class Strategie {
 
-  public static function createStrategieInfo() {
+  public static function createStrategieInfo($id) {
   
     $query = "
     SELECT *
@@ -10,22 +10,29 @@ class Strategie {
     ;";
     $strategien = Database::sqlSelect($query);
 
-    $überschrift = $strategien[0]["Titel"];
+    $überschrift = $strategien[$id]["Titel"];
+    $titel = $strategien[$id]["Kennzahl"];
+    $beschreibung = $strategien[$id]["Beschreibung"];
 
 ?>
 
-    <div class="col-md-6 col-sm-6 col-xs-12">
+    <div class="col-md-6 col-sm-6 col-xs-12" id=<?php echo "div" . $id; ?> hidden>
       <div class="x_panel">
         <div class="x_title">
-          <h2><?php echo $überschrift; ?> <small><?php echo date('Y'); ?></small></h2>
+          <h2 id="ueberschrift"><?php echo $überschrift; ?> <small><?php echo date('Y'); ?></small></h2>
           <div class="clearfix"></div>
         </div>
         <div class="x_content">
 
           <div class="bs-example" data-example-id="simple-jumbotron">
             <div class="jumbotron">
+<<<<<<< Updated upstream
               <h1><?php echo $strategien[0]["Titel"]; ?></h1>
               <p><?php echo $strategien[0]["Beschreibung"]; ?></p>
+=======
+              <h3 id="titel"><?php echo $titel; ?></h3>
+              <span id="beschreibung"><?php echo $beschreibung; ?></span>
+>>>>>>> Stashed changes
             </div>
           </div>
 
@@ -78,9 +85,9 @@ class Strategie {
     
 
     ?>
-      <li class="strategy_item" id=<?php echo "'strategie_" . $id . "'"; ?> style="cursor: pointer">
+      <li class="strategy_item" id=<?php echo "'" . $id . "'"; ?> style="cursor: pointer">
         <p>
-          <input type="checkbox" class="flat tests" name=<?php echo "'" . $id . "' " . $checked; ?>> <?php echo $titel; ?> 
+          <input type="checkbox" class="flat tests" name=<?php echo "'" . $id . "' "; ?> id=<?php echo "'" . $id . "' " . $checked; ?>> <?php echo $titel; ?> 
         </p>
       </li>
     <?php
