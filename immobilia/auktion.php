@@ -5,23 +5,12 @@
 		Menu::createMenu("Auktion"); ?>
 
         <!-- page content -->
-        <div class="right_col" role="main">
+        <div class="right_col" role="main" >
 
-          <div class="">
+          <div class="" style="margin-bottom:250px;">
             <div class="page-title">
               <div class="title_left">
-                <h3>E-commerce :: Product Page</h3>
-              </div>
-
-              <div class="title_right">
-                <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
-                  <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search for...">
-                    <span class="input-group-btn">
-                      <button class="btn btn-default" type="button">Go!</button>
-                    </span>
-                  </div>
-                </div>
+                <h3>Auktion</h3>
               </div>
             </div>
 
@@ -33,29 +22,15 @@
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>E-commerce page design</h2>
-                    <ul class="nav navbar-right panel_toolbox">
-                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                      </li>
-                      <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                        <ul class="dropdown-menu" role="menu">
-                          <li><a href="#">Settings 1</a>
-                          </li>
-                          <li><a href="#">Settings 2</a>
-                          </li>
-                        </ul>
-                      </li>
-                      <li><a class="close-link"><i class="fa fa-close"></i></a>
-                      </li>
-                    </ul>
+                    <h2>Immobilie 1</h2>
+                   
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
 
-                    <div class="col-md-7 col-sm-7 col-xs-12">
+                    <div class="col-md-5 col-sm-5 col-xs-12">
                       <div class="product-image">
-                        <img src="images/prod-1.jpg" alt="..." />
+                        <img src="images/prod-1.jpg" width="250px" height="auto" alt="..." />
                       </div>
                       <div class="product_gallery">
                         <a>
@@ -81,47 +56,33 @@
                       <br />
 
                       <div class="">
-                        <h2>Available Colors</h2>
-                        <ul class="list-inline prod_color">
-                          <li>
-                            <p>Green</p>
-                            <div class="color bg-green"></div>
-                          </li>
-                          <li>
-                            <p>Blue</p>
-                            <div class="color bg-blue"></div>
-                          </li>
-                          <li>
-                            <p>Red</p>
-                            <div class="color bg-red"></div>
-                          </li>
-                          <li>
-                            <p>Orange</p>
-                            <div class="color bg-orange"></div>
-                          </li>
+                        <h2>Bieter Spanne</h2>
+						<div class="row grid_slider">
 
-                        </ul>
-                      </div>
-                      <br />
+						  <div class="col-md-6 col-sm-6 col-xs-12">
+							<p>Default grid slider with min and max values</p>
+							<input type="text" id="range" value="" name="range" />
+						  </div>
+						  <div class="col-md-6 col-sm-6 col-xs-12">
+							<p>Grid with slider labels are far away outside it's container</p>
+							<input type="text" id="range_25" value="" name="range" />
+						  </div>
+						  <div class="col-md-6 col-sm-6 col-xs-12">
+							<p>Grid with labels inside container using force_edges attribute</p>
+							<input type="text" id="range_27" value="" name="range" />
+						  </div>
+						  <div class="col-md-6 col-sm-6 col-xs-12">
+							<p>Create Grid with pre-defined steps</p>
+							<input type="text" id="range_26" value="" name="range" />
+						  </div>
 
-                      <div class="">
-                        <h2>Size <small>Please select one</small></h2>
-                        <ul class="list-inline prod_size">
-                          <li>
-                            <button type="button" class="btn btn-default btn-xs">Small</button>
-                          </li>
-                          <li>
-                            <button type="button" class="btn btn-default btn-xs">Medium</button>
-                          </li>
-                          <li>
-                            <button type="button" class="btn btn-default btn-xs">Large</button>
-                          </li>
-                          <li>
-                            <button type="button" class="btn btn-default btn-xs">Xtra-Large</button>
-                          </li>
-                        </ul>
+						  <div class="col-md-6 col-sm-6 col-xs-12">
+							<p>Grid with minimum and maximum values</p>
+							<input type="text" class="range_min_max" value="" name="range" />
+						  </div>
+
+                  </div>
                       </div>
-                      <br />
 
                       <div class="">
                         <div class="product_price">
@@ -187,6 +148,75 @@
           </div>
         </div>
         <!-- /page content -->
+		
+		
+		<!-- Ion.RangeSlider -->
+    <script>
+      $(document).ready(function() {
+        $("#range_27").ionRangeSlider({
+          type: "double",
+          min: 1000000,
+          max: 2000000,
+          grid: true,
+          force_edges: true
+        });
+        $("#range").ionRangeSlider({
+          hide_min_max: true,
+          keyboard: true,
+          min: 0,
+          max: 5000,
+          from: 1000,
+          to: 4000,
+          type: 'double',
+          step: 1,
+          prefix: "$",
+          grid: true
+        });
+        $("#range_25").ionRangeSlider({
+          type: "double",
+          min: 1000000,
+          max: 2000000,
+          grid: true
+        });
+        $("#range_26").ionRangeSlider({
+          type: "double",
+          min: 0,
+          max: 10000,
+          step: 500,
+          grid: true,
+          grid_snap: true
+        });
+        $("#range_31").ionRangeSlider({
+          type: "double",
+          min: 0,
+          max: 100,
+          from: 30,
+          to: 70,
+          from_fixed: true
+        });
+        $(".range_min_max").ionRangeSlider({
+          type: "double",
+          min: 0,
+          max: 100,
+          from: 30,
+          to: 70,
+          max_interval: 50
+        });
+        $(".range_time24").ionRangeSlider({
+          min: +moment().subtract(12, "hours").format("X"),
+          max: +moment().format("X"),
+          from: +moment().subtract(6, "hours").format("X"),
+          grid: true,
+          force_edges: true,
+          prettify: function(num) {
+            var m = moment(num, "X");
+            return m.format("Do MMMM, HH:mm");
+          }
+        });
+      });
+    </script>
+    <!-- /Ion.RangeSlider -->
+
 
 		<!-- footer content -->
         <footer style="background-color:#EDEDED">

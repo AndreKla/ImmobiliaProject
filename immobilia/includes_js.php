@@ -44,4 +44,6 @@
 <!-- easy-pie-chart -->
 <script src="vendors/jquery.easy-pie-chart/dist/jquery.easypiechart.min.js"></script>
 
+<!-- Ion.RangeSlider -->
+<script src="vendors/ion.rangeSlider/js/ion.rangeSlider.min.js"></script>
 
