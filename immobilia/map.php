@@ -6,7 +6,6 @@
 		Menu::createMenu("Immobilienkarte"); 
 		
 		Elements::createAccordionMap();
-		#Radar::createRadar();
     
 ?>
 

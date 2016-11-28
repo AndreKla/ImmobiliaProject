@@ -97,6 +97,7 @@ public static function createMenu($titel) {
 			
 		}
 	</style>
+	<meta charset="UTF-8">
  <body class="nav-md footer_fixed" >
     <div class="container body">
 

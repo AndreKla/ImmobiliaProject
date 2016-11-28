@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 class MapMarkers{
 
@@ -14,7 +14,8 @@ public static function createMarkers() {
     $objekte = Database::sqlSelect($query);
 
 ?>	
-          <script src="http://www.google.com/jsapi"></script>
+		  
+          <!--<script src="http://www.google.com/jsapi"></script>-->
           <script type="text/javascript">
             var script = '<script type="text/javascript" src="http://tigo.registersim.com/assets/js/src/markerclusterer';
             if (document.location.search.indexOf('packed') !== -1) {
@@ -42,10 +43,10 @@ public static function createMarkers() {
 				?>
 				 {"longitude": "<?php echo $objekte[$i]["Long"]?>" ,
                   "latitude": "<?php echo $objekte[$i]["Lat"] ?>" ,
-                  "created_by": "<?php echo $objekte[$i]["Beschreibung"] ?>",
-                  "created_date": "2015-01-10 09:01:09",
+                  "created_by": "<?php echo $objekte[$i]["Kaufpreis"]." €"?>",
+                  "created_date": "<?php echo $objekte[$i]["Flaeche"]." € "?>",
                   "msisdn": "<?php echo $objekte[$i]["Bild"]?>",
-                  "registrant": "Paolo Ai"
+                  "registrant": "<?php echo $objekte[$i]["Beschreibung"] ?>"
                 }, <?php  
 				}
 				?>
@@ -125,9 +126,9 @@ public static function createMarkers() {
                   position: latLng
                 });
                 var html = "<div class='infowin'><strong>" + dataPhoto.registrant + "</strong><br>";
-                html = html + "<img src='"+ dataPhoto.msisdn + "' width='150px' height='auto'>";
-                html = html + "<p><strong>Date: </strong>" + dataPhoto.created_date + "</p>";
-                html = html + "<p><strong>Agent: </strong>" + dataPhoto.created_by + "</p>";
+                html = html + "<img src='"+ dataPhoto.msisdn + "' width='200px' height='auto'><br>";
+                html = html + "<strong>Fläche in m²: </strong>" + dataPhoto.created_date + "";
+                html = html + "<p><strong>Verkehrswert:</strong>" + dataPhoto.created_by + "</p>";
                 html_array.push(html);
                 google.maps.event.addListener(marker, 'click', (function(marker, i) {
                   return function() {
@@ -177,8 +178,8 @@ public static function createMarkers() {
             });
           </script>
 		  
-		 <!-- API KEY = AIzaSyCT1xkT-JLARFGSKrP_vU7ScHVp6N0NJKs 
-	   <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCT1xkT-JLARFGSKrP_vU7ScHVp6N0NJKs&signed_in=true&callback=initMap"></script>-->
+		 <!-- API KEY = AIzaSyCT1xkT-JLARFGSKrP_vU7ScHVp6N0NJKs async defer -->
+	   <script  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCT1xkT-JLARFGSKrP_vU7ScHVp6N0NJKs&signed_in=true&callback=initialize"></script>
 		  
 <?php
 }}

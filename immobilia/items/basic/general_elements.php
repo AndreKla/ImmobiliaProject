@@ -50,7 +50,7 @@ public static function createAccordionMap(){
                         </a>
                         <div id="<?php echo "acc".$i;?>" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="<?php echo "heading".$i;?>">
                           <div class="panel-body">
-							<p><strong>Collapsible Item 2 data</strong>
+							<!--<p><strong>Collapsible Item 2 data</strong>-->
 							<?php Radar::justRadar();?>
 							<!--<img src="<?php echo $objekte[$i]["Bild"] ?>" width="250px" height="auto">-->
                             </p>
