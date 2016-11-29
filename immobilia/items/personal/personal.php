@@ -36,8 +36,8 @@ public static function einstellen($bezeichnung, $name, $skills, $rating) {
                             <div class="col-xs-12 col-sm-6 emphasis">
                               <button type="button" class="btn btn-success btn-xs"> <i class="fa fa-user">
                                 </i> <i class="fa fa-comments-o"></i> </button>
-                              <button type="button" class="btn btn-primary btn-xs">
-                                <i class="fa fa-user"> </i> View Profile
+                              <button onclick="window.open('https://www.xing.com/profile/Sabine_Rollinger/cv');" type="button" class="btn btn-primary btn-xs">
+                                <i class="fa fa-user"> </i> Profil angucken 
                               </button>
 
 
