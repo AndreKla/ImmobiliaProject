@@ -33,6 +33,7 @@ require_once $itemsFolder . "graphs/radar_graph.php";
 require_once $itemsFolder . "basic/maps.php";
 require_once $itemsFolder . "uebersicht/immobilien_ansicht.php";
 
+require_once $itemsFolder . "finanzen/finanz_graph.php";
 
 
 

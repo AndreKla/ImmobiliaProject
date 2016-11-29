@@ -23,6 +23,9 @@
 		ORDER BY Runde ASC
 		;";
 		$rundendaten = Database::sqlSelect($query);
+		
+		
+		FinanzenGraph::createGraph();
 	?>
 	</div>
 
