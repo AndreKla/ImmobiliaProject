@@ -58,7 +58,7 @@ public static function bestand(){
 						  <td>
                             <a><?php echo $immobilien[$i]["Beschreibung"];?></a>
                             <br />
-                            <strong><?php echo $immobilien[$i]["Wert"];?> â‚¬</strong>
+                            <strong><?php echo $immobilien[$i]["Wert"];?> €</strong>
                           </td>
 						  <td>
 							<small>Standortkategorie</small><br>
@@ -69,40 +69,40 @@ public static function bestand(){
 
                           </td>
 						  <td>
-							<small><?php echo $immobilien[$i]["Kaufpreis"];?> â‚¬</small><br>
-							<small><?php echo $immobilien[$i]["Flaeche"];?> â‚¬</small><br>
-							<small><?php echo $immobilien[$i]["Flaeche"];?> â‚¬</small><br>
-							<small><?php echo $immobilien[$i]["Flaeche"];?> â‚¬</small><br>
-							<small><?php echo $immobilien[$i]["Miete"];?> â‚¬</small>
+							<small><?php echo $immobilien[$i]["Kaufpreis"];?> €</small><br>
+							<small><?php echo $immobilien[$i]["Flaeche"];?> €</small><br>
+							<small><?php echo $immobilien[$i]["Flaeche"];?> €</small><br>
+							<small><?php echo $immobilien[$i]["Flaeche"];?> €</small><br>
+							<small><?php echo $immobilien[$i]["Miete"];?> €</small>
                           </td>
 						  <td>
-                            <small><?php echo $immobilien[$i]["Kaufpreis"];?> â‚¬</small><br>
-							<small><?php echo $immobilien[$i]["Flaeche"];?> â‚¬</small><br>
-							<small><?php echo $immobilien[$i]["Flaeche"];?> â‚¬</small><br>
-							<small><?php echo $immobilien[$i]["Flaeche"];?> â‚¬</small><br>
-							<small><?php echo $immobilien[$i]["Miete"];?> â‚¬</small>
+                            <small><?php echo $immobilien[$i]["Kaufpreis"];?> €</small><br>
+							<small><?php echo $immobilien[$i]["Flaeche"];?> €</small><br>
+							<small><?php echo $immobilien[$i]["Flaeche"];?> €</small><br>
+							<small><?php echo $immobilien[$i]["Flaeche"];?> €</small><br>
+							<small><?php echo $immobilien[$i]["Miete"];?> €</small>
 
                           </td>
 						  <td>
-                            <small><?php echo $immobilien[$i]["Kaufpreis"];?> â‚¬</small><br>
-							<small><?php echo $immobilien[$i]["Flaeche"];?> â‚¬</small><br>
-							<small><?php echo $immobilien[$i]["Flaeche"];?> â‚¬</small><br>
-							<small><?php echo $immobilien[$i]["Flaeche"];?> â‚¬</small><br>
-							<small><?php echo $immobilien[$i]["Miete"];?> â‚¬</small>
+                            <small><?php echo $immobilien[$i]["Kaufpreis"];?> €</small><br>
+							<small><?php echo $immobilien[$i]["Flaeche"];?> €</small><br>
+							<small><?php echo $immobilien[$i]["Flaeche"];?> €</small><br>
+							<small><?php echo $immobilien[$i]["Flaeche"];?> €</small><br>
+							<small><?php echo $immobilien[$i]["Miete"];?> €</small>
                           </td>
 						   <td>
-							<small><?php echo $immobilien[$i]["Kaufpreis"];?> â‚¬</small><br>
-							<small><?php echo $immobilien[$i]["Flaeche"];?> â‚¬</small><br>
-							<small><?php echo $immobilien[$i]["Flaeche"];?> â‚¬</small><br>
-							<small><?php echo $immobilien[$i]["Flaeche"];?> â‚¬</small><br>
-							<small><?php echo $immobilien[$i]["Miete"];?> â‚¬</small>
+							<small><?php echo $immobilien[$i]["Kaufpreis"];?> €</small><br>
+							<small><?php echo $immobilien[$i]["Flaeche"];?> €</small><br>
+							<small><?php echo $immobilien[$i]["Flaeche"];?> €</small><br>
+							<small><?php echo $immobilien[$i]["Flaeche"];?> €</small><br>
+							<small><?php echo $immobilien[$i]["Miete"];?> €</small>
                           </td>
 						  <td>
-							<small><?php echo $immobilien[$i]["Kaufpreis"];?> â‚¬</small><br>
-							<small><?php echo $immobilien[$i]["Kaufpreis"];?> â‚¬</small><br>
-							<small><?php echo $immobilien[$i]["Kaufpreis"];?> â‚¬</small><br>
-							<small><?php echo $immobilien[$i]["Flaeche"];?> â‚¬</small><br>
-							<small><?php echo $immobilien[$i]["Miete"];?> â‚¬</small>
+							<small><?php echo $immobilien[$i]["Kaufpreis"];?> €</small><br>
+							<small><?php echo $immobilien[$i]["Kaufpreis"];?> €</small><br>
+							<small><?php echo $immobilien[$i]["Kaufpreis"];?> €</small><br>
+							<small><?php echo $immobilien[$i]["Flaeche"];?> €</small><br>
+							<small><?php echo $immobilien[$i]["Miete"];?> €</small>
                           </td>
 						  <td>
                             <p><?php echo $immobilien[$i]["Beschreibung"];?></p>

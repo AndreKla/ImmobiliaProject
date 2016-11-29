@@ -21,10 +21,11 @@
 		;";
 		$result = Database::sqlSelect($query);
 
-		$width = 8;
+		$width = 7;
 		$aktuellesGeschäftsjahr = $result[0]["Runde"];
 
 		Neuigkeiten::createNeuigkeiten($width, $aktuellesGeschäftsjahr);
+		SocialFeed::createFeed();
 	?>
 
 	</div>
