@@ -35,6 +35,7 @@ require_once $itemsFolder . "uebersicht/immobilien_ansicht.php";
 
 require_once $itemsFolder . "finanzen/finanz_graph.php";
 
+require_once $itemsFolder . "auktion/auktion.php";
 
 
 

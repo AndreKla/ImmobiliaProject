@@ -1,123 +1,147 @@
-
 <?php 
-		 ?>
 
-        <!-- page content -->
-        <div class="right_col" role="main">
+class Auktion {
+	
+	
+public static function createAuktion() { 
+	 
+	 ?>
 
-          <div class="">
+        <div class="" style="margin-bottom:250px;">
             <div class="page-title">
               <div class="title_left">
-                <h3>E-commerce :: Product Page</h3>
-              </div>
-
-              <div class="title_right">
-                <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
-                  <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search for...">
-                    <span class="input-group-btn">
-                      <button class="btn btn-default" type="button">Go!</button>
-                    </span>
-                  </div>
-                </div>
+                <h3>Auktion</h3>
               </div>
             </div>
+
+            <!-- Hey -->
             
             <div class="clearfix"></div>
 
             <div class="row">
-              <div class="col-md-12 col-sm-12 col-xs-12">
+              <div class="col-md-6 col-sm-6 col-xs-6">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>E-commerce page design</h2>
-                    <ul class="nav navbar-right panel_toolbox">
-                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                      </li>
-                      <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                        <ul class="dropdown-menu" role="menu">
-                          <li><a href="#">Settings 1</a>
-                          </li>
-                          <li><a href="#">Settings 2</a>
-                          </li>
-                        </ul>
-                      </li>
-                      <li><a class="close-link"><i class="fa fa-close"></i></a>
-                      </li>
-                    </ul>
+                    <h2>Offene Auktion</h2>
+                   
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
 
-                    <div class="col-md-7 col-sm-7 col-xs-12">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="product-image">
-                        <img src="images/prod-1.jpg" alt="..." />
+                        <img src="images/prod-1.jpg" width="150px" height="auto"/>
                       </div>
-                      <div class="product_gallery">
-                        <a>
-                          <img src="images/prod-2.jpg" alt="..." />
-                        </a>
-                        <a>
-                          <img src="images/prod-3.jpg" alt="..." />
-                        </a>
-                        <a>
-                          <img src="images/prod-4.jpg" alt="..." />
-                        </a>
-                        <a>
-                          <img src="images/prod-5.jpg" alt="..." />
-                        </a>
-                      </div>
+					  
+					  <h3 class="prod_title">LOWA Men’s Renegade GTX Mid Hiking Boots Review</h3>
+
+                      <p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua butcher retro keffiyeh dreamcatcher synth. Cosby sweater eu banh mi, qui irure terr.</p>
+                      <br />
+					  
+					  <p><strong>Standortkategorie: </strong><br>
+					  <strong>Miete: </strong><br>
+					  <strong>Verkehrswert: </strong><br>
+					  <strong>Verkehrswertentwicklung: </strong><br>
+					  <strong>Mietkostenentwicklung: </strong></p><br>
+ 
+					  <div class="">
+                        <h2>Bieter Spanne</h2>
+						<div class="row grid_slider">
+
+						  <div class="col-md-6 col-sm-6 col-xs-12">
+							<p>Grid with slider labels are far away outside it's container</p>
+							<input type="text" id="range_25" value="" name="range" />
+						  </div>	
+
+						  <script>
+							  $(document).ready(function() {
+								$("#range_25").ionRangeSlider({
+								  type: "double",
+								  min: 1000000,
+								  max: 2000000,
+								  grid: true
+								});});
+							</script>						  
+															  
                     </div>
 
-                    <div class="col-md-5 col-sm-5 col-xs-12" style="border:0px solid #e5e5e5;">
+                      </div>
 
-                      <h3 class="prod_title">LOWA Men’s Renegade GTX Mid Hiking Boots Review</h3>
+                      <div class="">
+                        <div class="product_price">
+                          <h1 class="price">€ 80.00</h1>
+                          <span class="price-tax">Tax: Ksh80.00</span>
+                          <br>
+                        </div>
+                      </div>
+
+                      <div class="">
+                        <button type="button" class="btn btn-default btn-lg">Bieten</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+			  
+
+			
+              <div class="col-md-6 col-sm-6 col-xs-6">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>Verdeckte Auktion</h2>
+                   
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                      <div class="product-image">
+                        <img src="images/prod-1.jpg" width="250px" height="auto" alt="..." />
+                      </div>
+					  
+					  <h3 class="prod_title">LOWA Men’s Renegade GTX Mid Hiking Boots Review</h3>
 
                       <p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua butcher retro keffiyeh dreamcatcher synth. Cosby sweater eu banh mi, qui irure terr.</p>
                       <br />
 
+					  <p><strong>Standortkategorie: </strong><br>
+					  <strong>Miete: </strong><br>
+					  <strong>Verkehrswert: </strong><br>
+					  <strong>Verkehrswertentwicklung: </strong><br>
+					  <strong>Mietkostenentwicklung: </strong></p><br>
+					  
                       <div class="">
-                        <h2>Available Colors</h2>
-                        <ul class="list-inline prod_color">
-                          <li>
-                            <p>Green</p>
-                            <div class="color bg-green"></div>
-                          </li>
-                          <li>
-                            <p>Blue</p>
-                            <div class="color bg-blue"></div>
-                          </li>
-                          <li>
-                            <p>Red</p>
-                            <div class="color bg-red"></div>
-                          </li>
-                          <li>
-                            <p>Orange</p>
-                            <div class="color bg-orange"></div>
-                          </li>
+                        <h2>Bieter Spanne</h2>
+						<div class="row grid_slider">
 
-                        </ul>
-                      </div>
-                      <br />
+						  <div class="col-md-6 col-sm-6 col-xs-12">
+							<p>Grid with slider labels are far away outside it's container</p>
+							<input type="text" id="range_26" value="" name="range" />
+						  </div>		
 
-                      <div class="">
-                        <h2>Size <small>Please select one</small></h2>
-                        <ul class="list-inline prod_size">
-                          <li>
-                            <button type="button" class="btn btn-default btn-xs">Small</button>
-                          </li>
-                          <li>
-                            <button type="button" class="btn btn-default btn-xs">Medium</button>
-                          </li>
-                          <li>
-                            <button type="button" class="btn btn-default btn-xs">Large</button>
-                          </li>
-                          <li>
-                            <button type="button" class="btn btn-default btn-xs">Xtra-Large</button>
-                          </li>
-                        </ul>
+						<!-- Ion.RangeSlider -->
+
+						<script>
+							$(document).ready(function() {
+							$("#range_26").ionRangeSlider({
+							  type: "double",
+							  min: 0,
+							  max: 10000,
+							  step: 500,
+							  grid: true,
+							  grid_snap: true
+							});
+						  });
+						</script>						  
+																  
+                    </div>
+
+                    <div class="col-md-5 col-sm-5 col-xs-12" style="border:0px solid #e5e5e5;">
+
+                      
+
+                  </div>
                       </div>
-                      <br />
 
                       <div class="">
                         <div class="product_price">
@@ -131,69 +155,20 @@
                         <button type="button" class="btn btn-default btn-lg">Add to Cart</button>
                         <button type="button" class="btn btn-default btn-lg">Add to Wishlist</button>
                       </div>
-
-                      <div class="product_social">
-                        <ul class="list-inline">
-                          <li><a href="#"><i class="fa fa-facebook-square"></i></a>
-                          </li>
-                          <li><a href="#"><i class="fa fa-twitter-square"></i></a>
-                          </li>
-                          <li><a href="#"><i class="fa fa-envelope-square"></i></a>
-                          </li>
-                          <li><a href="#"><i class="fa fa-rss-square"></i></a>
-                          </li>
-                        </ul>
-                      </div>
-
-                    </div>
-
-
-                    <div class="col-md-12">
-
-                      <div class="" role="tabpanel" data-example-id="togglable-tabs">
-                        <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
-                          <li role="presentation" class="active"><a href="#tab_content1" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true">Home</a>
-                          </li>
-                          <li role="presentation" class=""><a href="#tab_content2" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">Profile</a>
-                          </li>
-                          <li role="presentation" class=""><a href="#tab_content3" role="tab" id="profile-tab2" data-toggle="tab" aria-expanded="false">Profile</a>
-                          </li>
-                        </ul>
-                        <div id="myTabContent" class="tab-content">
-                          <div role="tabpanel" class="tab-pane fade active in" id="tab_content1" aria-labelledby="home-tab">
-                            <p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh dreamcatcher
-                              synth. Cosby sweater eu banh mi, qui irure terr.</p>
-                          </div>
-                          <div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="profile-tab">
-                            <p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui photo
-                              booth letterpress, commodo enim craft beer mlkshk aliquip</p>
-                          </div>
-                          <div role="tabpanel" class="tab-pane fade" id="tab_content3" aria-labelledby="profile-tab">
-                            <p>xxFood truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui
-                              photo booth letterpress, commodo enim craft beer mlkshk </p>
-                          </div>
-                        </div>
-                      </div>
-
                     </div>
                   </div>
                 </div>
               </div>
             </div>
+			
           </div>
-        </div>
+        </div>		
         <!-- /page content -->
+		
+		
 
-		<!-- footer content -->
-        <footer style="background-color:#EDEDED">
-          <div class="pull-right fixed" >
-            Kapital: 10.000.000 €</a>
-          </div>
-          <div class="clearfix"></div>
-        </footer>
-        <!-- /footer content -->
-      </div>
-    </div>
-
-  </body>
-</html>
+	
+<?php
+  }
+}
+?>
