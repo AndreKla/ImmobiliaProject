@@ -13,8 +13,6 @@
 
 
 		<!-- /page content -->
-
-
           
 	
 <?php include 'includes_js.php'; ?>

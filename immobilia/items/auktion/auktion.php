@@ -4,8 +4,31 @@ class Auktion {
 	
 	
 public static function createAuktion() { 
-	 
-	 ?>
+
+	$query = "
+    SELECT *
+    FROM Auktion
+    ;";
+    $aktuelleAuktion = Database::sqlSelect($query);
+	
+	$offen = $aktuelleAuktion[0]["Objekt"];
+	$geschlossen = $aktuelleAuktion[1]["Objekt"];
+
+	$query = "
+    SELECT *
+    FROM Objekt 
+	WHERE ID = $offen
+    ;";
+    $immoOffen = Database::sqlSelect($query);
+	
+	$query = "
+    SELECT *
+    FROM Objekt 
+	WHERE ID = $geschlossen
+    ;";
+    $immoGeschlossen = Database::sqlSelect($query);
+
+?>
 
         <div class="" style="margin-bottom:250px;">
             <div class="page-title">
@@ -32,24 +55,23 @@ public static function createAuktion() {
                       <div class="product-image">
                         <img src="images/prod-1.jpg" width="150px" height="auto"/>
                       </div>
-					  
-					  <h3 class="prod_title">LOWA Men’s Renegade GTX Mid Hiking Boots Review</h3>
 
-                      <p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua butcher retro keffiyeh dreamcatcher synth. Cosby sweater eu banh mi, qui irure terr.</p>
+					  <h3 class="prod_title"><?php echo $immoOffen[0]["Beschreibung"]?></h3>
+
+                      <p><?php echo $immoOffen[0]["Beschreibung"]?></p>
                       <br />
 					  
-					  <p><strong>Standortkategorie: </strong><br>
-					  <strong>Miete: </strong><br>
-					  <strong>Verkehrswert: </strong><br>
-					  <strong>Verkehrswertentwicklung: </strong><br>
-					  <strong>Mietkostenentwicklung: </strong></p><br>
+					  <p><strong> Fläche: </strong>  <?php echo $immoOffen[0]["Flaeche"]?> <br>
+					  <strong>Standortkategorie: <?php echo $immoOffen[0]["Beschreibung"]?></strong><br>
+					  <strong>Miete: <?php echo $immoOffen[0]["Miete"]?></strong><br>
+					  <strong>Verkehrswert: <?php echo $immoOffen[0]["Kaufpreis"]?></strong><br>
+					  <strong>Verkehrswertentwicklung: <?php echo $immoOffen[0]["Beschreibung"]?> </strong><br>
+					  <strong>Mietkostenentwicklung: <?php echo $immoOffen[0]["Beschreibung"]?> </strong></p><br>
  
 					  <div class="">
                         <h2>Bieter Spanne</h2>
 						<div class="row grid_slider">
-
 						  <div class="col-md-6 col-sm-6 col-xs-12">
-							<p>Grid with slider labels are far away outside it's container</p>
 							<input type="text" id="range_25" value="" name="range" />
 						  </div>	
 
@@ -69,8 +91,8 @@ public static function createAuktion() {
 
                       <div class="">
                         <div class="product_price">
-                          <h1 class="price">€ 80.00</h1>
-                          <span class="price-tax">Tax: Ksh80.00</span>
+                          <h1 class="price"><?php echo $immoOffen[0]["Wert"]?> €</h1>
+                          <span class="price-tax"><?php echo $immoOffen[0]["Wert"]?></span>
                           <br>
                         </div>
                       </div>
@@ -82,7 +104,7 @@ public static function createAuktion() {
                   </div>
                 </div>
               </div>
-			  
+
 
 			
               <div class="col-md-6 col-sm-6 col-xs-6">
@@ -99,23 +121,23 @@ public static function createAuktion() {
                         <img src="images/prod-1.jpg" width="250px" height="auto" alt="..." />
                       </div>
 					  
-					  <h3 class="prod_title">LOWA Men’s Renegade GTX Mid Hiking Boots Review</h3>
+					  <h3 class="prod_title"><?php echo $immoGeschlossen[0]["Beschreibung"]?></h3>
 
-                      <p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua butcher retro keffiyeh dreamcatcher synth. Cosby sweater eu banh mi, qui irure terr.</p>
+                      <p><?php echo $immoGeschlossen[0]["Beschreibung"]?></p>
                       <br />
 
-					  <p><strong>Standortkategorie: </strong><br>
-					  <strong>Miete: </strong><br>
-					  <strong>Verkehrswert: </strong><br>
-					  <strong>Verkehrswertentwicklung: </strong><br>
-					  <strong>Mietkostenentwicklung: </strong></p><br>
+						<p><strong> Fläche: </strong>  <?php echo $immoGeschlossen[0]["Flaeche"]?> <br>
+					  <strong>Standortkategorie: <?php echo $immoGeschlossen[0]["Beschreibung"]?></strong><br>
+					  <strong>Miete: <?php echo $immoGeschlossen[0]["Miete"]?></strong><br>
+					  <strong>Verkehrswert: <?php echo $immoGeschlossen[0]["Kaufpreis"]?></strong><br>
+					  <strong>Verkehrswertentwicklung: <?php echo $immoGeschlossen[0]["Beschreibung"]?> </strong><br>
+					  <strong>Mietkostenentwicklung: <?php echo $immoGeschlossen[0]["Beschreibung"]?> </strong></p><br>
+ 
 					  
                       <div class="">
                         <h2>Bieter Spanne</h2>
 						<div class="row grid_slider">
-
 						  <div class="col-md-6 col-sm-6 col-xs-12">
-							<p>Grid with slider labels are far away outside it's container</p>
 							<input type="text" id="range_26" value="" name="range" />
 						  </div>		
 
@@ -145,8 +167,8 @@ public static function createAuktion() {
 
                       <div class="">
                         <div class="product_price">
-                          <h1 class="price">Ksh80.00</h1>
-                          <span class="price-tax">Ex Tax: Ksh80.00</span>
+                          <h1 class="price"><?php echo $immoGeschlossen[0]["Wert"]?></h1>
+                          <span class="price-tax"><?php echo $immoGeschlossen[0]["Wert"]?></span>
                           <br>
                         </div>
                       </div>
