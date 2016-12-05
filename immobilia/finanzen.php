@@ -12,7 +12,8 @@
 
 		Finanzen::createFinanzenTopData();
 		Finanzen::createKontostandEntwicklung($width);
-
+		Finanzen::createFinanzJahresAnsicht();
+		
 		$spielID = $_SESSION["SID"];
 		$unternehmensID = $_SESSION["UID"];
 
