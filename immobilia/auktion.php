@@ -19,7 +19,7 @@
             <div class="clearfix"></div>
 
             <div class="row">
-              <div class="col-md-12 col-sm-12 col-xs-12">
+              <div class="col-md-6 col-sm-6 col-xs-6">
                 <div class="x_panel">
                   <div class="x_title">
                     <h2>Immobilie 1</h2>
@@ -28,29 +28,12 @@
                   </div>
                   <div class="x_content">
 
-                    <div class="col-md-5 col-sm-5 col-xs-12">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
                       <div class="product-image">
                         <img src="images/prod-1.jpg" width="250px" height="auto" alt="..." />
                       </div>
-                      <div class="product_gallery">
-                        <a>
-                          <img src="images/prod-2.jpg" alt="..." />
-                        </a>
-                        <a>
-                          <img src="images/prod-3.jpg" alt="..." />
-                        </a>
-                        <a>
-                          <img src="images/prod-4.jpg" alt="..." />
-                        </a>
-                        <a>
-                          <img src="images/prod-5.jpg" alt="..." />
-                        </a>
-                      </div>
-                    </div>
-
-                    <div class="col-md-5 col-sm-5 col-xs-12" style="border:0px solid #e5e5e5;">
-
-                      <h3 class="prod_title">LOWA Men’s Renegade GTX Mid Hiking Boots Review</h3>
+					  
+					  <h3 class="prod_title">LOWA Men’s Renegade GTX Mid Hiking Boots Review</h3>
 
                       <p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua butcher retro keffiyeh dreamcatcher synth. Cosby sweater eu banh mi, qui irure terr.</p>
                       <br />
@@ -60,26 +43,64 @@
 						<div class="row grid_slider">
 
 						  <div class="col-md-6 col-sm-6 col-xs-12">
-							<p>Default grid slider with min and max values</p>
-							<input type="text" id="range" value="" name="range" />
-						  </div>
+							<p>Grid with slider labels are far away outside it's container</p>
+							<input type="text" id="range_25" value="" name="range" />
+						  </div>				  
+						 					  
+                    </div>
+
+                      </div>
+
+                      <div class="">
+                        <div class="product_price">
+                          <h1 class="price">Ksh80.00</h1>
+                          <span class="price-tax">Ex Tax: Ksh80.00</span>
+                          <br>
+                        </div>
+                      </div>
+
+                      <div class="">
+                        <button type="button" class="btn btn-default btn-lg">Add to Cart</button>
+                        <button type="button" class="btn btn-default btn-lg">Add to Wishlist</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+			
+              <div class="col-md-6 col-sm-6 col-xs-6">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>Immobilie 1</h2>
+                   
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                      <div class="product-image">
+                        <img src="images/prod-1.jpg" width="250px" height="auto" alt="..." />
+                      </div>
+					  
+					  <h3 class="prod_title">LOWA Men’s Renegade GTX Mid Hiking Boots Review</h3>
+
+                      <p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua butcher retro keffiyeh dreamcatcher synth. Cosby sweater eu banh mi, qui irure terr.</p>
+                      <br />
+
+                      <div class="">
+                        <h2>Bieter Spanne</h2>
+						<div class="row grid_slider">
+
 						  <div class="col-md-6 col-sm-6 col-xs-12">
 							<p>Grid with slider labels are far away outside it's container</p>
 							<input type="text" id="range_25" value="" name="range" />
-						  </div>
-						  <div class="col-md-6 col-sm-6 col-xs-12">
-							<p>Grid with labels inside container using force_edges attribute</p>
-							<input type="text" id="range_27" value="" name="range" />
-						  </div>
-						  <div class="col-md-6 col-sm-6 col-xs-12">
-							<p>Create Grid with pre-defined steps</p>
-							<input type="text" id="range_26" value="" name="range" />
-						  </div>
+						  </div>				  
+						 					  
+                    </div>
 
-						  <div class="col-md-6 col-sm-6 col-xs-12">
-							<p>Grid with minimum and maximum values</p>
-							<input type="text" class="range_min_max" value="" name="range" />
-						  </div>
+                    <div class="col-md-5 col-sm-5 col-xs-12" style="border:0px solid #e5e5e5;">
+
+                      
 
                   </div>
                       </div>
@@ -96,57 +117,17 @@
                         <button type="button" class="btn btn-default btn-lg">Add to Cart</button>
                         <button type="button" class="btn btn-default btn-lg">Add to Wishlist</button>
                       </div>
-
-                      <div class="product_social">
-                        <ul class="list-inline">
-                          <li><a href="#"><i class="fa fa-facebook-square"></i></a>
-                          </li>
-                          <li><a href="#"><i class="fa fa-twitter-square"></i></a>
-                          </li>
-                          <li><a href="#"><i class="fa fa-envelope-square"></i></a>
-                          </li>
-                          <li><a href="#"><i class="fa fa-rss-square"></i></a>
-                          </li>
-                        </ul>
-                      </div>
-
-                    </div>
-
-
-                    <div class="col-md-12">
-
-                      <div class="" role="tabpanel" data-example-id="togglable-tabs">
-                        <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
-                          <li role="presentation" class="active"><a href="#tab_content1" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true">Home</a>
-                          </li>
-                          <li role="presentation" class=""><a href="#tab_content2" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">Profile</a>
-                          </li>
-                          <li role="presentation" class=""><a href="#tab_content3" role="tab" id="profile-tab2" data-toggle="tab" aria-expanded="false">Profile</a>
-                          </li>
-                        </ul>
-                        <div id="myTabContent" class="tab-content">
-                          <div role="tabpanel" class="tab-pane fade active in" id="tab_content1" aria-labelledby="home-tab">
-                            <p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh dreamcatcher
-                              synth. Cosby sweater eu banh mi, qui irure terr.</p>
-                          </div>
-                          <div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="profile-tab">
-                            <p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui photo
-                              booth letterpress, commodo enim craft beer mlkshk aliquip</p>
-                          </div>
-                          <div role="tabpanel" class="tab-pane fade" id="tab_content3" aria-labelledby="profile-tab">
-                            <p>xxFood truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui
-                              photo booth letterpress, commodo enim craft beer mlkshk </p>
-                          </div>
-                        </div>
-                      </div>
-
                     </div>
                   </div>
                 </div>
               </div>
             </div>
+			
           </div>
         </div>
+		
+		
+		
         <!-- /page content -->
 		
 		
