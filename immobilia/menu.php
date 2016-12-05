@@ -130,7 +130,8 @@ public static function createMenu($titel) {
 	<!-- sidebar menu -->
 	<div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
 	  <div class="menu_section" >
-		<h3> <?php echo date('d.m.Y', strtotime("+" . $yearsToAdd . " year")) . " - " . $aktuelleRunde . ". Geschäftsjahr"; ?> </h3>
+	  	<!--	<h3> <?php echo date('d.m.Y', strtotime("+" . $yearsToAdd . " year")) . " - " . $aktuelleRunde . ". Geschäftsjahr"; ?> </h3>-->
+		<h2 style="text-align:right;margin-right:15px"> <?php echo $aktuelleRunde . ". Geschäftsjahr"; ?> </h2>
 		<ul class="nav side-menu">
 		  <li><a><i class="fa fa-cubes"></i> Management Cockpit <span class="fa fa-chevron-down"></span></a>
 			<ul class="nav child_menu">
