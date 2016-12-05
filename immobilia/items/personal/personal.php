@@ -25,7 +25,7 @@ public static function einstellen($bezeichnung, $name, $skills, $rating) {
                           <div class="col-xs-12 bottom text-center">
                             <div class="col-xs-12 col-sm-6 emphasis">
                               <p class="ratings">
-                                <a><?php echo $rating; ?></a>
+                                <a><?php echo $rating; ?></a><br>
                                 <a href="#"><span class="fa fa-star"></span></a>
                                 <a href="#"><span class="fa fa-star"></span></a>
                                 <a href="#"><span class="fa fa-star"></span></a>
@@ -35,7 +35,7 @@ public static function einstellen($bezeichnung, $name, $skills, $rating) {
                             </div>
                             <div class="col-xs-12 col-sm-6 emphasis">
                               <button type="button" class="btn btn-success btn-xs"> <i class="fa fa-user">
-                                </i> <i class="fa fa-comments-o"></i> </button>
+                                </i> <i class="fa fa-comments-o"></i> Einstellen </button><br>
                               <button onclick="window.open('https://www.xing.com/profile/Sabine_Rollinger/cv');" type="button" class="btn btn-primary btn-xs">
                                 <i class="fa fa-user"> </i> Profil angucken 
                               </button>

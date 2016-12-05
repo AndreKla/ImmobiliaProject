@@ -21,19 +21,19 @@
                       <ul class="nav nav-tabs tabs-left">
                         <li class="active"><a href="#home" data-toggle="tab">Home</a>
                         </li>
-                        <li><a href="#profile" data-toggle="tab">Profile</a>
+                        <li><a href="#bebaute_grundstuecke" data-toggle="tab">Bebaute Grundstücke</a>
                         </li>
-                        <li><a href="#messages" data-toggle="tab">Messages</a>
+                        <li><a href="#unbebaute_grundstuecke" data-toggle="tab">Unbebaute Grundstücke</a>
                         </li>
-                        <li><a href="#settings" data-toggle="tab">Settings</a>
+                        <li><a href="#fuhrpark" data-toggle="tab">Fuhrpark</a>
                         </li>
-					    <li class="active"><a href="#home" data-toggle="tab">Home</a>
+					    <li class="active"><a href="#buero_ausstattung" data-toggle="tab">Büro- / Geschäftsausstattung</a>
                         </li>
-                        <li><a href="#profile" data-toggle="tab">Profile</a>
+                        <li><a href="#vorraete" data-toggle="tab">Vorräte</a>
                         </li>
-                        <li><a href="#messages" data-toggle="tab">Messages</a>
+                        <li><a href="#bankkonto" data-toggle="tab">Bankkonto</a>
                         </li>
-                        <li><a href="#settings" data-toggle="tab">Settings</a>
+                        <li><a href="#bank" data-toggle="tab">Bank</a>
                         </li>
                       </ul>
                     </div>
@@ -54,21 +54,21 @@
 
 					<div class="col-xs-3" style="overflow:auto;">
                       <ul class="nav nav-tabs tabs-right">
-                        <li class="active"><a href="#home" data-toggle="tab">Home</a>
+						<li class="active"><a href="#home" data-toggle="tab">Home</a>
                         </li>
-                        <li><a href="#profile" data-toggle="tab">Profile</a>
+                        <li><a href="#bebaute_grundstuecke" data-toggle="tab">Bebaute Grundstücke</a>
                         </li>
-                        <li><a href="#messages" data-toggle="tab">Messages</a>
+                        <li><a href="#unbebaute_grundstuecke" data-toggle="tab">Unbebaute Grundstücke</a>
                         </li>
-                        <li><a href="#settings" data-toggle="tab">Settings</a>
+                        <li><a href="#fuhrpark" data-toggle="tab">Fuhrpark</a>
                         </li>
-					    <li class="active"><a href="#home" data-toggle="tab">Home</a>
+					    <li class="active"><a href="#buero_ausstattung" data-toggle="tab">Büro- / Geschäftsausstattung</a>
                         </li>
-                        <li><a href="#profile" data-toggle="tab">Profile</a>
+                        <li><a href="#vorraete" data-toggle="tab">Vorräte</a>
                         </li>
-                        <li><a href="#messages" data-toggle="tab">Messages</a>
+                        <li><a href="#bankkonto" data-toggle="tab">Bankkonto</a>
                         </li>
-                        <li><a href="#settings" data-toggle="tab">Settings</a>
+                        <li><a href="#bank" data-toggle="tab">Bank</a>
                         </li>
                       </ul>
                     </div>
