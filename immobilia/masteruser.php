@@ -3,6 +3,20 @@
     require_once("includes.php"); 
 	Menu::createMenu("Masteruser"); 
 ?>
+
+<!-- Meiner Meinung nach fehlen:
+
+Spieler anlegen
+
+2 Felder vorgegeben und dann ein Feld mit Spieler hinzufügen
+
+Username Passwort etc. (mal gucken was wir hier genau brauchen und was der spieler dann selbst festlegen soll)
+Username Passwort etc.
++ Spieler hinzufügen (bis zu 10 maximal erstmal würd ich sagen)
+
+Sonst wüsste ich grade nichts. müssen wir gucken wenn wir den rest anlegen. Ich bau da gleich die Datenbank hinter.
+
+-->
 	
 	<!-- page content -->
 	<div class="right_col" role="main">
