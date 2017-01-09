@@ -3,20 +3,6 @@
     require_once("includes.php"); 
 	Menu::createMenu("Masteruser"); 
 ?>
-
-<!-- Meiner Meinung nach fehlen:
-
-Spieler anlegen
-
-2 Felder vorgegeben und dann ein Feld mit Spieler hinzufügen
-
-Username Passwort etc. (mal gucken was wir hier genau brauchen und was der spieler dann selbst festlegen soll)
-Username Passwort etc.
-+ Spieler hinzufügen (bis zu 10 maximal erstmal würd ich sagen)
-
-Sonst wüsste ich grade nichts. müssen wir gucken wenn wir den rest anlegen. Ich bau da gleich die Datenbank hinter.
-
--->
 	
 	<!-- page content -->
 	<div class="right_col" role="main">
@@ -75,15 +61,12 @@ Sonst wüsste ich grade nichts. müssen wir gucken wenn wir den rest anlegen. Ich 
 							</div>
 						</div>
 							
-						<div class="form-group">
-                        <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">Szenario</label>
-							<div class="btn-group" style="margin-left:10px">
-							  <button type="button" class="btn btn-danger">Auswählen</button>
-							  <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-								<span class="caret"></span>
-								<span class="sr-only">Toggle Dropdown</span>
-							  </button>
-							  <ul class="dropdown-menu" role="menu">
+							
+						<div class="row">
+						<label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">Szenario</label>
+							<div class="btn-group" style="margin-left:15px;margin-bottom:15px;">
+							  <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button"> Auswählen <span class="caret"></span> </button>
+							  <ul class="dropdown-menu">
 								<li><a href="#">Beständiger Markt</a>
 								</li>
 								<li><a href="#">Aufschwung</a>
@@ -92,7 +75,15 @@ Sonst wüsste ich grade nichts. müssen wir gucken wenn wir den rest anlegen. Ich 
 								</li>
 							  </ul>
 							</div>
-					  </div>
+						</div>
+						
+					  <div class="control-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Spieler Namen</label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                          <input id="tags_1" type="text" class="tags form-control" value="social, adverts, sales" />
+                          <div id="suggestions-container" style="position: relative; float: left; width: 250px; margin: 10px;"></div>
+                        </div>
+                      </div>
 
                       <div class="form-group">
                         <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
@@ -114,6 +105,26 @@ Sonst wüsste ich grade nichts. müssen wir gucken wenn wir den rest anlegen. Ich 
 
 	<!-- /page content -->
 
+    <script>
+      function onAddTag(tag) {
+        alert("Füge Gruppe hinzu: " + tag);
+      }
+
+      function onRemoveTag(tag) {
+        alert("Gruppe entfernen: " + tag);
+      }
+
+      function onChangeTag(input, tag) {
+        alert("Gruppenname ändern: " + tag);
+      }
+
+      $(document).ready(function() {
+        $('#tags_1').tagsInput({
+          width: 'auto'
+        });
+      });
+    </script>
+    <!-- /jQuery Tags Input -->
 		
 <?php 
 	Menu::createFooter(); 

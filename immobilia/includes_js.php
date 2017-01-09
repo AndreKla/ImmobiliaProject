@@ -47,3 +47,25 @@
 <!-- Ion.RangeSlider -->
 <script src="vendors/ion.rangeSlider/js/ion.rangeSlider.min.js"></script>
 
+
+<!-- jQuery Tags Input -->
+<script src="vendors/jquery.tagsinput/src/jquery.tagsinput.js"></script>
+
+<!-- Switchery -->
+<script src="vendors/switchery/dist/switchery.min.js"></script>
+
+<!-- Select2 -->
+<script src="vendors/select2/dist/js/select2.full.min.js"></script>
+
+<!-- Parsley -->
+<script src="vendors/parsleyjs/dist/parsley.min.js"></script>
+
+<!-- Autosize -->
+<script src="vendors/autosize/dist/autosize.min.js"></script>
+
+<!-- jQuery autocomplete -->
+<script src="vendors/devbridge-autocomplete/dist/jquery.autocomplete.min.js"></script>
+
+<!-- starrr -->
+<script src="vendors/starrr/dist/starrr.js"></script>
+
