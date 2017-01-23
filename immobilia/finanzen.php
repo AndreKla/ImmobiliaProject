@@ -9,10 +9,6 @@
 	<?php
 
 		$width = 4;
-
-		Finanzen::createFinanzenTopData();
-		Finanzen::createKontostandEntwicklung($width);
-		Finanzen::createFinanzJahresAnsicht();
 		
 		$spielID = $_SESSION["SID"];
 		$unternehmensID = $_SESSION["UID"];
@@ -24,7 +20,11 @@
 		ORDER BY Runde ASC
 		;";
 		$rundendaten = Database::sqlSelect($query);
-		
+
+
+    Finanzen::createFinanzenTopData(sizeof($rundendaten));    
+    Finanzen::createKontostandEntwicklung($width);
+    Finanzen::createFinanzJahresAnsicht();
 		
 		FinanzenGraph::createGraph();
 	?>

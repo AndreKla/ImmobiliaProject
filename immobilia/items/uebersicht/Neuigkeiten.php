@@ -66,9 +66,198 @@ class Neuigkeiten {
           </div>
         </div>
       </div>
+      <br><br><br><br>
     </div>
-  			
   <?php
+  }
+
+  public static function checkForFeed($aktuellesGeschäftsjahr) {
+  
+  $anzahlGewählteZiele = 0;
+
+    $query = "
+    SELECT Social
+    FROM Rundendaten
+    WHERE Runde = $aktuellesGeschäftsjahr
+    ;";
+    $social = Database::sqlSelect($query);
+
+    ?>
+      <div class="col-md-4">
+        <div class="x_panel">
+          <div class="x_title">
+            <h2>Mediafeed <small>von Social Intelligence</small></h2>
+            <div class="clearfix"></div>
+          </div>
+          <div class="x_content">
+            <ul class="list-unstyled msg_list">
+            <?php
+            if($social[0]["Social"] == 1) {
+              Neuigkeiten::createFeed();
+            }
+            else {
+              if($_GET['social'] == 1) {  //purchased social feed
+
+              ?>
+              <script>
+              $(document).ready(function() {
+                new PNotify({
+                    title: 'Social Media Analyse',
+                    text: 'Die Analyse der Social Intelligence GmbH ist jetzt verfügbar!',
+                    type: 'success',
+                    styling: 'bootstrap3'
+                });
+              });
+              </script>
+
+              <?php
+              $unternehmensID = $_SESSION["UID"];
+              $spielID = $_SESSION["SID"];
+              $runde = $_SESSION["Runde"];
+
+              $query = "
+                UPDATE Rundendaten
+                SET Social = 1
+                WHERE UnternehmensID = $unternehmensID AND SpielID = $spielID AND Runde = $runde
+                ;";
+                Database::sqlUpdate($query);
+                Neuigkeiten::createFeed();
+              }
+              else {
+                ?>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg">Social Media Analyse kaufen</button>
+
+                  <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                      <div class="modal-content">
+
+                        <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
+                          </button>
+                          <h4 class="modal-title" id="myModalLabel">Social Media Analyse</h4>
+                        </div>
+                        <div class="modal-body">
+                          <h5>powered by Social Intelligence GmbH</h5>
+                          <p>Kosten pro Jahr: 20.000 €</p>
+                          <p>Wir bieten Ihnen einen Überblick über die aktuelle Lage in den sozialen Netzwerken, insbesondere können wir Sie darüber aufklären was Ihre potentiellen Kunden derzeit beschäftigt und wie sich der Markt in Zukunft entwickeln könnte.</p>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-default" data-dismiss="modal">Abbrechen</button>
+                          <a href=<?php echo 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'].'?social=1'; ?> class="btn btn-primary">Kaufen (20.000 €)</a>
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+                <?php
+              }
+            }
+            ?>
+            </ul>
+          </div>
+        </div>
+      </div>
+    <?php
+  }
+
+  public static function createFeed() {
+
+    $query = "
+    SELECT *
+    FROM Posts
+    ;";
+    $posts = Database::sqlSelect($query);
+
+    for($i = 0; $i < sizeof($posts); $i++) {        
+    ?>
+      <li>
+        <a>
+          <span class="image">
+            <img src=<?php echo $posts[$i]["Bild"];?> alt="img" />
+          </span>
+          <span>
+            <span><?php echo $posts[$i]["Titel"];?></span>
+            <span class="time"><?php echo $posts[$i]["Zeit"];?></span>
+          </span>
+          <span class="message">
+            <?php echo $posts[$i]["Beschreibung"];?>
+          </span>
+        </a>
+      </li>
+    <?php 
+    }
+    ?>
+      <li>
+        <div class="x_content">
+          <canvas id="canvasDoughnut"></canvas>
+        </div>
+      </li>
+      <li>
+        <div class="x_content">
+          <canvas id="lineChart"></canvas>
+        </div>
+      </li>
+    <?php
+
+  ?>
+  <script src="vendors/Chart.js/dist/Chart.min.js"></script>
+  <script>
+
+  Chart.defaults.global.legend = {
+    enabled: false
+  };
+
+  var ctx = document.getElementById("lineChart");
+      var lineChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: ["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli"],
+          datasets: [{
+            label: "Posts - Immobilie kaufen",
+            backgroundColor: "rgba(38, 185, 154, 0.31)",
+            borderColor: "rgba(38, 185, 154, 0.7)",
+            pointBorderColor: "rgba(38, 185, 154, 0.7)",
+            pointBackgroundColor: "rgba(38, 185, 154, 0.7)",
+            pointHoverBackgroundColor: "#fff",
+            pointHoverBorderColor: "rgba(220,220,220,1)",
+            pointBorderWidth: 1,
+            data: [14, 22, 21, 28, 31, 29, 44]
+          }]
+        },
+      });
+
+  // Doughnut chart
+      var ctx = document.getElementById("canvasDoughnut");
+      var data = {
+        labels: [
+          "12345",
+          "12345",
+          "12345",
+          "12345"
+        ],
+        datasets: [{
+          data: [120, 140, 180, 100],
+          backgroundColor: [
+            "#455C73",
+            "#BDC3C7",
+            "#26B99A",
+            "#3498DB"
+          ],
+          hoverBackgroundColor: [
+            "#34495E",
+            "#CFD4D8",
+            "#36CAAB",
+            "#49A9EA"
+          ]
+        }]
+      };
+      var canvasDoughnut = new Chart(ctx, {
+        type: 'doughnut',
+        tooltipFillColor: "rgba(51, 51, 51, 0.55)",
+        data: data
+      });
+    </script>
+    <?php
   }
 }
 ?>

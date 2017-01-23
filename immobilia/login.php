@@ -28,6 +28,8 @@
 
     <!-- Custom Theme Style -->
     <link href="build/css/custom.min.css" rel="stylesheet">
+
+    <?php   include('includes_css.php'); ?>
   </head>
 
   <body class="login">
@@ -55,7 +57,7 @@
               <div class="clearfix"></div>
 
               <div class="separator">
-                <p class="change_link">Noch keinen Account?
+                <p class="change_link"><!--Noch keinen Account?
                   <!--<a href="#signup" class="to_register"> Jetzt Account anfordern! </a>-->
                 </p>
 
@@ -63,7 +65,7 @@
                 <br />
 
                 <div>
-                  <h1><i class="fa fa-home"></i> Immobilia</h1>
+                  <h1><i class="fa fa-home"></i> Immobilia - Planspiel</h1>
                   <p>© 2016 Immobilia All Rights Reserved</p>
                 </div>
               </div>
@@ -128,9 +130,16 @@
         
         if(sizeof($user) == 0) {
           ?>
-            <script language="javascript">
-              alert("Benutzername nicht gefunden!");
-            </script>
+            <script>
+                  $(document).ready(function() {
+                    new PNotify({
+                        title: 'Login fehlgeschlagen',
+                        text: 'Leider wurde der Benutzername nicht gefunden!',
+                        type: 'fail',
+                        styling: 'bootstrap3'
+                    });
+                  });
+                </script>
           <?php
         }
         else {
@@ -152,8 +161,15 @@
             }
             else {
                 ?>
-                <script language="javascript">
-                  alert("Benutzername und Passwort stimmen nicht überein");
+                <script>
+                  $(document).ready(function() {
+                    new PNotify({
+                        title: 'Login fehlgeschlagen',
+                        text: 'Leider ist das Passwort falsch!',
+                        type: 'fail',
+                        styling: 'bootstrap3'
+                    });
+                  });
                 </script>
                 <?php
             }
@@ -161,7 +177,9 @@
         }
         
     }
+
 ?>
+<?php include 'includes_js.php'; ?> 
   </body>
 </html>
 

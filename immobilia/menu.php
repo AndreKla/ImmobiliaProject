@@ -35,6 +35,32 @@ public static function checkForCompletion() {
 
 }
 	
+public static function includeHead() {
+	Database::databaseConnect();
+
+	$spielID = $_SESSION["SID"];
+	$unternehmensID = $_SESSION["UID"];
+
+	$query = "
+    SELECT Runde
+    FROM Rundendaten
+    WHERE SpielID = $spielID AND UnternehmensID = $unternehmensID
+    ORDER BY Runde DESC
+    ;";
+    $runde = Database::sqlSelect($query);
+
+    if(sizeof($runde) > 0) {
+    	$aktuelleRunde = $runde[0]["Runde"];
+
+    	$_SESSION["Runde"] = $aktuelleRunde;
+    }
+    else {
+    	$_SESSION["Runde"] = 0;
+    }
+    
+
+	include('includes_css.php');
+}
 	
 public static function createMenu($titel) {
 
@@ -209,7 +235,7 @@ public static function createFooter() {
 
 ?>
 
-<!-- footer content -->
+<!-- footer content 
 <footer style="background-color:#EDEDED;z-index:30" >
   <div class="pull-right fixed" >
   	<p style="text-align: right"><i class="fa fa-bank"></i> Kontostand</p>
@@ -217,7 +243,7 @@ public static function createFooter() {
   </div>
   <div class="clearfix"></div>
 </footer>
-<!-- /footer content -->
+-->
 
       </div>
     </div>

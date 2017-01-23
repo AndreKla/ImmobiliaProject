@@ -24,30 +24,41 @@ class Finanzen {
     <?php
   }
 	
-  public static function createFinanzenTopData() {
+  public static function createFinanzenTopData($year) {
+    if($year == 1) {
+      $cashflow = "Noch keine Daten";
+      $eigenkapitalquote = "Noch keine Daten";
+      $schuldtilgungsdauer = "Noch keine Daten";
+      $gesamtkapitalrentabilität = "Noch keine Daten";
+    }
+    else if($year == 2) {
 
-    ?>
+    }
+    else if($year == 3) {
+
+    }
+  ?>
 
 	<div class="row tile_count">
-      <div class="col-md-2 col-sm-4 col-xs-4 tile_stats_count" style="padding-left:25px;padding-right:25px;">
-        <span class="count_top"><i class="fa fa-user"></i> Cash-Flow</span>
-        <div class="count">2500 €</div>
-        <span class="count_bottom"><i class="green">4% </i> From last Week</span>
+      <div class="col-md-3 col-sm-4 col-xs-4 tile_stats_count" style="padding-left:25px;padding-right:25px;">
+        <span class="count_top"><i class="fa fa-eur"></i>  &nbsp; Cash-Flow</span>
+        <div class="count" style="font-size:18pt"><?php echo $cashflow; ?></div>
+        <span class="count_bottom"><i class="green">0% </i> im Vergleich zum letzten Jahr</span>
       </div>
-      <div class="col-md-2 col-sm-4 col-xs-4 tile_stats_count" style="padding-left:25px;padding-right:25px;">
-        <span class="count_top"><i class="fa fa-clock-o"></i> Eigenkapitalquote</span>
-        <div class="count">123.50 %</div>
-        <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>3% </i> From last Week</span>
+      <div class="col-md-3 col-sm-4 col-xs-4 tile_stats_count" style="padding-left:25px;padding-right:25px;">
+        <span class="count_top"><i class="fa fa-percent"></i>  &nbsp; Eigenkapitalquote</span>
+        <div class="count" style="font-size:18pt"><?php echo $eigenkapitalquote; ?></div>
+        <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>0% </i> im Vergleich zum letzten Jahr</span>
       </div>
-      <div class="col-md-2 col-sm-4 col-xs-4 tile_stats_count" style="padding-left:25px;padding-right:25px;">
-        <span class="count_top"><i class="fa fa-user"></i> Schuldtilgungsdauer</span>
-        <div class="count green">2,500 Monate</div>
-        <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>34% </i> From last Week</span>
+      <div class="col-md-3 col-sm-4 col-xs-4 tile_stats_count" style="padding-left:25px;padding-right:25px;">
+        <span class="count_top"><i class="fa fa-clock-o"></i>  &nbsp; Schuldtilgungsdauer</span>
+        <div class="count" style="font-size:18pt"><?php echo $schuldtilgungsdauer; ?></div>
+        <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>0% </i> im Vergleich zum letzten Jahr</span>
       </div>
-      <div class="col-md-2 col-sm-4 col-xs-4 tile_stats_count" style="padding-left:25px;padding-right:25px;">
-        <span class="count_top"><i class="fa fa-user"></i> Gesamtkapitalrentabilität</span>
-        <div class="count">4,567 %</div>
-        <span class="count_bottom"><i class="red"><i class="fa fa-sort-desc"></i>12% </i> From last Week</span>
+      <div class="col-md-3 col-sm-4 col-xs-4 tile_stats_count" style="padding-left:25px;padding-right:25px;">
+        <span class="count_top"><i class="fa fa-money"></i>  &nbsp; Gesamtkapitalrentabilität</span>
+        <div class="count" style="font-size:18pt"><?php echo $gesamtkapitalrentabilität; ?></div>
+        <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>0% </i> im Vergleich zum letzten Jahr</span>
       </div>
     </div>
 		  
