@@ -1,3 +1,4 @@
+
 <?php
 
 class Menu {
@@ -98,7 +99,8 @@ public static function createMenu($titel) {
 	$unternehmen = Database::sqlSelect($query);
 
 ?>
-
+<html lang="de">
+  <head>
 	<?php   include('includes_css.php'); ?>
 	<style>
 	.right_col{
@@ -109,11 +111,13 @@ public static function createMenu($titel) {
 	body{
 		overflow:hidden;
 	}
+	
 	</style>
 	
 	<style>
 		.main_container{
 			height:100%;
+			
 		}
 		.left_col{
 			position:absolute;
@@ -122,8 +126,15 @@ public static function createMenu($titel) {
 			left:0;
 			
 		}
+		
+		.right_col{
+			position:absolute;
+			z-index:50;
+			top:0;
+		}
 	</style>
 	<meta charset="UTF-8">
+	</head>
  <body class="nav-md footer_fixed" >
     <div class="container body">
 
