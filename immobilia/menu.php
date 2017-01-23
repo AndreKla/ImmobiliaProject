@@ -111,6 +111,7 @@ public static function createMenu($titel) {
 	.right_col{
 		overflow:auto;
 		height: 100%;
+		margin-top:-20px;
 	}
 	
 	body{
@@ -126,16 +127,10 @@ public static function createMenu($titel) {
 		}
 		.left_col{
 			position:absolute;
-			z-index:50;
+			z-index:5;
 			top:0;
 			left:0;
 			
-		}
-		
-		.right_col{
-			position:absolute;
-			z-index:50;
-			top:0;
 		}
 	</style>
 	<meta charset="UTF-8">
