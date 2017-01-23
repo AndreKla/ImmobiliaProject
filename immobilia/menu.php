@@ -98,7 +98,8 @@ public static function createMenu($titel) {
 	$unternehmen = Database::sqlSelect($query);
 
 ?>
-
+	<html>
+	<head>
 	<?php   include('includes_css.php'); ?>
 	<style>
 	.right_col{
@@ -124,7 +125,8 @@ public static function createMenu($titel) {
 		}
 	</style>
 	<meta charset="UTF-8">
- <body class="nav-md footer_fixed" >
+	</head>
+ <body class="nav-md footer_fixed">
     <div class="container body">
 
 
