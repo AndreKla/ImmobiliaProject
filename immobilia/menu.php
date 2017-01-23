@@ -65,14 +65,14 @@ public static function includeHead() {
 public static function createMenu($titel) {
 
 	// REMOVE THIS TO ACTIVATE LOGIN
-
+	/*
 	if($_SESSION["SID"] != 1 && $_SESSION["UID"] != 1) {
 
 		$_SESSION["SID"] = 1;
 		$_SESSION["UID"] = 1;
 
 	}
-
+	*/
 	Database::databaseConnect();
 
 	$spielID = $_SESSION["SID"];
