@@ -1,3 +1,5 @@
+<link href="css/map.css" rel="stylesheet">
+
 <?php
     
     session_start();
@@ -8,8 +10,6 @@
 		Elements::createAccordionMap();
     
 ?>
-
-<link href="css/map.css" rel="stylesheet">
 
  <body class="nav-md footer_fixed">
     <div class="container body">
