@@ -101,10 +101,6 @@ public static function createMenu($titel) {
 ?>
 <html lang="de">
   <head>
-<<<<<<< HEAD
-=======
-
->>>>>>> origin/master
 	<?php   include('includes_css.php'); ?>
 	<style>
 	.right_col{
