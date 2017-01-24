@@ -27,6 +27,7 @@
 		$aktuellesGeschäftsjahr = $result[0]["Runde"];
 
 		Neuigkeiten::createNeuigkeiten($width, $aktuellesGeschäftsjahr);
+		Neuigkeiten::createRatgeber();
 		Neuigkeiten::checkForFeed($aktuellesGeschäftsjahr);
 	?>
 

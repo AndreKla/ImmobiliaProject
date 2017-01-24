@@ -86,7 +86,7 @@ class Neuigkeiten {
       <div class="col-md-4">
         <div class="x_panel">
           <div class="x_title">
-            <h2>Mediafeed <small>von Social Intelligence</small></h2>
+            <h2>Analyse <small>von Social Intelligence</small></h2>
             <div class="clearfix"></div>
           </div>
           <div class="x_content">
@@ -119,7 +119,7 @@ class Neuigkeiten {
               }
               else {
                 ?>
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg">Social Media Analyse kaufen</button>
+                <button type="button" class="btn btn-primary col-md-12" data-toggle="modal" data-target=".bs-example-modal-lg">Social Media Analyse kaufen</button>
 
                   <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
                     <div class="modal-dialog modal-lg">
@@ -152,6 +152,49 @@ class Neuigkeiten {
         </div>
       </div>
     <?php
+  }
+
+  public static function createRatgeber() {
+    ?>
+    <div class="col-md-4">
+        <div class="x_panel">
+          <div class="x_title">
+            <h2>Ratgeber <small>Immobilienwirtschaft</small></h2>
+            <div class="clearfix"></div>
+          </div>
+          <div class="x_content">
+            <ul class="list-unstyled msg_list">
+                <button type="button" class="btn btn-primary btn-success col-md-12">Download: Ratgeber Immobilien</button>
+                <br>
+                <button type="button" class="btn btn-primary btn-success col-md-12">Download: Ratgeber Buchführung</button>
+
+                  <!--<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                      <div class="modal-content">
+
+                        <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
+                          </button>
+                          <h4 class="modal-title" id="myModalLabel">Social Media Analyse</h4>
+                        </div>
+                        <div class="modal-body">
+                          <h5>powered by Social Intelligence GmbH</h5>
+                          <p>Kosten pro Jahr: 20.000 €</p>
+                          <p>Wir bieten Ihnen einen Überblick über die aktuelle Lage in den sozialen Netzwerken, insbesondere können wir Sie darüber aufklären was Ihre potentiellen Kunden derzeit beschäftigt und wie sich der Markt in Zukunft entwickeln könnte.</p>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-default" data-dismiss="modal">Abbrechen</button>
+                          <a href=<?php echo 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'].'?social=1'; ?> class="btn btn-primary">Kaufen (20.000 €)</a>
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>-->
+            </ul>
+          </div>
+        </div>
+      </div>
+      <?php
   }
 
   public static function createFeed() {
