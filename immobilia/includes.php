@@ -3,6 +3,8 @@ $itemsFolder ="items/";
 
 require_once("classes/database.php");
 require_once("classes/globals.php");
+require_once("classes/api.php");
+require_once("classes/helper.php");
 require_once("menu.php");
 
 #require_once $itemsBasicFolder . "widgets.php";
@@ -31,7 +33,7 @@ require_once $itemsFolder . "basic/general_elements.php";
 require_once $itemsFolder . "graphs/radar_graph.php";
 
 require_once $itemsFolder . "basic/maps.php";
-require_once $itemsFolder . "uebersicht/immobilien_ansicht.php";
+require_once $itemsFolder . "uebersicht/Immobilien.php";
 
 require_once $itemsFolder . "finanzen/finanz_graph.php";
 

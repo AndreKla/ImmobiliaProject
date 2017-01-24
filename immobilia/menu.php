@@ -80,7 +80,7 @@ public static function createMenu($titel) {
 	$unternehmensID = $_SESSION["UID"];
 
 	$query = "
-    SELECT Runde
+    SELECT Runde, Kapital
     FROM Rundendaten
     WHERE SpielID = $spielID AND UnternehmensID = $unternehmensID
     ORDER BY Runde DESC
@@ -94,18 +94,13 @@ public static function createMenu($titel) {
 	$query = "
 	SELECT * 
 	FROM Unternehmen
-	WHERE ID = 1
+	WHERE ID = $unternehmensID
 	;";
 	$unternehmen = Database::sqlSelect($query);
 
 ?>
-<<<<<<< HEAD
-	<html>
-	<head>
-=======
 <html lang="de">
   <head>
->>>>>>> origin/master
 	<?php   include('includes_css.php'); ?>
 	<style>
 	.right_col{
@@ -135,11 +130,7 @@ public static function createMenu($titel) {
 	</style>
 	<meta charset="UTF-8">
 	</head>
-<<<<<<< HEAD
  <body class="nav-md footer_fixed">
-=======
- <body class="nav-md footer_fixed" >
->>>>>>> origin/master
     <div class="container body">
 
 
@@ -147,20 +138,20 @@ public static function createMenu($titel) {
 <div class="col-md-3 left_col" style="z-index:100">
   <div class="left_col scroll-view">
 	<div class="navbar nav_title" style="border: 0;">
-	  <a href="index.php" class="site_title"><span><?php echo $unternehmen[0]["Unternehmensname"]; ?></span></a>
+	  <a href="index.php" class="site_title" style="font-size:12pt"><span><?php echo $unternehmen[0]["Unternehmensname"]; ?></span></a>
 	</div>
 
 	<div class="clearfix"></div>
 
 	<!-- menu profile quick info -->
 	<div class="profile">
-	  <div class="profile_pic">
-		<img src="images/img.jpg" alt="..." class="img-circle profile_img">
-	  </div>
 	  <div class="profile_info">
-		<span>Willkommen,</span>
 		<h2><?php echo $unternehmen[0]["Spieler1"]; ?></h2>
 	  </div>
+	  	<span style="margin-left:10px"> <?php echo "Geschäftsjahr: " . $aktuelleRunde; ?> </span><br>
+		<span style="margin-left:10px"> Kontostand:</span><span class="green"> <?php echo number_format($runde[0]["Kapital"], 2, ',', '.'); ?> € </span><br>
+		<span style="margin-left:10px"> Immobilien: 32</span><br>
+		<span style="margin-left:10px"> Mitarbeiter: 3</span>
 	</div>
 	<!-- /menu profile quick info -->
 
@@ -172,7 +163,7 @@ public static function createMenu($titel) {
 	<div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
 	  <div class="menu_section" >
 	  	<!--	<h3> <?php echo date('d.m.Y', strtotime("+" . $yearsToAdd . " year")) . " - " . $aktuelleRunde . ". Geschäftsjahr"; ?> </h3>-->
-		<h2 style="text-align:right;margin-right:15px"> <?php echo $aktuelleRunde . ". Geschäftsjahr"; ?> </h2>
+		
 		<ul class="nav side-menu">
 		  <li><a><i class="fa fa-cubes"></i> Management Cockpit <span class="fa fa-chevron-down"></span></a>
 			<ul class="nav child_menu">
@@ -186,7 +177,7 @@ public static function createMenu($titel) {
 		  <li><a><i class="fa fa-home"></i> Immobilien <span class="fa fa-chevron-down"></span></a>
 			<ul class="nav child_menu">
 			  <li><a href="map.php">Karte</a></li>
-			  <li><a href="immobilien.php">Immobilien / Grundstücke</a></li>
+			  <li><a href="immobilien.php">Bestand</a></li>
 			  <li><a href="auktion.php">Auktionen</a></li>
 			</ul>
 		  </li>

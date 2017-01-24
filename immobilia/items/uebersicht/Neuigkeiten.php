@@ -14,10 +14,10 @@ class Neuigkeiten {
           <div class="byline">
             <span><?php echo $zeit; ?></span> von <a><?php echo $autor; ?></a>
           </div>
-          <p class="excerpt col-md-8">
+          <p class="excerpt col-md-12">
           <?php echo $text . $text; ?>
           </p>
-          <img src=<?php echo "'$bild'"; ?> alt="News Bild" width="120px" height="85px">
+          <!--<img src=<?php echo "'$bild'"; ?> alt="News Bild" width="120px" height="85px">-->
         </div>
       </div>
     </li>
@@ -98,19 +98,6 @@ class Neuigkeiten {
             else {
               if($_GET['social'] == 1) {  //purchased social feed
 
-              ?>
-              <script>
-              $(document).ready(function() {
-                new PNotify({
-                    title: 'Social Media Analyse',
-                    text: 'Die Analyse der Social Intelligence GmbH ist jetzt verfügbar!',
-                    type: 'success',
-                    styling: 'bootstrap3'
-                });
-              });
-              </script>
-
-              <?php
               $unternehmensID = $_SESSION["UID"];
               $spielID = $_SESSION["SID"];
               $runde = $_SESSION["Runde"];
@@ -121,7 +108,14 @@ class Neuigkeiten {
                 WHERE UnternehmensID = $unternehmensID AND SpielID = $spielID AND Runde = $runde
                 ;";
                 Database::sqlUpdate($query);
+                API::addAusgabe(20000, "Marktforschung", "Social Intelligence Analysis");
                 Neuigkeiten::createFeed();
+                $actual_link = 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'];
+                ?>
+                <script>
+                window.location = <?php echo "'" . $actual_link . "?socialbuy=1'";?>
+                </script>
+                <?php
               }
               else {
                 ?>

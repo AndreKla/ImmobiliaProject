@@ -21,12 +21,12 @@
 		;";
 		$rundendaten = Database::sqlSelect($query);
 
-
     Finanzen::createFinanzenTopData(sizeof($rundendaten));    
-    Finanzen::createKontostandEntwicklung($width);
-    Finanzen::createFinanzJahresAnsicht();
+    //Finanzen::createKontostandEntwicklung($width);
+    //Finanzen::createFinanzJahresAnsicht();
 		
-		FinanzenGraph::createGraph();
+    Finanzen::createEinnahmenliste(sizeof($rundendaten));
+		Finanzen::createAusgabenliste(sizeof($rundendaten));
 	?>
 	</div>
 

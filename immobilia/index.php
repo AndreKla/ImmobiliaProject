@@ -1,5 +1,4 @@
 <?php
-    
     session_start();
     
     require_once("includes.php"); 
@@ -36,7 +35,7 @@
             Database::sqlUpdate($query);
 
             $query = "INSERT INTO Rundendaten (SpielID, UnternehmensID, Runde, Kapital, Strategie1, Strategie2, Strategie3, Social)
-                    VALUES ('" . $_SESSION['SID'] . "', '" . $_SESSION['UID'] . "', 1, '" . $_POST['startkapital'] . "', 0, 0, 0, 0);";
+                    VALUES ('" . $_SESSION['SID'] . "', '" . $_SESSION['UID'] . "', 1, 1000000, 0, 0, 0, 0);";
             Database::sqlInsert($query);
 
             ?>
@@ -54,7 +53,7 @@
             Database::sqlUpdate($query);
 
             $query = "INSERT INTO Rundendaten (SpielID, UnternehmensID, Runde, Kapital, Strategie1, Strategie2, Strategie3, Social)
-                    VALUES ('" . $_SESSION['SID'] . "', '" . $_SESSION['UID'] . "', 1, '" . $_POST['startkapital'] . "', 0, 0, 0, 0);";
+                    VALUES ('" . $_SESSION['SID'] . "', '" . $_SESSION['UID'] . "', 1, 1000000, 0, 0, 0, 0);";
             Database::sqlInsert($query);
 
           ?>
@@ -73,7 +72,7 @@
           Database::sqlUpdate($query);
 
           $query = "INSERT INTO Rundendaten (SpielID, UnternehmensID, Runde, Kapital, Strategie1, Strategie2, Strategie3, Social)
-                    VALUES ('" . $_SESSION['SID'] . "', '" . $_SESSION['UID'] . "', 1, '" . $_POST['startkapital'] . "', 0, 0, 0, 0);";
+                    VALUES ('" . $_SESSION['SID'] . "', '" . $_SESSION['UID'] . "', 1, 1000000, 0, 0, 0, 0);";
           Database::sqlInsert($query);
 
           ?>
@@ -153,7 +152,7 @@
                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="startkapital">Startkapital 
                     </label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                      <input type="text" class="form-control" disabled="disabled" placeholder="10.000.000 €" name="startkapital">
+                      <input type="text" class="form-control" disabled="disabled" placeholder="10.000.000 €" value="10000000" name="startkapital">
                     </div>
                   </div>
 
