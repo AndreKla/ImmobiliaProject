@@ -1,6 +1,6 @@
 ﻿<?php
 
-class MapMarkers{
+class Maps{
 
 
 public static function createMarkers() {
@@ -187,119 +187,92 @@ public static function createMarkers() {
 	   <script  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCT1xkT-JLARFGSKrP_vU7ScHVp6N0NJKs&signed_in=true&callback=initialize"></script>
 		  
 <?php
+}
+
+public static function createAccordionMap(){
+	
+	$anzahlGewählteZiele = 0;
+
+    $query = "
+    SELECT *
+    FROM Objekt
+    ;";
+    $objekte = Database::sqlSelect($query);
+	
+	
+
+?>
+
+                <?php Elements::createAccordion();?>
+                <!-- start accordion -->
+                <div class="accordion" id="accordion" role="tablist" aria-multiselectable="false" style="overflow: auto;height:575px;background:white;">
+                      
+                    <?php
+                      for($i = 0; $i < sizeof($objekte); $i++) {
+
+                    ?>
+                    
+                    <div class="panel">
+                        <a class="panel-heading" role="tab" id="<?php echo "heading".$i;?>" data-toggle="collapse" data-parent="#accordion" href="<?php echo "#acc".$i;?>" aria-expanded="false" aria-controls="<?php echo "acc".$i;?>">
+                        <h4 class="panel-title"><?php echo $objekte[$i]["Beschreibung"];?></h4>
+                        </a>
+                        <div id="<?php echo "acc".$i;?>" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="<?php echo "heading".$i;?>">
+                            <div class="panel-body">
+                            <!--<p><strong>Collapsible Item 2 data</strong>-->
+                            <!--<img src="<?php echo $objekte[$i]["Bild"] ?>" width="250px" height="auto">-->
+                            <!--</p>-->
+                                <p><strong>Fläche: </strong><?php echo $objekte[$i]["Flaeche"] ?> m²</p>
+                                <p><strong>Wert: </strong><?php echo $objekte[$i]["Wert"] ?> €</p>
+                                <p><strong>Miete: </strong><?php echo $objekte[$i]["Miete"] ?> €</p>
+                                <p><strong>Kaufpreis: </strong><?php echo $objekte[$i]["Kaufpreis"] ?> €</p>
+							
+                                <a href=<?php echo "http://".$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF']."?immokauf=$i";?> class="btn btn-success">KAUFEN</a>
+
+                            </div>
+                        </div>
+                    </div>
+                    <?php	
+                    }
+                    ?>
+
+						 
+                </div>
+              </div>
+        </div>
+    </div>
+			  
+
+
+
+<?php
+}
+
+public static function createJumbotron() {
+?>
+
+
+            <div class="col-md-6 col-sm-6 col-xs-12">
+              <div class="x_panel">
+                <div class="x_title">
+                  <h2>Daily active users <small>Sessions</small></h2>
+                  <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+
+                  <div class="bs-example" data-example-id="simple-jumbotron">
+                    <div class="jumbotron">
+                      <h1>Hello, world!</h1>
+                      <p>This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
+<?php
 }}
 ?>
 
-          <!--<script type="text/javascript">
-            $(document).ready(function() {
-
-              //var cb = function(start, end, label) {
-              //    console.log(start.toISOString(), end.toISOString(), label);
-              //    $('#reportrange span').html(start.format('ll') + ' - ' + end.format('ll'));
-              //   //alert("Callback has fired: [" + start.format('MMMM D, YYYY') + " to " + end.format('MMMM D, YYYY') + ", label = " + label + "]");
-              //}
-
-              var cb = function(start, end, label) {
-                //console.log(start.toISOString(), end.toISOString(), label);
-                $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
-                window.location.replace("http://localhost/work/simreg_newvoda/index.php/dashboard/?from=" + start.format('YYYY-MM-DD') + "&to=" + end.format('YYYY-MM-DD'));
-              }
-
-              var optionSet1 = {
-                startDate: moment().subtract(29, 'days'),
-                endDate: moment(),
-                minDate: '01/01/2012',
-                maxDate: '03/30/2015',
-                dateLimit: {
-                  days: 100
-                },
-                showDropdowns: true,
-                showWeekNumbers: true,
-                timePicker: false,
-                timePickerIncrement: 1,
-                timePicker12Hour: true,
-                ranges: {
-                  'Today': [moment(), moment()],
-                  'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-                  'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-                  'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-                  'This Month': [moment().startOf('month'), moment().endOf('month')],
-                  'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
-                },
-                opens: 'right',
-                buttonClasses: ['btn btn-default'],
-                applyClass: 'btn-small btn-primary',
-                cancelClass: 'btn-small',
-                format: 'MM/DD/YYYY',
-                separator: ' to ',
-                locale: {
-                  applyLabel: 'Submit',
-                  cancelLabel: 'Clear',
-                  fromLabel: 'From',
-                  toLabel: 'To',
-                  customRangeLabel: 'Custom',
-                  daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
-                  monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-                  firstDay: 1
-                }
-              };
-
-              var optionSet2 = {
-                startDate: moment().subtract(7, 'days'),
-                endDate: moment(),
-                opens: 'right',
-                ranges: {
-                  'Today': [moment(), moment()],
-                  'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-                  'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-                  'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-                  'This Month': [moment().startOf('month'), moment().endOf('month')],
-                  'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
-                }
-              };
-
-              $('#reportrange span').html('Date Filtering'); //moment().subtract(29, 'days').format('ll') + ' - ' + moment().format('ll')
-
-              $('#reportrange').daterangepicker(optionSet1, cb);
-
-              $('#reportrange').on('show.daterangepicker', function() {
-                console.log("show event fired");
-              });
-              $('#reportrange').on('hide.daterangepicker', function() {
-                console.log("hide event fired");
-              });
-              $('#reportrange').on('apply.daterangepicker', function(ev, picker) {
-                console.log("apply event fired, start/end dates are " + picker.startDate.format('MMMM D, YYYY') + " to " + picker.endDate.format('MMMM D, YYYY'));
-              });
-              $('#reportrange').on('cancel.daterangepicker', function(ev, picker) {
-                console.log("cancel event fired");
-              });
-
-              $('#options1').click(function() {
-                $('#reportrange').data('daterangepicker').setOptions(optionSet1, cb);
-              });
-
-              $('#options2').click(function() {
-                $('#reportrange').data('daterangepicker').setOptions(optionSet2, cb);
-              });
-
-              $('#destroy').click(function() {
-                $('#reportrange').data('daterangepicker').remove();
-              });
-
-            });
-          </script>-->
-		  
-		  
-
-		<!--
-          <script type="text/javascript" src="http://vodacom.registersim.com/assets/dashboard/js/highcharts.js"></script>
-          <script type="text/javascript" data-rocketsrc="http://vodacom.registersim.com/assets/dashboard/maps/jquery.maphilight.min.js;" data-rocketoptimized="true"></script>
-          <script type="text/javascript" src="http://vodacom.registersim.com/assets/dashboard/maps/jquery.maphilight.min.js"></script>
-          <script src="http://vodacom.registersim.com/assets/dashboard/js/jquery.colorbox.js"></script>
-          <script type="text/javascript" src="http://vodacom.registersim.com/assets/dashboard/js/moment.min.js"></script>
-          <script type="text/javascript" src="http://vodacom.registersim.com/assets/dashboard/js/daterangepicker.js"></script>
-          <script src="http://vodacom.registersim.com/assets/dashboard/js/jquery.masonry.min.js"></script>-->
-		  
 		  
   

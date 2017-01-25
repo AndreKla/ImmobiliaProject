@@ -4,31 +4,33 @@ class API {
 
 	public static function addAusgabe($summe, $beschreibung, $details) {
 
-		$sid = $_SESSION["SID"];
-		$uid = $_SESSION["UID"];
-		$runde = $_SESSION["Runde"];
+                if(API::checkKontostand($summe)==true){
+                    $sid = $_SESSION["SID"];
+                    $uid = $_SESSION["UID"];
+                    $runde = $_SESSION["Runde"];
 
-		$query = "
-		INSERT INTO Ausgaben (SpielID, UnternehmensID, Runde, Summe, Beschreibung, Details)
-		VALUES ('" . $sid . "', '" . $uid . "', '" . $runde . "', '" . $summe . "', '" . $beschreibung . "', '" . $details . "')
-		;";
-		Database::sqlInsert($query);
+                    $query = "
+                    INSERT INTO Ausgaben (SpielID, UnternehmensID, Runde, Summe, Beschreibung, Details)
+                    VALUES ('" . $sid . "', '" . $uid . "', '" . $runde . "', '" . $summe . "', '" . $beschreibung . "', '" . $details . "')
+                    ;";
+                    Database::sqlInsert($query);
 
-		$query = "
-		SELECT Kapital
-		FROM Rundendaten
-		WHERE SpielID = $sid AND UnternehmensID = $uid AND Runde = $runde
-		;";
-		$kapital = Database::sqlSelect($query);
+                    $query = "
+                    SELECT Kapital
+                    FROM Rundendaten
+                    WHERE SpielID = $sid AND UnternehmensID = $uid AND Runde = $runde
+                    ;";
+                    $kapital = Database::sqlSelect($query);
 
-		$kontostand = $kapital[0]["Kapital"] - $summe;
+                    $kontostand = $kapital[0]["Kapital"] - $summe;
 
-		$query = "
-		UPDATE Rundendaten
-		SET Kapital = $kontostand
-		WHERE SpielID = $sid AND UnternehmensID = $uid AND Runde = $runde
-		;";
-		Database::sqlUpdate($query);
+                    $query = "
+                    UPDATE Rundendaten
+                    SET Kapital = $kontostand
+                    WHERE SpielID = $sid AND UnternehmensID = $uid AND Runde = $runde
+                    ;";
+                    Database::sqlUpdate($query);
+                }
 
 	}
 
@@ -55,19 +57,26 @@ class API {
 
 	}
 	
-	/*
+	
 	public function checkKontostand($summe){
 		
 		$sid = $_SESSION["SID"];
 		$uid = $_SESSION["UID"];
 		$runde = $_SESSION["Runde"];
-		
-	    if ($int == 3) {
+                
+                $query = "
+		SELECT Kapital
+		FROM Rundendaten
+		WHERE SpielID = $sid AND UnternehmensID = $uid AND Runde = $runde
+		;";
+		$kapital = Database::sqlSelect($query);
+                
+                if ($kapital[0]["Kapital"] >= $summe) {
 			return true;
 		} else {
 			return false;
 		}
-	}*/
+	}
 	
 	
 	public static function buyImmobilie($immobilienId){
