@@ -7,7 +7,9 @@
 ?>
 	<!-- page content -->
 	<div class="right_col" role="main">
-		
+<?php
+		Markt::createMarktanalyse();
+?>		
 	</div>
 	<!-- /page content -->
 		

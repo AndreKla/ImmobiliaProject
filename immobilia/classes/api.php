@@ -44,6 +44,15 @@ class API {
 		;";
 		Database::sqlInsert($query);
 
+		$kontostand = $kapital[0]["Kapital"] + $summe;
+
+		$query = "
+		UPDATE Rundendaten
+		SET Kapital = $kontostand
+		WHERE SpielID = $sid AND UnternehmensID = $uid AND Runde = $runde
+		;";
+		Database::sqlUpdate($query);
+
 	}
 	
 	/*

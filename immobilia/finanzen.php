@@ -8,6 +8,10 @@
 	<div class="right_col" role="main">
 	<?php
 
+    if($_GET["credit"] == 1) {
+      Helper::showMessage("Kreditantrag abgelehnt", "Dein Kreditantrag wurde leider nicht angenommen!", "error");
+    }
+
 		$width = 4;
 		
 		$spielID = $_SESSION["SID"];
@@ -27,6 +31,8 @@
 		
     Finanzen::createEinnahmenliste(sizeof($rundendaten));
 		Finanzen::createAusgabenliste(sizeof($rundendaten));
+    //Finanzen::createBankview(sizeof($rundendaten));
+    Finanzen::createKontoview(sizeof($rundendaten));
 	?>
 	</div>
 
