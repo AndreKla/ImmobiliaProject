@@ -55,13 +55,14 @@ public static function createAccordionMap(){
                         <div id="<?php echo "acc".$i;?>" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="<?php echo "heading".$i;?>">
                           <div class="panel-body">
 							<!--<p><strong>Collapsible Item 2 data</strong>-->
-							<?php Radar::justRadar();?>
 							<!--<img src="<?php echo $objekte[$i]["Bild"] ?>" width="250px" height="auto">-->
                             </p>
 							<p><strong>Fläche: </strong><?php echo $objekte[$i]["Flaeche"] ?> m²</p>
 							<p><strong>Wert: </strong><?php echo $objekte[$i]["Wert"] ?> €</p>
 							<p><strong>Miete: </strong><?php echo $objekte[$i]["Miete"] ?> €</p>
 							<p><strong>Kaufpreis: </strong><?php echo $objekte[$i]["Kaufpreis"] ?> €</p>
+							<button type="button" class="btn btn-success">Kaufen</button>
+
                           </div>
                         </div>
                       </div>

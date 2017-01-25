@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 $itemsFolder ="items/";
 
 require_once("classes/database.php");
