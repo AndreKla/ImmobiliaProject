@@ -36,6 +36,8 @@ public static function createAccordionMap(){
     FROM Objekt
     ;";
     $objekte = Database::sqlSelect($query);
+	
+	
 
 ?>
 
@@ -61,7 +63,8 @@ public static function createAccordionMap(){
 							<p><strong>Wert: </strong><?php echo $objekte[$i]["Wert"] ?> €</p>
 							<p><strong>Miete: </strong><?php echo $objekte[$i]["Miete"] ?> €</p>
 							<p><strong>Kaufpreis: </strong><?php echo $objekte[$i]["Kaufpreis"] ?> €</p>
-							<button type="button" class="btn btn-success">Kaufen</button>
+							
+							<a href=<?php echo "http://".$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF']."?immokauf=$i";?> class="btn btn-success">KAUFEN</a>
 
                           </div>
                         </div>

@@ -45,6 +45,45 @@ class API {
 		Database::sqlInsert($query);
 
 	}
+	
+	/*
+	public function checkKontostand($summe){
+		
+		$sid = $_SESSION["SID"];
+		$uid = $_SESSION["UID"];
+		$runde = $_SESSION["Runde"];
+		
+	    if ($int == 3) {
+			return true;
+		} else {
+			return false;
+		}
+	}*/
+	
+	
+	public static function buyImmobilie($immobilienId){
+		
+		$sid = $_SESSION["SID"];
+		$uid = $_SESSION["UID"];
+		$runde = $_SESSION["Runde"];
+				
+		$query = "
+		SELECT * FROM Objekt
+		WHERE ID = $immobilienId
+		;";
+		$immobilie = Database::sqlSelect($query);
+
+		
+		$beschreibung = "Kauf Immobilie " . $immobilie[0]["Beschreibung"] ;
+		$summe = $immobilie[0]["Kaufpreis"];
+		$details = "Details";
+		API::addAusgabe($summe, $beschreibung, $details);
+		
+		//INSERT INTO UNTERNEHMEN ARRAY IMMOBILIEN
+		
+	}
+	
+
 
 }
 ?>

@@ -6,8 +6,19 @@
     
     require_once("includes.php"); 
 		Menu::createMenu("Immobilienkarte"); 
+				
+		if($_GET['immokauf'] == 0) {  //purchased social feed
+
+				$unternehmensID = $_SESSION["UID"];
+				$spielID = $_SESSION["SID"];
+				$runde = $_SESSION["Runde"];
+
+                API::buyImmobilie(3);
+				echo "hi";
 		
-		Elements::createAccordionMap();
+		}
+		
+		Maps::createAccordionMap();
     
 ?>
 
@@ -19,7 +30,7 @@
       <div class="main_container">
 		<?php
 		
-		MapMarkers::createMarkers();
+		Maps::createMarkers();
 		?>
 
 

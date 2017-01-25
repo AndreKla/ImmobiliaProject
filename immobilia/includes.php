@@ -32,7 +32,7 @@ require_once $itemsFolder . "uebersicht/uebersicht_jahr.php";
 require_once $itemsFolder . "basic/general_elements.php";
 require_once $itemsFolder . "graphs/radar_graph.php";
 
-require_once $itemsFolder . "basic/maps.php";
+require_once $itemsFolder . "basic/Maps.php";
 require_once $itemsFolder . "uebersicht/Immobilien.php";
 
 require_once $itemsFolder . "finanzen/finanz_graph.php";
