@@ -98,6 +98,18 @@ public static function createMenu($titel) {
 	;";
 	$unternehmen = Database::sqlSelect($query);
 
+	$sid = $_SESSION["SID"];
+	  $uid = $_SESSION["UID"];
+
+	  $query = "
+	  SELECT Mitarbeiter
+	  FROM Unternehmen
+	  WHERE SID = $sid AND ID = $uid
+	  ;";
+	  $mitarbeiter = Database::sqlSelect($query);
+
+	  $mitarbeiter = explode(';', $mitarbeiter[0]["Mitarbeiter"]);
+
 ?>
 <html lang="de">
   <head>
@@ -151,7 +163,7 @@ public static function createMenu($titel) {
 	  	<span style="margin-left:10px"> <?php echo "Geschäftsjahr: " . $aktuelleRunde; ?> </span><br>
 		<span style="margin-left:10px"> Kontostand:</span><span class="green"> <?php echo number_format($runde[0]["Kapital"], 2, ',', '.'); ?> € </span><br>
 		<span style="margin-left:10px"> Immobilien: 32</span><br>
-		<span style="margin-left:10px"> Mitarbeiter: 3</span>
+		<span style="margin-left:10px"> Mitarbeiter: <?php echo sizeof($mitarbeiter); ?></span>
 	</div>
 	<!-- /menu profile quick info -->
 

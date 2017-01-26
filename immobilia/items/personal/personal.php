@@ -13,50 +13,81 @@ class Personal {
      */
 	
 	
-public static function einstellen($bezeichnung, $name, $skills, $rating, $bild) {
-
-
+public static function einstellen($id, $bezeichnung, $name, $skills, $rating, $bild) {
 ?>
 
-                    <div class="clearfix"></div>
-                    <div class="col-md-4 col-sm-4 col-xs-12 profile_details">
+    <div class="col-md-5 col-sm-5 col-xs-5 profile_details">
 			<div class="well profile_view">
 			  <div class="col-sm-12">
-
-                            <h4 class="brief"><i><?php echo $bezeichnung; ?></i></h4>
-                            <div class="left col-xs-7">
-                              <h2><?php echo $name; ?></h2>
-                              <p><strong>Skills: </strong> <?php echo $skills; ?></p>
-                              <ul class="list-unstyled">
-                                <li><i class="fa fa-building"></i> Address: </li>
-                                <li><i class="fa fa-phone"></i> Phone #: </li>
-                              </ul>
-                            </div>
-                            <div class="right col-xs-5 text-center">
-                              <img src="<?php echo $bild?>" alt="" class="img-circle img-rounded img-responsive">
-                            </div>
-                          </div>
-                          <div class="col-xs-12 bottom text-center">
-                            <div class="col-xs-12 col-sm-6 emphasis">
-                              <p class="ratings">
-                                <a><?php echo $rating; ?></a><br>
-                                <a href="#"><span class="fa fa-star"></span></a>
-                                <a href="#"><span class="fa fa-star"></span></a>
-                                <a href="#"><span class="fa fa-star"></span></a>
-                                <a href="#"><span class="fa fa-star"></span></a>
-                                <a href="#"><span class="fa fa-star-o"></span></a>
-                              </p>
-                            </div>
-                            <div class="col-xs-12 col-sm-6 emphasis">
-                              <button type="button" class="btn btn-success btn-xs"> <i class="fa fa-user">
-                                </i> <i class="fa fa-comments-o"></i> Einstellen </button><br>
-                              <button onclick="window.open('https://www.xing.com/profile/Sabine_Rollinger/cv');" type="button" class="btn btn-primary btn-xs">
-                                <i class="fa fa-user"> </i> Profil angucken 
-                              </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+          <h4 class="brief"><i><?php echo $bezeichnung; ?></i></h4>
+          <div class="left col-xs-7">
+            <h2><?php echo $name; ?></h2>
+            <p><strong>Fähigkeiten: </strong></p>
+            <ul class="list-unstyled">
+              <li><p class="ratings">
+              <a><?php echo $rating; ?></a>
+              <?php 
+                for($i = 1; $i < $skills / 2; $i++) {
+                  ?>
+                    <a href="#"><span class="fa fa-star"></span></a>
+                  <?php
+                }
+                if($skills == 1 || $skills == 3 || $skills == 5 || $skills == 7 || $skills == 9) {
+                  ?>
+                  <a href="#"><span class="fa fa-star-half-o"></span></a>
+                  <?php
+                }
+                else {
+                  ?>
+                  <a href="#"><span class="fa fa-star"></span></a>
+                  <?php
+                }
+                if($skills == 8 || $skills == 7) {
+                  ?>
+                  <a href="#"><span class="fa fa-star-o"></span></a>
+                  <?php
+                }
+                if($skills == 6 || $skills == 5) {
+                  ?>
+                  <a href="#"><span class="fa fa-star-o"></span></a>
+                  <a href="#"><span class="fa fa-star-o"></span></a>
+                  <?php
+                }
+                if($skills == 4 || $skills == 3) {
+                  ?>
+                  <a href="#"><span class="fa fa-star-o"></span></a>
+                  <a href="#"><span class="fa fa-star-o"></span></a>
+                  <a href="#"><span class="fa fa-star-o"></span></a>
+                  <?php
+                }
+                if($skills == 2 || $skills == 1) {
+                  ?>
+                  <a href="#"><span class="fa fa-star-o"></span></a>
+                  <a href="#"><span class="fa fa-star-o"></span></a>
+                  <a href="#"><span class="fa fa-star-o"></span></a>
+                  <a href="#"><span class="fa fa-star-o"></span></a>
+                  <?php
+                }
+              ?>
+            </p></li><br>
+              <li><button type="button" class="btn btn-xs col-md-12">Bewerbungsunterlagen</button></li>
+            </ul>
+          </div>
+          <div class="right col-xs-5 text-center">
+            <img src="<?php echo $bild?>" alt="" class="img-circle img-rounded img-responsive">
+          </div>
+        </div>
+        <div class="col-xs-12 bottom text-center">
+          <div class="col-xs-12 col-sm-12 emphasis">
+            <a href=<?php echo "http://".$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF']."?hire=$id"; ?> class="btn btn-success btn-xs col-md-5 col-md-offset-1"> <i class="fa fa-user">
+              </i> <i class="fa fa-comments-o"></i>Einladen</a>
+            <button onclick="window.open('https://www.xing.com/profile/Sabine_Rollinger/cv');" type="button" class="btn btn-primary btn-xs col-md-5">
+              <i class="fa fa-user"> </i> Profil einsehen 
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
 
 <?php
 }
@@ -65,118 +96,148 @@ public static function einstellen($bezeichnung, $name, $skills, $rating, $bild) 
 public static function einstellenActivity(){
 	
 	$query = "
-    SELECT *
-    FROM Mitarbeiter
-    ;";
-    $aktuellesPersonal = Database::sqlSelect($query);
-
-	
-?>
-
-			  
-            <?php
-
-                  for($i = 0; $i < sizeof($aktuellesPersonal); $i++) {
-
-                    $zeit = date('d.m.Y');
-
-                    Personal::einstellen($aktuellesPersonal[$i]["Fachrichtung"], $aktuellesPersonal[$i]["Name"], $aktuellesPersonal[$i]["Faehigkeit"], $aktuellesPersonal[$i]["Beschreibung"], $aktuellesPersonal[$i]["Bild"]);
-
-                  }
-
-            ?>
-				
+  SELECT *
+  FROM Mitarbeiter
+  ;";
+  $aktuellesPersonal = Database::sqlSelect($query);
 
 
+  $sid = $_SESSION["SID"];
+  $uid = $_SESSION["UID"];
 
-<?php
+  $query = "
+  SELECT Mitarbeiter
+  FROM Unternehmen
+  WHERE SID = $sid AND ID = $uid
+  ;";
+  $mitarbeiter = Database::sqlSelect($query);
+
+  $meineMitarbeiter = explode(';', $mitarbeiter[0]["Mitarbeiter"]);
+
+  for($i = 0; $i < sizeof($aktuellesPersonal); $i++) {
+
+    $zeit = date('d.m.Y');
+    if(!in_array($aktuellesPersonal[$i]["ID"], $meineMitarbeiter, true)) {
+      Personal::einstellen($aktuellesPersonal[$i]["ID"], $aktuellesPersonal[$i]["Fachrichtung"], $aktuellesPersonal[$i]["Name"], $aktuellesPersonal[$i]["Faehigkeit"], $aktuellesPersonal[$i]["Beschreibung"], $aktuellesPersonal[$i]["Bild"]);
+    }
+  }
+
 }
 
 public static function bestand(){
 	
-	$anzahlGewählteZiele = 0;
+  $sid = $_SESSION["SID"];
+  $uid = $_SESSION["UID"];
 
-    $query = "
-    SELECT *
-    FROM Mitarbeiter
-    ;";
-    $mitarbeiter = Database::sqlSelect($query);
-	
-?>
+  $query = "
+  SELECT Mitarbeiter
+  FROM Unternehmen
+  WHERE SID = $sid AND ID = $uid
+  ;";
+  $mitarbeiter = Database::sqlSelect($query);
 
-			<div class="clearfix"></div>
-			
-            <div class="row">
-              <div class="col-md-12">
-                <div class="x_panel">
-                  <div class="x_title">
-                    <h2>Deine Mitarbeiter</h2>
-                    <div class="clearfix"></div>
+  if($mitarbeiter[0]["Mitarbeiter"] != "") {
+
+    $mitarbeiter = explode(';', $mitarbeiter[0]["Mitarbeiter"]);
+
+  ?>
+
+  <div class="clearfix"></div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="x_panel">
+        <div class="x_title">
+          <h2>Deine Mitarbeiter</h2>
+          <div class="clearfix"></div>
+        </div>
+        <div class="x_content">
+          <p>Eine Übersicht all deiner Mitarbeiter</p>
+          <table class="table table-striped projects">
+            <thead>
+              <tr>
+                <th style="width: 5%">Bild</th>
+                <th style="width: 15%">Informationen</th>
+	              <th style="width: 20%">Jahresgehalt</th>
+                <th style="width: 15%">Motivation</th>
+                <th style="width: 15%"></th>
+                <th style="width: 30%">Aktionen</th>
+              </tr>
+            </thead>
+            <tbody>
+          	<?php 
+          		for($i = 0; $i < sizeof($mitarbeiter); $i++) {
+
+                $mid = $mitarbeiter[$i];
+
+                $query = "
+                SELECT *
+                FROM Mitarbeiter
+                WHERE ID = $mid
+                ;";
+                $mib = Database::sqlSelect($query);
+
+          	?>
+              <tr>
+                <td>
+                  <ul class="list-inline">
+                    <li>
+                      <img src="<?php echo $mib[0]["Bild"];?>" class="avatar" alt="Avatar">
+                    </li>
+                  </ul>
+                </td>                          
+                <td>
+                  <p><?php echo $mib[0]["Name"];?></p>
+                  <small><?php echo $mib[0]["Fachrichtung"];?></small>
+                </td>
+                <td>
+                  <p><?php echo number_format($mib[0]["Gehalt"], 2, ',', '.') . " €";?></p>
+                </td>
+                <td class="project_progress">
+                  <div class="progress progress_sm">
+                    <div class="progress-bar bg-green" role="progressbar" data-transitiongoal="<?php $motivation = $mib[0]["Motivation"] * 10; echo $motivation;?>"></div>
                   </div>
-                  <div class="x_content">
-
-                    <p>Eine Übersicht all deiner Mitarbeiter</p>
-                    <table class="table table-striped projects">
-                      <thead>
-                        <tr>
-                          <th style="width: 5%">Bild</th>
-                          <th style="width: 15%">Berufsbezeichnung</th>
-						  <th style="width: 20%">Beschreibung</th>
-                          <th style="width: 15%">Zufriedenheit</th>
-                          <th style="width: 15%">Status</th>
-                          <th style="width: 30%">Optionen</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-						<?php 
-							for($i = 0; $i < sizeof($mitarbeiter); $i++) {
-							
-						?>
-                        <tr>
-                          <td>
-                            <ul class="list-inline">
-                              <li>
-                                <img src="images/user.png" class="avatar" alt="Avatar">
-                              </li>
-                            </ul>
-                          </td>                          
-						  <td>
-                            <a><?php echo $mitarbeiter[$i]["Fachrichtung"];?></a>
-                            <br />
-                            <small><?php echo $mitarbeiter[$i]["Name"];?> - <?php echo $mitarbeiter[$i]["Gehalt"];?> €</small>
-                          </td>
-						  <td>
-                            <p><?php echo $mitarbeiter[$i]["Beschreibung"];?></p>
-                          </td>
-                          <td class="project_progress">
-                            <div class="progress progress_sm">
-                              <div class="progress-bar bg-green" role="progressbar" data-transitiongoal="<?php echo $mitarbeiter[$i]["Motivation"];?>"></div>
-                            </div>
-                            <small><?php echo $mitarbeiter[$i]["Motivation"]." %";?></small>
-                          </td>
-                          <td>
-                            <button type="button" class="btn btn-success btn-xs">Erfolgreich</button>
-                          </td>
-                          <td>
-                            <a href="#" class="btn btn-primary btn-xs befoerdern"><i class="fa fa-folder"></i> Befördern </a>
-                            <a href="#" class="btn btn-info btn-xs weiterbilden"><i class="fa fa-pencil"></i> Weiterbilden </a>
-                            <a href="#" class="btn btn-danger btn-xs kuendigen"><i class="fa fa-trash-o"></i> Kündigen </a>
-                          </td>
-                        </tr>
-						<?php 
-							}
-						?>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
+                  <small><?php 
+                    echo $motivation." %";
+                  ?></small>
+                </td>
+                <td>
+                  <button type="button" class="btn btn-success btn-xs">Zufrieden</button>
+                </td>
+                <td>
+                  <a href="#" class="btn btn-primary btn-xs befoerdern col-md-6"><i class="fa fa-arrow-circle-o-up"></i> Befördern </a>
+                  <a href="#" class="btn btn-info btn-xs weiterbilden col-md-6"><i class="fa fa-graduation-cap"></i> Weiterbilden </a>
+                  <a href="#" class="btn btn-danger btn-xs kuendigen col-md-6"><i class="fa fa-times-circle-o"></i> Kündigen </a>
+                </td>
+              </tr>
+          	<?php 
+          		}
+          	?>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+<?php    
+  }
+  else {
+    ?>
+    <div class="clearfix"></div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="x_panel">
+            <div class="x_title">
+              <h2>Deine Mitarbeiter</h2>
+              <div class="clearfix"></div>
             </div>
-
-
-
-
-<?php
+            <div class="x_content">
+              <p>Du hast noch keine Mitarbeiter eingestellt</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    <?php
+  }
 }
 
 public static function createBarometer(){
