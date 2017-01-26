@@ -5,19 +5,20 @@
     session_start();
     
     require_once("includes.php"); 
-		Menu::createMenu("Immobilienkarte"); 
+    
+    Menu::createMenu("Immobilienkarte"); 
 
-                if(isset($_GET['immokauf'])) {  //purchased social feed
+    if(isset($_GET['immokauf'])) {  //purchased social feed
 
-				$unternehmensID = $_SESSION["UID"];
-				$spielID = $_SESSION["SID"];
-				$runde = $_SESSION["Runde"];
+    $unternehmensID = $_SESSION["UID"];
+    $spielID = $_SESSION["SID"];
+    $runde = $_SESSION["Runde"];
 
-                API::buyImmobilie($_GET['immokauf']);
-		
-		}
-		
-		Maps::createAccordionMap();
+    API::buyImmobilie($_GET['immokauf']);
+
+    }
+
+    Maps::createAccordionMap();
     
 ?>
 

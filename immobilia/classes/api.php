@@ -99,28 +99,28 @@ class API {
            
             if(API::checkKontostand($summe)==true){
                 
-            API::addAusgabe($summe, $beschreibung, $details);
+                API::addAusgabe($summe, $beschreibung, $details);
 
-            $query = "
-            SELECT Bestand FROM Unternehmen
-            WHERE ID = $uid
-            ;";
-            $bestand = Database::sqlSelect($query);
+                $query = "
+                SELECT Bestand FROM Unternehmen
+                WHERE ID = $uid
+                ;";
+                $bestand = Database::sqlSelect($query);
 
-            if ($bestand[0]["Bestand"] == "") {
-                $bestandString = $immobilienId;
-            }else{
-                $bestandString = $bestand[0]["Bestand"] . ';' . $immobilienId;
-            }
+                if ($bestand[0]["Bestand"] == "") {
+                    $bestandString = $immobilienId;
+                }else{
+                    $bestandString = $bestand[0]["Bestand"] . ';' . $immobilienId;
+                }
 
 
-            $query2 = " 
-            UPDATE Unternehmen 
-            SET Bestand = '$bestandString'
-            WHERE ID = $uid
-            ;";
+                $query2 = " 
+                UPDATE Unternehmen 
+                SET Bestand = '$bestandString'
+                WHERE ID = $uid
+                ;";
 
-            Database::sqlUpdate($query2);
+                Database::sqlUpdate($query2);
                 		
             }else{
                 Helper::showMessage("Kontostand zu gering", "Leider hast du nicht genügend Kapital", "error");    
