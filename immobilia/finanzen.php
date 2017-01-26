@@ -30,8 +30,8 @@
     //Finanzen::createFinanzJahresAnsicht();
 		
     
-    //Finanzen::createBankview(sizeof($rundendaten));
-    Finanzen::createKontoview(sizeof($rundendaten));
+    Finanzen::createBankview(sizeof($rundendaten));
+    //Finanzen::createKontoview(sizeof($rundendaten));
     Finanzen::createEinnahmenliste(sizeof($rundendaten));
     Finanzen::createAusgabenliste(sizeof($rundendaten));
 	?>

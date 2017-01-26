@@ -123,13 +123,14 @@ class Finanzen {
 
   public static function createBankview($year) {
   ?>
-    <div class="col-md-3 col-sm-3 col-xs-3">
+    <div class="col-md-6 col-sm-6 col-xs-6">
       <div class="x_panel" style="height:auto">
         <div class="x_title">
-          <h2>Bank <small>Fremdkapital</small></h2>
+          <h2>Bank <small>Fremdkapitalverwaltung</small></h2>
           <div class="clearfix"></div>
         </div>
-        <button <?php if($_GET["credit"] == 1) { echo "disabled"; } ?> type="button" class="btn btn-primary col-md-12" data-toggle="modal" data-target=".bs-example-modal-lg">Kreditantrag stellen</button>
+        <button <?php if($_GET["credit"] == 1) { echo "disabled"; } ?> type="button" class="btn btn-primary col-md-5" data-toggle="modal" data-target=".bs-example-modal-lg">Kreditantrag stellen</button>
+        <button type="button" class="btn btn-primary pull-right col-md-5 data-toggle="modal" data-target=".bs-example-modal-lg">Geld anlegen</button>
       </div>
       <br><br><br>
       <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
@@ -142,30 +143,36 @@ class Finanzen {
               <h4 class="modal-title" id="myModalLabel">Kreditantrag wählen</h4>
             </div>
             <div class="modal-body col-md-4">
-              <h5>Vereinigte Volksbank e.G.</h5>
-              <p>Annuitätendarlehen</p>
-              <p>Kreditsumme: 2.000.000,00 €</p>
-              <p>Zins: 7,50 % p.a.</p>
-              <p>Laufzeit: 5 Jahre</p>
+              <div class="x_panel">
+                <h5>Vereinigte Volksbank e.G.</h5>
+                <p>Annuitätendarlehen</p>
+                <p>Kreditsumme: 2.000.000,00 €</p>
+                <p>Zins: 7,50 % p.a.</p>
+                <p>Laufzeit: 5 Jahre</p>
               <a href=<?php echo 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'].'?credit=1'; ?> class="btn btn-primary">Kredit beantragen</a>
+              </div>
             </div>
             
             <div class="modal-body col-md-4">
-              <h5>Deutsche Bank AG</h5>
-              <p>endfälliger Kredit</p>
-              <p>Kreditsumme: 500.000,00 €</p>
-              <p>Zins: 10,00 % p.a.</p>
-              <p>Laufzeit: 2 Jahre</p>
-              <a href=<?php echo 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'].'?credit=1'; ?> class="btn btn-primary">Kredit beantragen</a>
+              <div class="x_panel">
+                <h5>Deutsche Bank AG</h5>
+                <p>endfälliger Kredit</p>
+                <p>Kreditsumme: 500.000,00 €</p>
+                <p>Zins: 10,00 % p.a.</p>
+                <p>Laufzeit: 2 Jahre</p>
+                <a href=<?php echo 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'].'?credit=1'; ?> class="btn btn-primary">Kredit beantragen</a>
+              </div>
             </div>
 
             <div class="modal-body col-md-4">
-              <h5>Commerzbank</h5>
-              <p>endfälliger Kredit</p>
-              <p>Kreditsumme: 750.000,00 €</p>
-              <p>Zins: 9,50 % p.a.</p>
-              <p>Laufzeit: 3 Jahre</p>
-              <a href=<?php echo 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'].'?credit=1'; ?> class="btn btn-primary">Kredit beantragen</a>
+              <div class="x_panel">
+                <h5>Commerzbank</h5>
+                <p>endfälliger Kredit</p>
+                <p>Kreditsumme: 750.000,00 €</p>
+                <p>Zins: 9,50 % p.a.</p>
+                <p>Laufzeit: 3 Jahre</p>
+                <a href=<?php echo 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'].'?credit=1'; ?> class="btn btn-primary">Kredit beantragen</a>
+              </div>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-default" data-dismiss="modal">Abbrechen</button>
