@@ -5,18 +5,25 @@ class Immobilien {
 
 public static function createBestand($aktuellesGeschäftsjahr){
 	
-	$anzahlGewählteZiele = 0;
+    $anzahlGewählteZiele = 0;
+    
+    $sid = $_SESSION["SID"];
+    $uid = $_SESSION["UID"];
+    $runde = $_SESSION["Runde"];
 
     $query = "
-    SELECT *
-    FROM Objekt
+    SELECT Bestand
+    FROM Unternehmen
+    WHERE ID = $uid
     ;";
     $immobilien = Database::sqlSelect($query);
-
+    
+    $bestand = explode(';', $immobilien[0]["Bestand"]);  
+    
     $zeit = date('Y');
 	
 ?>
-		<div class="clearfix"></div>
+    <div class="clearfix"></div>
 			
       <div class="row">
         <div class="col-md-12">
@@ -33,7 +40,7 @@ public static function createBestand($aktuellesGeschäftsjahr){
                     <th>Bild</th>
                     <th>Adresse</th>
                     <th style="width:30%">Immobilienwerte</th>
-			              <th style="width:12%; text-align:center"><?php echo $zeit; ?></th>
+                    <th style="width:12%; text-align:center"><?php echo $zeit; ?></th>
                     <th style="width:12%; text-align:center"><?php echo date('Y', strtotime("+1 year")); ?></th>
                     <th style="width:12%; text-align:center"><?php echo date('Y', strtotime("+2 years")); ?></th>
                     <th style="width:12%; text-align:center"><?php echo date('Y', strtotime("+3 years")); ?></th>
@@ -42,15 +49,24 @@ public static function createBestand($aktuellesGeschäftsjahr){
                   </tr>
                 </thead>
                 <tbody>
-    						<?php 
-    							for($i = 0; $i < sizeof($immobilien); $i++) {	
-    						?>
+                <?php 
+                    for($i = 0; $i < sizeof($bestand); $i++) {	
+                        
+                        $immobilienID = $bestand[$i]["ID"];
+                        
+                        $query = "
+                        SELECT *
+                        FROM Objekt
+                        WHERE ID = $immobilienID
+                        ;";
+                        $objekt = Database::sqlSelect($query);
+                ?>
                 <tr>
                   <td>
-                        <img src="<?php echo $immobilien[$i]["Bild"];?>" width="90px" height="90px">
+                    <img src="<?php echo $objekt[0]["Bild"];?>" width="90px" height="90px">
                   </td>                          
 						      <td>
-                    <a><small style="font-size:10pt"><?php echo $immobilien[$i]["Beschreibung"];?></small></a>
+                    <a><small style="font-size:10pt"><?php echo $objekt[0]["Beschreibung"];?></small></a>
                   </td>
                   <td>
                     <small class="pull-left">Verkehrswert:</small><br>
@@ -61,12 +77,12 @@ public static function createBestand($aktuellesGeschäftsjahr){
 
 
                   </td>
-    						  <td>
-      							<small class="pull-right">120.000,00 €</small><br>
+                <td>
+                    <small class="pull-right">120.000,00 €</small><br>
                     <small class="pull-right red">- 5.500,00 €</small><br>
-      							<small class="pull-right">8.400,00 €</small><br>
+                    <small class="pull-right">8.400,00 €</small><br>
                     <small class="pull-right red">- 400,00€</small><br>
-      							<small class="pull-right">1.440,00 €</small>
+                    <small class="pull-right">1.440,00 €</small>
                   </td>
                   <td>
                     <small class="pull-right">120.000,00 €</small><br>
@@ -99,9 +115,9 @@ public static function createBestand($aktuellesGeschäftsjahr){
                     <a href="#" class="btn btn-danger btn-xs kuendigen"><i class="fa fa-trash-o"></i> Verkaufen </a>
                   </td>
                 </tr>
-						<?php 
-							}
-						?>
+                <?php 
+                        }
+                ?>
                 </tbody>
               </table>
             </div>

@@ -1,6 +1,16 @@
 <?php
 
 class Personal {
+    
+    /*
+     * TYPEN:
+     * 
+     * Bauingenieur -> 30k
+     * Immobilienhändler -> 20k
+     * Immobilienkaufmann -> 20k
+     * Sachbearbeiter -> 10k
+     * 
+     */
 	
 	
 public static function einstellen($bezeichnung, $name, $skills, $rating) {
