@@ -189,8 +189,7 @@ public static function createMenu($titel) {
 		  </li>
 		  <li><a><i class="fa fa-exchange"></i> Buchungen <span class="fa fa-chevron-down"></span></a>
 			<ul class="nav child_menu">
-			  <li><a href="bestandskonten.php">Bestands Konten</a></li>
-			  <li><a href="aufwand_ertrag.php">Aufwand Ertrags Konten</a></li>
+			  <li><a href="bestandskonten.php">Konten</a></li>
 			  <li><a href="sbk.php">SBK </a></li>
 			  <li><a href="gewinn_verlust.php">GV</a></li>
 			</ul>

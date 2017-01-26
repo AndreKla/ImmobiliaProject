@@ -122,7 +122,7 @@ class Strategie {
 
 ?>
 
-		<div class="col-md-6 col-sm-6 col-xs-12">
+    <div class="col-md-6 col-sm-6 col-xs-12">
       <div class="x_panel">
         <div class="x_title">
           <h2>Unternehmensstrategie für <?php echo date('Y', strtotime("+$aktuellesGeschäftsjahr year")); ?><small id="zielLabel">0 von 3 Zielen gewählt</small></h2>

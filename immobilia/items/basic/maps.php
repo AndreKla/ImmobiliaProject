@@ -219,13 +219,14 @@ public static function createAccordionMap(){
                         <div id="<?php echo "acc".$i;?>" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="<?php echo "heading".$i;?>">
                             <div class="panel-body">
                             <!--<p><strong>Collapsible Item 2 data</strong>-->
-                            <!--<img src="<?php echo $objekte[$i]["Bild"] ?>" width="250px" height="auto">-->
+                                <img src="<?php echo $objekte[$i]["Bild"] ?>" width="250px" height="auto">
                             <!--</p>-->
-                                <p><strong>Fläche: </strong><?php echo $objekte[$i]["Flaeche"] ?> m²</p>
-                                <p><strong>Wert: </strong><?php echo $objekte[$i]["Wert"] ?> €</p>
-                                <p><strong>Miete: </strong><?php echo $objekte[$i]["Miete"] ?> €</p>
-                                <p><strong>Kaufpreis: </strong><?php echo $objekte[$i]["Kaufpreis"] ?> €</p>
-							
+                                <p><strong>Verkehrswert: </strong><?php echo $objekte[$i]["Wert"] ?> €</p>
+                                <p><strong>Verkehrswertentwicklung: </strong><?php echo $objekte[$i]["Wertentwicklung"] ?> €</p>
+                                <p><strong>Mietpreis: </strong><?php echo $objekte[$i]["Miete"] ?> €</p>
+                                <p><strong>Mietpreisentwicklung: </strong><?php echo $objekte[$i]["Mietentwicklung"] ?> €</p>
+                                <p><strong>Abschreibung: </strong><?php echo $objekte[$i]["Abschreibung"] ?> €</p>
+		
                                 <a href=<?php echo "http://".$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF']."?immokauf=$i";?> class="btn btn-success">KAUFEN</a>
 
                             </div>

@@ -16,10 +16,13 @@ require_once $itemsFolder . "uebersicht/Markt.php";
 require_once $itemsFolder . "uebersicht/Konkurrenz.php";
 require_once $itemsFolder . "uebersicht/Strategie.php";
 
+require_once $itemsFolder . "buchung/Bestandskonten.php";
+
 
 require_once $itemsFolder . "auktion/gridslider.php";
 
 require_once $itemsFolder . "buchung/buchung_uebersicht.php";
+
 
 require_once $itemsFolder . "news/news.php";
 
