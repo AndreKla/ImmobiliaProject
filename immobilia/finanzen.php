@@ -29,10 +29,11 @@
     //Finanzen::createKontostandEntwicklung($width);
     //Finanzen::createFinanzJahresAnsicht();
 		
-    Finanzen::createEinnahmenliste(sizeof($rundendaten));
-		Finanzen::createAusgabenliste(sizeof($rundendaten));
+    
     //Finanzen::createBankview(sizeof($rundendaten));
     Finanzen::createKontoview(sizeof($rundendaten));
+    Finanzen::createEinnahmenliste(sizeof($rundendaten));
+    Finanzen::createAusgabenliste(sizeof($rundendaten));
 	?>
 	</div>
 

@@ -279,6 +279,7 @@ class Finanzen {
         </div>
       </div>
     </div>
+    </div>
     <script src="vendors/Chart.js/dist/Chart.min.js"></script>
     <script>
     Chart.defaults.global.legend = {
@@ -415,13 +416,8 @@ class Finanzen {
 
 	<div class="row tile_count">
       <div class="col-md-3 col-sm-4 col-xs-4 tile_stats_count" style="padding-left:25px;padding-right:25px;">
-        <span class="count_top"><i class="fa fa-eur green"></i>  &nbsp; Einnahmen</span>
-        <div class="count green" style="font-size:18pt"><?php echo number_format($einnahmen,2,',','.') . " €"; ?></div>
-        <!--<span class="count_bottom"><i class="green">0% </i> im Vergleich zum letzten Jahr</span>-->
-      </div>
-      <div class="col-md-3 col-sm-4 col-xs-4 tile_stats_count" style="padding-left:25px;padding-right:25px;">
-        <span class="count_top"><i class="fa fa-eur red"></i>  &nbsp; Ausgaben</span>
-        <div class="count red" style="font-size:18pt"><?php echo number_format($ausgaben,2,',','.') . " €"; ?></div>
+        <span class="count_top"><i class="fa fa-credit-card"></i>  &nbsp; Kontostand</span>
+        <div class="count" style="font-size:18pt"><?php echo number_format($kontostand,2,',','.') . " €"; ?></div>
         <!--<span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>0% </i> im Vergleich zum letzten Jahr</span>-->
       </div>
       <div class="col-md-3 col-sm-4 col-xs-4 tile_stats_count" style="padding-left:25px;padding-right:25px;">
@@ -430,8 +426,13 @@ class Finanzen {
         <!--<span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>0% </i> im Vergleich zum letzten Jahr</span>-->
       </div>
       <div class="col-md-3 col-sm-4 col-xs-4 tile_stats_count" style="padding-left:25px;padding-right:25px;">
-        <span class="count_top"><i class="fa fa-credit-card"></i>  &nbsp; Kontostand</span>
-        <div class="count" style="font-size:18pt"><?php echo number_format($kontostand,2,',','.') . " €"; ?></div>
+        <span class="count_top"><i class="fa fa-eur green"></i>  &nbsp; Einnahmen</span>
+        <div class="count green" style="font-size:18pt"><?php echo number_format($einnahmen,2,',','.') . " €"; ?></div>
+        <!--<span class="count_bottom"><i class="green">0% </i> im Vergleich zum letzten Jahr</span>-->
+      </div>
+      <div class="col-md-3 col-sm-4 col-xs-4 tile_stats_count" style="padding-left:25px;padding-right:25px;">
+        <span class="count_top"><i class="fa fa-eur red"></i>  &nbsp; Ausgaben</span>
+        <div class="count red" style="font-size:18pt"><?php echo number_format($ausgaben,2,',','.') . " €"; ?></div>
         <!--<span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>0% </i> im Vergleich zum letzten Jahr</span>-->
       </div>
     </div>
