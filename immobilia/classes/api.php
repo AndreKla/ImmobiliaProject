@@ -80,27 +80,53 @@ class API {
 	
 	
 	public static function buyImmobilie($immobilienId){
-		
-		$sid = $_SESSION["SID"];
-		$uid = $_SESSION["UID"];
-		$runde = $_SESSION["Runde"];
+            
+            $sid = $_SESSION["SID"];
+            $uid = $_SESSION["UID"];
+            $runde = $_SESSION["Runde"];
 				
-		$query = "
-		SELECT * FROM Objekt
-		WHERE ID = $immobilienId
-		;";
-		$immobilie = Database::sqlSelect($query);
+            $query = "
+            SELECT * FROM Objekt
+            WHERE ID = $immobilienId
+            ;";
+            $immobilie = Database::sqlSelect($query);
 
-		
-		$beschreibung = "Kauf Immobilie " . $immobilie[0]["Beschreibung"] ;
-		$summe = $immobilie[0]["Kaufpreis"];
-		$details = "Details";
-		API::addAusgabe($summe, $beschreibung, $details);
-		
-		//INSERT INTO UNTERNEHMEN ARRAY IMMOBILIEN
-		
-	}
-	
+
+            $beschreibung = "Kauf Immobilie " . $immobilie[0]["Beschreibung"] ;
+            $summe = $immobilie[0]["Kaufpreis"];
+            $details = "Details";
+
+           
+            if(API::checkKontostand($summe)==true){
+                
+            API::addAusgabe($summe, $beschreibung, $details);
+
+            $query = "
+            SELECT Bestand FROM Unternehmen
+            WHERE ID = $uid
+            ;";
+            $bestand = Database::sqlSelect($query);
+
+            if ($bestand[0]["Bestand"] == "") {
+                $bestandString = $immobilienId;
+            }else{
+                $bestandString = $bestand[0]["Bestand"] . ';' . $immobilienId;
+            }
+
+
+            $query2 = " 
+            UPDATE Unternehmen 
+            SET Bestand = '$bestandString'
+            WHERE ID = $uid
+            ;";
+
+            Database::sqlUpdate($query2);
+                		
+            }else{
+                Helper::showMessage("Kontostand zu gering", "Leider hast du nicht genügend Kapital", "error");    
+            }
+        
+        }
 
 
 }

@@ -60,9 +60,9 @@ public static function createMarkers() {
                 minZoom: 12,
                 center: center,
 				streetViewControl: false,
-				draggable: false, 
-				zoomControl: false, 
-				scrollwheel: false, 
+				draggable: true, 
+				zoomControl: true, 
+				scrollwheel: true, 
 				disableDoubleClickZoom: true,
                 mapTypeId: google.maps.MapTypeId.ROADMAP,
                 styles: [{

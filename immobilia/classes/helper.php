@@ -3,7 +3,7 @@
 class Helper {
 
 	// type = success (green)
-	// type = fail (green)
+	// type = fail (yellow)
 	// type = error (red)
 
 	public static function showMessage($title, $text, $type) {
