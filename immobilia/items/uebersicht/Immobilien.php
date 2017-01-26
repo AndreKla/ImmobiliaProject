@@ -65,50 +65,45 @@ public static function createBestand($aktuellesGeschäftsjahr){
                   <td>
                     <img src="<?php echo $objekt[0]["Bild"];?>" width="90px" height="90px">
                   </td>                          
-						      <td>
+                  <td>
                     <a><small style="font-size:10pt"><?php echo $objekt[0]["Beschreibung"];?></small></a>
                   </td>
                   <td>
                     <small class="pull-left">Verkehrswert:</small><br>
-                    <small class="pull-left">Verkehrswertentwicklung (p.a.):</small><br>
-                    <small class="pull-left">Miete (p.a.):</small><br>
-                    <small class="pull-left">Mietpreisentwicklung (p.a.):</small><br>
-                    <small class="pull-left">Abschreibung (p.a.):</small>
+                    <small class="pull-left">Verkehrswertentwicklung (p.a.): </small><br>
+                    <small class="pull-left">Miete (p.a.): </small><br>
+                    <small class="pull-left">Mietpreisentwicklung (p.a.): </small><br>
+                    <small class="pull-left">Abschreibung (p.a.): </small>
 
 
                   </td>
-                <td>
-                    <small class="pull-right">120.000,00 €</small><br>
-                    <small class="pull-right red">- 5.500,00 €</small><br>
-                    <small class="pull-right">8.400,00 €</small><br>
-                    <small class="pull-right red">- 400,00€</small><br>
-                    <small class="pull-right">1.440,00 €</small>
-                  </td>
-                  <td>
-                    <small class="pull-right">120.000,00 €</small><br>
-                    <small class="pull-right red">- 5.500,00 €</small><br>
-                    <small class="pull-right">8.400,00 €</small><br>
-                    <small class="pull-right red">- 400,00€</small><br>
-                    <small class="pull-right">1.440,00 €</small>
-                  </td><td>
-                    <small class="pull-right">120.000,00 €</small><br>
-                    <small class="pull-right red">- 5.500,00 €</small><br>
-                    <small class="pull-right">8.400,00 €</small><br>
-                    <small class="pull-right red">- 400,00€</small><br>
-                    <small class="pull-right">1.440,00 €</small>
-                  </td><td>
-                    <small class="pull-right"></small><br>
-                    <small class="pull-right"></small><br>
-                    <small class="pull-right"></small><br>
-                    <small class="pull-right"></small><br>
-                    <small class="pull-right"></small>
-                  </td><td>
-                    <small class="pull-right"></small><br>
-                    <small class="pull-right"></small><br>
-                    <small class="pull-right"></small><br>
-                    <small class="pull-right"></small><br>
-                    <small class="pull-right"></small>
-                  </td>
+                    <?php 
+                        for($f = 0; $f < 5; $f++){
+                            
+                        if($f < $runde){
+                    ?>
+                    <td>
+                        <small class="pull-right <?php if($objekt[0]["Wert"]<= 0){echo "red";}?>">  <?php echo $objekt[0]["Wert"]?></small><br>
+                        <small class="pull-right <?php if($objekt[0]["Wert"]<= 0){echo "red";}?>">  <?php echo $objekt[0]?></small><br>
+                        <small class="pull-right <?php if($objekt[0]["Miete"]<= 0){echo "red";}?>">  <?php echo $objekt[0]["Miete"]?></small><br>
+                        <small class="pull-right <?php if($objekt[0]["Wert"]<= 0){echo "red";}?>">  <?php echo $objekt[0]?></small><br>
+                        <small class="pull-right <?php if($objekt[0]["Wert"]<= 0){echo "red";}?>">  <?php echo $objekt[0]?></small>
+                    </td>
+                    <?php 
+                        }else{
+                    ?>
+                    <td>
+                        <small class="pull-right">-</small><br>
+                        <small class="pull-right">-</small><br>
+                        <small class="pull-right">-</small><br>
+                        <small class="pull-right">-</small><br>
+                        <small class="pull-right">-</small>
+                    </td>
+                    <?php
+                        
+                        }
+                    }
+                    ?>
                   <td>
                     <a href="#" class="btn btn-primary btn-xs befoerdern"><i class="fa fa-folder"></i> Details &nbsp; &nbsp;&nbsp;  </a>
                     <a href="#" class="btn btn-info btn-xs weiterbilden"><i class="fa fa-pencil"></i> Vermieten </a>

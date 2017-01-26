@@ -13,11 +13,15 @@ class Personal {
      */
 	
 	
-public static function einstellen($bezeichnung, $name, $skills, $rating) {
+public static function einstellen($bezeichnung, $name, $skills, $rating, $bild) {
 
 
 ?>
 
+                    <div class="clearfix"></div>
+                    <div class="col-md-4 col-sm-4 col-xs-12 profile_details">
+			<div class="well profile_view">
+			  <div class="col-sm-12">
 
                             <h4 class="brief"><i><?php echo $bezeichnung; ?></i></h4>
                             <div class="left col-xs-7">
@@ -29,7 +33,7 @@ public static function einstellen($bezeichnung, $name, $skills, $rating) {
                               </ul>
                             </div>
                             <div class="right col-xs-5 text-center">
-                              <img src="images/img.jpg" alt="" class="img-circle img-responsive">
+                              <img src="<?php echo $bild?>" alt="" class="img-circle img-rounded img-responsive">
                             </div>
                           </div>
                           <div class="col-xs-12 bottom text-center">
@@ -49,9 +53,10 @@ public static function einstellen($bezeichnung, $name, $skills, $rating) {
                               <button onclick="window.open('https://www.xing.com/profile/Sabine_Rollinger/cv');" type="button" class="btn btn-primary btn-xs">
                                 <i class="fa fa-user"> </i> Profil angucken 
                               </button>
-
-
-                      
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
 <?php
 }
@@ -67,29 +72,21 @@ public static function einstellenActivity(){
 
 	
 ?>
-	  <div class="clearfix"></div>
 
-		  <div class="col-md-4 col-sm-4 col-xs-12 profile_details">
-			<div class="well profile_view">
-			  <div class="col-sm-12">
 			  
-				  <?php
+            <?php
 
-					for($i = 0; $i < sizeof($aktuellesPersonal); $i++) {
+                  for($i = 0; $i < sizeof($aktuellesPersonal); $i++) {
 
-					  $zeit = date('d.m.Y');
+                    $zeit = date('d.m.Y');
 
-					  Personal::einstellen($aktuellesPersonal[$i]["Fachrichtung"], $aktuellesPersonal[$i]["Name"], $aktuellesPersonal[$i]["Faehigkeit"], $aktuellesPersonal[$i]["Beschreibung"]);
+                    Personal::einstellen($aktuellesPersonal[$i]["Fachrichtung"], $aktuellesPersonal[$i]["Name"], $aktuellesPersonal[$i]["Faehigkeit"], $aktuellesPersonal[$i]["Beschreibung"], $aktuellesPersonal[$i]["Bild"]);
 
-					}
+                  }
 
-				  ?>
+            ?>
 				
-		
-				</div>
-			  </div>
-			</div>
-		  </div>
+
 
 
 <?php
