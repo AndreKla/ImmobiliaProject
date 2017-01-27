@@ -206,7 +206,7 @@ public static function createMenu($titel) {
 			  <li><a href="gewinn_verlust.php">GV</a></li>
 			</ul>
 		  </li>
-		  <li><a><i class="fa fa-spinner"></i> Geschäftsjahr abschließen</span></a></li>
+		  <li><a><i class="fa fa-spinner"></i> Geschäftsjahr abschließen</span></li></a>
 		</ul>
 	  </div>
 	</div>
