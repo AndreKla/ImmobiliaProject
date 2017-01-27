@@ -84,10 +84,10 @@ public static function createBestand($aktuellesGeschäftsjahr){
                     ?>
                     <td>
                         <small class="pull-right <?php if($objekt[0]["Wert"]<= 0){echo "red";}?>">  <?php echo $objekt[0]["Wert"]?></small><br>
-                        <small class="pull-right <?php if($objekt[0]["Wert"]<= 0){echo "red";}?>">  <?php echo $objekt[0]?></small><br>
+                        <small class="pull-right <?php if($objekt[0]["Wert"]<= 0){echo "red";}?>">  <?php echo $objekt[0]["Wertentwicklung"]?></small><br>
                         <small class="pull-right <?php if($objekt[0]["Miete"]<= 0){echo "red";}?>">  <?php echo $objekt[0]["Miete"]?></small><br>
-                        <small class="pull-right <?php if($objekt[0]["Wert"]<= 0){echo "red";}?>">  <?php echo $objekt[0]?></small><br>
-                        <small class="pull-right <?php if($objekt[0]["Wert"]<= 0){echo "red";}?>">  <?php echo $objekt[0]?></small>
+                        <small class="pull-right <?php if($objekt[0]["Wert"]<= 0){echo "red";}?>">  <?php echo $objekt[0]["Mietentwicklung"]?></small><br>
+                        <small class="pull-right <?php if($objekt[0]["Wert"]<= 0){echo "red";}?>">  <?php echo $objekt[0]["Abschreibung"]?></small>
                     </td>
                     <?php 
                         }else{

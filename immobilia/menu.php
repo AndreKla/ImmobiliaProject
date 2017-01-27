@@ -162,7 +162,7 @@ public static function createMenu($titel) {
 	  </div>
 	  	<span style="margin-left:10px"> <?php echo "Geschäftsjahr: " . $aktuelleRunde; ?> </span><br>
 		<span style="margin-left:10px"> Kontostand:</span><span class="green"> <?php echo number_format($runde[0]["Kapital"], 2, ',', '.'); ?> € </span><br>
-		<span style="margin-left:10px"> Immobilien: 32</span><br>
+		<span style="margin-left:10px"> Immobilien: 2</span><br>
 		<span style="margin-left:10px"> Mitarbeiter: <?php echo sizeof($mitarbeiter); ?></span>
 	</div>
 	<!-- /menu profile quick info -->
