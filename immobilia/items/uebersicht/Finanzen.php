@@ -33,6 +33,25 @@ class Finanzen {
           <div class="clearfix"></div>
         </div>
         <ul class="list-unstyled scroll-view">
+            
+            
+            <!--out commenten -->
+            
+            <li class="media event">
+            <a class="pull-left border-green profile_thumb">
+              <i class="fa fa-eur green"></i>
+            </a>
+            <div class="media-body">
+              <a class="title" href="#"> Startkapital</a>
+              <p><strong> 1.000.000,00 </strong></p>
+              <p> <small> Dein Anfangskapital</small>
+              </p>
+            </div>
+          </li>
+          
+
+            
+            
           <?php
 
           $sid = $_SESSION["SID"];
@@ -44,6 +63,8 @@ class Finanzen {
           WHERE SpielID = $sid AND UnternehmensID = $uid
           ;";
           $einnahmen = Database::sqlSelect($query);
+          
+                   
 
           for($i = 0; $i < sizeof($einnahmen); $i++) {
 
