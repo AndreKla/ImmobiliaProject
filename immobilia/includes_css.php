@@ -29,3 +29,8 @@
     <link href="vendors/google-code-prettify/bin/prettify.min.css" rel="stylesheet">
 	
 	<script src="vendors/jquery/dist/jquery.min.js"></script>
+
+	
+	<!-- Calculator -->
+	<link rel="stylesheet" href="calc/SimpleCalculadorajQuery.css">
+	<script src="calc/SimpleCalculadorajQuery.js"></script>

@@ -228,6 +228,8 @@ public static function createMenu($titel) {
 	  </a>
 	</div>
 	 /menu footer buttons -->
+	 
+	 
   </div>
 </div>
 
