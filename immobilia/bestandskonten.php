@@ -2,12 +2,12 @@
     
     session_start();
     require_once("includes.php"); 
-	Menu::createMenu("Bestandskonten"); 
-	Bestandskonten::createBuchungstool();			
+    Menu::createMenu("Bestandskonten"); 
+    Bestandskonten::createBuchungstool();	
 
 ?>
 
 		
 <?php 
-	Menu::createFooter(); 
+    Menu::createFooter(); 
 ?>

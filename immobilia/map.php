@@ -28,10 +28,10 @@
 
 	
       <div class="main_container">
-		<?php
-		
-		Maps::createMarkers();
-		?>
+        <?php
+
+        Maps::createMarkers();
+        ?>
 
 
       <!-- page content -->

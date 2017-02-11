@@ -4,6 +4,53 @@ class Bestandskonten{
     
     
     public static function createBuchungstool(){
+                
+        $rowHeight = 350;
+    
+    
+        $spielID = $_SESSION["SID"];
+        $unternehmensID = $_SESSION["UID"];
+
+        $query = "
+        SELECT Runde, Kapital
+        FROM Rundendaten
+        WHERE SpielID = $spielID AND UnternehmensID = $unternehmensID
+        ORDER BY Runde DESC
+        ;";
+        $runde = Database::sqlSelect($query);
+        $yearsToAdd = $runde[0]["Runde"] - 1;
+        $aktuelleRunde = $runde[0]["Runde"];
+
+        $_SESSION["Runde"] = $aktuelleRunde;
+
+         
+        $query = "
+        SELECT * 
+        FROM Unternehmen
+        WHERE ID = $unternehmensID;";
+        $unternehmen = Database::sqlSelect($query);
+
+        $sid = $_SESSION["SID"];
+         $uid = $_SESSION["UID"];
+
+         $query = "
+         SELECT Mitarbeiter
+         FROM Unternehmen
+         WHERE SID = $sid AND ID = $uid
+         ;";
+         $mitarbeiter = Database::sqlSelect($query);
+
+         $mitarbeiter = explode(';', $mitarbeiter[0]["Mitarbeiter"]);
+         $bestand = explode(';', $unternehmen[0]["Bestand"]);  
+                  
+         if(sizeof($mitarbeiter)!= 0){
+             $mitarbeiterBuchung = 1;
+         }
+         
+         if(sizeof($bestand)!= 0){
+             $bestandBuchung = 1;
+         }
+         
         
 ?>
         
@@ -16,10 +63,8 @@ class Bestandskonten{
                         <div class="clearfix"></div>
                       </div>
                       <div class="x_content">
-                          <p> - Die Löhne und Gehälter werden überwiesen. Bitte berechnen Sie den Personalaufwand und buchen Sie diesen.</p>
-                          <p> - Mieter überweisen laut Bankauszug die fälligen Jahresmieten. Bitte berechnen Sie zunächst die Mieteinnahmen und buchen Sie diese.</p>
-                          <p> - Die Gebäude sind planmäßig abzuschreiben. Die Abschreibungswerte sind den Objekten zu entnehmen.</p>
-                          <p> - Ausgleich einer Darlehensschuld durch Überweisung: 5000€</p>
+                          <?php if($mitarbeiterBuchung==1){ echo "<p> - Die Löhne und Gehälter werden überwiesen. Bitte berechnen Sie den Personalaufwand und buchen Sie diesen.</p>";}?>
+                          <?php if($bestandBuchung==1){ echo "<p> - Die Gebäude sind planmäßig abzuschreiben. Die Abschreibungswerte sind den Objekten zu entnehmen.</p>";}?>
                       </div> 
                     
                      <div class="x_title">
@@ -28,25 +73,25 @@ class Bestandskonten{
                   </div>
                   <div class="x_content">
 
-                    <div class="col-xs-3" style="overflow:auto;height:250px;">
+                    <div class="col-xs-3" style="overflow:auto;height:<?php echo $rowHeight . "px;"?>;">
                       <ul class="nav nav-tabs tabs-left">
-                        <li><a href="#bebaute_grundstuecke" data-toggle="tab">Aufwendungen für Instandhaltung</a>
+                        <li><a href="#instandhaltung" data-toggle="tab">Aufwendungen für Instandhaltung</a>
                         </li>
-                        <li><a href="#unbebaute_grundstuecke" data-toggle="tab">Bank</a>
+                        <li><a href="#bank" data-toggle="tab">Bank</a>
                         </li>
-                        <li><a href="#fuhrpark" data-toggle="tab">Langfristige Bankverbindlichkeiten </a>
+                        <li><a href="#bankverbindlichkeiten" data-toggle="tab">Langfristige Bankverbindlichkeiten </a>
                         </li>
-                        <li class="active"><a href="#buero_ausstattung" data-toggle="tab">Zinsaufwendungen</a>
+                        <li class="active"><a href="#zinsaufwendungen" data-toggle="tab">Zinsaufwendungen</a>
                         </li>
-                        <li><a href="#vorraete" data-toggle="tab">Personalaufwendungen</a>
+                        <li><a href="#personalaufwendungen" data-toggle="tab">Personalaufwendungen</a>
                         </li>
-                        <li><a href="#bankkonto" data-toggle="tab">Mieterträge</a>
+                        <li><a href="#mietertraege" data-toggle="tab">Mieterträge</a>
                         </li>
-                        <li><a href="#bank" data-toggle="tab">Abschreibungen</a>
+                        <li><a href="#abschreibungen" data-toggle="tab">Abschreibungen</a>
                         </li>
-                        <li><a href="#bank" data-toggle="tab">Zinserträge</a>
+                        <li><a href="#zinsertraege" data-toggle="tab">Zinserträge</a>
                         </li>                        
-                        <li><a href="#bank" data-toggle="tab">Verkaufserlöse</a>
+                        <li><a href="#verkaufserloese" data-toggle="tab">Verkaufserlöse</a>
                         </li>
                       </ul>
                     </div>
@@ -65,25 +110,25 @@ class Bestandskonten{
                       </div>
                     </div>
 
-                    <div class="col-xs-3" style="overflow:auto;height:250px;">
+                    <div class="col-xs-3" style="overflow:auto;height:<?php echo $rowHeight . "px;"?>">
                       <ul class="nav nav-tabs tabs-right">
-                        <li><a href="#bebaute_grundstuecke" data-toggle="tab">Aufwendungen für Instandhaltung</a>
+                        <li><a href="#instandhaltung" data-toggle="tab">Aufwendungen für Instandhaltung</a>
                         </li>
-                        <li><a href="#unbebaute_grundstuecke" data-toggle="tab">Bank</a>
+                        <li><a href="#bank" data-toggle="tab">Bank</a>
                         </li>
-                        <li><a href="#fuhrpark" data-toggle="tab">Langfristige Bankverbindlichkeiten </a>
+                        <li><a href="#bankverbindlichkeiten" data-toggle="tab">Langfristige Bankverbindlichkeiten </a>
                         </li>
-                        <li class="active"><a href="#buero_ausstattung" data-toggle="tab">Zinsaufwendungen</a>
+                        <li class="active"><a href="#zinsaufwendungen" data-toggle="tab">Zinsaufwendungen</a>
                         </li>
-                        <li><a href="#vorraete" data-toggle="tab">Personalaufwendungen</a>
+                        <li><a href="#personalaufwendungen" data-toggle="tab">Personalaufwendungen</a>
                         </li>
-                        <li><a href="#bankkonto" data-toggle="tab">Mieterträge</a>
+                        <li><a href="#mietertraege" data-toggle="tab">Mieterträge</a>
                         </li>
-                        <li><a href="#bank" data-toggle="tab">Abschreibungen</a>
+                        <li><a href="#abschreibungen" data-toggle="tab">Abschreibungen</a>
                         </li>
-                        <li><a href="#bank" data-toggle="tab">Zinserträge</a>
+                        <li><a href="#zinsertraege" data-toggle="tab">Zinserträge</a>
                         </li>                        
-                        <li><a href="#bank" data-toggle="tab">Verkaufserlöse</a>
+                        <li><a href="#verkaufserloese" data-toggle="tab">Verkaufserlöse</a>
                         </li>
                       </ul>
                     </div>
@@ -112,6 +157,30 @@ class Bestandskonten{
 	</div>
      
 <?php        
+    }
+    
+     public static function createBuchungsaufgaben(){
+         
+         
+
+
+?>
+<?php
+    }  
+    
+    public static function validateBuchung(){
+        
+        if($mitarbeiterBuchung){
+            
+        }
+        
+        if($bestandBuchung){
+            
+        }
+        
+?>
+
+<?php
     }
 }
 ?>
