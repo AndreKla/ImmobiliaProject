@@ -125,30 +125,64 @@ class Finanzen {
      */
 
   public static function createBankview($year) {
+
+    $rundendaten = Request::getRundendaten();
+
   ?>
     <div class="col-md-6 col-sm-6 col-xs-6">
       <div class="x_panel" style="height:auto">
         <div class="x_title">
-          <h2>Bank <small>Fremdkapitalverwaltung</small></h2>
+          <h2>Bank <small>Fremd- und Eigenkapitalverwaltung</small></h2>
           <div class="clearfix"></div>
         </div>
-        <button <?php if($_GET["credit"] == 1) { echo "disabled"; } ?> type="button" class="btn btn-primary col-md-5" data-toggle="modal" data-target=".bs-example-modal-lg">Kreditantrag stellen</button>
-        <button type="button" class="btn btn-primary pull-right col-md-5 data-toggle="modal" data-target=".bs-example-modal-lg">Geld anlegen</button>
+        <button <?php if($rundendaten[0]["Kredit"] != 0) { echo "disabled"; } ?> type="button" class="btn btn-primary col-md-5" data-toggle="modal" data-target="#kredit">Kreditantrag stellen</button>
+        <button <?php if($rundendaten[0]["Anlage"] != 0) { echo "disabled"; } ?> type="button" class="btn btn-primary pull-right col-md-5" data-toggle="modal" data-target="#anlegen">Geld anlegen</button>
       </div>
-      <br><br><br>
-      <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
+      <?php
+      Finanzen::createModalView("kredit", "Kreditantrag wählen");
+      Finanzen::createModalView("anlegen", "Anlageoption wählen")
+      ?>
+    </div>
+  <?php
+  }
+
+  public static function createModalView($id, $title) {
+    ?>
+    <br><br><br>
+      <div class="modal fade bs-example-modal-lg" id=<?php echo "'" . $id . "'";?> tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-lg">
           <div class="modal-content">
 
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
               </button>
-              <h4 class="modal-title" id="myModalLabel">Kreditantrag wählen</h4>
+              <h4 class="modal-title" id="myModalLabel"><?php echo $title; ?></h4>
             </div>
             <?php
-            API::createCreditRequest("Vereinigte Volksbank e.G.", "Annuitätendarlehen", 2000000, 7.5, 5, 54);
-            API::createCreditRequest("Deutsche Bank AG", "endfälliger Kredit", 500000, 10, 2, 89);
-            API::createCreditRequest("Commerzbank", "endfälliger Kredit", 750000, 9.5, 3, 72);
+
+            if($id == "kredit") {
+
+              $kredite = Request::getKredite();
+
+              for ($i = 0; $i < sizeof($kredite); $i++) {
+
+                API::createCreditRequest($kredite[$i]["ID"], $kredite[$i]["Bankname"], $kredite[$i]["Kredittyp"], $kredite[$i]["Kreditsumme"], $kredite[$i]["Kreditzins"], $kredite[$i]["Laufzeit"], $kredite[$i]["Genehmigungswahrscheinlichkeit"]);
+
+              }
+
+            }
+            else {
+
+              $anlageoptionen = Request::getAnlageoptionen();
+
+              for ($i = 0; $i < sizeof($anlageoptionen); $i++) {
+
+                API::createAnlageRequest($anlageoptionen[$i]["ID"], $anlageoptionen[$i]["Name"], $anlageoptionen[$i]["Beschreibung"], $anlageoptionen[$i]["Summe"], $anlageoptionen[$i]["Ertrag"], $anlageoptionen[$i]["Dauer"], $anlageoptionen[$i]["Risiko"]);
+
+              }
+
+            }
+            
             ?>
             <div class="modal-footer">
               <button type="button" class="btn btn-default" data-dismiss="modal">Abbrechen</button>
@@ -157,8 +191,7 @@ class Finanzen {
           </div>
         </div>
       </div>
-    </div>
-  <?php
+    <?php
   }
 
   /**
@@ -200,7 +233,7 @@ class Finanzen {
     $unternehmensID = $_SESSION["UID"];
 
     $query = "
-      SELECT Runde, Kapital
+      SELECT Runde, Kapital, Fremdkapital, Anlagekapital
       FROM Rundendaten
       WHERE SpielID = $spielID AND UnternehmensID = $unternehmensID
       ORDER BY Runde DESC
@@ -209,15 +242,15 @@ class Finanzen {
 
     $einnahmen = $income;
     $ausgaben = $outcome;
-    $fremdkapital = 0;
-    $kontostand = $runde[0]["Kapital"];
+    $fremdkapital = $runde[0]["Fremdkapital"];
+    $anlagekapital = $runde[0]["Anlagekapital"];
 
   ?>
 
 	<div class="row tile_count">
       <div class="col-md-3 col-sm-4 col-xs-4 tile_stats_count" style="padding-left:25px;padding-right:25px;">
-        <span class="count_top"><i class="fa fa-credit-card"></i>  &nbsp; Kontostand</span>
-        <div class="count" style="font-size:18pt"><?php echo number_format($kontostand,2,',','.') . " €"; ?></div>
+        <span class="count_top"><i class="fa fa-credit-card"></i>  &nbsp; Anlagekapital</span>
+        <div class="count" style="font-size:18pt"><?php echo number_format($anlagekapital,2,',','.') . " €"; ?></div>
         <!--<span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>0% </i> im Vergleich zum letzten Jahr</span>-->
       </div>
       <div class="col-md-3 col-sm-4 col-xs-4 tile_stats_count" style="padding-left:25px;padding-right:25px;">

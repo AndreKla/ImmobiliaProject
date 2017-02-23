@@ -54,12 +54,7 @@ public static function createBestand($aktuellesGeschäftsjahr){
                         
                         $immobilienID = $bestand[$i]["ID"];
                         
-                        $query = "
-                        SELECT *
-                        FROM Objekt
-                        WHERE ID = $immobilienID
-                        ;";
-                        $objekt = Database::sqlSelect($query);
+                        $objekt = Request::getImmobilieByID($immobilienID);
                 ?>
                 <tr>
                   <td>
@@ -83,11 +78,11 @@ public static function createBestand($aktuellesGeschäftsjahr){
                         if($f < $runde){
                     ?>
                     <td>
-                        <small class="pull-right <?php if($objekt[0]["Wert"]<= 0){echo "red";}?>">  <?php echo $objekt[0]["Wert"]?></small><br>
-                        <small class="pull-right <?php if($objekt[0]["Wert"]<= 0){echo "red";}?>">  <?php echo $objekt[0]["Wertentwicklung"]?></small><br>
-                        <small class="pull-right <?php if($objekt[0]["Miete"]<= 0){echo "red";}?>">  <?php echo $objekt[0]["Miete"]?></small><br>
-                        <small class="pull-right <?php if($objekt[0]["Wert"]<= 0){echo "red";}?>">  <?php echo $objekt[0]["Mietentwicklung"]?></small><br>
-                        <small class="pull-right <?php if($objekt[0]["Wert"]<= 0){echo "red";}?>">  <?php echo $objekt[0]["Abschreibung"]?></small>
+                        <small class="pull-right <?php if($objekt[0]["Wert"]<= 0){echo "red";}?>">  <?php echo number_format($objekt[0]["Wert"], 2, ',', '.') . " €"; ?></small><br>
+                        <small class="pull-right <?php if($objekt[0]["Wert"]<= 0){echo "red";}?>">  <?php echo number_format($objekt[0]["Wertentwicklung"], 2, ',', '.') . " €"; ?></small><br>
+                        <small class="pull-right <?php if($objekt[0]["Miete"]<= 0){echo "red";}?>">  <?php echo number_format($objekt[0]["Miete"], 2, ',', '.') . " €"; ?></small><br>
+                        <small class="pull-right <?php if($objekt[0]["Wert"]<= 0){echo "red";}?>">  <?php echo number_format($objekt[0]["Mietentwicklung"], 2, ',', '.') . " €"; ?></small><br>
+                        <small class="pull-right <?php if($objekt[0]["Wert"]<= 0){echo "red";}?>">  <?php echo number_format($objekt[0]["Abschreibung"], 2, ',', '.') . " €"; ?></small>
                     </td>
                     <?php 
                         }else{

@@ -162,10 +162,10 @@ public static function createMenu($titel) {
 	  <div class="profile_info">
 		<h2><?php echo $unternehmen[0]["Spieler1"]; ?></h2>
 	  </div>
-	  	<span style="margin-left:10px"> <?php echo "Geschäftsjahr: " . $aktuelleRunde; ?> </span><br>
-		<span style="margin-left:10px"> Kontostand:</span><span class="green"> <?php echo number_format($runde[0]["Kapital"], 2, ',', '.'); ?> € </span><br>
-                <span style="margin-left:10px"> Immobilien: <?php echo sizeof($bestand)?></span><br>
-		<span style="margin-left:10px"> Mitarbeiter: <?php echo sizeof($mitarbeiter); ?></span>
+	  	<span style="margin-left:10px; color: #9AC;"> <?php echo "Geschäftsjahr: " . $aktuelleRunde; ?> </span><br>
+		<span style="margin-left:10px; color: #9AC;"> Kontostand:</span><span class="green"> <?php echo number_format($runde[0]["Kapital"], 2, ',', '.'); ?> € </span><br>
+                <span style="margin-left:10px; color: #9AC;"> Immobilien: <?php echo sizeof($bestand)?></span><br>
+		<span style="margin-left:10px; color: #9AC;"> Mitarbeiter: <?php echo sizeof($mitarbeiter); ?></span>
 	</div>
 	<!-- /menu profile quick info -->
 

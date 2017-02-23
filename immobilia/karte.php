@@ -10,10 +10,6 @@
 
     if(isset($_GET['immokauf'])) {
 
-        $unternehmensID = $_SESSION["UID"];
-        $spielID = $_SESSION["SID"];
-        $runde = $_SESSION["Runde"];
-
         API::buyImmobilie($_GET['immokauf']);
 
     }
@@ -22,13 +18,12 @@
     
 ?>
 
- <body class="nav-md footer_fixed">
-    <div class="container body">
-	
-      <div class="main_container">
+    <div class="right_col" role="main" style="padding-bottom:55px;">
+
         <?php
 
         Karte::createMarkers();
+
         ?>
 
     </div>

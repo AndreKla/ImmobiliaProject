@@ -79,7 +79,7 @@ class Request {
 
     }
 
-    public static function getImmobilie($id) {
+    public static function getImmobilieByID($id) {
 
         $query = "
         SELECT * FROM Objekt
@@ -127,6 +127,76 @@ class Request {
         FROM Objekt
         ;";
         return Database::sqlSelect($query);
+
+    }
+
+    public static function getKredite() {
+
+        $query = "
+        SELECT *
+        FROM Kredit
+        ;";
+        return Database::sqlSelect($query);
+
+    }
+
+    public static function getKreditByID($id) {
+
+        $query = "
+        SELECT *
+        FROM Kredit
+        WHERE ID = $id
+        ;";
+        return Database::sqlSelect($query);
+
+    }
+
+    public static function setKreditForRound() {
+
+        $sid = $_SESSION["SID"];
+        $uid = $_SESSION["UID"];
+        $runde = $_SESSION["Runde"];
+
+        $query = "
+        UPDATE Rundendaten
+        SET Kredit = 1
+        WHERE SpielID = $sid AND UnternehmensID = $uid AND Runde = $runde
+        ;";
+        Database::sqlUpdate($query);
+
+    }
+
+    public static function getAnlageoptionen() {
+
+        $query = "
+        SELECT *
+        FROM Anlageoptionen
+        ;";
+        return Database::sqlSelect($query);
+
+    }
+
+    public static function getAnlageoptionByID($id) {
+        $query = "
+        SELECT *
+        FROM Anlageoptionen
+        WHERE ID = $id
+        ;";
+        return Database::sqlSelect($query);
+    }
+
+    public static function setAnlageForRound() {
+
+        $sid = $_SESSION["SID"];
+        $uid = $_SESSION["UID"];
+        $runde = $_SESSION["Runde"];
+
+        $query = "
+        UPDATE Rundendaten
+        SET Anlage = 1
+        WHERE SpielID = $sid AND UnternehmensID = $uid AND Runde = $runde
+        ;";
+        Database::sqlUpdate($query);
 
     }
 
