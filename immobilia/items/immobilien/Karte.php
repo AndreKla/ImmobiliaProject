@@ -1,6 +1,6 @@
 ﻿<?php
 
-class Maps{
+class Karte {
 
 
 public static function createMarkers() {
@@ -193,54 +193,77 @@ public static function createAccordionMap(){
 	
 	$anzahlGewählteZiele = 0;
 
-    $query = "
-    SELECT *
-    FROM Objekt
-    ;";
-    $objekte = Database::sqlSelect($query);
-	
-	
+  $objekte = Request::getImmobilien();
 
-?>
+  ?>
+  <div class="clearfix"></div>
+    <div class="col-md-6 col-sm-6 col-xs-12" style="z-index:20;position:absolute;top:10px;right:5px;width:350px;">
+      <div class="x_panel">
+        <div class="x_title">
+          <h2><i class="fa fa-align-left"></i> Immobilien <small>Verzeichniss</small></h2>
+          <ul class="nav navbar-right panel_toolbox">
+            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+            </li>
+          </ul>
+          <div class="clearfix"></div>
+        </div>
+        <div class="x_content">
 
-                <?php Elements::createAccordion();?>
-                <!-- start accordion -->
-                <div class="accordion" id="accordion" role="tablist" aria-multiselectable="false" style="overflow: auto;height:575px;background:white;">
-                      
-                    <?php
-                      for($i = 0; $i < sizeof($objekte); $i++) {
+        <div class="accordion" id="accordion" role="tablist" aria-multiselectable="false" style="overflow: auto;height:575px;background:white;">
+        
+          <?php
 
-                    ?>
-                    
-                    <div class="panel">
-                        <a class="panel-heading" role="tab" id="<?php echo "heading".$i;?>" data-toggle="collapse" data-parent="#accordion" href="<?php echo "#acc".$i;?>" aria-expanded="false" aria-controls="<?php echo "acc".$i;?>">
-                        <h4 class="panel-title"><?php echo $objekte[$i]["Beschreibung"];?></h4>
-                        </a>
-                        <div id="<?php echo "acc".$i;?>" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="<?php echo "heading".$i;?>">
-                            <div class="panel-body">
-                            <!--<p><strong>Collapsible Item 2 data</strong>-->
-                                <img src="<?php echo $objekte[$i]["Bild"] ?>" width="250px" height="auto">
-                            <!--</p>-->
-                                <p><strong>Verkehrswert: </strong><?php echo $objekte[$i]["Wert"] ?> €</p>
-                                <p><strong>Verkehrswertentwicklung: </strong><?php echo $objekte[$i]["Wertentwicklung"] ?> €</p>
-                                <p><strong>Mietpreis: </strong><?php echo $objekte[$i]["Miete"] ?> €</p>
-                                <p><strong>Mietpreisentwicklung: </strong><?php echo $objekte[$i]["Mietentwicklung"] ?> €</p>
-                                <p><strong>Abschreibung: </strong><?php echo $objekte[$i]["Abschreibung"] ?> €</p>
-		
-                                <a href=<?php echo "http://".$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF']."?immokauf=$i";?> class="btn btn-success">KAUFEN</a>
+          for($i = 0; $i < sizeof($objekte); $i++) {
 
-                            </div>
-                        </div>
-                    </div>
-                    <?php	
-                    }
-                    ?>
+          ?>
 
-						 
+            <div class="panel">
+
+              <a class="panel-heading" role="tab" id="<?php echo "heading".$i;?>" data-toggle="collapse" data-parent="#accordion" href="<?php echo "#acc".$i;?>" aria-expanded="false" aria-controls="<?php echo "acc".$i;?>"><h4 class="panel-title"><?php echo $objekte[$i]["Beschreibung"];?></h4></a>
+
+              <div id=<?php echo '"' . 'acc' . $i . '"';?> class="panel-collapse collapse in" role="tabpanel" aria-labelledby=<?php echo '"' . 'heading' . $i . '"';?>>
+
+                <div class="panel-body">
+
+                  <img src=<?php echo '"' . $objekte[$i]["Bild"] . '"'; ?> width="250px" height="auto">
+
+                  <p>
+                  <strong>Verkehrswert: </strong><?php echo number_format($objekte[$i]["Wert"], 2, ',', '.') . " €"; ?>
+                  </p>
+
+                  <p>
+                  <strong>Verkehrswertentwicklung: </strong><?php echo number_format($objekte[$i]["Wertentwicklung"], 2, ',', '.') . " €"; ?>
+                  </p>
+
+                  <p>
+                  <strong>Mietpreis: </strong><?php echo number_format($objekte[$i]["Miete"], 2, ',', '.') . " €"; ?>
+                  </p>
+
+                  <p>
+                  <strong>Mietpreisentwicklung: </strong><?php echo number_format($objekte[$i]["Mietentwicklung"], 2, ',', '.') . " €"; ?>
+                  </p>
+
+                  <p>
+                  <strong>Abschreibung: </strong><?php echo number_format($objekte[$i]["Abschreibung"], 2, ',', '.') . " €"; ?>
+                  </p>
+
+                  <?php
+                    $immoid = $i + 1;
+                  ?>
+                  <a href=<?php echo "http://".$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF']."?immokauf=$immoid";?> class="btn btn-success">KAUFEN</a>
+
                 </div>
               </div>
+            </div>
+          <?php	
+
+          }
+
+          ?>
         </div>
+      </div>
     </div>
+  </div>
 			  
 
 

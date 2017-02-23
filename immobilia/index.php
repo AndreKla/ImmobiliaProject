@@ -6,6 +6,8 @@
 	
 		Menu::includeHead();
 
+    $startkapital = 10000000;
+
     if(isset($_POST["unternehmensname"])) {
       
       $id = $_SESSION["UID"];
@@ -37,7 +39,7 @@
             Database::sqlUpdate($query);
 
             $query = "INSERT INTO Rundendaten (SpielID, UnternehmensID, Runde, Kapital, Strategie1, Strategie2, Strategie3, Social)
-                    VALUES ('" . $sid . "', '" . $id . "', 1, 1000000, 0, 0, 0, 0);";
+                    VALUES ('" . $sid . "', '" . $id . "', 1, $startkapital, 0, 0, 0, 0);";
             Database::sqlInsert($query);
             ?>
               <script language="javascript">
@@ -54,14 +56,12 @@
             Database::sqlUpdate($query);
 
             $query = "INSERT INTO Rundendaten (SpielID, UnternehmensID, Runde, Kapital, Strategie1, Strategie2, Strategie3, Social)
-                    VALUES ('" . $sid . "', '" . $id . "', 1, 1000000, 0, 0, 0, 0);";
+                    VALUES ('" . $sid . "', '" . $id . "', 1, $startkapital, 0, 0, 0, 0);";
             Database::sqlInsert($query);
-
-            echo "sid: " . $sid . " id: " . $id;
 
           ?>
             <script language="javascript">
-                //window.location.href = "neuigkeiten.php"
+                window.location.href = "neuigkeiten.php"
             </script>
           <?php
           }
@@ -75,7 +75,7 @@
           Database::sqlUpdate($query);
 
           $query = "INSERT INTO Rundendaten (SpielID, UnternehmensID, Runde, Kapital, Strategie1, Strategie2, Strategie3, Social)
-                    VALUES ('" . $sid . "', '" . $id . "', 1, 1000000, 0, 0, 0, 0);";
+                    VALUES ('" . $sid . "', '" . $id . "', 1, $startkapital, 0, 0, 0, 0);";
           Database::sqlInsert($query);
 
           echo "sid: " . $sid . " id: " . $id;
@@ -154,10 +154,10 @@
                   </div>
 
                   <div class="item form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="startkapital">Startkapital 
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="startkapital">Kontostand 
                     </label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                      <input type="text" class="form-control" disabled="disabled" placeholder="10.000.000 €" value="10000000" name="startkapital">
+                      <input type="text" class="form-control" disabled="disabled" placeholder="10.000.000 €" value=<?php echo '"' . $startkapital . '"'; ?> name="startkapital">
                     </div>
                   </div>
 

@@ -190,8 +190,8 @@ public static function createMenu($titel) {
 		  </li>
 		  <li><a><i class="fa fa-home"></i> Immobilien <span class="fa fa-chevron-down"></span></a>
 			<ul class="nav child_menu">
-			  <li><a href="map.php">Karte</a></li>
-			  <li><a href="immobilien.php">Bestand</a></li>
+			  <li><a href="karte.php">Karte</a></li>
+			  <li><a href="bestand.php">Bestand</a></li>
 			  <li><a href="auktion.php">Auktionen</a></li>
 			</ul>
 		  </li>

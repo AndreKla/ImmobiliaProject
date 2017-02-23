@@ -1,10 +1,6 @@
-﻿<?php
-    session_start();
+﻿<?php session_start();
     require_once("includes.php"); 
 	Menu::createMenu("Übersicht"); 
-
-	echo "sid: " . $_SESSION["UID"];
-	echo "uid: " . $_SESSION["SID"];
 ?>		
 	<!-- page content -->
 	<div class="right_col" role="main">

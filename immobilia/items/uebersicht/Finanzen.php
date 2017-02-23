@@ -5,7 +5,6 @@ class Finanzen {
   public static function createKontostandEntwicklung($width) {
 
     $timeToAdd = $_SESSION["Runde"] - 1;
-
     ?>
 
     <div class=<?php echo "'col-md-$width col-sm-$width col-xs-12'"; ?>>
@@ -20,51 +19,24 @@ class Finanzen {
       </div>
     </div>
 
-
     <?php
   }
 
   public static function createEinnahmenliste($year) {
+
+    $year -= 1;
+
   ?>
     <div class="col-md-3 col-sm-3 col-xs-3">
       <div class="x_panel" style="height:auto">
         <div class="x_title">
-          <h2>Einnahmen <small>2017</small></h2>
+          <h2>Einnahmen <small><?php echo date('Y', strtotime("+" . $year . " year")); ?></small></h2>
           <div class="clearfix"></div>
         </div>
         <ul class="list-unstyled scroll-view">
-            
-            
-            <!--out commenten -->
-            
-            <li class="media event">
-            <a class="pull-left border-green profile_thumb">
-              <i class="fa fa-eur green"></i>
-            </a>
-            <div class="media-body">
-              <a class="title" href="#"> Startkapital</a>
-              <p><strong> 1.000.000,00 </strong></p>
-              <p> <small> Dein Anfangskapital</small>
-              </p>
-            </div>
-          </li>
-          
-
-            
-            
           <?php
-
-          $sid = $_SESSION["SID"];
-          $uid = $_SESSION["UID"];
-
-          $query = "
-          SELECT * 
-          FROM Einnahmen
-          WHERE SpielID = $sid AND UnternehmensID = $uid
-          ;";
-          $einnahmen = Database::sqlSelect($query);
           
-                   
+          $einnahmen = Request::getEinnahmen();
 
           for($i = 0; $i < sizeof($einnahmen); $i++) {
 
@@ -92,15 +64,23 @@ class Finanzen {
   }
 
 
-
+  /**
+     *
+     * Creates list of spendings in "Finanzen" View
+     *
+     * @var Int $year -> current round in game
+     */
 
 
   public static function createAusgabenliste($year) {
+
+    $year -= 1;
+
   ?>
     <div class="col-md-3 col-sm-3 col-xs-3">
       <div class="x_panel" style="height:auto">
         <div class="x_title">
-          <h2>Ausgaben <small>2017</small></h2>
+          <h2>Ausgaben <small><?php echo date('Y', strtotime("+" . $year . " year")); ?></small></h2>
           <div class="clearfix"></div>
         </div>
         <ul class="list-unstyled scroll-view">
@@ -109,12 +89,7 @@ class Finanzen {
           $sid = $_SESSION["SID"];
           $uid = $_SESSION["UID"];
 
-          $query = "
-          SELECT * 
-          FROM Ausgaben
-          WHERE SpielID = $sid AND UnternehmensID = $uid
-          ;";
-          $ausgaben = Database::sqlSelect($query);
+          $ausgaben = Request::getAusgaben();
 
           for($i = 0; $i < sizeof($ausgaben); $i++) {
 
@@ -142,6 +117,13 @@ class Finanzen {
   }
 
 
+  /**
+     *
+     * Creates Fremdkapitalverwaltung in "Finanzen" View
+     *
+     * @var Int $year -> current round in game
+     */
+
   public static function createBankview($year) {
   ?>
     <div class="col-md-6 col-sm-6 col-xs-6">
@@ -163,38 +145,11 @@ class Finanzen {
               </button>
               <h4 class="modal-title" id="myModalLabel">Kreditantrag wählen</h4>
             </div>
-            <div class="modal-body col-md-4">
-              <div class="x_panel">
-                <h5>Vereinigte Volksbank e.G.</h5>
-                <p>Annuitätendarlehen</p>
-                <p>Kreditsumme: 2.000.000,00 €</p>
-                <p>Zins: 7,50 % p.a.</p>
-                <p>Laufzeit: 5 Jahre</p>
-              <a href=<?php echo 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'].'?credit=1'; ?> class="btn btn-primary">Kredit beantragen</a>
-              </div>
-            </div>
-            
-            <div class="modal-body col-md-4">
-              <div class="x_panel">
-                <h5>Deutsche Bank AG</h5>
-                <p>endfälliger Kredit</p>
-                <p>Kreditsumme: 500.000,00 €</p>
-                <p>Zins: 10,00 % p.a.</p>
-                <p>Laufzeit: 2 Jahre</p>
-                <a href=<?php echo 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'].'?credit=1'; ?> class="btn btn-primary">Kredit beantragen</a>
-              </div>
-            </div>
-
-            <div class="modal-body col-md-4">
-              <div class="x_panel">
-                <h5>Commerzbank</h5>
-                <p>endfälliger Kredit</p>
-                <p>Kreditsumme: 750.000,00 €</p>
-                <p>Zins: 9,50 % p.a.</p>
-                <p>Laufzeit: 3 Jahre</p>
-                <a href=<?php echo 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'].'?credit=1'; ?> class="btn btn-primary">Kredit beantragen</a>
-              </div>
-            </div>
+            <?php
+            API::createCreditRequest("Vereinigte Volksbank e.G.", "Annuitätendarlehen", 2000000, 7.5, 5, 54);
+            API::createCreditRequest("Deutsche Bank AG", "endfälliger Kredit", 500000, 10, 2, 89);
+            API::createCreditRequest("Commerzbank", "endfälliger Kredit", 750000, 9.5, 3, 72);
+            ?>
             <div class="modal-footer">
               <button type="button" class="btn btn-default" data-dismiss="modal">Abbrechen</button>
             </div>
@@ -206,204 +161,21 @@ class Finanzen {
   <?php
   }
 
-  public static function createKontoview($year) {
-  ?>
-    <div class="col-md-6 col-sm-6 col-xs-6">
-      <div class="x_panel" style="height:auto">
-        <div class="x_title">
-          <h2>Finanzen <small>Überblick</small></h2>
-          <div class="clearfix"></div>
-        </div>
-        <div class="row">
-          <div class="col-md-12 col-sm-12 col-xs-12">
-            <div class="x_panel">
-              <div class="x_title">
-                <h5>Cashflow<br><br><small class="red"> -300.000,00 €</small></h5>
-                <div class="clearfix"></div>
-              </div>
-              <div class="x_content">
-                <canvas id="cashflow"></canvas>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-12 col-sm-12 col-xs-12">
-            <div class="x_panel">
-              <div class="x_title">
-                <h5>Eigenkapitalquote<br><br><small class="green"> 100% </small></h5>
-                <div class="clearfix"></div>
-              </div>
-              <div class="x_content">
-                <canvas id="eigenkapitalquote"></canvas>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-12 col-sm-12 col-xs-12">
-            <div class="x_panel">
-              <div class="x_title">
-                <h5>Schuldtilgungsdauer<br><br><small> 0 Jahre </small></h5>
-                <div class="clearfix"></div>
-              </div>
-              <div class="x_content">
-                <canvas id="schuldtilgungsdauer"></canvas>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-12 col-sm-12 col-xs-12">
-            <div class="x_panel">
-              <div class="x_title">
-                <h5>Gesamtkapitalrentabilität<br><br><small class="green"> 5,5 % </small></h5>
-                <div class="clearfix"></div>
-              </div>
-              <div class="x_content">
-                <canvas id="gesamtkapitalrentabilität"></canvas>
-              </div>
-            </div>
-          </div>
-      </div>
-      <button <?php if($_GET["credit"] == 1) { echo "disabled"; } ?> type="button" class="btn btn-primary col-md-12" data-toggle="modal" data-target=".bs-example-modal-lg">Detailansicht</button>
-      <button <?php if($_GET["credit"] == 1) { echo "disabled"; } ?> type="button" class="btn btn-primary col-md-12" data-toggle="modal" data-target=".bs-example-modal-lg">Kreditantrag stellen</button>
-      
-      <br><br><br><br><br><br><br>
-      <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-          <div class="modal-content">
+  /**
+     *
+     * Creates Fremdkapitalverwaltung in "Finanzen" View
+     *
+     * @var Int $year -> current round in game
+     */
 
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
-              </button>
-              <h4 class="modal-title" id="myModalLabel">Kreditantrag wählen</h4>
-            </div>
-            <div class="modal-body col-md-4">
-              <h5>Vereinigte Volksbank e.G.</h5>
-              <p>Annuitätendarlehen</p>
-              <p>Kreditsumme: 2.000.000,00 €</p>
-              <p>Zins: 7,50 % p.a.</p>
-              <p>Laufzeit: 5 Jahre</p>
-              <a href=<?php echo 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'].'?credit=1'; ?> class="btn btn-primary">Kredit beantragen</a>
-            </div>
-            
-            <div class="modal-body col-md-4">
-              <h5>Deutsche Bank AG</h5>
-              <p>endfälliger Kredit</p>
-              <p>Kreditsumme: 500.000,00 €</p>
-              <p>Zins: 10,00 % p.a.</p>
-              <p>Laufzeit: 2 Jahre</p>
-              <a href=<?php echo 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'].'?credit=1'; ?> class="btn btn-primary">Kredit beantragen</a>
-            </div>
-
-            <div class="modal-body col-md-4">
-              <h5>Commerzbank</h5>
-              <p>endfälliger Kredit</p>
-              <p>Kreditsumme: 750.000,00 €</p>
-              <p>Zins: 9,50 % p.a.</p>
-              <p>Laufzeit: 3 Jahre</p>
-              <a href=<?php echo 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'].'?credit=1'; ?> class="btn btn-primary">Kredit beantragen</a>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-default" data-dismiss="modal">Abbrechen</button>
-            </div>
-
-          </div>
-        </div>
-      </div>
-    </div>
-    </div>
-    <script src="vendors/Chart.js/dist/Chart.min.js"></script>
-    <script>
-    Chart.defaults.global.legend = {
-      enabled: false
-    };
-
-    var ctx = document.getElementById("cashflow");
-      var lineChart = new Chart(ctx, {
-        type: 'line',
-        data: {
-          labels: [<?php echo date('Y', strtotime("-1 year")) . "," . date('Y') . "," . date('Y', strtotime("+1 year")) . "," . date('Y', strtotime("+2 years")) . "," . date('Y', strtotime("+3 years")) . "," . date('Y', strtotime("+4 years")); ?>],
-          datasets: [{
-            label: "Cashflow in €",
-            backgroundColor: "rgba(38, 185, 154, 0.31)",
-            borderColor: "rgba(38, 185, 154, 0.7)",
-            pointBorderColor: "rgba(38, 185, 154, 0.7)",
-            pointBackgroundColor: "rgba(38, 185, 154, 0.7)",
-            pointHoverBackgroundColor: "#fff",
-            pointHoverBorderColor: "rgba(220,220,220,1)",
-            pointBorderWidth: 1,
-            data: [0, -300000]
-          }]
-        },
-      });
-
-      var ctx = document.getElementById("eigenkapitalquote");
-      var lineChart = new Chart(ctx, {
-        type: 'line',
-        data: {
-          labels: [<?php echo date('Y', strtotime("-1 year")) . "," . date('Y') . "," . date('Y', strtotime("+1 year")) . "," . date('Y', strtotime("+2 years")) . "," . date('Y', strtotime("+3 years")) . "," . date('Y', strtotime("+4 years")); ?>],
-          datasets: [{
-            label: "Eigenkapitalquote in %",
-            backgroundColor: "rgba(38, 185, 154, 0.31)",
-            borderColor: "rgba(38, 185, 154, 0.7)",
-            pointBorderColor: "rgba(38, 185, 154, 0.7)",
-            pointBackgroundColor: "rgba(38, 185, 154, 0.7)",
-            pointHoverBackgroundColor: "#fff",
-            pointHoverBorderColor: "rgba(220,220,220,1)",
-            pointBorderWidth: 1,
-            data: [100, 100]
-          }]
-        },
-      });
-
-      var ctx = document.getElementById("schuldtilgungsdauer");
-      var lineChart = new Chart(ctx, {
-        type: 'line',
-        data: {
-          labels: [<?php echo date('Y', strtotime("-1 year")) . "," . date('Y') . "," . date('Y', strtotime("+1 year")) . "," . date('Y', strtotime("+2 years")) . "," . date('Y', strtotime("+3 years")) . "," . date('Y', strtotime("+4 years")); ?>],
-          datasets: [{
-            label: "Schuldtilgungsdauer in Jahren",
-            backgroundColor: "rgba(38, 185, 154, 0.31)",
-            borderColor: "rgba(38, 185, 154, 0.7)",
-            pointBorderColor: "rgba(38, 185, 154, 0.7)",
-            pointBackgroundColor: "rgba(38, 185, 154, 0.7)",
-            pointHoverBackgroundColor: "#fff",
-            pointHoverBorderColor: "rgba(220,220,220,1)",
-            pointBorderWidth: 1,
-            data: [0, 0]
-          }]
-        },
-      });
-
-      var ctx = document.getElementById("gesamtkapitalrentabilität");
-      var lineChart = new Chart(ctx, {
-        type: 'line',
-        data: {
-          labels: [<?php echo date('Y', strtotime("-1 year")) . "," . date('Y') . "," . date('Y', strtotime("+1 year")) . "," . date('Y', strtotime("+2 years")) . "," . date('Y', strtotime("+3 years")) . "," . date('Y', strtotime("+4 years")); ?>],
-          datasets: [{
-            label: "Gesamtkapitalrentabilität in %",
-            backgroundColor: "rgba(38, 185, 154, 0.31)",
-            borderColor: "rgba(38, 185, 154, 0.7)",
-            pointBorderColor: "rgba(38, 185, 154, 0.7)",
-            pointBackgroundColor: "rgba(38, 185, 154, 0.7)",
-            pointHoverBackgroundColor: "#fff",
-            pointHoverBorderColor: "rgba(220,220,220,1)",
-            pointBorderWidth: 1,
-            data: [0, 5.5]
-          }]
-        },
-      });
-      </script>
-  <?php
-  }
+  
 	
   public static function createFinanzenTopData($year) {
 
     $sid = $_SESSION["SID"];
     $uid = $_SESSION["UID"];
 
-    $query = "
-    SELECT * 
-    FROM Einnahmen
-    WHERE SpielID = $sid AND UnternehmensID = $uid
-    ;";
-    $einnahmen = Database::sqlSelect($query);
+    $einnahmen = Request::getEinnahmen();
 
     $income = 0;
 

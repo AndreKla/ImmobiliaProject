@@ -5,6 +5,7 @@ class API {
 	public static function addAusgabe($summe, $beschreibung, $details) {
 
         if(API::checkKontostand($summe)){
+
             $sid = $_SESSION["SID"];
             $uid = $_SESSION["UID"];
             $runde = $_SESSION["Runde"];
@@ -15,30 +16,24 @@ class API {
             ;";
             Database::sqlInsert($query);
 
-            $query = "
-            SELECT Kapital
-            FROM Rundendaten
-            WHERE SpielID = $sid AND UnternehmensID = $uid AND Runde = $runde
-            ;";
-            $kapital = Database::sqlSelect($query);
+            $kapital = Request::getKontostand();
 
-            $kontostand = $kapital[0]["Kapital"] - $summe;
+            $kontostand = $kapital - $summe;
 
-            $query = "
-            UPDATE Rundendaten
-            SET Kapital = $kontostand
-            WHERE SpielID = $sid AND UnternehmensID = $uid AND Runde = $runde
-            ;";
-            Database::sqlUpdate($query);
+            Request::setKontostand($kontostand);
+            return true;
+        }
+        else {
+            return false;
         }
 
 	}
 
 	public static function addEinnahme($summe, $beschreibung, $details) {
 
-		$sid = $_SESSION["SID"];
-		$uid = $_SESSION["UID"];
-		$runde = $_SESSION["Runde"];
+        $sid = $_SESSION["SID"];
+        $uid = $_SESSION["UID"];
+        $runde = $_SESSION["Runde"];
 
 		$query = "
 		INSERT INTO Einnahmen (SpielID, UnternehmensID, Runde, Summe, Beschreibung, Details)
@@ -46,87 +41,76 @@ class API {
 		;";
 		Database::sqlInsert($query);
 
-		$kontostand = $kapital[0]["Kapital"] + $summe;
+        $kapital = Request::getKontostand();
 
-		$query = "
-		UPDATE Rundendaten
-		SET Kapital = $kontostand
-		WHERE SpielID = $sid AND UnternehmensID = $uid AND Runde = $runde
-		;";
-		Database::sqlUpdate($query);
+		$kontostand = $kapital + $summe;
+
+		Request::setKontostand($kontostand);
 
 	}
 	
 	
 	public function checkKontostand($summe){
 		
-		$sid = $_SESSION["SID"];
-		$uid = $_SESSION["UID"];
-		$runde = $_SESSION["Runde"];
+		$kapital = Request::getKontostand();
                 
-        $query = "
-		SELECT Kapital
-		FROM Rundendaten
-		WHERE SpielID = $sid AND UnternehmensID = $uid AND Runde = $runde
-		;";
-		$kapital = Database::sqlSelect($query);
-                
-        if ($kapital[0]["Kapital"] >= $summe) {
+        if ($kapital >= $summe) {
+
 			return true;
+
 		} else {
+
 			return false;
+            
 		}
 	}
 	
 	
 	public static function buyImmobilie($immobilienId){
             
-            $sid = $_SESSION["SID"];
-            $uid = $_SESSION["UID"];
-            $runde = $_SESSION["Runde"];
-				
-            $query = "
-            SELECT * FROM Objekt
-            WHERE ID = $immobilienId
-            ;";
-            $immobilie = Database::sqlSelect($query);
+        $sid = $_SESSION["SID"];
+        $uid = $_SESSION["UID"];
+        $runde = $_SESSION["Runde"];
+			
+        $immobilie = Request::getImmobilie($immobilienId);
 
+        if(API::addAusgabe($immobilie[0]["Kaufpreis"], "Immobilienkauf: " . $immobilie[0]["Beschreibung"], "Straße")) {
+            
+            $bestand = Request::getBestand();
 
-            $beschreibung = "Kauf Immobilie " . $immobilie[0]["Beschreibung"] ;
-            $summe = $immobilie[0]["Kaufpreis"];
-            $details = "Details";
-
-           
-            if(API::checkKontostand($summe)==true){
-                
-                API::addAusgabe($summe, $beschreibung, $details);
-
-                $query = "
-                SELECT Bestand FROM Unternehmen
-                WHERE ID = $uid
-                ;";
-                $bestand = Database::sqlSelect($query);
-
-                if ($bestand[0]["Bestand"] == "") {
-                    $bestandString = $immobilienId;
-                }else{
-                    $bestandString = $bestand[0]["Bestand"] . ';' . $immobilienId;
-                }
-
-
-                $query2 = " 
-                UPDATE Unternehmen 
-                SET Bestand = '$bestandString'
-                WHERE ID = $uid
-                ;";
-
-                Database::sqlUpdate($query2);
-                		
-            }else{
-                Helper::showMessage("Kontostand zu gering", "Leider hast du nicht genügend Kapital", "error");    
+            if ($bestand == "") {
+                $bestandString = $immobilienId;
             }
-        
+            else {
+                $bestandString = $bestand . ';' . $immobilienId;
+            }
+
+            Request::setBestand($bestandString);
+
         }
+        else {
+
+            Helper::showMessage("Kontostand zu gering", "Das Unternehmen hat die Bonitätsprüfung leider nicht bestanden", "error");
+
+        }
+        
+    }
+
+    public static function createCreditRequest($bank, $typ, $summe, $zins, $laufzeit, $chance) {
+        ?>
+        <div class="modal-body col-md-4">
+            <div class="x_panel">
+                <h5><?php echo $bank; ?></h5>
+                <p><?php echo $typ; ?></p>
+                <p>Kreditsumme: <?php echo number_format($summe, 2, ',', '.'); ?> €</p>
+                <p>Zins: <?php echo number_format($zins, 2, ',', '.'); ?> % p.a.</p>
+                <p>Laufzeit: <?php echo $laufzeit; ?> Jahre</p>
+                <p>Wahrscheinlichkeit: <?php echo $chance; ?> %</p>
+                <a href=<?php echo 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'].'?credit=1'; ?> class="btn btn-primary">Kredit beantragen</a>
+            </div>
+        </div>
+        <?php
+    }
 
 
 }

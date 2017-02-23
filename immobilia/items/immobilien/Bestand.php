@@ -1,6 +1,6 @@
 ﻿<?php
 
-class Immobilien {
+class Bestand {
 	
 
 public static function createBestand($aktuellesGeschäftsjahr){

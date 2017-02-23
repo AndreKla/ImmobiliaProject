@@ -23,7 +23,7 @@
 
 		$aktuellesGeschäftsjahr = $result[0]["Runde"];
 
-		Immobilien::createBestand($aktuellesGeschäftsjahr);
+		Bestand::createBestand($aktuellesGeschäftsjahr);
 
 	?>
 	</div>

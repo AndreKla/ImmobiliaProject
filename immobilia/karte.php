@@ -8,7 +8,7 @@
     
     Menu::createMenu("Immobilienkarte"); 
 
-    if(isset($_GET['immokauf'])) {  //purchased social feed
+    if(isset($_GET['immokauf'])) {
 
         $unternehmensID = $_SESSION["UID"];
         $spielID = $_SESSION["SID"];
@@ -18,31 +18,21 @@
 
     }
 
-    Maps::createAccordionMap();
+    Karte::createAccordionMap();
     
 ?>
 
  <body class="nav-md footer_fixed">
     <div class="container body">
 	
-
-	
       <div class="main_container">
         <?php
 
-        Maps::createMarkers();
+        Karte::createMarkers();
         ?>
 
-
-      <!-- page content -->
-
-
-
-
-    <!-- /page content -->
     </div>
 
-    <!-- footer content -->
 <?php 
   Menu::createFooter(); 
 ?>
