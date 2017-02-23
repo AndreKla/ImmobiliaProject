@@ -1,5 +1,6 @@
-﻿<?php
-    session_start();
+﻿<?php session_start(); ?>
+
+<?php
     
     require_once("includes.php"); 
 	
@@ -8,6 +9,7 @@
     if(isset($_POST["unternehmensname"])) {
       
       $id = $_SESSION["UID"];
+      $sid = $_SESSION["SID"];
 
       $unternehmensname = $_POST["unternehmensname"];
 
@@ -35,9 +37,8 @@
             Database::sqlUpdate($query);
 
             $query = "INSERT INTO Rundendaten (SpielID, UnternehmensID, Runde, Kapital, Strategie1, Strategie2, Strategie3, Social)
-                    VALUES ('" . $_SESSION['SID'] . "', '" . $_SESSION['UID'] . "', 1, 1000000, 0, 0, 0, 0);";
+                    VALUES ('" . $sid . "', '" . $id . "', 1, 1000000, 0, 0, 0, 0);";
             Database::sqlInsert($query);
-
             ?>
               <script language="javascript">
                   window.location.href = "neuigkeiten.php"
@@ -53,12 +54,14 @@
             Database::sqlUpdate($query);
 
             $query = "INSERT INTO Rundendaten (SpielID, UnternehmensID, Runde, Kapital, Strategie1, Strategie2, Strategie3, Social)
-                    VALUES ('" . $_SESSION['SID'] . "', '" . $_SESSION['UID'] . "', 1, 1000000, 0, 0, 0, 0);";
+                    VALUES ('" . $sid . "', '" . $id . "', 1, 1000000, 0, 0, 0, 0);";
             Database::sqlInsert($query);
+
+            echo "sid: " . $sid . " id: " . $id;
 
           ?>
             <script language="javascript">
-                window.location.href = "neuigkeiten.php"
+                //window.location.href = "neuigkeiten.php"
             </script>
           <?php
           }
@@ -72,12 +75,14 @@
           Database::sqlUpdate($query);
 
           $query = "INSERT INTO Rundendaten (SpielID, UnternehmensID, Runde, Kapital, Strategie1, Strategie2, Strategie3, Social)
-                    VALUES ('" . $_SESSION['SID'] . "', '" . $_SESSION['UID'] . "', 1, 1000000, 0, 0, 0, 0);";
+                    VALUES ('" . $sid . "', '" . $id . "', 1, 1000000, 0, 0, 0, 0);";
           Database::sqlInsert($query);
+
+          echo "sid: " . $sid . " id: " . $id;
 
           ?>
             <script language="javascript">
-                window.location.href = "neuigkeiten.php"
+                //window.location.href = "neuigkeiten.php"
             </script>
           <?php
 
