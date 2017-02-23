@@ -9,32 +9,24 @@
 		
 	<?php
 
-    if($_GET["credit"] == 1) {
-      Helper::showMessage("Kreditantrag abgelehnt", "Dein Kreditantrag wurde leider nicht angenommen!", "error");
+    if(isset($_GET["credit"])) {
+      if($_GET["credit"] == 1) {
+        Helper::showMessage("Kreditantrag genehmigt", "Dein Kreditantrag wurde akzeptiert!", "success");
+      }
+      else {
+        Helper::showMessage("Kreditantrag abgelehnt", "Dein Kreditantrag wurde leider nicht angenommen!", "error");
+      }
     }
 
 		$width = 4;
-		
-		$spielID = $_SESSION["SID"];
-		$unternehmensID = $_SESSION["UID"];
 
-		$query = "
-		SELECT *
-		FROM Rundendaten
-		WHERE UnternehmensID = $unternehmensID AND SpielID = $spielID
-		ORDER BY Runde ASC
-		;";
-		$rundendaten = Database::sqlSelect($query);
+    $rundendaten = Request::getRundendaten();
 
-    Finanzen::createFinanzenTopData(sizeof($rundendaten));    
-    //Finanzen::createKontostandEntwicklung($width);
-    //Finanzen::createFinanzJahresAnsicht();
-		
-    
+    Finanzen::createFinanzenTopData(sizeof($rundendaten));
     Finanzen::createBankview(sizeof($rundendaten));
-    //Finanzen::createKontoview(sizeof($rundendaten));
     Finanzen::createEinnahmenliste(sizeof($rundendaten));
     Finanzen::createAusgabenliste(sizeof($rundendaten));
+
 	?>
 	</div>
 

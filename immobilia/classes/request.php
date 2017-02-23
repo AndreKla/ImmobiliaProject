@@ -2,6 +2,21 @@
 
 class Request {
 
+    public static function getRundendaten() {
+
+        $sid = $_SESSION["SID"];
+        $uid = $_SESSION["UID"];
+
+        $query = "
+        SELECT *
+        FROM Rundendaten
+        WHERE UnternehmensID = $uid AND SpielID = $sid
+        ORDER BY Runde ASC
+        ;";
+        return Database::sqlSelect($query);
+
+    }
+
     public static function getAusgaben() {
 
         $sid = $_SESSION["SID"];
