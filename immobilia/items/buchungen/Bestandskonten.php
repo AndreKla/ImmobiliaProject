@@ -102,6 +102,29 @@ class Bestandskonten{
                           <!--<p class="lead" style="margin-left:250px;">Betrag</p>-->
                           <input type="text" name="summe" value="Betrag" style="margin-left:200px;padding:10px;margin-top:100px;">
                           <a href="" class="btn btn-success">BUCHEN</a>
+                          
+                          <!-- submitbutton function -->
+                            <script>
+                                
+                                $("summe").submit();
+                                var sollkonto = $('.tabs-left .active').getAttribute("href");
+                                var habenkonto = $('.tabs-right .active').getAttribute("href");
+                                                                
+                                $.post("Bestandskonten.php", {sollkonto: sollkonto});
+                                $.post("Bestandskonten.php", {habenkonto: habenkonto});
+
+                            </script>
+                          <?php 
+                          
+                                $sollkonto = $_POST['sollkonto'];
+                                $habenkonto = $_POST['habenkonto'];
+                                
+                                echo "SOLLK " . $sollkonto . " " . $habenkonto;
+                       
+                                
+                                API::checkBuchungsAntrag($sollkonto,$habenkonto,$summe);
+                          
+                          ?>
 
                         </div>
                         <div class="tab-pane" id="profile">Profile Tab.</div>
@@ -156,29 +179,6 @@ class Bestandskonten{
 	
 	</div>
      
-<?php        
-    }
-    
-     public static function createBuchungsaufgaben(){
-         
-         
-
-
-?>
-<?php
-    }  
-    
-    public static function validateBuchung(){
-        
-        if($mitarbeiterBuchung){
-            
-        }
-        
-        if($bestandBuchung){
-            
-        }
-        
-?>
 
 <?php
     }

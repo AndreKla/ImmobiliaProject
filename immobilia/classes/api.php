@@ -90,7 +90,7 @@ class API {
 	
 	public static function checkKontostand($summe){
 		
-		$kapital = Request::getKontostand();
+        $kapital = Request::getKontostand();
                 
         if ($kapital >= $summe) {
 
@@ -104,7 +104,7 @@ class API {
 	}
 	
 	
-	public static function buyImmobilie($immobilienId){
+    public static function buyImmobilie($immobilienId){
             
         $sid = $_SESSION["SID"];
         $uid = $_SESSION["UID"];
@@ -170,6 +170,48 @@ class API {
     }
 
     
+    //Das müssen wir bei jeder buy function eigentlich mit in die BuchungsAufgaben mit reintragen?!
+    public static function createBuchungsAufgabe($sollkonto,$habenkonto,$summe, $beschreibung){
+        
+        $sid = $_SESSION["SID"];
+        $uid = $_SESSION["UID"];
+        $runde = $_SESSION["Runde"];
+        
+        $query = "
+        INSERT INTO Buchungsaufgaben (SpielID, UnternehmensID, Runde, Sollkonto, Habenkonto, Summe, Beschreibung)
+        VALUES ('" . $sid . "', '" . $uid . "', '" . $runde . "', '" . $sollkonto . "', '" . $habenkonto . "', '" . $summe . "', '" . $beschreibung ."')
+        ;";
+        Database::sqlInsert($query);
+        
+        
+    }
+    
+    
+    public static function checkBuchungsAntrag($sollkonto,$habenkonto,$summe){
+        
+        $sid = $_SESSION["SID"];
+        $uid = $_SESSION["UID"];
+        $runde = $_SESSION["Runde"];
+                
+        $query = "
+        SELECT SUM(Summe) FROM Buchungsaufgaben WHERE UnternehmensID='" . $uid . 
+            "' AND SpielID='" . $sid . "' AND Runde='" . $runde . "' AND Sollkonto='" . $sollkonto . "' AND Habenkonto='" . $habenkonto . "';";
+        $zuZahlen = Database::sqlSelect($query);      
+             
+        if($summe == $zuZahlen){
+            $query = "
+            INSERT INTO Buchungsaufgaben (Bezahlt)
+            VALUES (TRUE)
+            ;";
+                        
+            
+            Helper::showMessage("Erfolgreiche Buchung", "Diese Buchung war erfolgreich!", "success");
+
+        }else{
+            Helper::showMessage("Buchungsfehler", "Leider falsche Buchung!", "error");
+        }
+        
+    }
 
 
 }
