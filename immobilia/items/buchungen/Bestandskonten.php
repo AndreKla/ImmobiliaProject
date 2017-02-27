@@ -59,7 +59,7 @@ class Bestandskonten{
             <div class="col-md-12 col-sm-12 col-xs-12" >
                 <div class="x_panel">
                       <div class="x_title">
-                        <h2><i class="fa"></i> Aufgaben </h2>
+                        <h2><i class="fa" id="aufgaben"></i> Aufgaben </h2>
                         <div class="clearfix"></div>
                       </div>
                       <div class="x_content">
@@ -77,7 +77,7 @@ class Bestandskonten{
                       <ul class="nav nav-tabs tabs-left">
                         <li><a href="#instandhaltung" data-toggle="tab">Aufwendungen für Instandhaltung</a>
                         </li>
-                        <li><a href="#bank" data-toggle="tab">Bank</a>
+                        <li><a href="111" data-toggle="tab">Bank</a>
                         </li>
                         <li><a href="#bankverbindlichkeiten" data-toggle="tab">Langfristige Bankverbindlichkeiten </a>
                         </li>
@@ -100,31 +100,23 @@ class Bestandskonten{
                       <div class="tab-content">
                         <div class="tab-pane active" id="home">
                           <!--<p class="lead" style="margin-left:250px;">Betrag</p>-->
-                          <input type="text" name="summe" value="Betrag" style="margin-left:200px;padding:10px;margin-top:100px;">
-                          <a href="" class="btn btn-success">BUCHEN</a>
-                          
+                          <input type="text" id="summe" name="summe" placeholder="Betrag" style="margin-left:200px;padding:10px;margin-top:100px;">
+                          <button id="confirmButton" class="btn btn-success">BUCHEN</button>
+                          <div id="result"></div>
                           <!-- submitbutton function -->
                             <script>
                                 
-                                $("summe").submit();
-                                var sollkonto = $('.tabs-left .active').getAttribute("href");
-                                var habenkonto = $('.tabs-right .active').getAttribute("href");
-                                                                
-                                $.post("Bestandskonten.php", {sollkonto: sollkonto});
-                                $.post("Bestandskonten.php", {habenkonto: habenkonto});
-
+                          
+                                    $('#confirmButton').click(function(){
+                                        var soll = $('.tabs-left').find('.active').find('a').attr('href');
+                                        var haben = $('.tabs-right').find('.active').find('a').attr('href');
+                                        var sum = $('#summe').val();
+                                        $.post( "items/buchungen/checkBuchung.php", { sollkonto: soll, habenkonto: haben, summe: sum}).done(function( data ) {
+                                           $("#result").html(data); 
+                                        });
+                                    });
+              
                             </script>
-                          <?php 
-                          
-                                $sollkonto = $_POST['sollkonto'];
-                                $habenkonto = $_POST['habenkonto'];
-                                
-                                echo "SOLLK " . $sollkonto . " " . $habenkonto;
-                       
-                                
-                                API::checkBuchungsAntrag($sollkonto,$habenkonto,$summe);
-                          
-                          ?>
 
                         </div>
                         <div class="tab-pane" id="profile">Profile Tab.</div>
@@ -137,7 +129,7 @@ class Bestandskonten{
                       <ul class="nav nav-tabs tabs-right">
                         <li><a href="#instandhaltung" data-toggle="tab">Aufwendungen für Instandhaltung</a>
                         </li>
-                        <li><a href="#bank" data-toggle="tab">Bank</a>
+                        <li><a href="111" data-toggle="tab">Bank</a>
                         </li>
                         <li><a href="#bankverbindlichkeiten" data-toggle="tab">Langfristige Bankverbindlichkeiten </a>
                         </li>

@@ -4,7 +4,7 @@
     
     require_once("includes.php"); 
 	
-		Menu::includeHead();
+    Menu::includeHead();
 
     $startkapital = 10000000;
 

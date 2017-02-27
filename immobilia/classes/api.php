@@ -231,19 +231,25 @@ class API {
         $sid = $_SESSION["SID"];
         $uid = $_SESSION["UID"];
         $runde = $_SESSION["Runde"];
-                
+        
+         
         $query = "
         SELECT SUM(Summe) FROM Buchungsaufgaben WHERE UnternehmensID='" . $uid . 
-            "' AND SpielID='" . $sid . "' AND Runde='" . $runde . "' AND Sollkonto='" . $sollkonto . "' AND Habenkonto='" . $habenkonto . "';";
-        $zuZahlen = Database::sqlSelect($query);      
-             
-        if($summe == $zuZahlen){
-            $query = "
-            INSERT INTO Buchungsaufgaben (Bezahlt)
-            VALUES (TRUE)
-            ;";
-                        
+            "' AND Runde='" . $runde . "' AND Sollkonto='" . $sollkonto . "' AND Habenkonto='" . $habenkonto . "' AND Bezahlt = '0';";
+        $zuZahlen = Database::sqlSelect($query); 
+        
+        var_dump($zuZahlen[0]['SUM(Summe)']);
+        
+        if($summe == $zuZahlen[0]['SUM(Summe)']){
             
+            $query = "
+            UPDATE Buchungsaufgaben
+            SET Bezahlt = 1
+            WHERE UnternehmensID = $uid AND SpielID = $sid AND Runde = $runde
+            ;";
+            Database::sqlUpdate($query);
+
+                        
             Helper::showMessage("Erfolgreiche Buchung", "Diese Buchung war erfolgreich!", "success");
 
         }else{
