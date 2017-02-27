@@ -17,8 +17,13 @@ public static function createBestand($aktuellesGeschäftsjahr){
     WHERE ID = $uid
     ;";
     $immobilien = Database::sqlSelect($query);
+
+    $bestand = Array();
     
-    $bestand = explode(';', $immobilien[0]["Bestand"]);  
+    if($immobilien[0]["Bestand"] != "") {
+        $bestand = explode(';', $immobilien[0]["Bestand"]);
+    }
+    
     
     $zeit = date('Y');
 	

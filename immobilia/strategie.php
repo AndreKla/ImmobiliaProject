@@ -35,24 +35,24 @@
                         
 		?>
                     
-                    <!-- muss noch an die datenbank gesendet werden
-                    
-                        Datenbank eintrag ist in amazon drinne unter
-                        Strategien -> Begründung
-                    
-                    --->
-                    
-         
-                    <div class="clearfix"></div>
-                    <div class="col-md-6" style="margin-top:25px">
-                    <label for="message">Bitte gebe hier deine Begründung ein:</label><br>
-                    <label for="message"> - Wieso hast du dich dafür entschieden?</label>
-                    <textarea id="message" required="required" class="form-control" 
-                              name="message" data-parsley-trigger="keyup" data-parsley-minlength="100" 
-                              data-parsley-maxlength="800" data-parsley-minlength-message="Bitte gebe hier deine Begründung ein"
-                              data-parsley-validation-threshold="10"> 
-                    </textarea>
-                    </div>
+            <!-- muss noch an die datenbank gesendet werden
+            
+                Datenbank eintrag ist in amazon drinne unter
+                Strategien -> Begründung
+            
+            -->
+            
+ 
+        <div class="clearfix"></div>
+            <div class="col-md-6" style="margin-top:25px">
+	            <label for="message">Bitte gib hier deine Begründung ein:</label><br>
+	            <label for="message"> - Wieso hast du dich dafür entschieden?</label>
+	            <textarea id="message" required="required" class="form-control" 
+	                      name="message" data-parsley-trigger="keyup" data-parsley-minlength="100" 
+	                      data-parsley-maxlength="800" data-parsley-minlength-message="Bitte gebe hier deine Begründung ein"
+	                      data-parsley-validation-threshold="10" style="resize:none; height: 200px;"> 
+	            </textarea>
+            </div>
                     
 		</div>
 		<!-- /page content -->
