@@ -47,6 +47,23 @@ class Request {
 
     }
 
+    public static function getKapitalbewegung() {
+
+        $sid = $_SESSION["SID"];
+        $uid = $_SESSION["UID"];
+        $runde = $_SESSION["Runde"];
+
+        $query = "
+        SELECT SpielID, UnternehmensID, Runde, Zeit, Summe, Beschreibung, Details, Typ FROM Einnahmen
+        union all
+        SELECT SpielID, UnternehmensID, Runde, Zeit, Summe, Beschreibung, Details, Typ FROM Ausgaben
+        ORDER BY(`Zeit`) DESC
+        ;";
+        return Database::sqlSelect($query);
+
+
+    }
+
     public static function getKontostand() {
 
         $sid = $_SESSION["SID"];

@@ -42,9 +42,8 @@
     $rundendaten = Request::getRundendaten();
 
     Finanzen::createFinanzenTopData(sizeof($rundendaten));
+    Finanzen::createKapitalbewegungen(sizeof($rundendaten));
     Finanzen::createBankview(sizeof($rundendaten));
-    Finanzen::createEinnahmenliste(sizeof($rundendaten));
-    Finanzen::createAusgabenliste(sizeof($rundendaten));
 
 	?>
 
