@@ -35,7 +35,7 @@ class Finanzen {
         </div>
         <table class="table table-striped col-md-12" style="font-size: 10pt;">
           <tr>
-            <th>Buchungszeit</th>
+            <th>Wertstellung</th>
             <th>Umsatzdetails</th>
             <th>Soll</th>
             <th>Haben</th>
@@ -46,8 +46,12 @@ class Finanzen {
             $kapitalbewegung = Request::getKapitalbewegung();
 
             for($i = 0; $i < sizeof($kapitalbewegung); $i++) {
+
+              $date = new DateTime($kapitalbewegung[$i]["Zeit"]);
+              $formatedDate = $date->format('d.m.Y H:i:s');
+
               echo "<tr>";
-              echo "<td>" . $kapitalbewegung[$i]["Zeit"] . "</td>";
+              echo "<td>" . $formatedDate . "</td>";
               echo "<td>" . $kapitalbewegung[$i]["Details"] . "<br><i>" . $kapitalbewegung[$i]["Beschreibung"] . "</i></td>";
               if($kapitalbewegung[$i]["Typ"] == "Ausgabe") {
                 echo "<td class='pull-right red'>" . number_format($kapitalbewegung[$i]["Summe"],2,',','.') . "</td>";

@@ -95,30 +95,17 @@ public static function einstellen($id, $bezeichnung, $name, $skills, $rating, $b
 
 public static function einstellenActivity(){
 	
-	$query = "
-  SELECT *
-  FROM Mitarbeiter
-  ;";
-  $aktuellesPersonal = Database::sqlSelect($query);
+  $verfügbaresPersonal = Request::getFreieMitarbeiter();
 
-
-  $sid = $_SESSION["SID"];
-  $uid = $_SESSION["UID"];
-
-  $query = "
-  SELECT Mitarbeiter
-  FROM Unternehmen
-  WHERE SID = $sid AND ID = $uid
-  ;";
-  $mitarbeiter = Database::sqlSelect($query);
+  $mitarbeiter = Request::getMitarbeiter();
 
   $meineMitarbeiter = explode(';', $mitarbeiter[0]["Mitarbeiter"]);
 
-  for($i = 0; $i < sizeof($aktuellesPersonal); $i++) {
+  for($i = 0; $i < sizeof($verfügbaresPersonal); $i++) {
 
     $zeit = date('d.m.Y');
-    if(!in_array($aktuellesPersonal[$i]["ID"], $meineMitarbeiter, true)) {
-      Personal::einstellen($aktuellesPersonal[$i]["ID"], $aktuellesPersonal[$i]["Fachrichtung"], $aktuellesPersonal[$i]["Name"], $aktuellesPersonal[$i]["Faehigkeit"], $aktuellesPersonal[$i]["Beschreibung"], $aktuellesPersonal[$i]["Bild"]);
+    if(!in_array($verfügbaresPersonal[$i]["ID"], $meineMitarbeiter, true)) {
+      Personal::einstellen($verfügbaresPersonal[$i]["ID"], $verfügbaresPersonal[$i]["Fachrichtung"], $verfügbaresPersonal[$i]["Name"], $verfügbaresPersonal[$i]["Faehigkeit"], $verfügbaresPersonal[$i]["Beschreibung"], $verfügbaresPersonal[$i]["Bild"]);
     }
   }
 
@@ -126,15 +113,7 @@ public static function einstellenActivity(){
 
 public static function bestand(){
 	
-  $sid = $_SESSION["SID"];
-  $uid = $_SESSION["UID"];
-
-  $query = "
-  SELECT Mitarbeiter
-  FROM Unternehmen
-  WHERE SID = $sid AND ID = $uid
-  ;";
-  $mitarbeiter = Database::sqlSelect($query);
+  $mitarbeiter = Request::getMitarbeiter();
 
   if($mitarbeiter[0]["Mitarbeiter"] != "") {
 
@@ -169,12 +148,7 @@ public static function bestand(){
 
                 $mid = $mitarbeiter[$i];
 
-                $query = "
-                SELECT *
-                FROM Mitarbeiter
-                WHERE ID = $mid
-                ;";
-                $mib = Database::sqlSelect($query);
+                $mib = Request::getMitarbeiterByID($mid);
 
           	?>
               <tr>
@@ -204,19 +178,42 @@ public static function bestand(){
                   <button type="button" class="btn btn-success btn-xs">Zufrieden</button>
                 </td>
                 <td>
-                  <a href="#" class="btn btn-primary btn-xs befoerdern col-md-6"><i class="fa fa-arrow-circle-o-up"></i> Befördern </a>
-                  <a href="#" class="btn btn-info btn-xs weiterbilden col-md-6"><i class="fa fa-graduation-cap"></i> Weiterbilden </a>
-                  <a href="#" class="btn btn-danger btn-xs kuendigen col-md-6"><i class="fa fa-times-circle-o"></i> Kündigen </a>
+                  <button type="button" class="btn btn-primary btn-xs befoerdern col-md-6" data-toggle="modal" data-target=<?php echo "'#befoerdern" . $mib[0]["ID"] . "'"; ?>><i class="fa fa-arrow-circle-o-up"></i> Befördern</button>
+                  <button type="button" class="btn btn-info btn-xs weiterbilden col-md-6" data-toggle="modal" data-target=<?php echo "'#weiterbilden" . $mib[0]["ID"] . "'"; ?>><i class="fa fa-graduation-cap"></i> Weiterbilden</button>
+                  <button type="button" class="btn btn-danger btn-xs kuendigen col-md-6" data-toggle="modal" data-target=<?php echo "'#entlassen" . $mib[0]["ID"] . "'"; ?>><i class="fa fa-times-circle-o"></i> Entlassen</button>
                 </td>
               </tr>
-          	<?php 
+          	  <?php 
+                
           		}
-          	?>
+
+          	  ?>
             </tbody>
           </table>
+          
         </div>
       </div>
+
     </div>
+    <?php
+            $mitarbeiterListe = Request::getMitarbeiter();
+
+            if($mitarbeiterListe[0]["Mitarbeiter"] != "") {
+
+              $aktuelleMitarbeiter = explode(';', $mitarbeiterListe[0]["Mitarbeiter"]);
+
+            }
+            else {
+              $aktuelleMitarbeiter = Array();
+            }
+
+            for($i = 0; $i < sizeof($aktuelleMitarbeiter); $i++) {
+              Personal::createModalView("befoerdern" . $aktuelleMitarbeiter[$i], "Mitarbeiter/in befördern", $aktuelleMitarbeiter[$i]);
+              Personal::createModalView("weiterbilden" . $aktuelleMitarbeiter[$i], "Mitarbeiter/in weiterbilden", $aktuelleMitarbeiter[$i]);
+              Personal::createModalView("entlassen" . $aktuelleMitarbeiter[$i], "Mitarbeiter/in entlassen", $aktuelleMitarbeiter[$i]);
+            }
+              
+          ?>
   </div>
 <?php    
   }
@@ -240,66 +237,102 @@ public static function bestand(){
   }
 }
 
-public static function createBarometer(){
+public static function createModalView($id, $title, $mitarbeiterID) {
+    ?>
+    <br><br><br>
+      <div class="modal fade bs-example-modal-lg" id=<?php echo "'" . $id . "'";?> tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
 
-?>
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
+              </button>
+              <h4 class="modal-title" id="myModalLabel"><?php echo $title; ?></h4>
+            </div>
+            <?php
 
-		<div class="col-md-4 col-sm-4 col-xs-12">
-              <div class="x_panel tile fixed_height_320">
-                <div class="x_title">
-                  <h2>Quick Settings</h2>
-                  <ul class="nav navbar-right panel_toolbox">
-                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                    </li>
-                    <li class="dropdown">
-                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                      <ul class="dropdown-menu" role="menu">
-                        <li><a href="#">Settings 1</a>
-                        </li>
-                        <li><a href="#">Settings 2</a>
-                        </li>
-                      </ul>
-                    </li>
-                    <li><a class="close-link"><i class="fa fa-close"></i></a>
-                    </li>
-                  </ul>
-                  <div class="clearfix"></div>
-                </div>
-                <div class="x_content">
-                  <div class="dashboard-widget-content">
-                    <ul class="quick-list">
-                      <li><i class="fa fa-calendar-o"></i><a href="#">Settings</a>
-                      </li>
-                      <li><i class="fa fa-bars"></i><a href="#">Subscription</a>
-                      </li>
-                      <li><i class="fa fa-bar-chart"></i><a href="#">Auto Renewal</a> </li>
-                      <li><i class="fa fa-line-chart"></i><a href="#">Achievements</a>
-                      </li>
-                      <li><i class="fa fa-bar-chart"></i><a href="#">Auto Renewal</a> </li>
-                      <li><i class="fa fa-line-chart"></i><a href="#">Achievements</a>
-                      </li>
-                      <li><i class="fa fa-area-chart"></i><a href="#">Logout</a>
-                      </li>
-                    </ul>
+            if($id == "entlassen" . $mitarbeiterID) {
 
-                    <div class="sidebar-widget">
-                      <h4>Profile Completion</h4>
-                      <canvas width="150" height="80" id="foo" class="" style="width: 160px; height: 100px;"></canvas>
-                      <div class="goal-wrapper">
-                        <span class="gauge-value pull-left">$</span>
-                        <span id="gauge-text" class="gauge-value pull-left">3,200</span>
-                        <span id="goal-text" class="goal-value pull-right">$5,000</span>
+              $mitarbeiter = Request::getMitarbeiterByID($mitarbeiterID);
+
+              $arbeitsqualität = "gute";
+              $motivation = "durchschnittlich";
+
+              if($mitarbeiter[0]["Motivation"] > 7) {
+                $motivation = "außerordentlich";
+              }
+              else if($mitarbeiter[0]["Motivation"] > 5) {
+                $motivation = "sehr";
+              }
+              else if($mitarbeiter[0]["Motivation"] > 4) {
+                $motivation = "durchschnittlich";
+              }
+              else if($mitarbeiter[0]["Motivation"] > 2) {
+                $motivation = "unterdurchschnittlich";
+              }
+              else if($mitarbeiter[0]["Motivation"] > 0) {
+                $motivation = "gar nicht";
+              }
+
+              if($mitarbeiter[0]["Faehigkeit"] > 7) {
+                $arbeitsqualität = "ausgezeichnete";
+              }
+              else if($mitarbeiter[0]["Faehigkeit"] > 5) {
+                $arbeitsqualität = "sehr gute";
+              }
+              else if($mitarbeiter[0]["Faehigkeit"] > 4) {
+                $arbeitsqualität = "gute";
+              }
+              else if($mitarbeiter[0]["Faehigkeit"] > 2) {
+                $arbeitsqualität = "durchschnittliche";
+              }
+              else if($mitarbeiter[0]["Faehigkeit"] > 0) {
+                $arbeitsqualität = "schlechte";
+              }
+
+              ?>
+              <div class="modal-body col-md-12">
+                  <div class="x_panel">
+
+                      <div class="modal-content pull-right" style="width:150px; height:150px; border:none">
+                        <img src=<?php echo $mitarbeiter[0]["Bild"]; ?> width="150px" height="150px">
                       </div>
+
+                      <h2><?php echo $mitarbeiter[0]["Name"]; ?></h2>
+                      <p><i><?php echo $mitarbeiter[0]["Fachrichtung"]; ?></i></p><br>
+                      <p><b>Jahresgehalt:</b> <?php echo number_format($mitarbeiter[0]["Gehalt"], 2, ',', '.'); ?> €</p>
+                      <p><b>Motivation:</b> <span class="green"><?php echo number_format($mitarbeiter[0]["Motivation"] * 10, 2, ',', '.'); ?> %</span></p>
+                      <p><b>Fällige Abfindung bei fristloser Kündigung:</b> <span class="red"><?php echo number_format($mitarbeiter[0]["Gehalt"] * 0.75, 2, ',', '.'); ?> €</span></p>
+                      <p><?php echo $mitarbeiter[0]["Name"]; ?> arbeitet seit 2017 als <?php echo $mitarbeiter[0]["Fachrichtung"]; ?> bei der Spire GmbH. <?php echo $mitarbeiter[0]["Name"]; ?> ist <?php echo $motivation; ?> motiviert und leistet <?php echo $arbeitsqualität; ?> Arbeit. Es wird ein Jahresgehalt von <?php echo number_format($mitarbeiter[0]["Gehalt"], 2, ',', '.'); ?> € ausgezahlt. Im Falle einer fristlosen Kündigung würde sofort eine Abfindung in Höhe von <?php echo number_format($mitarbeiter[0]["Gehalt"] * 0.75, 2, ',', '.'); ?> € fällig.<br><br>
+                      <a href=<?php echo "http://".$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF']."?quit=$mitarbeiterID" ; ?> class="btn btn-primary btn-danger">fristlos Kündigen</a>
                     </div>
-                  </div>
-                </div>
+                      
               </div>
+              <?php
+
+            }
+            else {
+
+              $anlageoptionen = Request::getAnlageoptionen();
+
+              for ($i = 0; $i < sizeof($anlageoptionen); $i++) {
+
+                API::createAnlageRequest($anlageoptionen[$i]["ID"], $anlageoptionen[$i]["Name"], $anlageoptionen[$i]["Beschreibung"], $anlageoptionen[$i]["Summe"], $anlageoptionen[$i]["Ertrag"], $anlageoptionen[$i]["Dauer"], $anlageoptionen[$i]["Risiko"]);
+
+              }
+
+            }
+            
+            ?>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Abbrechen</button>
             </div>
 
           </div>
-		  
-<?php
-}
+        </div>
+      </div>
+    <?php
+  }
 
 public static function befoerdern(){ 
 

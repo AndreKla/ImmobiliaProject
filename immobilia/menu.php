@@ -76,40 +76,32 @@ public static function createMenu($titel) {
 	*/
 	Database::databaseConnect();
 
-	$spielID = $_SESSION["SID"];
-	$unternehmensID = $_SESSION["UID"];
-
-	$query = "
-    SELECT Runde, Kapital
-    FROM Rundendaten
-    WHERE SpielID = $spielID AND UnternehmensID = $unternehmensID
-    ORDER BY Runde DESC
-    ;";
-    $runde = Database::sqlSelect($query);
+    $runde = Request::getRundendaten();
     $yearsToAdd = $runde[0]["Runde"] - 1;
     $aktuelleRunde = $runde[0]["Runde"];
 
     $_SESSION["Runde"] = $aktuelleRunde;
 
-	$query = "
-	SELECT * 
-	FROM Unternehmen
-	WHERE ID = $unternehmensID
-	;";
-	$unternehmen = Database::sqlSelect($query);
+	$unternehmen = Request::getUnternehmen();
 
-	$sid = $_SESSION["SID"];
-	  $uid = $_SESSION["UID"];
+	$mitarbeiter = Request::getMitarbeiter();
 
-	  $query = "
-	  SELECT Mitarbeiter
-	  FROM Unternehmen
-	  WHERE SID = $sid AND ID = $uid
-	  ;";
-	  $mitarbeiter = Database::sqlSelect($query);
+	
 
-	  $mitarbeiter = explode(';', $mitarbeiter[0]["Mitarbeiter"]);
-          $bestand = explode(';', $unternehmen[0]["Bestand"]);  
+	if($mitarbeiter[0]["Mitarbeiter"] != "") {
+		$mitarbeiter = explode(';', $mitarbeiter[0]["Mitarbeiter"]);
+	}
+	else {
+		$mitarbeiter = Array();
+	}
+	
+	if($unternehmen[0]["Bestand"] != "") {
+		$bestand = explode(';', $unternehmen[0]["Bestand"]);
+	}
+	else {
+		$bestand = Array();
+	}
+	  
 
           
 ?>

@@ -169,6 +169,45 @@ class API {
         <?php
     }
 
+    public static function removeMitarbeiter($id) {
+
+        $aktuelleMitarbeiter = Request::getMitarbeiter();
+
+        $mitarbeiterListe = explode(';', $aktuelleMitarbeiter[0]["Mitarbeiter"]);
+
+        $mitarbeiterListeNew = array_diff($mitarbeiterListe, array($id));
+
+        $mitarbeiterString = "";
+
+        for($i = 0; $i < sizeof($mitarbeiterListeNew); $i++) {
+            if($mitarbeiterListeNew[$i] != "") {
+                if($mitarbeiterString == "") {
+                    $mitarbeiterString = $mitarbeiterListeNew[$i];
+                }
+                else {
+                    $mitarbeiterString = $mitarbeiterString . ";" . $mitarbeiterListeNew[$i];
+                }
+            }
+        }
+        if(sizeof($mitarbeiterListeNew) > 1) {
+            $mitarbeiterString = $mitarbeiterString . ";" . $mitarbeiterListeNew[sizeof($mitarbeiterListeNew)];
+        }
+        else if(sizeof($mitarbeiterListeNew) == 1) {
+            $mitarbeiterString = $mitarbeiterListeNew[0];
+        }
+
+        Request::setMitarbeiter($mitarbeiterString);
+
+        ?>
+
+            <script language="javascript">
+                window.location.href = <?php echo "personal_bestand.php?successquit=$id;"; ?>
+            </script>
+
+        <?php
+
+    }
+
     
     //Das müssen wir bei jeder buy function eigentlich mit in die BuchungsAufgaben mit reintragen?!
     public static function createBuchungsAufgabe($sollkonto,$habenkonto,$summe, $beschreibung){

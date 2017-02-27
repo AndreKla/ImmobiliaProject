@@ -8,16 +8,9 @@
 		
 		$uid = $_SESSION["UID"];
 		$sid = $_SESSION["SID"];
-
 		$mid = $_GET["hire"];
 
-		$query = "
-		SELECT Mitarbeiter
-		FROM Unternehmen
-		WHERE ID = $uid AND SID = $sid
-		;";
-		$currentMitarbeiter = Database::sqlSelect($query);
-
+		$currentMitarbeiter = Request::getMitarbeiter();
 
 		if($currentMitarbeiter[0]["Mitarbeiter"] != "") {
 			$mitarbeiterArray = $currentMitarbeiter[0]["Mitarbeiter"] . ";" . $mid;
@@ -26,13 +19,15 @@
 			$mitarbeiterArray = $mid;
 		}
 		
-		$query = "
-		UPDATE Unternehmen
-		SET Mitarbeiter = '" . $mitarbeiterArray . "'
-		WHERE ID = $uid AND SID = $sid
-		;";
-		Database::sqlUpdate($query);
+		Request::setMitarbeiter($mitarbeiterArray);
+		$mitarbeiter = Request::getMitarbeiterByID($_GET["hire"]);
+		API::addAusgabe($mitarbeiter[0]["Gehalt"], "Jahresgehalt", $mitarbeiter[0]["Name"] . " - " . $mitarbeiter[0]["Fachrichtung"]);
 
+		?>
+		<script language="javascript">
+            window.location.href = "personal_bestand.php?hired=<?php echo $mid; ?>"
+        </script>
+        <?php
 	}
 
 ?>			

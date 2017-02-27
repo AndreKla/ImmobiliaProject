@@ -96,6 +96,21 @@ class Request {
 
     }
 
+    public static function getUnternehmen() {
+
+        $sid = $_SESSION["SID"];
+        $uid = $_SESSION["UID"];
+        $runde = $_SESSION["Runde"];
+
+        $query = "
+        SELECT *
+        FROM Unternehmen
+        WHERE SID = $sid AND ID = $uid
+        ;";
+        return Database::sqlSelect($query);
+
+    }
+
     public static function getImmobilieByID($id) {
 
         $query = "
@@ -212,6 +227,56 @@ class Request {
         UPDATE Rundendaten
         SET Anlage = 1
         WHERE SpielID = $sid AND UnternehmensID = $uid AND Runde = $runde
+        ;";
+        Database::sqlUpdate($query);
+
+    }
+
+    public static function getMitarbeiter() {
+
+        $sid = $_SESSION["SID"];
+        $uid = $_SESSION["UID"];
+        $runde = $_SESSION["Runde"];
+
+        $query = "
+        SELECT Mitarbeiter
+        FROM Unternehmen
+        WHERE SID = $sid AND ID = $uid
+        ;";
+        return Database::sqlSelect($query);
+
+    }
+
+    public static function getMitarbeiterByID($id) {
+
+        $query = "
+        SELECT *
+        FROM Mitarbeiter
+        WHERE ID = $id
+        ;";
+        return Database::sqlSelect($query);
+
+    }
+
+    public static function getFreieMitarbeiter() {
+
+        $query = "
+        SELECT *
+        FROM Mitarbeiter
+        ;";
+        return Database::sqlSelect($query);
+
+    }
+
+    public static function setMitarbeiter($array) {
+
+        $sid = $_SESSION["SID"];
+        $uid = $_SESSION["UID"];
+
+        $query = "
+        UPDATE Unternehmen
+        SET Mitarbeiter = '" . $array . "'
+        WHERE ID = $uid AND SID = $sid
         ;";
         Database::sqlUpdate($query);
 

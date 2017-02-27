@@ -11,16 +11,7 @@
 			Helper::showMessage("Social Media Analyse","Die Analyse der Social Intelligence GmbH ist jetzt verfügbar!", "success");
 		}
 
-		$spielID = $_SESSION["SID"];
-		$unternehmensID = $_SESSION["UID"];
-
-		$query = "
-		SELECT Runde
-		FROM Rundendaten
-		WHERE SpielID = $spielID AND UnternehmensID = $unternehmensID
-		ORDER BY Runde DESC
-		;";
-		$result = Database::sqlSelect($query);
+		$result = Request::getRundendaten();
 
 		$width = 7;
 		$aktuellesGeschäftsjahr = $result[0]["Runde"];
