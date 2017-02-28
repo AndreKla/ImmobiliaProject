@@ -56,28 +56,19 @@ class Bestandskonten{
                       <div class="tab-content">
                         <div class="tab-pane active" id="home">
                           <!--<p class="lead" style="margin-left:250px;">Betrag</p>-->
-                          <input type="text" id="summe" name="summe" placeholder="Betrag" style="margin-left:200px;padding:10px;margin-top:100px;">
-                          <button id="confirmButton" class="btn btn-success">BUCHEN</button>
+                           <div class="col-md-12" style="margin-top:100px"> 
+                               <span id="sollkontoText" style="float:left;"><big>Sollkonto:</big> </span>
+                               <span id="habenkontoText" style="float:right;"><big>Habenkonto:</big> </span>
+                           </div><br>
+                           <div class="col-md-12" style="margin-top:15px">
+                                  <input type="text" id="summe" class="form-control" name="summe" placeholder="Betrag" style="width:150px;float:none;margin-left:auto;margin-right:auto;">
+                           </div>
+                           <div class="col-md-12 text-center" style="margin-top:15px">
+                                <button id="confirmButton" style="width:100px" class="btn btn-success">BUCHEN</button>
+                           </div>
                           <div id="result"></div>
-                          <!-- submitbutton function -->
-                            <script>
-                                
-                          
-                                    $('#confirmButton').click(function(){
-                                        var soll = $('.tabs-left').find('.active').find('a').attr('href');
-                                        var haben = $('.tabs-right').find('.active').find('a').attr('href');
-                                        var sum = $('#summe').val();
-                                        $.post( "items/buchungen/checkBuchung.php", { sollkonto: soll, habenkonto: haben, summe: sum}).done(function( data ) {
-                                           $("#result").html(data); 
-                                        });
-                                    });
-              
-                            </script>
-
                         </div>
-                        <div class="tab-pane" id="profile">Profile Tab.</div>
-                        <div class="tab-pane" id="messages">Messages Tab.</div>
-                        <div class="tab-pane" id="settings">Settings Tab.</div>
+                        
                       </div>
                     </div>
 
@@ -107,25 +98,38 @@ class Bestandskonten{
                     </div>
                     
                 </div>
-                
-                
-                <!--<div class="x_panel" style="height:350px;">-->
-                 
+                    
+        <!-- submitbutton function -->
+                <script>
 
-                  <!--</div>-->
+                        $(".tabs-left").click(function(){
+                            var soll = $('.tabs-left').find('.active').find('a').attr('href');
+                            $('#sollkontoText').html("<big>Sollkonto:</big>" + soll);
+                        });
 
-                </div>
+                        $(".tabs-right").click(function(){
+                            var haben = $('.tabs-right').find('.active').find('a').attr('href');
+                            $('#habenkontoText').html("<big>Habenkonto:</big>" + haben);
+                        });
+
+                        $('#confirmButton').click(function(){
+                            var soll = $('.tabs-left').find('.active').find('a').attr('href');
+                            var haben = $('.tabs-right').find('.active').find('a').attr('href');
+                            var sum = $('#summe').val();
+
+                            $.post( "items/buchungen/checkBuchung.php", { sollkonto: soll, habenkonto: haben, summe: sum}).done(function( data ) {
+                               $("#result").html(data); 
+                            });
+                        });
+
+                </script>
+                
+              </div>
                 
                 
             </div>
-
-	
-            <!--<div class="col-md-8 col-sm-8 col-xs-12" >
-                
-              </div>-->
-			  
 			 
-              <div class="clearfix"></div>
+            <div class="clearfix"></div>
 	
 	</div>
      
