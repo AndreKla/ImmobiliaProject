@@ -6,51 +6,6 @@ class Bestandskonten{
     public static function createBuchungstool(){
                 
         $rowHeight = 350;
-    
-    
-        $spielID = $_SESSION["SID"];
-        $unternehmensID = $_SESSION["UID"];
-
-        $query = "
-        SELECT Runde, Kapital
-        FROM Rundendaten
-        WHERE SpielID = $spielID AND UnternehmensID = $unternehmensID
-        ORDER BY Runde DESC
-        ;";
-        $runde = Database::sqlSelect($query);
-        $yearsToAdd = $runde[0]["Runde"] - 1;
-        $aktuelleRunde = $runde[0]["Runde"];
-
-        $_SESSION["Runde"] = $aktuelleRunde;
-
-         
-        $query = "
-        SELECT * 
-        FROM Unternehmen
-        WHERE ID = $unternehmensID;";
-        $unternehmen = Database::sqlSelect($query);
-
-        $sid = $_SESSION["SID"];
-         $uid = $_SESSION["UID"];
-
-         $query = "
-         SELECT Mitarbeiter
-         FROM Unternehmen
-         WHERE SID = $sid AND ID = $uid
-         ;";
-         $mitarbeiter = Database::sqlSelect($query);
-
-         $mitarbeiter = explode(';', $mitarbeiter[0]["Mitarbeiter"]);
-         $bestand = explode(';', $unternehmen[0]["Bestand"]);  
-                  
-         if(sizeof($mitarbeiter)!= 0){
-             $mitarbeiterBuchung = 1;
-         }
-         
-         if(sizeof($bestand)!= 0){
-             $bestandBuchung = 1;
-         }
-         
         
 ?>
         
@@ -63,8 +18,7 @@ class Bestandskonten{
                         <div class="clearfix"></div>
                       </div>
                       <div class="x_content">
-                          <?php if($mitarbeiterBuchung==1){ echo "<p> - Die Löhne und Gehälter werden überwiesen. Bitte berechnen Sie den Personalaufwand und buchen Sie diesen.</p>";}?>
-                          <?php if($bestandBuchung==1){ echo "<p> - Die Gebäude sind planmäßig abzuschreiben. Die Abschreibungswerte sind den Objekten zu entnehmen.</p>";}?>
+                          <?php API::showBuchungsAufgaben();?>
                       </div> 
                     
                      <div class="x_title">
@@ -72,26 +26,28 @@ class Bestandskonten{
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
-
+                      
                     <div class="col-xs-3" style="overflow:auto;height:<?php echo $rowHeight . "px;"?>;">
                       <ul class="nav nav-tabs tabs-left">
-                        <li><a href="#instandhaltung" data-toggle="tab">Aufwendungen für Instandhaltung</a>
+                        <li><a href="Aufwendungen für Instandhaltung" data-toggle="tab">Aufwendungen für Instandhaltung - <small>645000</small></a>
                         </li>
-                        <li><a href="111" data-toggle="tab">Bank</a>
+                        <li><a href="Bank" data-toggle="tab">Bank <small>F180000</small></a>
                         </li>
-                        <li><a href="#bankverbindlichkeiten" data-toggle="tab">Langfristige Bankverbindlichkeiten </a>
+                        <li><a href="Langfristige Bankverbindlichkeiten" data-toggle="tab">Langfristige Bankverbindlichkeiten <br><small>S22222</small></a>
                         </li>
-                        <li class="active"><a href="#zinsaufwendungen" data-toggle="tab">Zinsaufwendungen</a>
+                        <li class="active"><a href="Zinsaufwendungen" data-toggle="tab">Zinsaufwendungen <br><small>S44444</small></a>
                         </li>
-                        <li><a href="#personalaufwendungen" data-toggle="tab">Personalaufwendungen</a>
+                        <li><a href="Personalaufwendungen" data-toggle="tab">Personalaufwendungen <br><small>S11111</small></a>
                         </li>
-                        <li><a href="#mietertraege" data-toggle="tab">Mieterträge</a>
+                        <li><a href="Mieterträge" data-toggle="tab">Mieterträge <br><small>683570</small></a>
                         </li>
-                        <li><a href="#abschreibungen" data-toggle="tab">Abschreibungen</a>
+                        <li><a href="Abschreibungen" data-toggle="tab">Abschreibungen <br><small>622070</small></a>
                         </li>
-                        <li><a href="#zinsertraege" data-toggle="tab">Zinserträge</a>
+                        <li><a href="Zinserträge" data-toggle="tab">Zinserträge <br><small>710500</small></a>
                         </li>                        
-                        <li><a href="#verkaufserloese" data-toggle="tab">Verkaufserlöse</a>
+                        <li><a href="Verkaufserlöse" data-toggle="tab">Verkaufserlöse <br><small>400000</small></a>
+                        </li>
+                        <li><a href="Immobilien" data-toggle="tab">Immobilien <br><small>S66666</small></a>
                         </li>
                       </ul>
                     </div>
@@ -127,23 +83,25 @@ class Bestandskonten{
 
                     <div class="col-xs-3" style="overflow:auto;height:<?php echo $rowHeight . "px;"?>">
                       <ul class="nav nav-tabs tabs-right">
-                        <li><a href="#instandhaltung" data-toggle="tab">Aufwendungen für Instandhaltung</a>
+                        <li><a href="Aufwendungen für Instandhaltung" data-toggle="tab">Aufwendungen für Instandhaltung - <small>645000</small></a>
                         </li>
-                        <li><a href="111" data-toggle="tab">Bank</a>
+                        <li><a href="Bank" data-toggle="tab">Bank <small>F180000</small></a>
                         </li>
-                        <li><a href="#bankverbindlichkeiten" data-toggle="tab">Langfristige Bankverbindlichkeiten </a>
+                        <li><a href="Langfristige Bankverbindlichkeiten" data-toggle="tab">Langfristige Bankverbindlichkeiten <br><small>S22222</small></a>
                         </li>
-                        <li class="active"><a href="#zinsaufwendungen" data-toggle="tab">Zinsaufwendungen</a>
+                        <li class="active"><a href="Zinsaufwendungen" data-toggle="tab">Zinsaufwendungen <br><small>S44444</small></a>
                         </li>
-                        <li><a href="#personalaufwendungen" data-toggle="tab">Personalaufwendungen</a>
+                        <li><a href="Personalaufwendungen" data-toggle="tab">Personalaufwendungen <br><small>S11111</small></a>
                         </li>
-                        <li><a href="#mietertraege" data-toggle="tab">Mieterträge</a>
+                        <li><a href="Mieterträge" data-toggle="tab">Mieterträge <br><small>683570</small></a>
                         </li>
-                        <li><a href="#abschreibungen" data-toggle="tab">Abschreibungen</a>
+                        <li><a href="Abschreibungen" data-toggle="tab">Abschreibungen <br><small>622070</small></a>
                         </li>
-                        <li><a href="#zinsertraege" data-toggle="tab">Zinserträge</a>
+                        <li><a href="Zinserträge" data-toggle="tab">Zinserträge <br><small>710500</small></a>
                         </li>                        
-                        <li><a href="#verkaufserloese" data-toggle="tab">Verkaufserlöse</a>
+                        <li><a href="Verkaufserlöse" data-toggle="tab">Verkaufserlöse <br><small>400000</small></a>
+                        </li>
+                        <li><a href="Immobilien" data-toggle="tab">Immobilien <br><small>S66666</small></a>
                         </li>
                       </ul>
                     </div>

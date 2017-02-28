@@ -1,0 +1,556 @@
+-- phpMyAdmin SQL Dump
+-- version 4.0.10.17
+-- https://www.phpmyadmin.net
+--
+-- Host: tobias-db.czo3mjccdla1.eu-central-1.rds.amazonaws.com:3306
+-- Erstellungszeit: 28. Feb 2017 um 13:06
+-- Server Version: 5.6.27-log
+-- PHP-Version: 5.6.26
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+
+--
+-- Datenbank: `Planspiel`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `Anlageoptionen`
+--
+
+CREATE TABLE IF NOT EXISTS `Anlageoptionen` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `Name` varchar(200) NOT NULL,
+  `Beschreibung` varchar(200) NOT NULL,
+  `Summe` float NOT NULL,
+  `Ertrag` float NOT NULL,
+  `Dauer` int(11) NOT NULL,
+  `Risiko` varchar(100) NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+
+--
+-- Daten für Tabelle `Anlageoptionen`
+--
+
+INSERT INTO `Anlageoptionen` (`ID`, `Name`, `Beschreibung`, `Summe`, `Ertrag`, `Dauer`, `Risiko`) VALUES
+(1, 'Gold', 'In Zeiten schwacher Wirtschaftsleistung ist Gold eine sichere alternative um sein Geld gewinnbringend anzulegen.', 100000, 5.5, 2, 'gering'),
+(2, 'Wertpapiere & Aktien', 'Mit Aktien lassen sich große Gewinne erzielen, allerdings ist auch das Risiko Verluste zu machen deutlich höher.', 250000, 12.5, 1, 'hoch'),
+(3, 'Oldtimer', 'Oldtimer sind eine beliebte Investition für Liebhaber. Sie steigen stetig im Wert und können recht risikolos als Geldanlage genutzt werden.', 120000, 7.25, 4, 'mittel');
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `Auktion`
+--
+
+CREATE TABLE IF NOT EXISTS `Auktion` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `SID` int(11) NOT NULL,
+  `Objekt` int(11) NOT NULL,
+  `Verkaeufer` int(11) NOT NULL,
+  `Hoechstbietender` int(11) NOT NULL,
+  `Hoechstgebot` int(11) NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `Ausgaben`
+--
+
+CREATE TABLE IF NOT EXISTS `Ausgaben` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `SpielID` int(11) NOT NULL,
+  `UnternehmensID` int(11) NOT NULL,
+  `Runde` int(11) NOT NULL,
+  `Summe` varchar(11) NOT NULL,
+  `Beschreibung` varchar(250) NOT NULL,
+  `Details` varchar(250) NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `Bank`
+--
+
+CREATE TABLE IF NOT EXISTS `Bank` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `Beschreibung` varchar(500) NOT NULL,
+  `Risikobereitschaft` int(11) NOT NULL,
+  `Darlehenszins` double NOT NULL,
+  `Guthabenzins` double NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `Buchung`
+--
+
+CREATE TABLE IF NOT EXISTS `Buchung` (
+  `ID` int(11) NOT NULL,
+  `SID` int(11) NOT NULL,
+  `Unternehmen` int(11) NOT NULL,
+  `Runde` int(11) NOT NULL,
+  `Sollkonto` int(11) NOT NULL,
+  `Habenkonto` int(11) NOT NULL,
+  `Betrag` double NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `Einnahmen`
+--
+
+CREATE TABLE IF NOT EXISTS `Einnahmen` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `SpielID` int(11) NOT NULL,
+  `UnternehmensID` int(11) NOT NULL,
+  `Runde` int(11) NOT NULL,
+  `Summe` varchar(11) NOT NULL,
+  `Beschreibung` varchar(250) NOT NULL,
+  `Details` varchar(250) NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `Ereignis`
+--
+
+CREATE TABLE IF NOT EXISTS `Ereignis` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `Viertel` int(11) NOT NULL,
+  `Beschreibung` varchar(500) NOT NULL,
+  `Runde` int(11) NOT NULL,
+  `Gentrifizierung` int(11) NOT NULL,
+  `Beliebtheit` int(11) NOT NULL,
+  `Lage` int(11) NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `Kaeufer`
+--
+
+CREATE TABLE IF NOT EXISTS `Kaeufer` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `Objekt` int(11) NOT NULL,
+  `Lage` int(11) NOT NULL,
+  `Preis` double NOT NULL,
+  `Beeinflussbarkeit` int(11) NOT NULL,
+  `Flaeche` int(11) NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `Konto`
+--
+
+CREATE TABLE IF NOT EXISTS `Konto` (
+  `ID` int(11) NOT NULL,
+  `Beschreibung` int(11) NOT NULL,
+  `Kontenart` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `Kredit`
+--
+
+CREATE TABLE IF NOT EXISTS `Kredit` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `Bankname` varchar(200) NOT NULL,
+  `Kredittyp` varchar(100) NOT NULL,
+  `Kreditsumme` int(11) NOT NULL,
+  `Kreditzins` float NOT NULL,
+  `Laufzeit` int(11) NOT NULL,
+  `Genehmigungswahrscheinlichkeit` int(11) NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+
+--
+-- Daten für Tabelle `Kredit`
+--
+
+INSERT INTO `Kredit` (`ID`, `Bankname`, `Kredittyp`, `Kreditsumme`, `Kreditzins`, `Laufzeit`, `Genehmigungswahrscheinlichkeit`) VALUES
+(1, 'Vereinigte Volksbank e.G.', 'Annuitätendarlehen', 2000000, 7.5, 5, 10),
+(2, 'Deutsche Bank AG', 'endfälliger Kredit', 500000, 10, 2, 89),
+(3, 'Commerzbank AG', 'endfälliger Kredit', 750000, 9.5, 3, 72);
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `Masteruser`
+--
+
+CREATE TABLE IF NOT EXISTS `Masteruser` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `username` varchar(100) NOT NULL,
+  `passwort` varchar(100) NOT NULL,
+  `lizenzen` int(11) NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Daten für Tabelle `Masteruser`
+--
+
+INSERT INTO `Masteruser` (`ID`, `username`, `passwort`, `lizenzen`) VALUES
+(1, 'nern', 'e10adc3949ba59abbe56e057f20f883e', 3);
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `Mieter`
+--
+
+CREATE TABLE IF NOT EXISTS `Mieter` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `Objekt` int(11) NOT NULL,
+  `Lage` int(11) NOT NULL,
+  `Miete` double NOT NULL,
+  `Beeinflussbarkeit` int(11) NOT NULL,
+  `Flaeche` int(11) NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `Mitarbeiter`
+--
+
+CREATE TABLE IF NOT EXISTS `Mitarbeiter` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `Fachrichtung` varchar(40) NOT NULL,
+  `Name` varchar(80) NOT NULL,
+  `Beschreibung` varchar(500) NOT NULL,
+  `Gehalt` double NOT NULL,
+  `Faehigkeit` int(11) NOT NULL DEFAULT '5',
+  `Motivation` int(11) NOT NULL DEFAULT '5',
+  `Vertragslaufzeit` int(11) NOT NULL DEFAULT '0',
+  `Bild` varchar(200) NOT NULL,
+  `xing` varchar(400) NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+
+--
+-- Daten für Tabelle `Mitarbeiter`
+--
+
+INSERT INTO `Mitarbeiter` (`ID`, `Fachrichtung`, `Name`, `Beschreibung`, `Gehalt`, `Faehigkeit`, `Motivation`, `Vertragslaufzeit`, `Bild`, `xing`) VALUES
+(2, 'Bauleiter', 'Rainer Bonhoff', '', 78000, 5, 5, 0, 'http://www.marketingsfinest.com/spire/pictu/personal/person07.jpg', ''),
+(3, 'Makler', 'Lothar Gelhaus', '', 32000, 5, 5, 0, 'http://www.marketingsfinest.com/spire/pictu/personal/person06.jpg', ''),
+(4, 'Sachbearbeiterin', 'Laura Mertens', '', 28500, 4, 3, 0, 'http://www.marketingsfinest.com/spire/pictu/personal/person04.jpg', ''),
+(5, 'Bauingenieur', 'Boris Müller', '', 56750, 8, 6, 0, 'http://www.marketingsfinest.com/spire/pictu/personal/person12.jpg', ''),
+(6, 'Sachbearbeiterin', 'Sabine Rollinger', '', 24350, 7, 9, 0, 'http://www.marketingsfinest.com/spire/pictu/personal/person11.jpg', '');
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `Neuigkeiten`
+--
+
+CREATE TABLE IF NOT EXISTS `Neuigkeiten` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `Titel` varchar(150) NOT NULL,
+  `Beschreibung` varchar(1500) NOT NULL,
+  `Bild` varchar(140) NOT NULL,
+  `Autor` varchar(40) NOT NULL,
+  `Jahr` int(11) NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=13 ;
+
+--
+-- Daten für Tabelle `Neuigkeiten`
+--
+
+INSERT INTO `Neuigkeiten` (`ID`, `Titel`, `Beschreibung`, `Bild`, `Autor`, `Jahr`) VALUES
+(1, 'Unternehmen planen den Umbruch', 'Rote Zahlen und veraltete Unternehmensstrategien zwingen mehre Unternehmen zum Umbruch. Die WIJA konnte im Interview in Erfahrung bringen, wie das Change Management die Unternehmen in der IMMOBILIA-Welt wieder auf Erfolgskurs bringen soll. Es wird auf junge und engagierte Nachwuchsführungskräfte gesetzt. Die Umsetzung soll über zwei Geschäftsjahre erfolgen, in der die alte Unternehmensleitung sich immer mehr aus der Entscheidungsebene herauszieht.\nDie Aufgabengebiete der Nachwuchskräfte beschränken sich in den ersten beiden Geschäftsjahren hauptsächlich auf das Rechnungswesen und in die Einarbeitung in das Unternehmen. Weiterhin müssen erste übertragende Entscheidungen getroffen werden. Die Redaktion wird über den Entwicklungsprozess in den nächsten Ausgaben weiter berichten und wünscht den Nachwuchskräften viel Erfolg.', 'http://future-transformation.de/wp-content/uploads/2015/12/Symbolbild_Kundenorientierung.jpg', 'Wirtschaftswoche', 1),
+(2, 'Trends und Tendenzen', 'Flexibler Grundriss, einfache und schnörkellose Formen und mietfrei in den eigenen vier Wänden - so wollen Haus- und Wohnungseigentümer das nächste Geschäftsjahr wohnen. Am liebsten ein Leben lang.', 'https://wfis.wellsfargo.com/CoreSiteImages/Insights/HealthcareTrendProjections2016_Large.jpg', 'Immobilien Outlook', 1),
+(3, 'NEUE REGULIERUNGEN IM PERSONALWESEN', 'Neue Regulierungen im Personalwesen treffen auf die Unternehmensleitungen. Aufgrund eines neuen Beschlusses, sind folgende Regulierungen im Personalwesen einzuhalten:\n1. Um ein Geschäftsfeld auszuüben, muss der entsprechende Leiter des Geschäftsfeldes im Unternehmen beschäftigt sein. Die Vertragslaufzeit der Leiter beläuft sich auf 1 Jahr, das sich ansonsten stillschweigend um ein weiteres Jahr verlängert.\n2. Des Weiteren wurde beschlossen, dass sich die Anzahl der Sachbearbeiter für die Verwaltung an der Anzahl der Objekte im Bestand orientiert.', 'http://www.dasinvestment.com/uploads/images/teaser/big/paragrafen_berater_fotolia_web_02.jpg', 'Bundesregierung', 1),
+(4, 'Planspiele', 'Planspiele wie wir sie erleben, besitzen asiatische Wurzeln. Bereits vor rund 5.000 Jahren gab es im asiatischen Raum militärische Strategiespiele. Diese markieren wahrscheinlich den Ursprung des Planspiels, das heute als innovative Lehrmethode mit nachhaltigem Lernerfolg eingesetzt wird.', 'http://www.onlineplanspiele.de/IntroductionImage/129_1/Planspiele.jpg', 'Infocenter', 1),
+(7, 'Fünf vor Zwölf', 'Auch im letzten Geschäftsjahr gab es kaum eine Verbesserung in der Geschäftstätigkeit. Wir berichteten bereits in der letzten Ausgabe, über den Umbruch in der IMMOBILIA-Welt, jedoch hat die alte Unternehmensleitung noch zu viel Entscheidungsbefugnis.\r\nEs kamen im laufenden Geschäftsjahr immer frustrierte Stimmen der Nachwuchskräfte auf, die dieses bemängelten und erklärten, dass sich die prekäre Situation, in der sich das Unternehmen be ndet, so nicht verändert. Wie wir von der amtierenden Unternehmensleitung erfahren haben, soll sich jedoch dieses in diesem Geschäftsjahr verändern und den Nachwuchs mehr Entscheidungen übertragen werden.\r\nWeiterhin erfuhren wir, dass Beispielsweise die Planung für das nächste Geschäftsjahr, sowie eine mögliche Spendenaktion, gesamtheitlich übertragen werden soll.', 'https://cdn.pixabay.com/photo/2012/04/10/16/07/clock-26094_1280.png', 'Wirtschaftsnews', 2),
+(8, 'SPENDEN nicht nur ein steuerlicher Vorteil', 'Sie möchten sich als Unternehmen sozial engagieren und gesellschaftliche Verantwortung übernehmen? Bei SOS-Kinderdorf können Sie sich darauf verlassen, dass Ihre Spende genau dort ankommt, wo sie dringend benötigt wird: Bei Kindern und Jugendlichen in Not. SOS-Kinderdorf steht in der ganzen Welt für Familie und ein liebevolles Zuhause. Nutzen Sie die Faszination dieser Marke für die Kommunikation Ihres Engagements!', 'http://audiopress.de/wp-content/uploads/2016/02/SOS-Kinderdorf_Symbol.jpg', 'SOS-Kinderdorf e.V.', 2),
+(10, 'Neue Vertriebskanäle für Unternehmen in der Immobilienbranche', 'Neue Vertriebskanäle in der IMMOBILIA-Welt gesichtet. Erstmals können Immobilien in Form einer stillen Auktion ersteigert werden. Für die Auktion wurden schnell interessante Immobilien gefunden. Die diesjährige Auktion umfasst eine Immobilie zum Ankauf und eine Immobilie zum Verkauf.\r\nBei der diesjährigen Auktion handelt es sich um eine abgewandelte Art der stillen Auktion, in der jedes Unternehmen lediglich einmal für jedes Objekt bieten kann. Die Abgabe des Gebotes erfolgt über ein Schriftstück, in der die Kennung der Auktion, sowie der Name des Unternehmens und Gebot enthalten sind. Zu einer vereinbarten Zeit wird die Auktion geschlossen und derjenige gewinnt die Auktion, der das höchste bzw. niedrigste Gebot abgegeben hat. Haben mehrere das gleiche Gebot abgegeben, dann gewinnt der, der das Gebot früher abgegeben hat.', 'http://www.handelsblatt.com/images/haus-unterm-hammer/11955722/5-format2010.jpg', 'Handelsblatt', 3),
+(11, 'Bauunternehmer locken mit günstigen Baupreisen', 'Am Markt befinden sich drei Baugebiete, mit prognostizierten Verkehrswertentwicklungen und Mietpreisentwicklungen. Die örtlichen Bauunternehmen locken mit einer neuen Technologie aus den USA zur Fertigstellung. Der Clou: Die Immobilien sind direkt in dem selben Jahr des Bauauftrags bezugsfertig (Schlüsselfertig) und können sofort vermietet werden. Marktbeobachter sind sich einig, dass Neubauten eine höhere Mietpreisentwicklung verzeichnen werden, als gleichwertige Immobilien in Berlin. Geschäftsführer G. Meyer der Baufirma Meyer & Sohn bietet Abonnenten der Immonews ein besonders vergünstigtes Bauangebot und weißt nochmals daraufhin, dass ein Bauingenieur im Unternehmen beschäftigt werden muss.', 'http://www.immosbk.de/upload/125000-Berger-1-2.jpg', 'Immonews', 3),
+(12, 'Gute Nachrichten für Immobilieneigentümer', 'Sanierungsbedürftige Immobilien können ab sofort saniert werden. Jedoch sind die Aufbesserungsmöglichkeiten eingeschränkt. Nur Objekte in den Standort-Kategorien „Gering“ und „Mittel“ können saniert werden. Für die Überwachung der Sanierung muss der Bauingenieur im Unternehmen beschäftigt sein. Ohne einen Bauingenieur ist die Sanierungsabwicklung nicht möglich.', 'http://www.holzbau-frerk.de/files/holzbau-frerk/content/leistungen/leistungen-big/energetische-sanierung-pavatex.jpg', 'Immobilia', 3);
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `Objekt`
+--
+
+CREATE TABLE IF NOT EXISTS `Objekt` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `Beschreibung` varchar(500) NOT NULL,
+  `Strasse` varchar(120) NOT NULL,
+  `PLZ` int(11) NOT NULL,
+  `Ort` varchar(120) NOT NULL,
+  `Bild` varchar(140) NOT NULL,
+  `Flaeche` int(11) NOT NULL,
+  `Wert` double NOT NULL,
+  `Wertentwicklung` int(11) NOT NULL,
+  `Miete` double NOT NULL,
+  `Mietentwicklung` int(11) NOT NULL,
+  `Kaufpreis` double NOT NULL,
+  `Viertel` int(11) NOT NULL,
+  `Lage` int(11) NOT NULL DEFAULT '5',
+  `Zustand` int(11) NOT NULL DEFAULT '5',
+  `Long` float NOT NULL,
+  `Lat` float NOT NULL,
+  `Bestand` varchar(300) NOT NULL,
+  `Abschreibungsbasis` int(11) NOT NULL,
+  `Abschreibung` int(11) NOT NULL,
+  `Rendite` float NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=12 ;
+
+--
+-- Daten für Tabelle `Objekt`
+--
+
+INSERT INTO `Objekt` (`ID`, `Beschreibung`, `Strasse`, `PLZ`, `Ort`, `Bild`, `Flaeche`, `Wert`, `Wertentwicklung`, `Miete`, `Mietentwicklung`, `Kaufpreis`, `Viertel`, `Lage`, `Zustand`, `Long`, `Lat`, `Bestand`, `Abschreibungsbasis`, `Abschreibung`, `Rendite`) VALUES
+(1, 'Weitläufige Wohnung', 'Wilmersdorfer Straße 13', 37682, 'Berlin - Charlottenburg', 'http://www.marketingsfinest.com/spire/pictu/immobilien/immo01.jpg', 100, 125500, -5500, 8800, -400, 125500, 11, 5, 5, 13.3324, 52.5073, '', 1506, 1440, 0),
+(2, 'Zentrale 4 Zimmer Wohnung', 'Klayallee 12', 15612, 'Berlin - Tempelhof', 'http://www.marketingsfinest.com/spire/pictu/immobilien/immo03.jpg', 250, 525000, 100000, 40000, 5000, 525000, 11, 5, 5, 13.3186, 52.5842, '', 6300, 7500, 0),
+(3, 'Geräumiges Haus 3 Etagen', 'Am Wannsee 154', 21415, 'Berlin - Wannsee', 'http://www.marketingsfinest.com/spire/pictu/immobilien/immo02.jpg', 100, 125500, -5500, 8800, -400, 125500, 11, 5, 5, 13.3749, 52.5566, '', 1506, 1440, 0),
+(4, 'Zentrale 4 Zimmer Wohnung', 'Bahnhofsstraße 15', 12415, 'Berlin - Mitte', 'http://www.marketingsfinest.com/spire/pictu/immobilien/immo03.jpg', 100, 125500, -5500, 8800, -400, 125500, 11, 5, 5, 13.3186, 52.5842, '', 1506, 1440, 0),
+(5, 'Zentrale 5 Zimmer Wohnung', 'Prenzlauer Berg 1', 12515, 'Berlin - Kreuzberg', 'http://www.marketingsfinest.com/spire/pictu/immobilien/immo04.jpg', 100, 106250, 13750, 7950, 450, 106250, 11, 5, 5, 13.4862, 52.4638, '', 2640, 3240, 0),
+(6, 'Zentrale 3 Zimmer Wohnung', 'Marktstraße 15', 37671, 'Berlin - Neukölln', 'http://www.marketingsfinest.com/spire/pictu/immobilien/immo05.jpg', 150, 171000, 9000, 11850, 750, 171000, 11, 5, 5, 13.4669, 52.5408, '', 2640, 3240, 0),
+(7, 'Gute Lage Apartment', 'Mittlerer Weg 4', 15771, 'Berlin - Neukölln', 'http://www.marketingsfinest.com/spire/pictu/immobilien/immo06.jpg', 150, 237500, 32500, 17000, 1000, 237500, 11, 5, 5, 13.3918, 52.4986, '', 2640, 3240, 0),
+(8, '8.Etage in guter Nachbarschaft', 'Charlottenburger Straße 77', 15169, 'Berlin - Wilmersdorf', 'http://www.marketingsfinest.com/spire/pictu/immobilien/immo07.jpg', 150, 220000, 50000, 17550, 2250, 220000, 11, 5, 5, 13.3815, 52.5011, '', 3810, 4320, 0),
+(9, 'Studentenwohnung', 'Bahnhofsstraße 2', 15722, 'Berlin - Zoologischer Garten', 'http://www.marketingsfinest.com/spire/pictu/immobilien/immo08.jpg', 200, 472500, 27500, 32000, 4000, 472500, 11, 5, 5, 13.3846, 52.4967, '', 4878, 6000, 0),
+(10, 'Wohnung guter Zustand ', 'Hanauerstraße Weg Stadt Straße Mitte Oben Unten 144', 15151, 'Berlin - Sackgassenhafenflugplatzhintermmondgesichtkopfrund', 'http://www.marketingsfinest.com/spire/pictu/immobilien/immo09.jpg', 200, 406500, 93500, 32000, 4000, 406500, 11, 5, 5, 13.3915, 52.4943, '', 4878, 6000, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `Posts`
+--
+
+CREATE TABLE IF NOT EXISTS `Posts` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `Bild` varchar(200) NOT NULL,
+  `Titel` varchar(150) NOT NULL,
+  `Beschreibung` varchar(300) NOT NULL,
+  `Zeit` varchar(100) NOT NULL,
+  `Jahr` int(1) NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Daten für Tabelle `Posts`
+--
+
+INSERT INTO `Posts` (`ID`, `Bild`, `Titel`, `Beschreibung`, `Zeit`, `Jahr`) VALUES
+(1, 'https://scontent.xx.fbcdn.net/v/t31.0-8/11046873_1095276567153817_181346424008682067_o.jpg?oh=a7d503b8159eb825f7bb19b663bed417&oe=590790B8', 'Klaus H.', 'ist endlich in seine eigenen 4 Wände eingezogen!', 'vor 2 Tagen', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `Rundendaten`
+--
+
+CREATE TABLE IF NOT EXISTS `Rundendaten` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `SpielID` int(11) NOT NULL,
+  `UnternehmensID` int(11) NOT NULL,
+  `Runde` int(11) NOT NULL,
+  `Kapital` float NOT NULL,
+  `Fremdkapital` float NOT NULL DEFAULT '0',
+  `Anlagekapital` float NOT NULL DEFAULT '0',
+  `Strategie1` int(11) NOT NULL,
+  `Strategie2` int(11) NOT NULL,
+  `Strategie3` int(11) NOT NULL,
+  `Social` int(11) NOT NULL DEFAULT '0',
+  `Kredit` tinyint(1) NOT NULL DEFAULT '0',
+  `Anlage` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `Spiel`
+--
+
+CREATE TABLE IF NOT EXISTS `Spiel` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `Startzeit` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `Unternehmen1` int(11) DEFAULT NULL,
+  `Unternehmen2` int(11) DEFAULT NULL,
+  `Unternehmen3` int(11) DEFAULT NULL,
+  `Unternehmen4` int(11) DEFAULT NULL,
+  `Unternehmen5` int(11) DEFAULT NULL,
+  `Unternehmen6` int(11) DEFAULT NULL,
+  `Unternehmen7` int(11) DEFAULT NULL,
+  `Unternehmen8` int(11) DEFAULT NULL,
+  `Unternehmen9` int(11) DEFAULT NULL,
+  `Unternehmen10` int(11) DEFAULT NULL,
+  `Unternehmen11` int(11) DEFAULT NULL,
+  `Unternehmen12` int(11) DEFAULT NULL,
+  `Unternehmen13` int(11) DEFAULT NULL,
+  `Unternehmen14` int(11) DEFAULT NULL,
+  `Unternehmen15` int(11) DEFAULT NULL,
+  `Unternehmen16` int(11) DEFAULT NULL,
+  `Unternehmen17` int(11) DEFAULT NULL,
+  `Unternehmen18` int(11) DEFAULT NULL,
+  `Unternehmen19` int(11) DEFAULT NULL,
+  `Unternehmen20` int(11) DEFAULT NULL,
+  `Runde` int(11) NOT NULL,
+  `Schwierigkeit` int(11) NOT NULL,
+  `Beschreibung` varchar(140) NOT NULL,
+  `Szenario` int(11) NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Daten für Tabelle `Spiel`
+--
+
+INSERT INTO `Spiel` (`ID`, `Startzeit`, `Unternehmen1`, `Unternehmen2`, `Unternehmen3`, `Unternehmen4`, `Unternehmen5`, `Unternehmen6`, `Unternehmen7`, `Unternehmen8`, `Unternehmen9`, `Unternehmen10`, `Unternehmen11`, `Unternehmen12`, `Unternehmen13`, `Unternehmen14`, `Unternehmen15`, `Unternehmen16`, `Unternehmen17`, `Unternehmen18`, `Unternehmen19`, `Unternehmen20`, `Runde`, `Schwierigkeit`, `Beschreibung`, `Szenario`) VALUES
+(1, '2016-11-25 20:27:33', 1, 2, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 5, 'Testspiel Beschreibung', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `Stadt`
+--
+
+CREATE TABLE IF NOT EXISTS `Stadt` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `Name` varchar(40) NOT NULL,
+  `Einwohner` int(11) NOT NULL,
+  `Beschreibung` varchar(500) NOT NULL,
+  `Attraktivitaet` int(11) NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Daten für Tabelle `Stadt`
+--
+
+INSERT INTO `Stadt` (`ID`, `Name`, `Einwohner`, `Beschreibung`, `Attraktivitaet`) VALUES
+(1, 'Berlin', 3500000, 'Berlin ist die Bundeshauptstadt der Bundesrepublik Deutschland und zugleich eines ihrer Länder. Die Stadt Berlin ist mit gut 3,5 Millionen Einwohnern die bevölkerungsreichste und mit 892 Quadratkilometern die flächengrößte Gemeinde Deutschlands.', 8);
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `Strategien`
+--
+
+CREATE TABLE IF NOT EXISTS `Strategien` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `Titel` varchar(200) NOT NULL,
+  `Kennzahl` varchar(120) NOT NULL,
+  `Beschreibung` varchar(500) NOT NULL,
+  `Begründung` varchar(800) NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+
+--
+-- Daten für Tabelle `Strategien`
+--
+
+INSERT INTO `Strategien` (`ID`, `Titel`, `Kennzahl`, `Beschreibung`, `Begründung`) VALUES
+(1, 'Umsatz- und Cashflowsteigerung', 'Umsatz', 'Um den Umsatz zu steigern muss man mehr Immobilien verkaufen amk', ''),
+(2, 'Gewinnmaximierung', 'Gewinn', 'Um den Gewinn zu steigern muss man mehr Immobilien verkaufen und weniger Geld ausgeben', ''),
+(3, 'Mitarbeiterzufriedenheit erhöhen', 'Mitarbeiterzufriedenheit und Ansehen', 'Mehr Gehalt = Mehr Zufriedenheit', ''),
+(4, 'Maximum Cheap', 'Ausgaben', 'MAXIMUM CHEAP HAB ICH GESAGT!', ''),
+(5, 'Pure Profit', 'Einnahmen', 'PURE PROFIT IST DAS BESTE!', '');
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `Unternehmen`
+--
+
+CREATE TABLE IF NOT EXISTS `Unternehmen` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `SID` int(11) NOT NULL,
+  `Nutzername` varchar(20) NOT NULL,
+  `Passwort` varchar(100) NOT NULL,
+  `Unternehmensname` varchar(100) NOT NULL,
+  `Spieler1` varchar(40) DEFAULT NULL,
+  `Spieler2` varchar(40) DEFAULT NULL,
+  `Spieler3` varchar(40) DEFAULT NULL,
+  `Spieler4` varchar(40) DEFAULT NULL,
+  `Spieler5` varchar(40) DEFAULT NULL,
+  `Spieler6` varchar(40) DEFAULT NULL,
+  `Spieler7` varchar(40) DEFAULT NULL,
+  `Spieler8` varchar(40) DEFAULT NULL,
+  `Spieler9` varchar(40) DEFAULT NULL,
+  `Spieler10` varchar(40) DEFAULT NULL,
+  `Bestand` varchar(300) NOT NULL,
+  `Mitarbeiter` varchar(200) NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+
+--
+-- Daten für Tabelle `Unternehmen`
+--
+
+INSERT INTO `Unternehmen` (`ID`, `SID`, `Nutzername`, `Passwort`, `Unternehmensname`, `Spieler1`, `Spieler2`, `Spieler3`, `Spieler4`, `Spieler5`, `Spieler6`, `Spieler7`, `Spieler8`, `Spieler9`, `Spieler10`, `Bestand`, `Mitarbeiter`) VALUES
+(1, 1, 'spire', 'b87a5f4a829d238a60811f85dca46bad', 'Spire Immobilien AG', 'Schmändi Kay', 'Dominik Wiehs', 'Robias Brrrratz', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', ''),
+(2, 1, 'erikson', 'b87a5f4a829d238a60811f85dca46bad', 'dejawoo UG', 'Erik Eiermän', 'Thomas Furunkel', 'Lena WEEEEEEEKKK', 'Alex Dumm', NULL, NULL, NULL, NULL, NULL, NULL, '', ''),
+(3, 1, 'hawk1', 'e10adc3949ba59abbe56e057f20f883e', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', '');
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `Unternehmensbestand`
+--
+
+CREATE TABLE IF NOT EXISTS `Unternehmensbestand` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `SpielID` int(11) NOT NULL,
+  `UnternehmensID` int(11) NOT NULL,
+  `ObjektID` int(11) NOT NULL,
+  `Saniert` int(11) NOT NULL DEFAULT '0',
+  `Zustand` int(11) NOT NULL DEFAULT '0',
+  `Gekauft` int(11) NOT NULL DEFAULT '0',
+  `Verkauft` int(11) NOT NULL DEFAULT '0',
+  `Status` varchar(120) NOT NULL,
+  `Bau` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `Viertel`
+--
+
+CREATE TABLE IF NOT EXISTS `Viertel` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `Beschreibung` varchar(500) NOT NULL,
+  `Gentrifizierung` int(11) NOT NULL DEFAULT '5',
+  `Beliebtheit` int(11) NOT NULL DEFAULT '5',
+  `Lage` int(11) NOT NULL DEFAULT '5',
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+
+--
+-- Daten für Tabelle `Viertel`
+--
+
+INSERT INTO `Viertel` (`ID`, `Beschreibung`, `Gentrifizierung`, `Beliebtheit`, `Lage`) VALUES
+(1, 'Kreuzberg', 5, 5, 5),
+(2, 'Tempelhof', 5, 5, 5),
+(3, 'Schöneberg', 5, 5, 5);

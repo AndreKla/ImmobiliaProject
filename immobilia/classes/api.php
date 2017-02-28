@@ -88,7 +88,7 @@ class API {
     }
 	
 	
-	public static function checkKontostand($summe){
+    public static function checkKontostand($summe){
 		
         $kapital = Request::getKontostand();
                 
@@ -126,6 +126,15 @@ class API {
             Request::setBestand($bestandString);
 
             API::addEinnahme($immobilie[0]["Miete"], "Mieteinnahmen: " . $immobilie[0]["Beschreibung"], "Straße");
+            
+            
+            //Create Buchungeintrag in Datenbank
+            
+            $beschreibung = "Kauf von Immobilie " .$immobilie[0]["Beschreibung"];
+            $summe = $immobilie[0]["Kaufpreis"];
+            $sollkonto = "Immobilien";
+            $habenkonto = "Bank";
+            API::createBuchungsAufgabe($sollkonto,$habenkonto,$summe,$beschreibung);
 
         }
         else {
@@ -209,20 +218,43 @@ class API {
     }
 
     
-    //Das müssen wir bei jeder buy function eigentlich mit in die BuchungsAufgaben mit reintragen?!
+    /*
+     * Buchungsmethoden
+     */
+    
     public static function createBuchungsAufgabe($sollkonto,$habenkonto,$summe, $beschreibung){
         
         $sid = $_SESSION["SID"];
         $uid = $_SESSION["UID"];
         $runde = $_SESSION["Runde"];
         
-        $query = "
-        INSERT INTO Buchungsaufgaben (SpielID, UnternehmensID, Runde, Sollkonto, Habenkonto, Summe, Beschreibung)
-        VALUES ('" . $sid . "', '" . $uid . "', '" . $runde . "', '" . $sollkonto . "', '" . $habenkonto . "', '" . $summe . "', '" . $beschreibung ."')
-        ;";
-        Database::sqlInsert($query);
+        $query = "SELECT * FROM Buchungsaufgaben WHERE SpielID = $sid AND UnternehmensID = $uid AND Runde = $runde AND Sollkonto = $sollkonto AND Habenkonto = $habenkonto;";
+        $buchungsaufgabe = Database::sqlSelect($query);
         
+        if(sizeof($buchungsaufgabe) > 0) {
+            $summe = $buchungsaufgabe[0]["Summe"];
+            
+            $query = "        
+            UPDATE Buchungsaufgaben
+            SET Summe = $summe
+            WHERE UnternehmensID = $uid AND SpielID = $sid AND Runde = $runde AND Sollkonto = $sollkonto AND Habenkonto = $habenkonto
+            ;";
+            
+            Database::sqlUpdate($query);
+            
+        }else{
+            $query = "
+            INSERT INTO Buchungsaufgaben (SpielID, UnternehmensID, Runde, Sollkonto, Habenkonto, Summe, Beschreibung)
+            VALUES ('" . $sid . "', '" . $uid . "', '" . $runde . "', '" . $sollkonto . "', '" . $habenkonto . "', '" . $summe . "', '" . $beschreibung ."')
+            ;";
+            
+            Database::sqlInsert($query);
+            
+        }
+                
+      
         
+
     }
     
     
@@ -234,11 +266,11 @@ class API {
         
          
         $query = "
-        SELECT SUM(Summe) FROM Buchungsaufgaben WHERE UnternehmensID='" . $uid . 
-            "' AND Runde='" . $runde . "' AND Sollkonto='" . $sollkonto . "' AND Habenkonto='" . $habenkonto . "' AND Bezahlt = '0';";
+        SELECT SUM(Summe) FROM Buchungsaufgaben WHERE UnternehmensID= $uid  
+             AND Runde= $runde AND Sollkonto= $sollkonto AND Habenkonto= $habenkonto AND Bezahlt = '0';";
         $zuZahlen = Database::sqlSelect($query); 
         
-        var_dump($zuZahlen[0]['SUM(Summe)']);
+        //var_dump($zuZahlen[0]['SUM(Summe)']);
         
         if($summe == $zuZahlen[0]['SUM(Summe)']){
             
@@ -258,6 +290,74 @@ class API {
         
     }
 
+    
+    public static function showBuchungsAufgaben(){
+        
+        $sid = $_SESSION["SID"];
+        $uid = $_SESSION["UID"];
+        $runde = $_SESSION["Runde"];
+        
+        $query = "SELECT * FROM Buchungsaufgaben WHERE SpielID = $sid AND UnternehmensID = $uid AND Runde = $runde";
+        
+        $buchungsaufgabe = Database::sqlSelect($query);
+        
+        $buchungsaufgabe[0]["Sollkonto"];
+        $buchungsaufgabe[0]["Habenkonto"];
+        
+        for ($x = 0; $x <= sizeof($buchungsaufgabe); $x++) {
+            
+            /* 645000 - Aufwendungen für Instandhaltung
+             * F180000 - Bank
+             * S22222 - Langfristige Bankverbindlichkeiten
+             * S44444 - Zinsaufwendungen
+             * S11111 - Personalaufwendungen
+             * 683570 - Mieterträge
+             * 622070 - Abschreibungen
+             * 710500 - Zinserträge
+             * 400000 - Verkaufserlöse
+             * S66666 - Immobilien
+             */
 
+            // Alle möglichen Buchungskonten
+            if($buchungsaufgabe[$x]["Sollkonto"] == "Personalaufwendungen" && $buchungsaufgabe[$x]["Habenkonto"] == "Bank"){
+                
+                //Personalaufwendungen X €  an Bank X €
+                echo "<p> - Die Löhne und Gehälter werden überwiesen. Bitte berechnen Sie den Personalaufwand und buchen Sie diesen.</p>";
+                
+            }
+            if($buchungsaufgabe[$x]["Sollkonto"] == "Aufwendungen für Instandhaltung" && $buchungsaufgabe[$x]["Habenkonto"] == "Bank"){
+                
+                //Aufwendungen für Instandhaltung  X €  an Bank  X €
+                echo "<p> - Ein Teil der Fassade eines deiner Gebäude muss saniert werden, die Kosten für die Instandsetzung, in Höhe von X € müssen überwiesen werden.</p> ";
+            }
+            if($buchungsaufgabe[$x]["Sollkonto"] == "Langfristige Bankverbindlichkeiten" && $buchungsaufgabe[$x]["Habenkonto"] == "Bank" || $buchungsaufgabe[$x]["Sollkonto"] == "Zinsaufwendungen" && $buchungsaufgabe[$x]["Habenkonto"] == "Bank"){
+                
+                //Langfristige Bankverbindlichkeiten / Zinsaufwendungen X €  an Bank X €
+                echo "<p> - Ausgleich einer Darlehensschuld durch Überweisung: X </p>";
+            }
+            if($buchungsaufgabe[$x]["Sollkonto"] == "Bank" && $buchungsaufgabe[$x]["Habenkonto"] == "Mieterträge"){
+                
+                //Bank an Mieterträge
+                echo "<p> - Mieter überweisen laut Bankauszug die fälligen Jahresmieten. Bitte berechnen Sie zunächst die Mieteinnahmen und buchen Sie diese.</p>";
+            }
+            if($buchungsaufgabe[$x]["Sollkonto"] == "Abschreibungen" && $buchungsaufgabe[$x]["Habenkonto"] == "Immobilie"){
+                
+                //Abschreibungen X €  an Immobilie X €
+                echo "<p> - Die Gebäude sind planmäßig abzuschreiben. Die Abschreibungswerte sind den Objekten zu entnehmen.</p>";
+            }
+            if($buchungsaufgabe[$x]["Sollkonto"] == "Bank" && $buchungsaufgabe[$x]["Habenkonto"] == "Zinserträge"){
+                
+                //Bank    X €  an Zinserträge X €
+                echo "<p> - Die Bank schreibt Zinserträge von X % auf unserem Bankkonto gut.</p>";
+            }
+            if($buchungsaufgabe[$x]["Sollkonto"] == "Bank" && $buchungsaufgabe[$x]["Habenkonto"] == "Verkaufserlöse"){
+                
+                //Bank  X € an Verkaufserlöse X €
+                echo "<p> - Das Inserat für das Objekt XX war erfolgreich.  Das Objekt wird zum Jahresende für 665.000 € veräußert.</p>";
+            }
+            
+        }         
+        
+    }
 }
 ?>
