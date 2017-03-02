@@ -104,12 +104,12 @@ class Bestandskonten{
 
                         $(".tabs-left").click(function(){
                             var soll = $('.tabs-left').find('.active').find('a').attr('href');
-                            $('#sollkontoText').html("<big>Sollkonto:</big>" + soll);
+                            $('#sollkontoText').html("<big>Sollkonto:</big><br>" + soll);
                         });
 
                         $(".tabs-right").click(function(){
                             var haben = $('.tabs-right').find('.active').find('a').attr('href');
-                            $('#habenkontoText').html("<big>Habenkonto:</big>" + haben);
+                            $('#habenkontoText').html("<big>Habenkonto:</big><br>"  + haben);
                         });
 
                         $('#confirmButton').click(function(){
