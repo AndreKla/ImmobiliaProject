@@ -7,7 +7,7 @@ class Karte {
   	
   	$anzahlGewählteZiele = 0;
 
-      $objekte = Request::getImmobilien();
+      $objekte = Request::getUnownedImmobilien();
 
   ?>	
   		  
@@ -189,7 +189,7 @@ class Karte {
   	
   	$anzahlGewählteZiele = 0;
 
-    $objekte = Request::getImmobilien();
+    $objekte = Request::getUnownedImmobilien();
 
     ?>
     <div class="clearfix"></div>
@@ -237,7 +237,7 @@ class Karte {
                     <div class="col-md-8" style="padding-left:0; font-size:9pt"><strong>Abschreibung: </strong></div><div style="text-align: right; font-size:9pt"><?php echo number_format($objekte[$i]["Abschreibung"], 2, ',', '.') . " €"; ?></div>
                     <br>
                     <?php
-                      $immoid = $i + 1;
+                      $immoid = $objekte[$i]["ID"];
                     ?>
                     <a href=<?php echo "http://".$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF']."?immokauf=$immoid";?> class="btn btn-success col-md-12">IMMOBILIE KAUFEN</a>
 

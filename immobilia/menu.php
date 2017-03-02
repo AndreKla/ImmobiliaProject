@@ -95,13 +95,7 @@ public static function createMenu($titel) {
 		$mitarbeiter = Array();
 	}
 	
-	if($unternehmen[0]["Bestand"] != "") {
-		$bestand = explode(';', $unternehmen[0]["Bestand"]);
-	}
-	else {
-		$bestand = Array();
-	}
-	  
+	$bestand = Request::getBestand();
 
           
 ?>
@@ -156,7 +150,7 @@ public static function createMenu($titel) {
 	  </div>
 	  	<span style="margin-left:10px; color: #9AC;"> <?php echo "Geschäftsjahr: " . $aktuelleRunde; ?> </span><br>
 		<span style="margin-left:10px; color: #9AC;"> Kontostand:</span><span class="green"> <?php echo number_format($runde[0]["Kapital"], 2, ',', '.'); ?> € </span><br>
-                <span style="margin-left:10px; color: #9AC;"> Immobilien: <?php echo sizeof($bestand)?></span><br>
+                <span style="margin-left:10px; color: #9AC;"> Immobilien: <?php echo sizeof($bestand);?></span><br>
 		<span style="margin-left:10px; color: #9AC;"> Mitarbeiter: <?php echo sizeof($mitarbeiter); ?></span>
 	</div>
 	<!-- /menu profile quick info -->

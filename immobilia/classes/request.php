@@ -121,6 +121,16 @@ class Request {
 
     }
 
+    public static function getBestandsimmobilieByID($id) {
+
+        $query = "
+        SELECT * FROM Unternehmensbestand
+        WHERE ObjektID = $id
+        ;";
+        return Database::sqlSelect($query);
+
+    }
+
     public static function getBestand() {
 
         $sid = $_SESSION["SID"];
@@ -128,27 +138,32 @@ class Request {
         $runde = $_SESSION["Runde"];
 
         $query = "
-        SELECT Bestand FROM Unternehmen
-        WHERE ID = $uid
+        SELECT * FROM Unternehmensbestand
+        WHERE SpielID = $sid AND UnternehmensID = $uid AND Verkauft = 0
         ;";
-        $bestand = Database::sqlSelect($query);
-
-        return $bestand[0]["Bestand"];
+        return Database::sqlSelect($query);
 
     }
 
-    public static function setBestand($bestand) {
+    public static function setBestand($immobilienId) {
 
         $sid = $_SESSION["SID"];
         $uid = $_SESSION["UID"];
         $runde = $_SESSION["Runde"];
 
-        $query = " 
-        UPDATE Unternehmen 
-        SET Bestand = '" . $bestand . "'
-        WHERE ID = $uid
-        ;";
-        Database::sqlUpdate($query);
+        $immobilienListe = Request::getImmobilieByID($immobilienId);
+
+        $immobilie = $immobilienListe[0];
+
+        $zustand = $immobilie["Zustand"];
+        $baugrundstueck = $immobilie["Baugrundstueck"];
+        $vermietet = $immobilie["Vermietet"];
+        $wert = $immobilie["Wert"];
+
+        $query = "
+        INSERT INTO Unternehmensbestand (SpielID, UnternehmensID, ObjektID, Saniert, Zustand, Gekauft, Verkauft, Wert, Status, Vermietet, Bau)
+        VALUES ('" . $sid . "', '" . $uid . "', '" . $immobilienId . "', 0, '" . $zustand . "', '" . $runde . "', 0, '" . $wert . "', 0, '" . $vermietet . "', '" . $baugrundstueck . "');";
+        Database::sqlInsert($query);
 
     }
 
@@ -159,6 +174,55 @@ class Request {
         FROM Objekt
         ;";
         return Database::sqlSelect($query);
+
+    }
+
+    public static function getUnownedImmobilien() {
+
+        $sid = $_SESSION["SID"];
+        $uid = $_SESSION["UID"];
+        $runde = $_SESSION["Runde"];
+
+        $query = "
+        SELECT *
+        FROM Unternehmensbestand
+        WHERE SpielID = $sid
+        ;";
+        $ownedImmobilien = Database::sqlSelect($query);
+
+        if(sizeof($ownedImmobilien) > 0) {
+
+            
+            if(sizeof($ownedImmobilien) > 0) {
+                $owned = "(";
+                for($i = 0; $i < sizeof($ownedImmobilien); $i++) {
+                    $owned = $owned . $ownedImmobilien[$i]["ObjektID"];
+                    if($i != sizeof($ownedImmobilien) - 1) {
+                        $owned = $owned . ",";
+                    }
+                    else {
+                        $owned = $owned . ")";
+                    }
+                }
+            }
+            
+
+            $query = "
+            SELECT *
+            FROM Objekt
+            WHERE ID NOT IN $owned
+            ;";
+            return Database::sqlSelect($query);
+        }
+        else {
+
+            $query = "
+            SELECT *
+            FROM Objekt
+            ;";
+            return Database::sqlSelect($query);
+
+        }
 
     }
 
@@ -279,6 +343,17 @@ class Request {
         WHERE ID = $uid AND SID = $sid
         ;";
         Database::sqlUpdate($query);
+
+    }
+
+    public static function getLageByViertel($viertelID) {
+
+        $query = "
+        SELECT Lage
+        FROM Viertel
+        WHERE ID = $viertelID
+        ;";
+        return Database::sqlSelect($query);
 
     }
 

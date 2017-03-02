@@ -24,8 +24,6 @@ class Finanzen {
 
   public static function createKapitalbewegungen($year) {
 
-    $year -= 1;
-
   ?>
     <div class="col-md-9 col-sm-9 col-xs-9">
       <div class="x_panel" style="height:auto">
@@ -44,7 +42,7 @@ class Finanzen {
           <?php 
 
             $kapitalbewegung = Request::getKapitalbewegung();
-
+            
             for($i = 0; $i < sizeof($kapitalbewegung); $i++) {
 
               $date = new DateTime($kapitalbewegung[$i]["Zeit"]);

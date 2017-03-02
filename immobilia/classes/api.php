@@ -112,22 +112,12 @@ class API {
 			
         $immobilie = Request::getImmobilieByID($immobilienId);
 
-        if(API::addAusgabe($immobilie[0]["Kaufpreis"], "Immobilienkauf: " . $immobilie[0]["Beschreibung"], "Straße")) {
+        if(API::addAusgabe($immobilie[0]["Kaufpreis"], $immobilie[0]["Strasse"] . ", " . $immobilie[0]["PLZ"] . " " . $immobilie[0]["Ort"], "Immobilienkauf: " . $immobilie[0]["Beschreibung"])) {
             
-            $bestand = Request::getBestand();
+            Request::setBestand($immobilienId);
 
-            if ($bestand == "") {
-                $bestandString = $immobilienId;
-            }
-            else {
-                $bestandString = $bestand . ';' . $immobilienId;
-            }
+            API::addEinnahme($immobilie[0]["Miete"], $immobilie[0]["Strasse"] . ", " . $immobilie[0]["PLZ"] . " " . $immobilie[0]["Ort"], "Mieteinnahmen: " . $immobilie[0]["Beschreibung"]);
 
-            Request::setBestand($bestandString);
-
-            API::addEinnahme($immobilie[0]["Miete"], "Mieteinnahmen: " . $immobilie[0]["Beschreibung"], "Straße");
-            
-            
             //Create Buchungeintrag in Datenbank
             
             $beschreibung = "Kauf von Immobilie " .$immobilie[0]["Beschreibung"];
@@ -135,7 +125,7 @@ class API {
             $sollkonto = "Immobilien";
             $habenkonto = "Bank";
             API::createBuchungsAufgabe($sollkonto,$habenkonto,$summe,$beschreibung);
-
+            
         }
         else {
 
@@ -173,6 +163,43 @@ class API {
                 <p>Laufzeit: <?php echo $laufzeit; if($laufzeit == 1) { echo " Jahr"; } else { echo " Jahre"; }?></p>
                 <p>Risiko: <?php echo $risiko; ?></p>
                 <a href=<?php echo 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'].'?anlage="' . $id .'"'; ?> class="btn btn-primary">Geld anlegen</a>
+            </div>
+        </div>
+        <?php
+    }
+
+    public static function createSalesOffer($id, $name, $summe, $zeitpunkt, $bonität) {
+
+        if($zeitpunkt == 0) {
+            $zahlungsdatum = "sofort";
+        }
+        else {
+            $zahlungsdatum = "Jahresende";
+        }
+
+        if($bonität == 0) {
+            $sicherheit = "?";
+        }
+        else if ($bonität == 1) {
+            $sicherheit = "fragwürdig";
+        }
+        else if ($bonität == 2) {
+            $sicherheit = "mittel";
+        }
+        else {
+            $sicherheit = "hoch";
+        }
+
+        ?>
+        <div class="modal-body col-md-4">
+            <div class="x_panel">
+                <h4 style="text-align:center">ANGEBOT</h4><br>
+                <h5><?php echo $name; ?></h5>
+                <p><?php echo $beschreibung; ?></p>
+                <p>Verkaufspreis: <?php echo number_format($summe, 2, ',', '.'); ?> €</p>
+                <p>Zahlungsdatum: <?php echo $zahlungsdatum;?></p>
+                <p>Käuferbonität: <?php echo $sicherheit; ?></p>
+                <a href=<?php echo 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'].'?verkauf="' . $id .'"'; ?> class="btn btn-primary">Verkaufen</a>
             </div>
         </div>
         <?php
