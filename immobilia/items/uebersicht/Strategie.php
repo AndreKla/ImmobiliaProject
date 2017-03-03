@@ -126,7 +126,9 @@ class Strategie {
       <div class="x_panel">
         <div class="x_title">
           <h2>Unternehmensstrategie für <?php echo date('Y', strtotime("+$aktuellesGeschäftsjahr year")); ?><small id="zielLabel">0 von 3 Zielen gewählt</small></h2>
-          <div class="clearfix"></div>
+			<!-- Hilfe Funktionalität / Text / Popup-->
+		    <?php include 'help/strategie_unternehmensstrategie_help.php'; ?>
+		  <div class="clearfix"></div>
         </div>
         <div class="x_content" id="unternehmensziele">
           <div class="">

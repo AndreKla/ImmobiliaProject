@@ -127,6 +127,8 @@ public static function bestand(){
       <div class="x_panel">
         <div class="x_title">
           <h2>Deine Mitarbeiter</h2>
+			<!-- Hilfe Funktionalität / Text / Popup-->
+			<?php include 'help/personal_bestand_help.php'; ?>
           <div class="clearfix"></div>
         </div>
         <div class="x_content">
@@ -225,6 +227,8 @@ public static function bestand(){
           <div class="x_panel">
             <div class="x_title">
               <h2>Deine Mitarbeiter</h2>
+				<!-- Hilfe Funktionalität / Text / Popup-->
+				<?php include 'help/personal_bestand_help.php'; ?>
               <div class="clearfix"></div>
             </div>
             <div class="x_content">

@@ -197,9 +197,11 @@ class Karte {
         <div class="x_panel">
           <div class="x_title">
             <h2><i class="fa fa-align-left"></i> Immobilien <small>Verzeichnis</small></h2>
-            <ul class="nav navbar-right" style="cursor:pointer">
+            <!--<ul class="nav navbar-right" style="cursor:pointer">
               <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
-            </ul>
+            </ul>-->
+			<!-- Hilfe Funktionalität / Text / Popup-->
+		    <?php include 'help/karte_immobilien_help.php'; ?>
             <div class="clearfix"></div>
           </div>
           <div class="x_content">

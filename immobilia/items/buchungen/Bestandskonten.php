@@ -15,6 +15,8 @@ class Bestandskonten{
                 <div class="x_panel">
                       <div class="x_title">
                         <h2><i class="fa" id="aufgaben"></i> Aufgaben </h2>
+						<!-- Hilfe Funktionalität / Text / Popup-->
+						<?php include 'help/konten_aufgaben_help.php'; ?>
                         <div class="clearfix"></div>
                       </div>
                       <div class="x_content">

@@ -29,6 +29,8 @@ class Finanzen {
       <div class="x_panel" style="height:auto">
         <div class="x_title">
           <h2>Umsätze <small><?php echo date('Y', strtotime("+" . $year . " year")); ?></small></h2>
+			<!-- Hilfe Funktionalität / Text / Popup-->
+		    <?php include 'help/finanzen_umsaetze_help.php'; ?>
           <div class="clearfix"></div>
         </div>
         <table class="table table-striped col-md-12" style="font-size: 10pt;">
@@ -141,6 +143,8 @@ class Finanzen {
       <div class="x_panel" style="height:auto">
         <div class="x_title">
           <h2>Bank <small>Kapitalverwaltung</small></h2>
+			<!-- Hilfe Funktionalität / Text / Popup-->
+		    <?php include 'help/finanzen_bank_help.php'; ?>
           <div class="clearfix"></div>
         </div>
         <button <?php if($rundendaten[0]["Kredit"] != 0) { echo "disabled"; } ?> type="button" class="btn btn-primary col-md-12" data-toggle="modal" data-target="#kredit">Kreditantrag stellen</button>

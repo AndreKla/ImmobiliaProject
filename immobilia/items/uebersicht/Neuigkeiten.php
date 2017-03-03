@@ -23,6 +23,8 @@ class Neuigkeiten {
     </li>
 
     <?php
+	/*
+*/
 
   }
 	
@@ -44,6 +46,9 @@ class Neuigkeiten {
       <div class="x_panel">
         <div class="x_title">
           <h2>Aktuelle Neuigkeiten<small><?php echo date('Y', strtotime("+" . $timeToAdd . " year")); ?></small></h2>
+		  <!-- Hilfe Funktionalität / Text / Popup-->
+		  <?php include 'help/neuigkeiten_aktuell_help.php'; ?>
+
           <div class="clearfix"></div>
         </div>
         <div class="x_content">
@@ -87,6 +92,8 @@ class Neuigkeiten {
         <div class="x_panel">
           <div class="x_title">
             <h2>Analyse <small>von Social Intelligence</small></h2>
+			<!-- Hilfe Funktionalität / Text / Popup-->
+		    <?php include 'help/neuigkeiten_analyse_help.php'; ?>
             <div class="clearfix"></div>
           </div>
           <div class="x_content">
@@ -160,6 +167,8 @@ class Neuigkeiten {
         <div class="x_panel">
           <div class="x_title">
             <h2>Ratgeber <small>Immobilienwirtschaft</small></h2>
+			<!-- Hilfe Funktionalität / Text / Popup-->
+		    <?php include 'help/neuigkeiten_ratgeber_help.php'; ?>
             <div class="clearfix"></div>
           </div>
           <div class="x_content">

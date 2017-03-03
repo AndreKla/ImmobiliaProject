@@ -46,7 +46,8 @@ public static function createAuktion() {
                 <div class="x_panel">
                   <div class="x_title">
                     <h2>Offene Auktion</h2>
-                   
+					<!-- Hilfe Funktionalität / Text / Popup-->
+					<?php include 'help/auktion_offeneauktion_help.php'; ?>
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
@@ -111,7 +112,8 @@ public static function createAuktion() {
                 <div class="x_panel">
                   <div class="x_title">
                     <h2>Verdeckte Auktion</h2>
-                   
+					<!-- Hilfe Funktionalität / Text / Popup-->
+					<?php include 'help/auktion_geschlosseneauktion_help.php'; ?>
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
