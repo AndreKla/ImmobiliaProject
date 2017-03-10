@@ -42,7 +42,7 @@
         <div class="animate form login_form">
           <section class="login_content">
             <form action="login.php" method="POST">
-              <h1>Einloggen</h1>
+              <h1>Einloggen Hallo Dominik</h1>
               <div>
                 <input type="text" class="form-control" placeholder="Benutzername" name="username" required="" />
               </div>

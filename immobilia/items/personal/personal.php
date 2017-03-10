@@ -17,8 +17,8 @@ public static function einstellen($id, $bezeichnung, $name, $skills, $rating, $b
 ?>
 
     <div class="col-md-5 col-sm-5 col-xs-5 profile_details">
-			<div class="well profile_view">
-			  <div class="col-sm-12">
+        <div class="well profile_view">
+        <div class="col-sm-12">
           <h4 class="brief"><i><?php echo $bezeichnung; ?></i></h4>
           <div class="left col-xs-7">
             <h2><?php echo $name; ?></h2>
@@ -88,6 +88,7 @@ public static function einstellen($id, $bezeichnung, $name, $skills, $rating, $b
         </div>
       </div>
     </div>
+<div class="clearfix">
 
 <?php
 }
