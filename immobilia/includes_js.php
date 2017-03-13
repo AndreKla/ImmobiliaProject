@@ -75,3 +75,6 @@
 <!-- starrr -->
 <script src="vendors/starrr/dist/starrr.js"></script>
 
+<!-- Morris JS -->
+    <script src="vendors/raphael/raphael.min.js"></script>
+    <script src="vendors/morris.js/morris.min.js"></script>

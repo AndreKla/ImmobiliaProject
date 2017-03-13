@@ -15,8 +15,8 @@ class Bestandskonten{
                 <div class="x_panel">
                       <div class="x_title">
                         <h2><i class="fa" id="aufgaben"></i> Aufgaben </h2>
-						<!-- Hilfe Funktionalität / Text / Popup-->
-						<?php include 'help/konten_aufgaben_help.php'; ?>
+                        <!-- Hilfe Funktionalität / Text / Popup-->
+                        <?php include 'help/konten_aufgaben_help.php'; ?>
                         <div class="clearfix"></div>
                       </div>
                       <div class="x_content">
@@ -31,13 +31,13 @@ class Bestandskonten{
                       
                     <div class="col-xs-3" style="overflow:auto;height:<?php echo $rowHeight . "px;"?>;">
                       <ul class="nav nav-tabs tabs-left">
-                        <li><a href="Aufwendungen für Instandhaltung" data-toggle="tab">Aufwendungen für Instandhaltung - <small>645000</small></a>
+                        <li class="active"><a href="Aufwendungen für Instandhaltung" data-toggle="tab">Aufwendungen für Instandhaltung - <small>645000</small></a>
                         </li>
                         <li><a href="Bank" data-toggle="tab">Bank <small>F180000</small></a>
                         </li>
                         <li><a href="Langfristige Bankverbindlichkeiten" data-toggle="tab">Langfristige Bankverbindlichkeiten <br><small>S22222</small></a>
                         </li>
-                        <li class="active"><a href="Zinsaufwendungen" data-toggle="tab">Zinsaufwendungen <br><small>S44444</small></a>
+                        <li><a href="Zinsaufwendungen" data-toggle="tab">Zinsaufwendungen <br><small>S44444</small></a>
                         </li>
                         <li><a href="Personalaufwendungen" data-toggle="tab">Personalaufwendungen <br><small>S11111</small></a>
                         </li>
@@ -76,13 +76,13 @@ class Bestandskonten{
 
                     <div class="col-xs-3" style="overflow:auto;height:<?php echo $rowHeight . "px;"?>">
                       <ul class="nav nav-tabs tabs-right">
-                        <li><a href="Aufwendungen für Instandhaltung" data-toggle="tab">Aufwendungen für Instandhaltung - <small>645000</small></a>
+                        <li class="active"><a href="Aufwendungen für Instandhaltung" data-toggle="tab">Aufwendungen für Instandhaltung - <small>645000</small></a>
                         </li>
                         <li><a href="Bank" data-toggle="tab">Bank <small>F180000</small></a>
                         </li>
                         <li><a href="Langfristige Bankverbindlichkeiten" data-toggle="tab">Langfristige Bankverbindlichkeiten <br><small>S22222</small></a>
                         </li>
-                        <li class="active"><a href="Zinsaufwendungen" data-toggle="tab">Zinsaufwendungen <br><small>S44444</small></a>
+                        <li><a href="Zinsaufwendungen" data-toggle="tab">Zinsaufwendungen <br><small>S44444</small></a>
                         </li>
                         <li><a href="Personalaufwendungen" data-toggle="tab">Personalaufwendungen <br><small>S11111</small></a>
                         </li>
@@ -103,14 +103,14 @@ class Bestandskonten{
                     
         <!-- submitbutton function -->
                 <script>
-
-                        $(".tabs-left").click(function(){
-                            var soll = $('.tabs-left').find('.active').find('a').attr('href');
+                        
+                        $(".tabs-left li").click(function(){
+                            var soll = $(this).find('a').attr('href');
                             $('#sollkontoText').html("<big>Sollkonto:</big><br>" + soll);
                         });
 
-                        $(".tabs-right").click(function(){
-                            var haben = $('.tabs-right').find('.active').find('a').attr('href');
+                        $(".tabs-right li").click(function(){
+                            var haben = $(this).find('a').attr('href');
                             $('#habenkontoText').html("<big>Habenkonto:</big><br>"  + haben);
                         });
 

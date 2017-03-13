@@ -9,6 +9,7 @@
 	<div class="right_col" role="main">
 <?php
 		Markt::createMarktanalyse();
+                Markt::createViertel();
 ?>		
 	</div>
 	<!-- /page content -->
