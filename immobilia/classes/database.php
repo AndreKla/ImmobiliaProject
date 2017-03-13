@@ -1,5 +1,7 @@
 <?php
 
+include "../inc/dbinfo.inc"
+
 class Database {
 	
 	public static $lastMysqlErrors = array();
@@ -11,12 +13,17 @@ class Database {
 	 */
 	public static function databaseConnect() {
 		
-		# Connection settings
-		# tobias-db.czo3mjccdla1.eu-cnetral-1.rdsamazonaws.com:3306
+		# LOCAL Connection settings
 		$dbPath = "localhost";
 		$dbDatabase = "Planspiel";
-                $dbUser = "root";
-                $dbPassword = "";
+        $dbUser = "root";
+        $dbPassword = "";
+
+        # PRODUCTION Connection settings
+        # $dbPath = DB_SERVER;
+        # $dbDatabase = DB_DATABASE;
+        # $dbUser = DB_USERNAME;
+        # $dbPassword = DB_PASSWORD;
 		
 		$connection = @mysql_connect($dbPath, $dbUser, $dbPassword);
 		if (!$connection) {
