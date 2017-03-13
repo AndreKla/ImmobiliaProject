@@ -37,6 +37,7 @@ public static function checkForCompletion() {
 }
 	
 public static function includeHead() {
+	date_default_timezone_set('Europe/Berlin');
 	Database::databaseConnect();
 
 	$spielID = $_SESSION["SID"];
@@ -74,6 +75,8 @@ public static function createMenu($titel) {
 
 	}
 	*/
+
+	date_default_timezone_set('Europe/Berlin');
 	Database::databaseConnect();
 
     $runde = Request::getRundendaten();
