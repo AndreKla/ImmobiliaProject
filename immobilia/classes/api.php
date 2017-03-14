@@ -173,15 +173,18 @@ class API {
         if($zeitpunkt == 0) {
             $zahlungsdatum = "sofort";
         }
-        else {
+        else if($zeitpunkt == 1) {
             $zahlungsdatum = "Jahresende";
+        }
+        else {
+            $zahlungsdatum = "in 2 Jahren";
         }
 
         if($bonität == 0) {
             $sicherheit = "?";
         }
         else if ($bonität == 1) {
-            $sicherheit = "fragwürdig";
+            $sicherheit = "schlecht";
         }
         else if ($bonität == 2) {
             $sicherheit = "mittel";
@@ -199,7 +202,93 @@ class API {
                 <p>Verkaufspreis: <?php echo number_format($summe, 2, ',', '.'); ?> €</p>
                 <p>Zahlungsdatum: <?php echo $zahlungsdatum;?></p>
                 <p>Käuferbonität: <?php echo $sicherheit; ?></p>
-                <a href=<?php echo 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'].'?verkauf="' . $id .'"'; ?> class="btn btn-primary">Verkaufen</a>
+                <a href=<?php echo 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF']."?verkauf=$id&preis=$summe&zeitpunkt=$zeitpunkt"; ?> class="btn btn-primary">Verkaufen</a>
+            </div>
+        </div>
+        <?php
+    }
+
+    public static function createRentOffer($id, $name, $summe, $zeitpunkt, $sorgfalt, $bonität) {
+
+        if($zeitpunkt == 0) {
+            $zahlungsdatum = "sofort";
+        }
+        else if($zeitpunkt == 1) {
+            $zahlungsdatum = "Jahresende";
+        }
+        else {
+            $zahlungsdatum = "in 2 Jahren";
+        }
+
+        if($bonität == 0) {
+            $sicherheit = "?";
+        }
+        else if ($bonität == 1) {
+            $sicherheit = "schlecht";
+        }
+        else if ($bonität == 2) {
+            $sicherheit = "mittel";
+        }
+        else {
+            $sicherheit = "hoch";
+        }
+
+        if($sorgfalt == 0) {
+            $sauberkeit = "?";
+        }
+        else if ($sorgfalt == 1) {
+            $sauberkeit = "unordentlich";
+        }
+        else if ($sorgfalt == 2) {
+            $sauberkeit = "ordentlich";
+        }
+        else {
+            $sauberkeit = "sehr ordentlich";
+        }
+
+        ?>
+        <div class="modal-body col-md-4">
+            <div class="x_panel">
+                <h4 style="text-align:center">MIETINTERESSENT</h4><br>
+                <h5><?php echo $name; ?></h5>
+                <p><?php echo $beschreibung; ?></p>
+                <p>Miete (p.a.): <?php echo number_format($summe, 2, ',', '.'); ?> €</p>
+                <p>Bezugsdatum: <?php echo $zahlungsdatum;?></p>
+                <p>Mietereindruck: <?php echo $sauberkeit;?></p>
+                <p>Mieterbonität: <?php echo $sicherheit; ?></p>
+                <a href=<?php echo 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF']."?vermieten=$id&preis=$summe&zeitpunkt=$zeitpunkt"; ?> class="btn btn-primary">Vermieten</a>
+            </div>
+        </div>
+        <?php
+    }
+
+    public static function createRenewOption($id, $name, $beschreibung, $summe, $wertsteigerung, $zustand) {
+
+        ?>
+        <div class="modal-body col-md-4">
+            <div class="x_panel">
+                <h4 style="text-align:center">SANIERUNGSOPTION</h4><br>
+                <h5><?php echo $name; ?></h5>
+                <p><?php echo $beschreibung; ?></p>
+                <p>Kosten: <?php echo number_format($summe, 2, ',', '.'); ?> €</p>
+                <p>Wertsteigerung: <?php echo number_format($wertsteigerung, 2, ',', '.'); ?> €</p>
+                <a href=<?php echo 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF']."?sanieren=$id&preis=$summe&wertsteigerung=$wertsteigerung&zustand=$zustand"; ?> class="btn btn-primary">Sanieren</a>
+            </div>
+        </div>
+        <?php
+    }
+
+    public static function createBuildOption($id, $name, $summe, $wertsteigerung, $zustand, $dauer) {
+
+        ?>
+        <div class="modal-body col-md-4">
+            <div class="x_panel">
+                <h4 style="text-align:center">BAUOPTION</h4><br>
+                <h5><?php echo $name; ?></h5>
+                <p>Kosten: <?php echo number_format($summe, 2, ',', '.'); ?> €</p>
+                <p>Objektwert (nach Fertigstellung): <?php echo number_format($wertsteigerung, 2, ',', '.'); ?> €</p>
+                <p>Dauer bis Fertigstellung: <?php if($dauer > 1) { echo $dauer . " Jahre";} else { echo $dauer . " Jahr";} ?></p>
+                <a href=<?php echo 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF']."?bauen=$id&preis=$summe&wertsteigerung=$wertsteigerung&zustand=$zustand&dauer=$dauer"; ?> class="btn btn-primary">Bauen</a>
             </div>
         </div>
         <?php
@@ -241,6 +330,105 @@ class API {
             </script>
 
         <?php
+
+    }
+
+    public static function sellImmobilie($id, $summe, $zeitpunkt) {
+
+        $sid = $_SESSION["SID"];
+        $uid = $_SESSION["UID"];
+        $runde = $_SESSION["Runde"];
+
+        $immobilie = Request::getImmobilieByID($id);
+
+        $beschreibung = $immobilie[0]["Strasse"] . ", " . $immobilie[0]["PLZ"] . " " . $immobilie[0]["Ort"];
+        $details = "Immobilienverkauf: " . $immobilie[0]["Beschreibung"];
+
+        if($zeitpunkt == 0) {
+            API::addEinnahme($summe, $beschreibung, $details);
+            Request::removeImmobilieFromBestand($id);
+        }
+        else {
+
+            $auszahlung = $runde + $zeitpunkt;
+
+            $query = "
+            INSERT INTO Zukunftseinnahmen (SpielID, UnternehmensID, Runde, Auszahlung, Summe, Beschreibung, Details)
+            VALUES ('" . $sid . "', '" . $uid . "', '" . $runde . "', '" . $auszahlung . "', '" . $summe . "', '" . $beschreibung . "', '" . $details . "')
+            ;";
+            Database::sqlInsert($query);
+            Request::removeImmobilieFromBestand($id);
+        }
+
+    }
+
+    public static function rentImmobilie($id, $summe, $zeitpunkt) {
+
+        $sid = $_SESSION["SID"];
+        $uid = $_SESSION["UID"];
+        $runde = $_SESSION["Runde"];
+
+        $immobilie = Request::getImmobilieByID($id);
+
+        $beschreibung = $immobilie[0]["Strasse"] . ", " . $immobilie[0]["PLZ"] . " " . $immobilie[0]["Ort"];
+        $details = "Mieteinnahmen: " . $immobilie[0]["Beschreibung"];
+
+        if($zeitpunkt == 0) {
+            API::addEinnahme($summe, $beschreibung, $details);
+            Request::setImmobilieRented($id);
+        }
+        else {
+
+            $auszahlung = $runde + $zeitpunkt;
+
+            $query = "
+            INSERT INTO Zukunftseinnahmen (SpielID, UnternehmensID, Runde, Auszahlung, Summe, Beschreibung, Details)
+            VALUES ('" . $sid . "', '" . $uid . "', '" . $runde . "', '" . $auszahlung . "', '" . $summe . "', '" . $beschreibung . "', '" . $details . "')
+            ;";
+            Database::sqlInsert($query);
+            Request::setImmobilieRented($id);
+        }
+
+    }
+
+    public static function renewImmobilie($id, $summe, $wertsteigerung, $zustand) {
+
+        $sid = $_SESSION["SID"];
+        $uid = $_SESSION["UID"];
+        $runde = $_SESSION["Runde"];
+
+        $immobilie = Request::getImmobilieByID($id);
+        $bestandsimmobilie = Request::getBestandsimmobilieByID($id);
+
+        $wert = $bestandsimmobilie[0]["Wert"] + $wertsteigerung;
+        $neuerZustand = $bestandsimmobilie[0]["Zustand"] + $zustand;
+
+        $beschreibung = $immobilie[0]["Strasse"] . ", " . $immobilie[0]["PLZ"] . " " . $immobilie[0]["Ort"];
+        $details = "Sanierung: " . $immobilie[0]["Beschreibung"];
+
+        API::addAusgabe($summe, $beschreibung, $details);
+        Request::setImmobilieNewValue($id, $wert);
+        Request::setImmobilieNewState($id, $neuerZustand);
+
+    }
+
+    public static function buildImmobilie($id, $summe, $wertsteigerung, $zustand, $dauer) {
+
+        $sid = $_SESSION["SID"];
+        $uid = $_SESSION["UID"];
+        $runde = $_SESSION["Runde"];
+
+        $immobilie = Request::getImmobilieByID($id);
+        $bestandsimmobilie = Request::getBestandsimmobilieByID($id);
+
+        $wert = $bestandsimmobilie[0]["Wert"] + $wertsteigerung;
+        $neuerZustand = $bestandsimmobilie[0]["Zustand"] + $zustand;
+
+        $beschreibung = $immobilie[0]["Strasse"] . ", " . $immobilie[0]["PLZ"] . " " . $immobilie[0]["Ort"];
+        $details = "Immobilienbau: " . $immobilie[0]["Beschreibung"];
+
+        API::addAusgabe($summe, $beschreibung, $details);
+        Request::setImmobilieNewBuildDuration($id, $dauer);
 
     }
 
