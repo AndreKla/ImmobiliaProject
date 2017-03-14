@@ -16,7 +16,7 @@ class SBK{
         
          
         $query = "
-        SELECT * FROM Buchungsaufgaben WHERE UnternehmensID= 1 AND Runde= 1;";
+        SELECT * FROM Buchungsaufgaben WHERE UnternehmensID= $uid AND Runde= $runde;";
         $buchungen = Database::sqlSelect($query); 
         $sollkonten;
         $habenkonten;

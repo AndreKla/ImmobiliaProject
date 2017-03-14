@@ -30,7 +30,8 @@ class Markt {
                 WHERE UnternehmensID = $unternehmensID AND SpielID = $spielID AND Runde = $runde
                 ;";
                 Database::sqlUpdate($query);
-                API::addAusgabe(20000, "Marktforschung", "Social Intelligence Analysis");
+                API::addAusgabe(50000, "Marktforschung", "Social Intelligence Analysis");
+                API::createBuchungsAufgabe("Sonstiges", "Bank", 50000, "Social Intelligence Analyse - Marktforschung");
                 Neuigkeiten::createFeed();
                 $actual_link = 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'];
                 ?>

@@ -14,11 +14,17 @@
 	if(isset($_GET["quit"])) {
 		$mitarbeiter = Request::getMitarbeiterByID($_GET["quit"]);
 
+<<<<<<< HEAD
 		if(API::removeMitarbeiterBonus($mitarbeiter[0]["Fachrichtung"], $mitarbeiter[0]["Motivation"], $mitarbeiter[0]["Faehigkeit"])) {
 			API::addAusgabe($mitarbeiter[0]["Gehalt"] * 0.75, $mitarbeiter[0]["Name"] . " - " . $mitarbeiter[0]["Fachrichtung"], "Abfindung: Kündigung");
 
 			API::removeMitarbeiter($_GET["quit"]);
 		}
+=======
+		API::addAusgabe($mitarbeiter[0]["Gehalt"] * 0.75, $mitarbeiter[0]["Name"] . " - " . $mitarbeiter[0]["Fachrichtung"], "Abfindung: Kündigung");
+                API::createBuchungsAufgabe("Personalaufwendungen", "Bank", $mitarbeiter[0]["Gehalt"] * 0.75, "Abfindung für Mitarbeiter " . $mitarbeiter[0]["Name"] . " - " . $mitarbeiter[0]["Fachrichtung"]);
+		API::removeMitarbeiter($_GET["quit"]);
+>>>>>>> origin/master
 
 	}
 

@@ -116,6 +116,7 @@ class Neuigkeiten {
                 ;";
                 Database::sqlUpdate($query);
                 API::addAusgabe(20000, "Marktforschung", "Social Intelligence Analysis");
+                API::createBuchungsAufgabe("Sonstiges", "Bank", 20000, "Social Media Analyse - Marktforschung");
                 Neuigkeiten::createFeed();
                 $actual_link = 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'];
                 ?>
