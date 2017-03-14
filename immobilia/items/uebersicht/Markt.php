@@ -215,7 +215,7 @@ class Markt {
 
     ?>
 
-            <div class="col-md-8 col-sm-8 col-xs-12">
+            <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
                     <h2><i class="fa fa-bars"></i> Viertelübersicht <small> mit Kriterien</small></h2>
@@ -239,20 +239,21 @@ class Markt {
                       </ul>
                     </div>
 
-                    <div class="col-xs-6">
+                    <div class="col-xs-9">
                       <!-- Tab panes -->
                       <div class="tab-content">
                         <div class="tab-pane active" id="<?php echo $name[0];?>">
-                        <p class="lead"><?php echo $name[0];?></p>
-                        <p><?php echo $beschreibung[0] . $gentrifizierungsTexte[0] . $beliebtheitsTexte[0] . $infrastrukturTexte[0] . $kriminalitätsTexte[0] . $lebensstandartTexte[0] . $lageTexte[0]; ?></p>
-
-                                                        <div class="row">
-                                    <div class="col-md-12 widget widget_tally_box fixed_height_200">
-                                    <div class="x_panel">
+                        <div class="col-md-8">
+                            <p class="lead"><?php echo $name[0];?></p>
+                            <p><?php echo $beschreibung[0] . $gentrifizierungsTexte[0] . $beliebtheitsTexte[0] . $infrastrukturTexte[0] . $kriminalitätsTexte[0] . $lebensstandartTexte[0] . $lageTexte[0]; ?></p>
+                        </div>
+                        <div class="col-md-4">
+                                <div class="x_panel">
                                       <div class="x_content">
-
-                                        <div>
+                                           
                                           <ul class="verticle_bars list-inline">
+                                                                      
+                                            
                                             <li style="width:30px;">
                                               <div class="progress vertical bottom">
                                                 <div class="progress-bar progress-bar-dark" role="progressbar" data-transitiongoal="<?php echo $gentrifizierung[0]*20 ?>"></div>
@@ -260,32 +261,33 @@ class Markt {
                                             </li>
                                             <li style="width:30px;">
                                               <div class="progress vertical  bottom">
-                                                <div class="progress-bar progress-bar-gray" role="progressbar" data-transitiongoal="<?php echo $beliebtheit[0]*20 ?>"></div>
+                                                <div class="progress-bar progress-bar-gray" role="progressbar" data-transitiongoal="<?php echo $beliebtheit[0]*20; ?>"></div>
                                               </div>
                                             </li>
                                             <li style="width:30px;">
                                               <div class="progress vertical  bottom">
-                                                <div class="progress-bar progress-bar-info" role="progressbar" data-transitiongoal="<?php echo $infrastruktur[0]*20 ?>"></div>
+                                                <div class="progress-bar progress-bar-info" role="progressbar" data-transitiongoal="<?php echo $infrastruktur[0]*20; ?>"></div>
                                               </div>
                                             </li>
                                             <li style="width:30px;">
                                               <div class="progress vertical  bottom">
-                                                <div class="progress-bar progress-bar-success" role="progressbar" data-transitiongoal="<?php echo $kriminalität[0]*20 ?>"></div>
+                                                <div class="progress-bar progress-bar-success" role="progressbar" data-transitiongoal="<?php echo $kriminalität[0]*20; ?>"></div>
                                               </div>
                                             </li>
                                             <li style="width:30px;">
                                               <div class="progress vertical bottom" >
-                                                <div class="progress-bar progress-bar-danger" role="progressbar" data-transitiongoal="<?php echo $lebensstandart[0]*20 ?>"></div>
+                                                <div class="progress-bar progress-bar-danger" role="progressbar" data-transitiongoal="<?php echo $lebensstandart[0]*20; ?>"></div>
                                               </div>
                                             </li>
                                             <li style="width:30px;">
                                               <div class="progress vertical bottom">
-                                                <div class="progress-bar progress-bar-success" role="progressbar" data-transitiongoal="<?php echo $lage[0]*20 ?>"></div>
+                                                <div class="progress-bar progress-bar-success" role="progressbar" data-transitiongoal="<?php echo $lage[0]*20; ?>"></div>
                                               </div>
                                             </li>
-                                          </ul>
-                                        </div>
 
+                                          </ul>
+                                           
+                                        </div>
                                         <ul class="legend list-unstyled" >
                                           <li>
                                             <p><span class="icon"><i class="fa fa-square dark"></i></span> <span class="name">Gentrifizierung: <?php echo $gentrifizierung[0];?></span>
@@ -314,61 +316,55 @@ class Markt {
                                           </li>
                                         </ul>
 
-                                      </div>
-                                    </div>
-                                    </div>
-                                </div> 
-                        
-                        
+                                </div>
+
+                            </div>
                         </div>
                         <?php 
                             for($i = 1; $i <= 10;$i++){
                         ?>
-                            <div class="tab-pane" id="<?php echo $name[$i];?>">
+                        <div class="tab-pane" id="<?php echo $name[$i];?>">
+                            <div class="col-md-8">
                                 <p class="lead"><?php echo $name[$i];?></p>
                                 <p><?php echo $beschreibung[$i] . $gentrifizierungsTexte[$i] . $beliebtheitsTexte[$i] . $infrastrukturTexte[$i] . $kriminalitätsTexte[$i] . $lebensstandartTexte[$i] . $lageTexte[$i];?></p>
-                                
-                                <div class="row">
-                                    <div class="col-md-12 widget widget_tally_box fixed_height_200">
-                                    <div class="x_panel">
+                            </div>
+                            <div class="col-md-4">
+                                <div class="x_panel">
                                       <div class="x_content">
-
-                                        <div>
                                           <ul class="verticle_bars list-inline">
                                             <li style="width:30px;">
                                               <div class="progress vertical bottom">
-                                                <div class="progress-bar progress-bar-dark" role="progressbar" data-transitiongoal="<?php echo $gentrifizierung[$i]*20 ?>"></div>
+                                                <div class="progress-bar progress-bar-dark" role="progressbar" data-transitiongoal="<?php echo $gentrifizierung[$i]*20; ?>"></div>
                                               </div>
                                             </li>
                                             <li style="width:30px;">
                                               <div class="progress vertical  bottom">
-                                                <div class="progress-bar progress-bar-gray" role="progressbar" data-transitiongoal="<?php echo $beliebtheit[$i]*20 ?>"></div>
+                                                <div class="progress-bar progress-bar-gray" role="progressbar" data-transitiongoal="<?php echo $beliebtheit[$i]*20; ?>"></div>
                                               </div>
                                             </li>
                                             <li style="width:30px;">
                                               <div class="progress vertical  bottom">
-                                                <div class="progress-bar progress-bar-info" role="progressbar" data-transitiongoal="<?php echo $infrastruktur[$i]*20 ?>"></div>
+                                                <div class="progress-bar progress-bar-info" role="progressbar" data-transitiongoal="<?php echo $infrastruktur[$i]*20; ?>"></div>
                                               </div>
                                             </li>
                                             <li style="width:30px;">
                                               <div class="progress vertical  bottom">
-                                                <div class="progress-bar progress-bar-success" role="progressbar" data-transitiongoal="<?php echo $kriminalität[$i]*20 ?>"></div>
+                                                <div class="progress-bar progress-bar-success" role="progressbar" data-transitiongoal="<?php echo $kriminalität[$i]*20; ?>"></div>
                                               </div>
                                             </li>
                                             <li style="width:30px;">
                                               <div class="progress vertical bottom" >
-                                                <div class="progress-bar progress-bar-danger" role="progressbar" data-transitiongoal="<?php echo $lebensstandart[$i]*20 ?>"></div>
+                                                <div class="progress-bar progress-bar-danger" role="progressbar" data-transitiongoal="<?php echo $lebensstandart[$i]*20; ?>"></div>
                                               </div>
                                             </li>
                                             <li style="width:30px;">
                                               <div class="progress vertical bottom">
-                                                <div class="progress-bar progress-bar-success" role="progressbar" data-transitiongoal="<?php echo $lage[$i]*20 ?>"></div>
+                                                <div class="progress-bar progress-bar-success" role="progressbar" data-transitiongoal="<?php echo $lage[$i]*20; ?>"></div>
                                               </div>
                                             </li>
-                                          </ul>
-                                        </div>
-
-                                        <ul class="legend list-unstyled" >
+                                          </ul>  
+                                    </div>
+                                    <ul class="legend list-unstyled" >
                                           <li>
                                             <p><span class="icon"><i class="fa fa-square dark"></i></span> <span class="name">Gentrifizierung: <?php echo $gentrifizierung[$i];?></span>
                                             </p>
@@ -394,15 +390,10 @@ class Markt {
                                             <p><span class="icon"><i class="fa fa-square green"></i></span> <span class="name">Lage: <?php echo $lage[$i];?></span>
                                             </p>
                                           </li>
-                                        </ul>
-
-                                      </div>
-                                    </div>
-                                    </div>
-                                </div> 
-                                
+                                    </ul>
+                                </div>
                             </div>
-
+                        </div>                         
 
                         <?php
                             }
