@@ -13,7 +13,7 @@ class Personal {
      */
 	
 	
-public static function einstellen($id, $bezeichnung, $name, $skills, $rating, $bild) {
+public static function einstellen($id, $bezeichnung, $name, $skills, $rating, $bild, $gehalt) {
 ?>
 
     <div class="col-md-5 col-sm-5 col-xs-5 profile_details">
@@ -25,7 +25,7 @@ public static function einstellen($id, $bezeichnung, $name, $skills, $rating, $b
             <p><strong>Fähigkeiten: </strong></p>
             <ul class="list-unstyled">
               <li><p class="ratings">
-              <a><?php echo $rating; ?></a>
+              
               <?php 
                 for($i = 1; $i < $skills / 2; $i++) {
                   ?>
@@ -70,7 +70,8 @@ public static function einstellen($id, $bezeichnung, $name, $skills, $rating, $b
                 }
               ?>
             </p></li><br>
-              <li><button type="button" class="btn btn-xs col-md-12">Bewerbungsunterlagen</button></li>
+              <li>Gehaltsvorstellungen: <?php echo number_format($gehalt, 2, ',', '.'); ?> €</li>
+              <!--<li><button type="button" class="btn btn-xs col-md-12">Bewerbungsunterlagen</button></li>-->
             </ul>
           </div>
           <div class="right col-xs-5 text-center">
@@ -80,7 +81,7 @@ public static function einstellen($id, $bezeichnung, $name, $skills, $rating, $b
         <div class="col-xs-12 bottom text-center">
           <div class="col-xs-12 col-sm-12 emphasis">
             <a href=<?php echo "http://".$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF']."?hire=$id"; ?> class="btn btn-success btn-xs col-md-5 col-md-offset-1"> <i class="fa fa-user">
-              </i> <i class="fa fa-comments-o"></i>Einladen</a>
+              </i> <i class="fa fa-comments-o"></i>Einstellen</a>
             <button onclick="window.open('https://www.xing.com/profile/Sabine_Rollinger/cv');" type="button" class="btn btn-primary btn-xs col-md-5">
               <i class="fa fa-user"> </i> Profil einsehen 
             </button>
@@ -106,7 +107,7 @@ public static function einstellenActivity(){
 
     $zeit = date('d.m.Y');
     if(!in_array($verfügbaresPersonal[$i]["ID"], $meineMitarbeiter, true)) {
-      Personal::einstellen($verfügbaresPersonal[$i]["ID"], $verfügbaresPersonal[$i]["Fachrichtung"], $verfügbaresPersonal[$i]["Name"], $verfügbaresPersonal[$i]["Faehigkeit"], $verfügbaresPersonal[$i]["Beschreibung"], $verfügbaresPersonal[$i]["Bild"]);
+      Personal::einstellen($verfügbaresPersonal[$i]["ID"], $verfügbaresPersonal[$i]["Fachrichtung"], $verfügbaresPersonal[$i]["Name"], $verfügbaresPersonal[$i]["Faehigkeit"], $verfügbaresPersonal[$i]["Beschreibung"], $verfügbaresPersonal[$i]["Bild"], $verfügbaresPersonal[$i]["Gehalt"]);
     }
   }
 
@@ -128,8 +129,8 @@ public static function bestand(){
       <div class="x_panel">
         <div class="x_title">
           <h2>Deine Mitarbeiter</h2>
-			<!-- Hilfe Funktionalität / Text / Popup-->
-			<?php include 'help/personal_bestand_help.php'; ?>
+    			<!-- Hilfe Funktionalität / Text / Popup-->
+    			<?php include 'help/personal_bestand_help.php'; ?>
           <div class="clearfix"></div>
         </div>
         <div class="x_content">
@@ -141,8 +142,8 @@ public static function bestand(){
                 <th style="width: 15%">Informationen</th>
 	              <th style="width: 20%">Jahresgehalt</th>
                 <th style="width: 15%">Motivation</th>
-                <th style="width: 15%"></th>
-                <th style="width: 30%">Aktionen</th>
+                <th style="width: 15%">Mehrwert</th>
+                <th style="width: 30%; text-align:right">Aktionen</th>
               </tr>
             </thead>
             <tbody>
@@ -170,20 +171,220 @@ public static function bestand(){
                   <p><?php echo number_format($mib[0]["Gehalt"], 2, ',', '.') . " €";?></p>
                 </td>
                 <td class="project_progress">
-                  <div class="progress progress_sm">
-                    <div class="progress-bar bg-green" role="progressbar" data-transitiongoal="<?php $motivation = $mib[0]["Motivation"] * 10; echo $motivation;?>"></div>
-                  </div>
-                  <small><?php 
-                    echo $motivation." %";
-                  ?></small>
+                  <!--<div class="progress progress_sm">
+                    <div class="progress-bar" style="background-color: green;" role="progressbar" data-transitiongoal="<?php $motivation = $mib[0]["Motivation"] * 10; echo $motivation;?>"></div>
+                  </div>-->
+                  
+                  <span style="padding:10px;" class="col-md-8 label label-<?php if($mib[0]["Motivation"] < 4) { echo "danger"; } else if($mib[0]["Motivation"] < 7) { echo "warning"; } else { echo "success"; } ?>"><?php if($mib[0]["Motivation"] < 4) { echo "schlecht"; } else if($mib[0]["Motivation"] < 7) { echo "mittel"; } else { echo "gut"; } ?></span>
                 </td>
+                <!-- 
+                Sachbearbeiter: +2 Gebäude
+                Makler: +5% Mietpreise oder +5% Verkaufspreise
+                Bauleiter: Bau von Gebäuden freigeschaltet
+                Bauingenieur: Sanierung freigeschaltet
+                -->
+                <td><small style="font-size:10px">
+                <?php 
+                if($mib[0]["Fachrichtung"] == "Sachbearbeiterin") {
+                  if($mib[0]["Faehigkeit"] > 6) {
+                    if($mib[0]["Motivation"] > 7) {
+                      echo "+4 Gebäudeverwaltung";
+                    }
+                    else if($mib[0]["Motivation"] > 3) {
+                      echo "+3 Gebäudeverwaltung";
+                    }
+                    else {
+                      echo "+2 Gebäudeverwaltung";
+                    }
+                  }
+                  else if($mib[0]["Faehigkeit"] > 3) {
+                    if($mib[0]["Motivation"] > 7) {
+                      echo "+3 Gebäudeverwaltung";
+                    }
+                    else if($mib[0]["Motivation"] > 3) {
+                      echo "+2 Gebäudeverwaltung";
+                    }
+                    else {
+                      echo "+1 Gebäudeverwaltung";
+                    }
+                  }
+                  else {
+                    if($mib[0]["Motivation"] > 7) {
+                      echo "+2 Gebäudeverwaltung";
+                    }
+                    else if($mib[0]["Motivation"] > 3) {
+                      echo "+1 Gebäudeverwaltung";
+                    }
+                    else {
+                      echo "+0 Gebäudeverwaltung <i class='fa fa-frown-o'></i>";
+                    }
+                  }
+                }
+                else if($mib[0]["Fachrichtung"] == "Makler") {
+                  if($mib[0]["Faehigkeit"] > 7) {
+                    if($mib[0]["Motivation"] > 7) {
+                      echo "Verkauf von Gebäuden freigeschaltet";
+                      echo "<br>";
+                      echo "+5% Verkaufspreise";
+                    }
+                    else if($mib[0]["Motivation"] > 3) {
+                      echo "Verkauf von Gebäuden freigeschaltet";
+                      echo "<br>";
+                      echo "+3.5% Verkaufspreise";
+                    }
+                    else {
+                      echo "Verkauf von Gebäuden freigeschaltet";
+                      echo "<br>";
+                      echo "+1% Verkaufspreise";
+                    }
+                  }
+                  else if($mib[0]["Faehigkeit"] > 3) {
+                    if($mib[0]["Motivation"] > 7) {
+                      echo "Verkauf von Gebäuden freigeschaltet";
+                      echo "<br>";
+                      echo "+3% Verkaufspreise";
+                    }
+                    else if($mib[0]["Motivation"] > 3) {
+                      echo "Verkauf von Gebäuden freigeschaltet";
+                      echo "<br>";
+                      echo "+2% Verkaufspreise";
+                    }
+                    else {
+                      echo "Verkauf von Gebäuden freigeschaltet";
+                      echo "<br>";
+                      echo "+1% Verkaufspreise";
+                    }
+                  }
+                  else {
+                    if($mib[0]["Motivation"] > 7) {
+                      echo "Verkauf von Gebäuden freigeschaltet";
+                      echo "<br>";
+                      echo "+2% Verkaufspreise";
+                    }
+                    else if($mib[0]["Motivation"] > 3) {
+                      echo "Verkauf von Gebäuden freigeschaltet";
+                      echo "<br>";
+                      echo "+1% Verkaufspreise";
+                    }
+                    else {
+                      echo "Verkauf von Gebäuden freigeschaltet";
+                      echo "<br>";
+                      echo "+0% Verkaufspreise <i class='fa fa-frown-o red'></i>";
+                    }
+                  }
+                }
+                else if($mib[0]["Fachrichtung"] == "Bauleiter") {
+                  if($mib[0]["Faehigkeit"] > 7) {
+                    if($mib[0]["Motivation"] > 7) {
+                      echo "Bau von Gebäuden freigeschaltet";
+                      echo "<br>";
+                      echo "+5% Bauimmobilienwert";
+                    }
+                    else if($mib[0]["Motivation"] > 3) {
+                      echo "Bau von Gebäuden freigeschaltet";
+                      echo "<br>";
+                      echo "+3.5% Bauimmobilienwert";
+                    }
+                    else {
+                      echo "Bau von Gebäuden freigeschaltet";
+                      echo "<br>";
+                      echo "+2% Bauimmobilienwert";
+                    }
+                  }
+                  else if($mib[0]["Faehigkeit"] > 3) {
+                    if($mib[0]["Motivation"] > 7) {
+                      echo "Bau von Gebäuden freigeschaltet";
+                      echo "<br>";
+                      echo "+4% Bauimmobilienwert";
+                    }
+                    else if($mib[0]["Motivation"] > 3) {
+                      echo "Bau von Gebäuden freigeschaltet";
+                      echo "<br>";
+                      echo "+2.5% Bauimmobilienwert";
+                    }
+                    else {
+                      echo "Bau von Gebäuden freigeschaltet";
+                      echo "<br>";
+                      echo "+1% Bauimmobilienwert";
+                    }
+                  }
+                  else {
+                    if($mib[0]["Motivation"] > 7) {
+                      echo "Bau von Gebäuden freigeschaltet";
+                      echo "<br>";
+                      echo "+3% Bauimmobilienwert";
+                    }
+                    else if($mib[0]["Motivation"] > 3) {
+                      echo "Bau von Gebäuden möglich";
+                      echo "<br>";
+                      echo "+1.5% Bauimmobilienwert";
+                    }
+                    else {
+                      echo "Bau von Gebäuden freigeschaltet";
+                      echo "<br>";
+                      echo "+0% Bauimmobilienwert <i class='fa fa-frown-o red'></i>";
+                    }
+                  }
+                }
+                else if($mib[0]["Fachrichtung"] == "Bauingenieur") {
+                  if($mib[0]["Faehigkeit"] > 7) {
+                    if($mib[0]["Motivation"] > 7) {
+                      echo "Sanierung von Gebäuden möglich";
+                      echo "<br>";
+                      echo "-10% Sanierungskosten";
+                    }
+                    else if($mib[0]["Motivation"] > 3) {
+                      echo "Sanierung von Gebäuden möglich";
+                      echo "<br>";
+                      echo "-7.5% Sanierungskosten";
+                    }
+                    else {
+                      echo "Sanierung von Gebäuden möglich";
+                      echo "<br>";
+                      echo "-5% Sanierungskosten";
+                    }
+                  }
+                  else if($mib[0]["Faehigkeit"] > 3) {
+                    if($mib[0]["Motivation"] > 7) {
+                      echo "Sanierung von Gebäuden möglich";
+                      echo "<br>";
+                      echo "-7.5% Sanierungskosten";
+                    }
+                    else if($mib[0]["Motivation"] > 3) {
+                      echo "Sanierung von Gebäuden möglich";
+                      echo "<br>";
+                      echo "-5% Sanierungskosten";
+                    }
+                    else {
+                      echo "Sanierung von Gebäuden möglich";
+                      echo "<br>";
+                      echo "-2.5% Sanierungskosten";
+                    }
+                  }
+                  else {
+                    if($mib[0]["Motivation"] > 7) {
+                      echo "Sanierung von Gebäuden möglich";
+                      echo "<br>";
+                      echo "-5% Sanierungskosten";
+                    }
+                    else if($mib[0]["Motivation"] > 3) {
+                      echo "Sanierung von Gebäuden möglich";
+                      echo "<br>";
+                      echo "-2.5% Sanierungskosten";
+                    }
+                    else {
+                      echo "Sanierung von Gebäuden möglich";
+                      echo "<br>";
+                      echo "-0% Sanierungskosten <i class='fa fa-frown-o red'></i>";
+                    }
+                  }
+                }
+
+                ?></small></td>
                 <td>
-                  <button type="button" class="btn btn-success btn-xs">Zufrieden</button>
-                </td>
-                <td>
-                  <button type="button" class="btn btn-primary btn-xs befoerdern col-md-6" data-toggle="modal" data-target=<?php echo "'#befoerdern" . $mib[0]["ID"] . "'"; ?>><i class="fa fa-arrow-circle-o-up"></i> Befördern</button>
-                  <button type="button" class="btn btn-info btn-xs weiterbilden col-md-6" data-toggle="modal" data-target=<?php echo "'#weiterbilden" . $mib[0]["ID"] . "'"; ?>><i class="fa fa-graduation-cap"></i> Weiterbilden</button>
-                  <button type="button" class="btn btn-danger btn-xs kuendigen col-md-6" data-toggle="modal" data-target=<?php echo "'#entlassen" . $mib[0]["ID"] . "'"; ?>><i class="fa fa-times-circle-o"></i> Entlassen</button>
+                  <button type="button" class="btn btn-success btn-xs befoerdern col-md-6 pull-right" style="padding:5px;" data-toggle="modal" data-target=<?php echo "'#befoerdern" . $mib[0]["ID"] . "'"; ?>><i class="fa fa-arrow-circle-o-up"></i> Gehaltserhöhung</button>
+                  <!--<button type="button" class="btn btn-info btn-xs weiterbilden col-md-6 pull-right" data-toggle="modal" data-target=<?php echo "'#weiterbilden" . $mib[0]["ID"] . "'"; ?>><i class="fa fa-graduation-cap"></i> Weiterbilden</button>-->
+                  <button type="button" class="btn btn-danger btn-xs kuendigen col-md-6 pull-right" style="padding:5px;" data-toggle="modal" data-target=<?php echo "'#entlassen" . $mib[0]["ID"] . "'"; ?>><i class="fa fa-times-circle-o"></i> Entlassen</button>
                 </td>
               </tr>
           	  <?php 
@@ -339,31 +540,5 @@ public static function createModalView($id, $title, $mitarbeiterID) {
     <?php
   }
 
-public static function befoerdern(){ 
-
-?>
-	<script type="text/javascript" language="Javascript"> 
-		alert("Danke für die Bestellung...")
-	</script>  
-
-<?php
 }
-
-public static function weiterbilden(){
-
-?>
-	<script type="text/javascript" language="Javascript"> 
-		alert("Danke für die Bestellung...")
-	</script>  
-<?php
-
-}
-public static function kuendigen(){
-
-?>
-	<script type="text/javascript" language="Javascript"> 
-		alert("Danke für die Bestellung...")
-	</script>  
-<?php
-}}
 ?>

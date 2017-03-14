@@ -287,6 +287,11 @@ body .container.body .right_col {
   border: 1px solid #fff !important;
   color: #73879C; }
 
+.bg-dark {
+background: #34495E !important;
+border: 1px solid #34495E !important;
+color: #fff; }
+
 .bg-green {
   background: #1ABB9C !important;
   border: 1px solid #1ABB9C !important;

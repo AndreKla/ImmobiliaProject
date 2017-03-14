@@ -25,8 +25,8 @@ public static function createBestand($aktuellesGeschäftsjahr){
           <div class="x_panel">
             <div class="x_title">
               <h2>Immobilienbestand <small><?php echo $unternehmen[0]["Unternehmensname"]; ?></small></h2>
-			<!-- Hilfe Funktionalität / Text / Popup-->
-		    <?php include 'help/bestand_immobilienbestand_help.php'; ?>
+              <!-- Hilfe Funktionalität / Text / Popup-->
+      		    <?php include 'help/bestand_immobilienbestand_help.php'; ?>
               <div class="clearfix"></div>
             </div>
             <div class="x_content">
@@ -40,8 +40,7 @@ public static function createBestand($aktuellesGeschäftsjahr){
                         $objekt = Request::getImmobilieByID($immobilienID);
 
                         if($immobilien[$i]["Verkauft"] == 0) {
-
-
+                          
                 ?>
                 <thead>
                   <tr>

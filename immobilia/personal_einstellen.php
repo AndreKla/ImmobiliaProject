@@ -22,6 +22,7 @@
 		Request::setMitarbeiter($mitarbeiterArray);
 		$mitarbeiter = Request::getMitarbeiterByID($_GET["hire"]);
 		API::addAusgabe($mitarbeiter[0]["Gehalt"], "Jahresgehalt", $mitarbeiter[0]["Name"] . " - " . $mitarbeiter[0]["Fachrichtung"]);
+		API::addMitarbeiterBonus($mitarbeiter[0]["Fachrichtung"], $mitarbeiter[0]["Motivation"], $mitarbeiter[0]["Faehigkeit"]);
 
 		?>
 		<script language="javascript">

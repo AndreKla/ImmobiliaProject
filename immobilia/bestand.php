@@ -6,11 +6,16 @@
 	Menu::createMenu("Immobilien"); 
 
 	if(isset($_GET["verkauf"])) {
-		$immoID = $_GET["verkauf"];
-		$summe = $_GET["preis"];
-		$zeitpunkt = $_GET["zeitpunkt"];
+		if(API::canSell()) {
+			$immoID = $_GET["verkauf"];
+			$summe = $_GET["preis"];
+			$zeitpunkt = $_GET["zeitpunkt"];
 
-		API::sellImmobilie($immoID, $summe, $zeitpunkt);
+			API::sellImmobilie($immoID, $summe, $zeitpunkt);
+		}
+		else {
+			Helper::showMessage("Keinen Makler", "Du hast keinen Makler angestellt und kannst daher keine Immobilien verkaufen", "error");
+		}
 	}
 
 	if(isset($_GET["vermieten"])) {
@@ -22,22 +27,33 @@
 	}
 
 	if(isset($_GET["sanieren"])) {
-		$immoID = $_GET["sanieren"];
-		$summe = $_GET["preis"];
-		$wertsteigerung = $_GET["wertsteigerung"];
-		$zustand = $_GET["zustand"];
+		if(API::canRenew()) {
+			$immoID = $_GET["sanieren"];
+			$summe = $_GET["preis"];
+			$wertsteigerung = $_GET["wertsteigerung"];
+			$zustand = $_GET["zustand"];
 
-		API::renewImmobilie($immoID, $summe, $wertsteigerung, $zustand);
+			API::renewImmobilie($immoID, $summe, $wertsteigerung, $zustand);
+		}
+		else {
+			Helper::showMessage("Keinen Bauingenieur", "Du hast keinen Bauingenieur angestellt und kannst daher keine Immobilien sanieren", "error");
+		}	
 	}
 
 	if(isset($_GET["bauen"])) {
-		$immoID = $_GET["bauen"];
-		$summe = $_GET["preis"];
-		$wertsteigerung = $_GET["wertsteigerung"];
-		$zustand = $_GET["zustand"];
-		$dauer = $_GET["dauer"];
+		if(API::canBuild()) {
+			$immoID = $_GET["bauen"];
+			$summe = $_GET["preis"];
+			$wertsteigerung = $_GET["wertsteigerung"];
+			$zustand = $_GET["zustand"];
+			$dauer = $_GET["dauer"];
 
-		API::buildImmobilie($immoID, $summe, $wertsteigerung, $zustand, $dauer);
+			API::buildImmobilie($immoID, $summe, $wertsteigerung, $zustand, $dauer);
+		}
+		else {
+			Helper::showMessage("Keinen Bauleiter", "Du hast keinen Bauleiter angestellt und kannst daher keine Immobilien bauen", "error");
+		}
+		
 	}
 			
 ?>

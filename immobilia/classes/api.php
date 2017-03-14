@@ -111,28 +111,49 @@ class API {
         $runde = $_SESSION["Runde"];
 			
         $immobilie = Request::getImmobilieByID($immobilienId);
+        if(API::canBuyImmobilie()) {
 
-        if(API::addAusgabe($immobilie[0]["Kaufpreis"], $immobilie[0]["Strasse"] . ", " . $immobilie[0]["PLZ"] . " " . $immobilie[0]["Ort"], "Immobilienkauf: " . $immobilie[0]["Beschreibung"])) {
-            
-            Request::setBestand($immobilienId);
+            if(API::addAusgabe($immobilie[0]["Kaufpreis"], $immobilie[0]["Strasse"] . ", " . $immobilie[0]["PLZ"] . " " . $immobilie[0]["Ort"], "Immobilienkauf: " . $immobilie[0]["Beschreibung"])) {
+                
+                Request::setBestand($immobilienId);
 
-            API::addEinnahme($immobilie[0]["Miete"], $immobilie[0]["Strasse"] . ", " . $immobilie[0]["PLZ"] . " " . $immobilie[0]["Ort"], "Mieteinnahmen: " . $immobilie[0]["Beschreibung"]);
+                API::addEinnahme($immobilie[0]["Miete"], $immobilie[0]["Strasse"] . ", " . $immobilie[0]["PLZ"] . " " . $immobilie[0]["Ort"], "Mieteinnahmen: " . $immobilie[0]["Beschreibung"]);
 
-            //Create Buchungeintrag in Datenbank
-            
-            $beschreibung = "Kauf von Immobilie " .$immobilie[0]["Beschreibung"];
-            $summe = $immobilie[0]["Kaufpreis"];
-            $sollkonto = "Immobilien";
-            $habenkonto = "Bank";
-            API::createBuchungsAufgabe($sollkonto,$habenkonto,$summe,$beschreibung);
-            
+                //Create Buchungeintrag in Datenbank
+                
+                $beschreibung = "Kauf von Immobilie " .$immobilie[0]["Beschreibung"];
+                $summe = $immobilie[0]["Kaufpreis"];
+                $sollkonto = "Immobilien";
+                $habenkonto = "Bank";
+                API::createBuchungsAufgabe($sollkonto,$habenkonto,$summe,$beschreibung);
+                
+            }
+            else {
+
+                Helper::showMessage("Kontostand zu gering", "Das Unternehmen hat die Bonitätsprüfung leider nicht bestanden", "error");
+
+            }
+
         }
         else {
-
-            Helper::showMessage("Kontostand zu gering", "Das Unternehmen hat die Bonitätsprüfung leider nicht bestanden", "error");
-
+            Helper::showMessage("Nicht genügend Sachbearbeiterinnen", "Sie haben nicht genügend Sachbearbeiterinnen um weitere Immobilien zu kaufen.", "error");
         }
         
+    }
+
+    public static function canBuyImmobilie() {
+
+        $bestand = Request::getBestand();
+        $verwalten = Request::getVerwaltung();
+
+        if(sizeof($bestand) + 1 > $verwalten[0]["Verwalten"]) {
+            return false;
+        }
+        else {
+            return true;
+        }
+
+
     }
 
     public static function createCreditRequest($id, $bank, $typ, $summe, $zins, $laufzeit, $chance) {
@@ -429,6 +450,219 @@ class API {
 
         API::addAusgabe($summe, $beschreibung, $details);
         Request::setImmobilieNewBuildDuration($id, $dauer);
+
+    }
+
+    public static function addMitarbeiterBonus($fachgebiet, $motivation, $fähigkeit) {
+
+        $sid = $_SESSION["SID"];
+        $uid = $_SESSION["UID"];
+        $runde = $_SESSION["Runde"];
+
+        if($fachgebiet == "Sachbearbeiterin") {
+
+            $verwaltung = Request::getVerwaltung();
+
+            if($motivation > 7 && $fähigkeit > 6) {
+                $neueVerwaltung = $verwaltung[0]["Verwalten"] + 4;
+            }
+            else if($motivation > 3 && $fähigkeit > 6) {
+                $neueVerwaltung = $verwaltung[0]["Verwalten"] + 3;
+            }
+            else if($fähigkeit > 6) {
+                $neueVerwaltung = $verwaltung[0]["Verwalten"] + 2;
+            }
+            else if($motivation > 7 && $fähigkeit > 3) {
+                $neueVerwaltung = $verwaltung[0]["Verwalten"] + 3;
+            }
+            else if($motivation > 3 && $fähigkeit > 3) {
+                $neueVerwaltung = $verwaltung[0]["Verwalten"] + 2;
+            }
+            else if($fähigkeit > 3) {
+                $neueVerwaltung = $verwaltung[0]["Verwalten"] + 1;
+            }
+            else if($motivation > 7) {
+                $neueVerwaltung = $verwaltung[0]["Verwalten"] + 2;
+            }
+            else if($motivation > 3) {
+                $neueVerwaltung = $verwaltung[0]["Verwalten"] + 1;
+            }
+            else {
+                $neueVerwaltung = $verwaltung[0]["Verwalten"];
+            }
+
+            Request::setVerwaltung($neueVerwaltung);
+
+        }
+        else if($fachgebiet == "Bauingenieur") {
+
+            $sanieren = Request::getSanieren();
+
+            $neuesSanieren = $sanieren[0]["Sanieren"] + 1;
+
+            Request::setSanieren($neuesSanieren);
+
+
+        }
+        else if($fachgebiet == "Bauleiter") {
+
+            $bauen = Request::getBauen();
+
+            $neuesBauen = $bauen[0]["Bauen"] + 1;
+
+            Request::setBauen($neuesBauen);
+
+        }
+        else if($fachgebiet == "Makler") {
+
+            $verkaufen = Request::getVerkaufen();
+
+            $neuesVerkaufen = $verkaufen[0]["Verkaufen"] + 1;
+
+            Request::setVerkaufen($neuesVerkaufen);
+
+        }
+
+    }
+
+    public static function removeMitarbeiterBonus($fachgebiet, $motivation, $fähigkeit) {
+
+        $sid = $_SESSION["SID"];
+        $uid = $_SESSION["UID"];
+        $runde = $_SESSION["Runde"];
+
+        if($fachgebiet == "Sachbearbeiterin") {
+
+            $verwaltung = Request::getVerwaltung();
+
+            if($motivation > 7 && $fähigkeit > 6) {
+                $neueVerwaltung = $verwaltung[0]["Verwalten"] - 4;
+            }
+            else if($motivation > 3 && $fähigkeit > 6) {
+                $neueVerwaltung = $verwaltung[0]["Verwalten"] - 3;
+            }
+            else if($fähigkeit > 6) {
+                $neueVerwaltung = $verwaltung[0]["Verwalten"] - 2;
+            }
+            else if($motivation > 7 && $fähigkeit > 3) {
+                $neueVerwaltung = $verwaltung[0]["Verwalten"] - 3;
+            }
+            else if($motivation > 3 && $fähigkeit > 3) {
+                $neueVerwaltung = $verwaltung[0]["Verwalten"] - 2;
+            }
+            else if($fähigkeit > 3) {
+                $neueVerwaltung = $verwaltung[0]["Verwalten"] - 1;
+            }
+            else if($motivation > 7) {
+                $neueVerwaltung = $verwaltung[0]["Verwalten"] - 2;
+            }
+            else if($motivation > 3) {
+                $neueVerwaltung = $verwaltung[0]["Verwalten"] - 1;
+            }
+            else {
+                $neueVerwaltung = $verwaltung[0]["Verwalten"];
+            }
+
+            if(API::canFireEmployee($fachgebiet, $neueVerwaltung)) {
+                Request::setVerwaltung($neueVerwaltung);
+                return true;
+            }
+            else {
+                Helper::showMessage("Sachbearbeiterin kann nicht entlassen werden", "Sie besitzen zu viele Immobilien", "error");
+                return false;
+            }
+
+        }
+        else if($fachgebiet == "Bauingenieur") {
+
+            $sanieren = Request::getSanieren();
+
+            $neuesSanieren = $sanieren[0]["Sanieren"] - 1;
+
+            Request::setSanieren($neuesSanieren);
+            return true;
+
+        }
+        else if($fachgebiet == "Bauleiter") {
+
+            $bauen = Request::getBauen();
+
+            $neuesBauen = $bauen[0]["Bauen"] - 1;
+
+            Request::setBauen($neuesBauen);
+            return true;
+
+        }
+        else if($fachgebiet == "Makler") {
+
+            $verkaufen = Request::getVerkaufen();
+
+            $neuesVerkaufen = $verkaufen[0]["Verkaufen"] - 1;
+
+            Request::setVerkaufen($neuesVerkaufen);
+            return true;
+
+        }
+
+    }
+
+    public static function canFireEmployee($fachgebiet, $newValue) {
+
+        if($fachgebiet == "Sachbearbeiterin") {
+            $bestand = Request::getBestand();
+
+            if(sizeof($bestand) > $newValue) {
+                return false;
+            }
+            else {
+                return true;
+            }
+        }
+        else {
+
+            //Bauleiter kann nicht gefeuert werden während sich die Immobilie im Bau befindet
+
+            return true;
+        }
+
+    }
+
+    public static function canBuild() {
+
+        $build = Request::getBauen();
+
+        if($build[0]["Bauen"] > 0) {
+            return true;
+        }
+        else {
+            return false;
+        }
+
+    }
+
+    public static function canRenew() {
+
+        $renew = Request::getSanieren();
+
+        if($renew[0]["Sanieren"] > 0) {
+            return true;
+        }
+        else {
+            return false;
+        }
+
+    }
+
+    public static function canSell() {
+
+        $sell = Request::getVerkaufen();
+
+        if($sell[0]["Verkaufen"] > 0) {
+            return true;
+        }
+        else {
+            return false;
+        }
 
     }
 

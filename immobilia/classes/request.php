@@ -61,7 +61,6 @@ class Request {
         ;";
         return Database::sqlSelect($query);
 
-
     }
 
     public static function getKontostand() {
@@ -456,6 +455,137 @@ class Request {
         return Database::sqlSelect($query);
 
     }
+
+    public static function getAuktionsobjekte() {
+
+        $sid = $_SESSION["SID"];
+        $uid = $_SESSION["UID"];
+        $runde = $_SESSION["Runde"];
+
+        $query = "
+        SELECT * FROM Auktionsobjekte
+        WHERE Runde = $runde
+        ;";
+        return Database::sqlSelect($query);
+
+    }
+
+    public static function getVerwaltung() {
+
+        $sid = $_SESSION["SID"];
+        $uid = $_SESSION["UID"];
+        $runde = $_SESSION["Runde"];
+
+        $query = "
+        SELECT Verwalten FROM Unternehmen
+        WHERE SID = $sid AND ID = $uid
+        ;";
+        return Database::sqlSelect($query);
+
+    }
+
+    public static function setVerwaltung($verwaltung) {
+
+        $sid = $_SESSION["SID"];
+        $uid = $_SESSION["UID"];
+        $runde = $_SESSION["Runde"];
+
+        $query = "
+        UPDATE Unternehmen
+        SET Verwalten = $verwaltung
+        WHERE SID = $sid AND ID = $uid
+        ;";
+        Database::sqlUpdate($query);
+
+    }
+
+    public static function getVerkaufen() {
+
+        $sid = $_SESSION["SID"];
+        $uid = $_SESSION["UID"];
+        $runde = $_SESSION["Runde"];
+
+        $query = "
+        SELECT Verkaufen FROM Unternehmen
+        WHERE SID = $sid AND ID = $uid
+        ;";
+        return Database::sqlSelect($query);
+
+    }
+
+    public static function setVerkaufen($verkaufen) {
+
+        $sid = $_SESSION["SID"];
+        $uid = $_SESSION["UID"];
+        $runde = $_SESSION["Runde"];
+
+        $query = "
+        UPDATE Unternehmen
+        SET Verkaufen = $verkaufen
+        WHERE SID = $sid AND ID = $uid
+        ;";
+        Database::sqlUpdate($query);
+
+    }
+
+    public static function getSanieren() {
+
+        $sid = $_SESSION["SID"];
+        $uid = $_SESSION["UID"];
+        $runde = $_SESSION["Runde"];
+
+        $query = "
+        SELECT Sanieren FROM Unternehmen
+        WHERE SID = $sid AND ID = $uid
+        ;";
+        return Database::sqlSelect($query);
+
+    }
+
+    public static function setSanieren($sanieren) {
+
+        $sid = $_SESSION["SID"];
+        $uid = $_SESSION["UID"];
+        $runde = $_SESSION["Runde"];
+
+        $query = "
+        UPDATE Unternehmen
+        SET Sanieren = $sanieren
+        WHERE SID = $sid AND ID = $uid
+        ;";
+        Database::sqlUpdate($query);
+
+    }
+
+    public static function getBauen() {
+
+        $sid = $_SESSION["SID"];
+        $uid = $_SESSION["UID"];
+        $runde = $_SESSION["Runde"];
+
+        $query = "
+        SELECT Bauen FROM Unternehmen
+        WHERE SID = $sid AND ID = $uid
+        ;";
+        return Database::sqlSelect($query);
+
+    }
+
+    public static function setBauen($bauen) {
+
+        $sid = $_SESSION["SID"];
+        $uid = $_SESSION["UID"];
+        $runde = $_SESSION["Runde"];
+
+        $query = "
+        UPDATE Unternehmen
+        SET Bauen = $bauen
+        WHERE SID = $sid AND ID = $uid
+        ;";
+        Database::sqlUpdate($query);
+
+    }
+
 
 }
 ?>
