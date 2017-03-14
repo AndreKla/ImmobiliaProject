@@ -22,6 +22,7 @@ require_once $itemsFolder . "immobilien/Bestand.php";
 require_once $itemsFolder . "immobilien/Auktion.php";
 
 require_once $itemsFolder . "buchungen/Bestandskonten.php";
+require_once $itemsFolder . "buchungen/SBK.php"; 
 
 require_once $itemsFolder . "personal/Personal.php";
 

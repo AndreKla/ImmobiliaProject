@@ -58,14 +58,20 @@ class Bestandskonten{
                       <div class="tab-content">
                         <div class="tab-pane active" id="home">
                           <!--<p class="lead" style="margin-left:250px;">Betrag</p>-->
-                           <div class="col-md-12" style="margin-top:100px"> 
-                               <span id="sollkontoText" style="float:left;"><big>Sollkonto:</big> </span>
-                               <span id="habenkontoText" style="float:right;"><big>Habenkonto:</big> </span>
+                           <div class="col-md-12"> 
+                               <div class="col-md-12" style="margin-top:50px;">
+                                    <span id="sollkontoText" style="float:left;"><big>Sollkonto:</big> </span>
+                                    <span id="habenkontoText" style="float:right;"><big>Habenkonto:</big> </span>
+                               </div>
+                                <div class="col-md-12">
+                                    <span id="sollkontoTextUnten" style="float:left;"> </span>
+                                    <span id="habenkontoTextUnten" style="float:right;"> </span>
+                                </div>
                            </div><br>
-                           <div class="col-md-12" style="margin-top:15px">
+                           <div class="col-md-12" style="position:absolute;top:265px;">
                                   <input type="text" id="summe" class="form-control" name="summe" placeholder="Betrag" style="width:150px;float:none;margin-left:auto;margin-right:auto;">
                            </div>
-                           <div class="col-md-12 text-center" style="margin-top:15px">
+                           <div class="col-md-12 text-center" style="position:absolute;top:310px;">
                                 <button id="confirmButton" style="width:100px" class="btn btn-success">BUCHEN</button>
                            </div>
                           <div id="result"></div>
@@ -106,12 +112,12 @@ class Bestandskonten{
                         
                         $(".tabs-left li").click(function(){
                             var soll = $(this).find('a').attr('href');
-                            $('#sollkontoText').html("<big>Sollkonto:</big><br>" + soll);
+                            $('#sollkontoTextUnten').html(soll);
                         });
 
                         $(".tabs-right li").click(function(){
                             var haben = $(this).find('a').attr('href');
-                            $('#habenkontoText').html("<big>Habenkonto:</big><br>"  + haben);
+                            $('#habenkontoTextUnten').html(haben);
                         });
 
                         $('#confirmButton').click(function(){
