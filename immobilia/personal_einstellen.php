@@ -22,12 +22,10 @@
 		Request::setMitarbeiter($mitarbeiterArray);
 		$mitarbeiter = Request::getMitarbeiterByID($_GET["hire"]);
 		API::addAusgabe($mitarbeiter[0]["Gehalt"], "Jahresgehalt", $mitarbeiter[0]["Name"] . " - " . $mitarbeiter[0]["Fachrichtung"]);
-<<<<<<< HEAD
+		
 		API::addMitarbeiterBonus($mitarbeiter[0]["Fachrichtung"], $mitarbeiter[0]["Motivation"], $mitarbeiter[0]["Faehigkeit"]);
+		API::createBuchungsAufgabe("Personalaufwendungen", "Bank", $mitarbeiter[0]["Gehalt"], "Jahresgehalt " . $mitarbeiter[0]["Name"] . " - " . $mitarbeiter[0]["Fachrichtung"]);
 
-=======
-                API::createBuchungsAufgabe("Personalaufwendungen", "Bank", $mitarbeiter[0]["Gehalt"], "Jahresgehalt " . $mitarbeiter[0]["Name"] . " - " . $mitarbeiter[0]["Fachrichtung"]);
->>>>>>> origin/master
 		?>
 		<script language="javascript">
             window.location.href = "personal_bestand.php?hired=<?php echo $mid; ?>"
