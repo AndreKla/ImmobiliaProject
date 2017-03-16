@@ -3,22 +3,26 @@
 class Markt {
 	
     public static function createMarktanalyse() {
+        
+    $sid = $_SESSION["SID"];
+    $uid = $_SESSION["UID"];
+    $runde = $_SESSION["Runde"];
+        
+    $query = "
+    SELECT Marktanalyse
+    FROM Rundendaten
+    WHERE Runde = $runde AND UnternehmensID = $uid AND SpielID = $sid;
+    ;";
+    $marktanalyse = Database::sqlSelect($query);
 
     ?>
-      <div class="col-md-12">
-        <div class="x_panel">
-          <div class="x_title">
-            <h2>Marktanalyse <small>Immobilienmarkt Berlin 2017</small></h2>
-            <div class="clearfix"></div>
-          </div>
-          <div class="x_content">
-            <ul class="list-unstyled msg_list">
+
             <?php
-            if($social[0]["Social"] == 1) {
-              Neuigkeiten::createFeed();
+            if($marktanalyse[0]["Marktanalyse"] == 1) {
+              Markt::createViertel();
             }
             else {
-              if($_GET['social'] == 1) {  //purchased social feed
+              if($_GET['marktanalyse'] == 1) {  
 
               $unternehmensID = $_SESSION["UID"];
               $spielID = $_SESSION["SID"];
@@ -26,22 +30,30 @@ class Markt {
 
               $query = "
                 UPDATE Rundendaten
-                SET Social = 1
+                SET Marktanalyse = 1
                 WHERE UnternehmensID = $unternehmensID AND SpielID = $spielID AND Runde = $runde
                 ;";
                 Database::sqlUpdate($query);
                 API::addAusgabe(50000, "Marktforschung", "Social Intelligence Analysis");
                 API::createBuchungsAufgabe("Sonstiges", "Bank", 50000, "Social Intelligence Analyse - Marktforschung");
-                Neuigkeiten::createFeed();
+                Markt::createViertel();
+
                 $actual_link = 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'];
                 ?>
                 <script>
-                window.location = <?php echo "'" . $actual_link . "?socialbuy=1'";?>
+                window.location = <?php echo "'" . $actual_link . "?marktanalyse=1'";?>
                 </script>
                 <?php
               }
               else {
                 ?>
+                <div class="col-md-12">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>Marktanalyse <small>Immobilienmarkt Berlin 2017</small></h2>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
                 <button type="button" class="btn btn-primary col-md-12" data-toggle="modal" data-target=".bs-example-modal-lg">Marktanalyse in Auftrag geben</button>
 
                   <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
@@ -60,7 +72,7 @@ class Markt {
                         </div>
                         <div class="modal-footer">
                           <button type="button" class="btn btn-default" data-dismiss="modal">Abbrechen</button>
-                          <a href=<?php echo 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'].'?social=1'; ?> class="btn btn-primary">Kaufen (50.000 €)</a>
+                          <a href="<?php echo 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'].'?marktanalyse=1'; ?>" class="btn btn-primary">Kaufen (50.000 €)</a>
                         </div>
 
                       </div>
@@ -70,13 +82,44 @@ class Markt {
               }
             }
             ?>
-            </ul>
           </div>
         </div>
       </div>
     <?php
-	}
+    }
         
+    public static function createTipp(){
+        
+        $sid = $_SESSION["SID"];
+        $uid = $_SESSION["UID"];
+        $runde = $_SESSION["Runde"];
+        
+        $query = "SELECT Tipp FROM Marktanalyse WHERE Runde = $runde";
+        $tipp = Database::sqlSelect($query);
+
+        ?>
+                
+              <div class="col-md-12">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>Geheimtipp <small></small></h2>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+
+                    <div class="col-md-8 col-lg-8 col-sm-7">
+                      <!-- blockquote -->
+                      <blockquote>
+                        <p><?php echo $tipp[0]['Tipp'];?></p>
+
+                      </blockquote>
+                  </div>
+                </div>
+              </div>
+                
+                            
+        <?php
+    }
         
     public static function createViertel(){
         
@@ -84,7 +127,7 @@ class Markt {
         $uid = $_SESSION["UID"];
         $runde = $_SESSION["Runde"];
         
-        $query = "SELECT * FROM Viertel WHERE Jahr = 0";
+        $query = "SELECT * FROM Viertel WHERE Jahr = $runde";
         $viertel = Database::sqlSelect($query);
         
         for($i = 0; $i <= sizeof($viertel);$i++){
@@ -216,7 +259,9 @@ class Markt {
 
     ?>
 
-            <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="col-md-12 col-sm-12 col-xs-12" style="margin-bottom:50px;">
+                
+                <?php Markt::createTipp();?>                
                 <div class="x_panel">
                   <div class="x_title">
                     <h2><i class="fa fa-bars"></i> Viertelübersicht <small> mit Kriterien</small></h2>

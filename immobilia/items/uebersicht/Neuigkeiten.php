@@ -97,7 +97,6 @@ class Neuigkeiten {
             <div class="clearfix"></div>
           </div>
           <div class="x_content">
-            <ul class="list-unstyled msg_list">
             <?php
             if($social[0]["Social"] == 1) {
               Neuigkeiten::createFeed();
@@ -155,7 +154,6 @@ class Neuigkeiten {
               }
             }
             ?>
-            </ul>
           </div>
         </div>
       </div>

@@ -7,9 +7,13 @@
 ?>
 	<!-- page content -->
 	<div class="right_col" role="main">
+            
 <?php
+                if($_GET['marktanalyse'] == 1) {
+
+			Helper::showMessage("Marktanalyse","Die Marktanalyse ist jetzt verfügbar!", "success");
+		}
 		Markt::createMarktanalyse();
-                Markt::createViertel();
 ?>		
 	</div>
 	<!-- /page content -->

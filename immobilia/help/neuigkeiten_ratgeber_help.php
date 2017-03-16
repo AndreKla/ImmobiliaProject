@@ -16,15 +16,49 @@
 	<div class="modal-header">
 	  <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
 	  </button>
-	  <h4 class="modal-title" id="myModalLabel">Marktanalyse</h4>
+	  <h4 class="modal-title" id="myModalLabel">Hilfe</h4>
 	</div>
 	<div class="modal-body">
 	
-	<h5>Marktanalyse - Immobilienmarkt Berlin 2017</h5>
-	  <p>Kosten einmalig: 50.000 €</p>
-	  <p>Wir bieten Ihnen einen Überblick über die aktuelle Lage und zukünftige Trends auf dem Immobilienmarkt in Berlin, insbesondere können wir Sie darüber aufklären was Ihre potentiellen Kunden derzeit beschäftigt und wie sich der Markt in Zukunft entwickeln könnte.</p>
+	<h5>Ratgeber - Immobilienwirtschaft</h5>
+	<div class="accordion" id="accordion1" role="tablist" aria-multiselectable="true">
+	  <div class="panel">
+		<a class="panel-heading collapsed" role="tab" id="headingTwo1" data-toggle="collapse" data-parent="#accordion1" href="#collapseTwo1" aria-expanded="false" aria-controls="collapseTwo">
+		  <h4 class="panel-title">Ratgeber Immobilien</h4>
+		</a>
+		<div id="collapseTwo1" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo" aria-expanded="false" style="height: 0px;">
+		  <div class="panel-body">
+			<p><strong>Inhalt</strong>
+			</p>
+			Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor,
+		  </div>
+		</div>
+	  </div>
+	  <div class="panel">
+		<a class="panel-heading collapsed" role="tab" id="headingThree1" data-toggle="collapse" data-parent="#accordion1" href="#collapseThree1" aria-expanded="false" aria-controls="collapseThree">
+		  <h4 class="panel-title">Ratgeber Buchführung</h4>
+		</a>
+		<div id="collapseThree1" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree" aria-expanded="false">
+		  <div class="panel-body">
+			<p><strong>Inhalt</strong>
+			</p>
+			Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor
+		  </div>
+		</div>
+	  </div>
+	</div>
 	
-	<!-- start accordion -->
+	
+	</div>
+	<div class="modal-footer">
+	  <button type="button" class="btn btn-default" data-dismiss="modal">Ok</button>
+	</div>
+
+  </div>
+</div>
+</div>
+
+	<!-- start accordion 
 	<div class="accordion" id="accordion1" role="tablist" aria-multiselectable="true">
 	  <div class="panel">
 		<a class="panel-heading collapsed" role="tab" id="headingOne1" data-toggle="collapse" data-parent="#accordion1" href="#collapseOne1" aria-expanded="false" aria-controls="collapseOne">
@@ -92,12 +126,3 @@
 	</div>
 	<!-- end of accordion -->
   
-	</div>
-	<div class="modal-footer">
-	  <button type="button" class="btn btn-default" data-dismiss="modal">Abbrechen</button>
-	  <a href=<?php echo 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'].'?social=1'; ?> class="btn btn-primary">Kaufen (50.000 €)</a>
-	</div>
-
-  </div>
-</div>
-</div>

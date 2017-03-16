@@ -16,7 +16,7 @@
 	<div class="modal-header">
 	  <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
 	  </button>
-	  <h4 class="modal-title" id="myModalLabel">Marktanalyse</h4>
+	  <h4 class="modal-title" id="myModalLabel">Hilfe</h4>
 	</div>
 	<div class="modal-body">
 	
@@ -26,45 +26,6 @@
 	
 	<!-- start accordion -->
 	<div class="accordion" id="accordion1" role="tablist" aria-multiselectable="true">
-	  <div class="panel">
-		<a class="panel-heading collapsed" role="tab" id="headingOne1" data-toggle="collapse" data-parent="#accordion1" href="#collapseOne1" aria-expanded="false" aria-controls="collapseOne">
-		  <h4 class="panel-title">Collapsible Group Item #1</h4>
-		</a>
-		<div id="collapseOne1" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne" aria-expanded="false" style="height: 0px;">
-		  <div class="panel-body">
-			<table class="table table-striped">
-			  <thead>
-				<tr>
-				  <th>#</th>
-				  <th>First Name</th>
-				  <th>Last Name</th>
-				  <th>Username</th>
-				</tr>
-			  </thead>
-			  <tbody>
-				<tr>
-				  <th scope="row">1</th>
-				  <td>Mark</td>
-				  <td>Otto</td>
-				  <td>@mdo</td>
-				</tr>
-				<tr>
-				  <th scope="row">2</th>
-				  <td>Jacob</td>
-				  <td>Thornton</td>
-				  <td>@fat</td>
-				</tr>
-				<tr>
-				  <th scope="row">3</th>
-				  <td>Larry</td>
-				  <td>the Bird</td>
-				  <td>@twitter</td>
-				</tr>
-			  </tbody>
-			</table>
-		  </div>
-		</div>
-	  </div>
 	  <div class="panel">
 		<a class="panel-heading collapsed" role="tab" id="headingTwo1" data-toggle="collapse" data-parent="#accordion1" href="#collapseTwo1" aria-expanded="false" aria-controls="collapseTwo">
 		  <h4 class="panel-title">Collapsible Group Item #2</h4>
@@ -94,8 +55,7 @@
   
 	</div>
 	<div class="modal-footer">
-	  <button type="button" class="btn btn-default" data-dismiss="modal">Abbrechen</button>
-	  <a href=<?php echo 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'].'?social=1'; ?> class="btn btn-primary">Kaufen (50.000 €)</a>
+	  <button type="button" class="btn btn-default" data-dismiss="modal">Ok</button>
 	</div>
 
   </div>

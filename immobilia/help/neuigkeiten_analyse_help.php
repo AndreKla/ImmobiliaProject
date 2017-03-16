@@ -17,15 +17,15 @@
 	<div class="modal-header">
 	  <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
 	  </button>
-	  <h4 class="modal-title" id="myModalLabel">Marktanalyse</h4>
+	  <h4 class="modal-title" id="myModalLabel">Hilfe</h4>
 	</div>
 	<div class="modal-body">
 	
-	<h5>Marktanalyse - Immobilienmarkt Berlin 2017</h5>
+	<h5>Analyse - Social Intelligence</h5>
 	  <p>Kosten einmalig: 50.000 €</p>
 	  <p>Wir bieten Ihnen einen Überblick über die aktuelle Lage und zukünftige Trends auf dem Immobilienmarkt in Berlin, insbesondere können wir Sie darüber aufklären was Ihre potentiellen Kunden derzeit beschäftigt und wie sich der Markt in Zukunft entwickeln könnte.</p>
 	
-	<!-- start accordion -->
+	<!-- start accordion 
 	<div class="accordion" id="accordion1" role="tablist" aria-multiselectable="true">
 	  <div class="panel">
 		<a class="panel-heading collapsed" role="tab" id="headingOne1" data-toggle="collapse" data-parent="#accordion1" href="#collapseOne1" aria-expanded="false" aria-controls="collapseOne">
@@ -95,8 +95,7 @@
   
 	</div>
 	<div class="modal-footer">
-	  <button type="button" class="btn btn-default" data-dismiss="modal">Abbrechen</button>
-	  <a href=<?php echo 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'].'?social=1'; ?> class="btn btn-primary">Kaufen (50.000 €)</a>
+	  <button type="button" class="btn btn-default" data-dismiss="modal">Ok</button>
 	</div>
 
   </div>
