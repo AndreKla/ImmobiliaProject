@@ -172,9 +172,27 @@ class Neuigkeiten {
           </div>
           <div class="x_content">
             <ul class="list-unstyled msg_list">
-                <button type="button" class="btn btn-primary btn-success col-md-12">Download: Ratgeber Immobilien</button>
+
+            <?php
+
+
+
+            $downloadDirectory = "http://" . $_SERVER["HTTP_HOST"] . "" . $_SERVER["PHP_SELF"];
+            $url = rtrim($downloadDirectory, "/neuigkeiten.php");
+
+            $iLink = Request::getDownloadLink("Immobilien");
+            $iFile = $iLink[0]["URL"];
+            $immobilienURL = $url . $iFile;
+
+            $bLink = Request::getDownloadLink("Buchfuehrung");
+            $bFile = $bLink[0]["URL"];
+            $buchfuehrungURL = $url . $bFile;
+
+            ?>
+
+                <a href=<?php echo "'" . $immobilienURL . "'"; ?> class="btn btn-primary btn-success col-md-12">Ratgeber Immobilien</a>
                 <br>
-                <button type="button" class="btn btn-primary btn-success col-md-12">Download: Ratgeber Buchführung</button>
+                <a href=<?php echo "'" . $buchfuehrungURL . "'"; ?> class="btn btn-primary btn-success col-md-12">Ratgeber Buchführung</a>
 
                   <!--<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
                     <div class="modal-dialog modal-lg">

@@ -289,11 +289,11 @@ class Markt {
                       <!-- Tab panes -->
                       <div class="tab-content">
                         <div class="tab-pane active" id="<?php echo $name[0];?>">
-                        <div class="col-md-8">
+                        <div class="col-md-6">
                             <p class="lead"><?php echo $name[0];?></p>
                             <p><?php echo $beschreibung[0] . $gentrifizierungsTexte[0] . $beliebtheitsTexte[0] . $infrastrukturTexte[0] . $kriminalitätsTexte[0] . $lebensstandartTexte[0] . $lageTexte[0]; ?></p>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                                 <div class="x_panel">
                                       <div class="x_content">
                                            

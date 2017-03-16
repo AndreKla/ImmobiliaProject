@@ -586,6 +586,80 @@ class Request {
 
     }
 
+    public static function getDownloadLink($kategorie) {
+
+        $runde = $_SESSION["Runde"];
+
+        $query = "
+        SELECT *
+        FROM Downloads
+        WHERE Kategorie = '" . $kategorie . "' AND Runde = $runde
+        ;";
+        return Database::sqlSelect($query);
+
+    }
+
+    public static function getKonkurrenzData() {
+
+        $sid = $_SESSION["SID"];
+        $uid = $_SESSION["UID"];
+        $runde = $_SESSION["Runde"];
+
+        $query = "
+        SELECT * 
+        FROM Unternehmen
+        WHERE SID = $sid
+        ;";
+        return Database::sqlSelect($query);
+
+    }
+
+    public static function getMarktvolumen() {
+
+        $query = "
+        SELECT SUM(Wert) as value
+        FROM Objekt
+        ;";
+        $objektWerte = Database::sqlSelect($query);
+
+        $query ="
+        SELECT SUM(Wert) as value
+        FROM Startobjekt
+        ;";
+        $startobjektWerte = Database::sqlSelect($query);
+
+        return $objektWerte[0]["value"] + $startobjektWerte[0]["value"] * Request::getNumberOfPlayers();
+
+    }
+
+    public static function getNumberOfPlayers() {
+
+        $sid = $_SESSION["SID"];
+        $uid = $_SESSION["UID"];
+        $runde = $_SESSION["Runde"];
+
+        $query = "
+        SELECT ID
+        FROM Unternehmen
+        WHERE SID = $sid
+        ;";
+        $result = Database::sqlSelect($query);
+
+        return sizeof($result);
+
+    }
+
+    public static function getBestandByPlayer($id) {
+
+        $query = "
+        SELECT *
+        FROM Unternehmensbestand
+        WHERE UnternehmensID = $id
+        ;";
+        return Database::sqlSelect($query);
+
+    }
+
 
 }
 ?>
