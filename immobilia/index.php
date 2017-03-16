@@ -13,6 +13,8 @@
       $id = $_SESSION["UID"];
       $sid = $_SESSION["SID"];
 
+      $_SESSION["Runde"] = 1;
+
       $unternehmensname = $_POST["unternehmensname"];
       $passwort = $_POST["passwort"];
 

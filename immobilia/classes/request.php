@@ -69,8 +69,10 @@ class Request {
 
         $query = "
         SELECT SpielID, UnternehmensID, Runde, Zeit, Summe, Beschreibung, Details, Typ FROM Einnahmen
+        WHERE SpielID = $sid AND UnternehmensID = $uid
         union all
         SELECT SpielID, UnternehmensID, Runde, Zeit, Summe, Beschreibung, Details, Typ FROM Ausgaben
+        WHERE SpielID = $sid AND UnternehmensID = $uid
         ORDER BY(`Zeit`) DESC
         ;";
         return Database::sqlSelect($query);
@@ -766,7 +768,7 @@ class Request {
         SELECT *
         FROM Rundendaten
         WHERE UnternehmensID = $uid AND SpielID = $sid
-        ORDER BY Runde ASC
+        ORDER BY Runde DESC
         ;";
         return Database::sqlSelect($query);
 
@@ -871,6 +873,20 @@ class Request {
 
     }
 
+    public static function setRundeAbgeschlossen() {
+
+        $sid = $_SESSION["SID"];
+        $uid = $_SESSION["UID"];
+        $runde = $_SESSION["Runde"];
+
+        $query = "
+        UPDATE Rundendaten
+        SET Abgeschlossen = 1
+        WHERE SpielID = $sid AND UnternehmensID = $uid AND Runde = $runde
+        ;";
+        Database::sqlUpdate($query);
+
+    }
 
 }
 ?>

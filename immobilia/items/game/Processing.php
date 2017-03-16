@@ -7,9 +7,17 @@ class Processing {
 
     $aktuelleMitarbeiter = Request::getMitarbeiter();
 
-    $mitarbeiterListe = explode(';', $aktuelleMitarbeiter[0]["Mitarbeiter"]);
+    if($aktuelleMitarbeiter[0]["Mitarbeiter"] == "") {
+      $count = 0;
+    }
+    else {
+      $mitarbeiterListe = explode(';', $aktuelleMitarbeiter[0]["Mitarbeiter"]);
+      $count = sizeof($mitarbeiterListe);
+    }
 
-    for($i = 0; $i < sizeof($mitarbeiterListe); $i++) {
+    
+
+    for($i = 0; $i < $count; $i++) {
 
       $mitarbeiter = Request::getMitarbeiterByID($mitarbeiterListe[$i]);
 
@@ -28,12 +36,11 @@ class Processing {
     $bestand = Request::getBestand();
 
     for($i = 0; $i < sizeof($bestand); $i++) {
-      if($bestand[$i]["Vermietet"] == 1) {
 
-        $immobilie = Request::getImmobilieById($bestand[$i]["ObjektID"]);
+      $immobilie = Request::getImmobilieById($bestand[$i]["ObjektID"]);
 
-        API::addEinnahme($immobilie[0]["Miete"] + $immobilie[0]["Mietentwicklung"] * ($runde - 1), $immobilie[0]["Strasse"] . ", " . $immobilie[0]["PLZ"] . " " . $immobilie[0]["Ort"], "Mieteinnahmen: " . $immobilie[0]["Beschreibung"]);
-      }
+      API::addEinnahme($immobilie[0]["Miete"] + $immobilie[0]["Mietentwicklung"] * ($runde - 1), $immobilie[0]["Strasse"] . ", " . $immobilie[0]["PLZ"] . " " . $immobilie[0]["Ort"], "Mieteinnahmen: " . $immobilie[0]["Beschreibung"]);
+      
     }
 
   }
@@ -96,6 +103,8 @@ class Processing {
   }
 
   public static function checkIfRoundFinished() {
+
+    Request::setRundeAbgeschlossen();
 
     $allFinished = true;
 

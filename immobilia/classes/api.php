@@ -132,7 +132,7 @@ class API {
         $immobilie = Request::getImmobilieByID($immobilienId);
         if(API::canBuyImmobilie()) {
 
-            if(API::addAusgabe($immobilie[0]["Kaufpreis"], $immobilie[0]["Strasse"] . ", " . $immobilie[0]["PLZ"] . " " . $immobilie[0]["Ort"], "Immobilienkauf: " . $immobilie[0]["Beschreibung"])) {
+            if(API::addAusgabe($immobilie[0]["Wert"], $immobilie[0]["Strasse"] . ", " . $immobilie[0]["PLZ"] . " " . $immobilie[0]["Ort"], "Immobilienkauf: " . $immobilie[0]["Beschreibung"])) {
                 
                 Request::setBestand($immobilienId);
 
@@ -415,10 +415,10 @@ class API {
         $beschreibung = $immobilie[0]["Strasse"] . ", " . $immobilie[0]["PLZ"] . " " . $immobilie[0]["Ort"];
         $details = "Mieteinnahmen: " . $immobilie[0]["Beschreibung"];
 
-        if($zeitpunkt == 0) {
+        //if($zeitpunkt == 0) {
             API::addEinnahme($summe, $beschreibung, $details);
             Request::setImmobilieRented($id);
-        }
+        /*}
         else {
 
             $auszahlung = $runde + $zeitpunkt;
@@ -429,7 +429,7 @@ class API {
             ;";
             Database::sqlInsert($query);
             Request::setImmobilieRented($id);
-        }
+        }*/
 
     }
 

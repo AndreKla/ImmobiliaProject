@@ -7,6 +7,14 @@
 
   if(!Processing::checkIfRoundFinished()) {
 
+    /*
+
+      Schmändel mach den Screen hier mal bitte noch schön morgen vormittag für nern
+
+      In diesem if muss nichts passieren, einfach nur anzeigen das man warten muss bis alle fertig sind und dann einmal die Seite neu laden soll.
+
+    */
+
     echo "Waiting for other Players";
 
   }

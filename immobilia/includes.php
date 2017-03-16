@@ -26,9 +26,10 @@ require_once $itemsFolder . "immobilien/Auktion.php";
 require_once $itemsFolder . "buchungen/Bestandskonten.php";
 require_once $itemsFolder . "buchungen/SBK.php"; 
 
-require_once $itemsFolder . "personal/Personal.php";
+require_once $itemsFolder . "personal/personal.php";
 
 // TRASH needs to be sorted
+
 require_once $itemsFolder . "auktion/gridslider.php";
 
 require_once $itemsFolder . "buchungen/buchung_uebersicht.php";

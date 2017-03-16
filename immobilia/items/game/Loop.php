@@ -51,8 +51,8 @@ class Loop {
   public static function setRundendaten($sid, $id, $startkapital) {
 
     $query = "
-    INSERT INTO Rundendaten (SpielID, UnternehmensID, Runde, Kapital, Strategie1, Strategie2, Strategie3, Social, Konkurrenz, Kredit, Anlage, Marktanalyse)
-    VALUES ('" . $sid . "', '" . $id . "', 1, $startkapital, 0, 0, 0, 0, 0, 0, 0, 0)
+    INSERT INTO Rundendaten (SpielID, UnternehmensID, Runde, Kapital, Strategie1, Strategie2, Strategie3, Begruendung, Social, Konkurrenz, Kredit, Anlage, Marktanalyse)
+    VALUES ('" . $sid . "', '" . $id . "', 1, $startkapital, 0, 0, 0, '', 0, 0, 0, 0, 0)
     ;";
     Database::sqlInsert($query);
 

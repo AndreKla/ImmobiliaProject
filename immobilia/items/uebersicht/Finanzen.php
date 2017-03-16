@@ -229,12 +229,7 @@ class Finanzen {
       $income += $einnahmen[$i]["Summe"];
     }
 
-    $query = "
-    SELECT * 
-    FROM Ausgaben
-    WHERE SpielID = $sid AND UnternehmensID = $uid
-    ;";
-    $ausgaben = Database::sqlSelect($query);
+    $ausgaben = Request::getAusgaben();
 
     $outcome = 0;
 
@@ -262,12 +257,12 @@ class Finanzen {
 
 	<div class="row tile_count">
       <div class="col-md-3 col-sm-4 col-xs-4 tile_stats_count" style="padding-left:25px;padding-right:25px;">
-        <span class="count_top"><i class="fa fa-eur green"></i>  &nbsp; Einnahmen</span>
+        <span class="count_top"><i class="fa fa-eur green"></i>  &nbsp; Einnahmen </span><span class="count_bottom" style="font-size:9px;">  in diesem Geschäftsjahr</span>
         <div class="count green" style="font-size:18pt"><?php echo number_format($einnahmen,2,',','.') . " €"; ?></div>
-        <!--<span class="count_bottom"><i class="green">0% </i> im Vergleich zum letzten Jahr</span>-->
+        
       </div>
       <div class="col-md-3 col-sm-4 col-xs-4 tile_stats_count" style="padding-left:25px;padding-right:25px;">
-        <span class="count_top"><i class="fa fa-eur red"></i>  &nbsp; Ausgaben</span>
+        <span class="count_top"><i class="fa fa-eur red"></i>  &nbsp; Ausgaben </span><span class="count_bottom" style="font-size:9px;"> in diesem Geschäftsjahr</span>
         <div class="count red" style="font-size:18pt"><?php echo number_format($ausgaben,2,',','.') . " €"; ?></div>
         <!--<span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>0% </i> im Vergleich zum letzten Jahr</span>-->
       </div>
