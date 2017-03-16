@@ -10,6 +10,8 @@ require_once("classes/request.php");
 require_once("classes/helper.php");
 
 require_once $itemsFolder . "game/Loop.php";
+require_once $itemsFolder . "game/Abschluss.php";
+require_once $itemsFolder . "game/Processing.php";
 
 require_once $itemsFolder . "uebersicht/Neuigkeiten.php";
 require_once $itemsFolder . "uebersicht/Finanzen.php";

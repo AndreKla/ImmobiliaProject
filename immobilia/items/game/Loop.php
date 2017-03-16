@@ -4,31 +4,31 @@ class Loop {
 
   public static function setStartbestand($sid, $uid, $runde) {
 
-        $immobilienListe = Request::getStartbestand();
+    $immobilienListe = Request::getStartbestand();
 
-        for($i = 0; $i < sizeof($immobilienListe); $i++) {
-          $immobilie = $immobilienListe[$i];
+    for($i = 0; $i < sizeof($immobilienListe); $i++) {
+      $immobilie = $immobilienListe[$i];
 
-          $immobilienId = $immobilie["ID"];
+      $immobilienId = $immobilie["ID"];
 
-          $zustand = $immobilie["Zustand"];
-          if($immobilie["Baugrundstueck"] == 0) {
-              $baugrundstueck = 0;
-          }
-          else {
-              $baugrundstueck = 10;
-          }
-          $vermietet = $immobilie["Vermietet"];
-          $wert = $immobilie["Wert"];
+      $zustand = $immobilie["Zustand"];
+      if($immobilie["Baugrundstueck"] == 0) {
+          $baugrundstueck = 0;
+      }
+      else {
+          $baugrundstueck = 10;
+      }
+      $vermietet = $immobilie["Vermietet"];
+      $wert = $immobilie["Wert"];
 
-          $query = "
-          INSERT INTO Unternehmensbestand (SpielID, UnternehmensID, ObjektID, Saniert, Zustand, Gekauft, Verkauft, Wert, Status, Vermietet, Bau)
-          VALUES ('" . $sid . "', '" . $uid . "', '" . $immobilienId . "', 0, '" . $zustand . "', '" . $runde . "', 0, '" . $wert . "', 0, '" . $vermietet . "', '" . $baugrundstueck . "');";
-          Database::sqlInsert($query);
+      $query = "
+      INSERT INTO Unternehmensbestand (SpielID, UnternehmensID, ObjektID, Saniert, Zustand, Gekauft, Verkauft, Wert, Status, Vermietet, Bau)
+      VALUES ('" . $sid . "', '" . $uid . "', '" . $immobilienId . "', 0, '" . $zustand . "', '" . $runde . "', 0, '" . $wert . "', 0, '" . $vermietet . "', '" . $baugrundstueck . "');";
+      Database::sqlInsert($query);
 
-          API::addStartEinnahme($immobilie["Miete"], $immobilie["Strasse"] . ", " . $immobilie["PLZ"] . " " . $immobilie["Ort"], "Mieteinnahmen: " . $immobilie["Beschreibung"]);
+      API::addStartEinnahme($immobilie["Miete"], $immobilie["Strasse"] . ", " . $immobilie["PLZ"] . " " . $immobilie["Ort"], "Mieteinnahmen: " . $immobilie["Beschreibung"]);
 
-        }
+    }
         
   } 
 
@@ -56,6 +56,10 @@ class Loop {
     ;";
     Database::sqlInsert($query);
 
+  }
+
+  public static function checkStrategie() {
+    
   }
 
 }

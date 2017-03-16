@@ -382,7 +382,8 @@ public static function bestand(){
 
                 ?></small></td>
                 <td>
-                  <button type="button" class="btn btn-success btn-xs befoerdern col-md-6 pull-right" style="padding:5px;" data-toggle="modal" data-target=<?php echo "'#befoerdern" . $mib[0]["ID"] . "'"; ?>><i class="fa fa-arrow-circle-o-up"></i> Gehaltserhöhung</button>
+                  <button disabled type="button" class="btn btn-success btn-xs befoerdern col-md-6 pull-right" style="padding:5px;"><i class="fa fa-arrow-circle-o-up"></i> Gehaltserhöhung</button>
+                  <!--  data-toggle="modal" data-target=<?php echo "'#befoerdern" . $mib[0]["ID"] . "'"; ?> -->
                   <!--<button type="button" class="btn btn-info btn-xs weiterbilden col-md-6 pull-right" data-toggle="modal" data-target=<?php echo "'#weiterbilden" . $mib[0]["ID"] . "'"; ?>><i class="fa fa-graduation-cap"></i> Weiterbilden</button>-->
                   <button type="button" class="btn btn-danger btn-xs kuendigen col-md-6 pull-right" style="padding:5px;" data-toggle="modal" data-target=<?php echo "'#entlassen" . $mib[0]["ID"] . "'"; ?>><i class="fa fa-times-circle-o"></i> Entlassen</button>
                 </td>

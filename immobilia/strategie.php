@@ -140,7 +140,7 @@
 					       selected.push($(this).attr('name'));
 					   }
 					});
-					window.location.href = "http://localhost:8888/ImmobiliaProject/immobilia/strategie.php?1=" + selected[0] + "&2=" + selected[1] + "&3=" + selected[2] + "";
+					window.location.href = "http://".$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF']."?1=" + selected[0] + "&2=" + selected[1] + "&3=" + selected[2] + "";
 				}
 			});
 		});

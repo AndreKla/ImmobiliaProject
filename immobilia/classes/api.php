@@ -64,7 +64,7 @@ class API {
 
         $kontostand = $kapital + $summe;
 
-        Request::setKontostand($kontostand);
+        Request::setKontostandStart($kontostand, 1);
 
     }
 
@@ -136,8 +136,10 @@ class API {
                 
                 Request::setBestand($immobilienId);
 
-                API::addEinnahme($immobilie[0]["Miete"], $immobilie[0]["Strasse"] . ", " . $immobilie[0]["PLZ"] . " " . $immobilie[0]["Ort"], "Mieteinnahmen: " . $immobilie[0]["Beschreibung"]);
-
+                if($immobilie[0]["Vermietet"] == 1) {
+                    API::addEinnahme($immobilie[0]["Miete"], $immobilie[0]["Strasse"] . ", " . $immobilie[0]["PLZ"] . " " . $immobilie[0]["Ort"], "Mieteinnahmen: " . $immobilie[0]["Beschreibung"]);
+                }
+                
                 //Create Buchungeintrag in Datenbank
                 
                 $beschreibung = "Kauf von Immobilie " .$immobilie[0]["Beschreibung"];
@@ -449,6 +451,8 @@ class API {
         API::addAusgabe($summe, $beschreibung, $details);
         Request::setImmobilieNewValue($id, $wert);
         Request::setImmobilieNewState($id, $neuerZustand);
+
+        Helper::showMessage("Immobilie Saniert", "Du hast deine Immobilie erfolgreich saniert!", "success");
 
     }
 

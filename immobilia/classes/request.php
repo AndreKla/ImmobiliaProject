@@ -11,7 +11,21 @@ class Request {
         SELECT *
         FROM Rundendaten
         WHERE UnternehmensID = $uid AND SpielID = $sid
-        ORDER BY Runde ASC
+        ORDER BY Runde DESC
+        ;";
+        return Database::sqlSelect($query);
+
+    }
+
+    public static function getAlleRundendaten() {
+
+        $sid = $_SESSION["SID"];
+        $runde = $_SESSION["Runde"];
+
+        $query = "
+        SELECT *
+        FROM Rundendaten
+        WHERE Runde = $runde AND SpielID = $sid
         ;";
         return Database::sqlSelect($query);
 
@@ -85,6 +99,20 @@ class Request {
         $sid = $_SESSION["SID"];
         $uid = $_SESSION["UID"];
         $runde = $_SESSION["Runde"];
+
+        $query = "
+        UPDATE Rundendaten
+        SET Kapital = $kontostand
+        WHERE SpielID = $sid AND UnternehmensID = $uid AND Runde = $runde
+        ;";
+        Database::sqlUpdate($query);
+
+    }
+
+    public static function setKontostandStart($kontostand, $runde) {
+
+        $sid = $_SESSION["SID"];
+        $uid = $_SESSION["UID"];
 
         $query = "
         UPDATE Rundendaten
@@ -178,6 +206,42 @@ class Request {
         INSERT INTO Unternehmensbestand (SpielID, UnternehmensID, ObjektID, Saniert, Zustand, Gekauft, Verkauft, Wert, Status, Vermietet, Bau)
         VALUES ('" . $sid . "', '" . $uid . "', '" . $immobilienId . "', 0, '" . $zustand . "', '" . $runde . "', 0, '" . $wert . "', 0, '" . $vermietet . "', '" . $baugrundstueck . "');";
         Database::sqlInsert($query);
+
+    }
+
+    public static function setBestandFromAuktion($uid, $immobilienId) {
+
+        $sid = $_SESSION["SID"];
+        $runde = $_SESSION["Runde"];
+
+        $auktionsImmobilie = Request::getAuktionsobjektById($immobilienId);
+
+        var_dump($immobilienId);
+
+        $immobilie = $auktionsImmobilie[0];
+
+        $zustand = $immobilie["Zustand"];
+        if($immobilie["Baugrundstueck"] == 0) {
+            $baugrundstueck = 0;
+        }
+        else {
+            $baugrundstueck = 10;
+        }
+        $vermietet = $immobilie["Vermietet"];
+        $wert = $immobilie["Wert"];
+
+        $query = "
+        UPDATE Gebote
+        SET Gewonnen = 1
+        WHERE SpielID = $sid AND UnternehmensID = $uid AND Runde = $runde
+        ;";
+        Database::sqlUpdate($query);
+
+        $query = "
+        INSERT INTO Unternehmensbestand (SpielID, UnternehmensID, ObjektID, Saniert, Zustand, Gekauft, Ersteigert, Verkauft, Wert, Status, Vermietet, Bau)
+        VALUES ('" . $sid . "', '" . $uid . "', '" . $immobilienId . "', 0, '" . $zustand . "', 0, 1, 0, '" . $wert . "', 0, '" . $vermietet . "', '" . $baugrundstueck . "');";
+        Database::sqlInsert($query);
+
 
     }
 
@@ -479,15 +543,15 @@ class Request {
 
     }
 
-    public static function getAuktionsobjekte() {
+    public static function getAuktionsobjektById($id) {
 
         $sid = $_SESSION["SID"];
         $uid = $_SESSION["UID"];
         $runde = $_SESSION["Runde"];
 
         $query = "
-        SELECT * FROM Auktionsobjekte
-        WHERE Runde = $runde
+        SELECT * FROM Auktionsobjekt
+        WHERE ID = $id
         ;";
         return Database::sqlSelect($query);
 
@@ -715,6 +779,95 @@ class Request {
         FROM Startobjekt
         ;";
         return Database::sqlSelect($query);
+
+    }
+
+    public static function getAuktion() {
+
+        $sid = $_SESSION["SID"];
+        $uid = $_SESSION["UID"];
+        $runde = $_SESSION["Runde"];
+
+        $query = "
+        SELECT *
+        FROM Auktion
+        WHERE Runde = $runde
+        ;";
+        return Database::sqlSelect($query);
+
+    }
+
+    public static function setGebot($gebot, $objektID) {
+
+        $sid = $_SESSION["SID"];
+        $uid = $_SESSION["UID"];
+        $runde = $_SESSION["Runde"];
+
+        $query = "
+        INSERT INTO Gebote (SpielID, UnternehmensID, ObjektID, Runde, Gebot)
+        VALUES ('" . $sid . "', '" . $uid . "', '" . $objektID . "','" . $runde . "', '" . $gebot . "')
+        ;";
+        Database::sqlInsert($query);
+
+
+
+    }
+
+    public static function getGebot() {
+
+        $sid = $_SESSION["SID"];
+        $uid = $_SESSION["UID"];
+        $runde = $_SESSION["Runde"];
+
+        $query = "
+        SELECT *
+        FROM Gebote
+        WHERE SpielID = $sid AND UnternehmensID = $uid AND Runde = $runde
+        ;";
+        return Database::sqlSelect($query);
+    }
+
+    public static function getGebote() {
+
+        $sid = $_SESSION["SID"];
+        $uid = $_SESSION["UID"];
+        $runde = $_SESSION["Runde"];
+
+        $query = "
+        SELECT *
+        FROM Gebote
+        WHERE SpielID = $sid AND Runde = 1
+        ;";
+        return Database::sqlSelect($query);
+
+    }
+
+    public static function getGebotdataByGebot($gebot) {
+
+        $sid = $_SESSION["SID"];
+        $uid = $_SESSION["UID"];
+        $runde = $_SESSION["Runde"];
+
+        $query = "
+        SELECT UnternehmensID, Gewonnen
+        FROM Gebote
+        WHERE SpielID = $sid AND Runde = 1 AND Gebot = $gebot
+        ;";
+        return Database::sqlSelect($query);
+
+    }
+
+    public static function getSpiel() {
+
+        $sid = $_SESSION["SID"];
+
+        $query = "
+        SELECT *
+        FROM Spiel
+        WHERE ID = $sid
+        ;";
+        return Database::sqlSelect($query);
+
 
     }
 
