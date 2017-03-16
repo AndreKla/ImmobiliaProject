@@ -187,12 +187,19 @@ class Neuigkeiten {
             $bLink = Request::getDownloadLink("Buchfuehrung");
             $bFile = $bLink[0]["URL"];
             $buchfuehrungURL = $url . $bFile;
-
+            
+            $tLink = Request::getDownloadLink("Buchung");
+            $tFile = $tLink[0]["URL"];
+            $buchungURL = $url . $tFile;
+            
             ?>
 
                 <a href=<?php echo "'" . $immobilienURL . "'"; ?> class="btn btn-primary btn-success col-md-12">Ratgeber Immobilien</a>
                 <br>
                 <a href=<?php echo "'" . $buchfuehrungURL . "'"; ?> class="btn btn-primary btn-success col-md-12">Ratgeber Buchführung</a>
+                <br>
+                <a href=<?php echo "'" . $buchungURL . "'"; ?> class="btn btn-primary btn-success col-md-12">T-Konten Vorlage</a>
+
 
                   <!--<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
                     <div class="modal-dialog modal-lg">

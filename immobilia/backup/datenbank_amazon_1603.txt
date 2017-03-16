@@ -1,0 +1,931 @@
+-- phpMyAdmin SQL Dump
+-- version 4.0.10.17
+-- https://www.phpmyadmin.net
+--
+-- Host: tobias-db.czo3mjccdla1.eu-central-1.rds.amazonaws.com:3306
+-- Erstellungszeit: 16. Mrz 2017 um 10:07
+-- Server Version: 5.6.27-log
+-- PHP-Version: 5.6.29
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+
+--
+-- Datenbank: `Planspiel`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `Anlageoptionen`
+--
+
+CREATE TABLE IF NOT EXISTS `Anlageoptionen` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `Name` varchar(200) NOT NULL,
+  `Beschreibung` varchar(200) NOT NULL,
+  `Summe` float NOT NULL,
+  `Ertrag` float NOT NULL,
+  `Dauer` int(11) NOT NULL,
+  `Risiko` varchar(100) NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+
+--
+-- Daten für Tabelle `Anlageoptionen`
+--
+
+INSERT INTO `Anlageoptionen` (`ID`, `Name`, `Beschreibung`, `Summe`, `Ertrag`, `Dauer`, `Risiko`) VALUES
+(1, 'Gold', 'In Zeiten schwacher Wirtschaftsleistung ist Gold eine sichere alternative um sein Geld gewinnbringend anzulegen.', 100000, 5.5, 2, 'gering'),
+(2, 'Wertpapiere & Aktien', 'Mit Aktien lassen sich große Gewinne erzielen, allerdings ist auch das Risiko Verluste zu machen deutlich höher.', 250000, 12.5, 1, 'hoch'),
+(3, 'Oldtimer', 'Oldtimer sind eine beliebte Investition für Liebhaber. Sie steigen stetig im Wert und können recht risikolos als Geldanlage genutzt werden.', 120000, 7.25, 4, 'mittel');
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `Auktion`
+--
+
+CREATE TABLE IF NOT EXISTS `Auktion` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `SID` int(11) NOT NULL,
+  `Objekt` int(11) NOT NULL,
+  `Verkaeufer` int(11) NOT NULL,
+  `Hoechstbietender` int(11) NOT NULL,
+  `Hoechstgebot` int(11) NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `Auktionsobjekt`
+--
+
+CREATE TABLE IF NOT EXISTS `Auktionsobjekt` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `Beschreibung` varchar(500) NOT NULL,
+  `Strasse` varchar(120) NOT NULL,
+  `PLZ` int(11) NOT NULL,
+  `Ort` varchar(120) NOT NULL,
+  `Bild` varchar(140) NOT NULL,
+  `Flaeche` int(11) NOT NULL,
+  `Wert` double NOT NULL,
+  `Wertentwicklung` int(11) NOT NULL,
+  `Miete` double NOT NULL,
+  `Mietentwicklung` int(11) NOT NULL,
+  `Kaufpreis` double NOT NULL,
+  `Viertel` int(11) NOT NULL,
+  `Lage` int(11) NOT NULL DEFAULT '5',
+  `Zustand` int(11) NOT NULL DEFAULT '5',
+  `Long` float NOT NULL,
+  `Lat` float NOT NULL,
+  `Bestand` varchar(300) NOT NULL,
+  `Abschreibungsbasis` int(11) NOT NULL,
+  `Abschreibung` int(11) NOT NULL,
+  `Rendite` float NOT NULL,
+  `Baugrundstueck` int(11) NOT NULL DEFAULT '0',
+  `Vermietet` int(11) NOT NULL DEFAULT '0',
+  `Runde` int(11) NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=21 ;
+
+--
+-- Daten für Tabelle `Auktionsobjekt`
+--
+
+INSERT INTO `Auktionsobjekt` (`ID`, `Beschreibung`, `Strasse`, `PLZ`, `Ort`, `Bild`, `Flaeche`, `Wert`, `Wertentwicklung`, `Miete`, `Mietentwicklung`, `Kaufpreis`, `Viertel`, `Lage`, `Zustand`, `Long`, `Lat`, `Bestand`, `Abschreibungsbasis`, `Abschreibung`, `Rendite`, `Baugrundstueck`, `Vermietet`, `Runde`) VALUES
+(1, 'Stabile Wertanlage - außerordentliche 4-Zimmer-Erdgeschosswohnung, vermietet', 'Warschauer Straße 31', 10245, 'Berlin', 'http://www.marketingsfinest.com/spire/pictu/immobilien/immo51.jpg', 139, 244000, 0, 20715, 915, 0, 0, 4, 6, 0, 0, '', 2880, 3240, 0, 0, 1, 2),
+(2, 'Frisch renoviertes Dachgeschoss - 3 Zimmer mit großer Terrasse sofort bezugsfertig', 'Am Teichberg 30', 13125, 'Berlin - Karow', 'http://www.marketingsfinest.com/spire/pictu/immobilien/immo52.jpg', 104, 106250, 13750, 7950, 450, 0, 0, 3, 4, 0, 0, '', 1275, 1440, 0, 0, 0, 3),
+(3, 'Vermietete 3-Zimmer-Wohnung mit mehreren Balkonen', 'Summter Str. 41', 12623, 'Berlin - Mahlsdorf-Süd', 'http://www.marketingsfinest.com/spire/pictu/immobilien/immo53.jpg', 230, 315000, 0, 24500, 3050, 0, 0, 6, 6, 0, 0, '', 3780, 4400, 0, 0, 1, 4),
+(4, 'Hochwertige, lichtdurchflutete Wohnungen in gediegener Lage', 'Prenzlauer Allee 54', 10405, 'Berlin - Kollwitzkiz', 'http://www.marketingsfinest.com/spire/pictu/immobilien/immo55.jpg', 266, 545000, 110000, 40000, 5500, 0, 0, 8, 9, 0, 0, '', 6540, 8000, 0, 0, 0, 5);
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `Ausgaben`
+--
+
+CREATE TABLE IF NOT EXISTS `Ausgaben` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `SpielID` int(11) NOT NULL,
+  `UnternehmensID` int(11) NOT NULL,
+  `Runde` int(11) NOT NULL,
+  `Zeit` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `Summe` varchar(11) NOT NULL,
+  `Beschreibung` varchar(250) NOT NULL,
+  `Details` varchar(250) NOT NULL,
+  `Typ` varchar(7) NOT NULL DEFAULT 'Ausgabe',
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=29 ;
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `Bank`
+--
+
+CREATE TABLE IF NOT EXISTS `Bank` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `Beschreibung` varchar(500) NOT NULL,
+  `Risikobereitschaft` int(11) NOT NULL,
+  `Darlehenszins` double NOT NULL,
+  `Guthabenzins` double NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `Buchung`
+--
+
+CREATE TABLE IF NOT EXISTS `Buchung` (
+  `ID` int(11) NOT NULL,
+  `SID` int(11) NOT NULL,
+  `Unternehmen` int(11) NOT NULL,
+  `Runde` int(11) NOT NULL,
+  `Sollkonto` int(11) NOT NULL,
+  `Habenkonto` int(11) NOT NULL,
+  `Betrag` double NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `Buchungsaufgaben`
+--
+
+CREATE TABLE IF NOT EXISTS `Buchungsaufgaben` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `SpielID` int(100) NOT NULL,
+  `UnternehmensID` int(30) NOT NULL,
+  `Runde` int(10) NOT NULL,
+  `Sollkonto` varchar(30) NOT NULL,
+  `Habenkonto` varchar(30) NOT NULL,
+  `Summe` decimal(30,0) NOT NULL,
+  `Beschreibung` varchar(400) NOT NULL,
+  `Bezahlt` tinyint(1) NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=46 ;
+
+--
+-- Daten für Tabelle `Buchungsaufgaben`
+--
+
+INSERT INTO `Buchungsaufgaben` (`ID`, `SpielID`, `UnternehmensID`, `Runde`, `Sollkonto`, `Habenkonto`, `Summe`, `Beschreibung`, `Bezahlt`) VALUES
+(1, 1, 1, 1, 'Bank', 'Mieterträge', 22, '', 0),
+(31, 1, 1, 1, 'Personalaufwendungen', 'Bank', 22, '', 0),
+(32, 1, 1, 1, 'Immobilien', 'Bank', 125500, 'Kauf von Immobilie Weitläufige Wohnung', 0),
+(33, 1, 1, 1, 'Immobilien', 'Bank', 125500, 'Kauf von Immobilie Weitläufige Wohnung', 0),
+(34, 1, 1, 1, 'Immobilien', 'Bank', 125500, 'Kauf von Immobilie Geräumiges Haus 3 Etagen', 0),
+(35, 1, 1, 1, 'Immobilien', 'Bank', 125500, 'Kauf von Immobilie Zentrale 4 Zimmer Wohnung', 0),
+(36, 1, 1, 1, 'Immobilien', 'Bank', 106250, 'Kauf von Immobilie Zentrale 5 Zimmer Wohnung', 0),
+(37, 1, 1, 1, 'Immobilien', 'Bank', 171000, 'Kauf von Immobilie Zentrale 3 Zimmer Wohnung', 0),
+(38, 1, 1, 1, 'Immobilien', 'Bank', 237500, 'Kauf von Immobilie Gute Lage Apartment', 0),
+(39, 1, 1, 1, 'Immobilien', 'Bank', 220000, 'Kauf von Immobilie 8.Etage in guter Nachbarschaft', 0),
+(40, 1, 1, 1, 'Immobilien', 'Bank', 472500, 'Kauf von Immobilie Studentenwohnung', 0),
+(41, 1, 1, 1, 'Immobilien', 'Bank', 0, 'Kauf von Immobilie Traumhafte 2,5-Zimmer-Dachgeschosswohnung mit Westterrasse', 0),
+(42, 1, 1, 1, 'Immobilien', 'Bank', 0, 'Kauf von Immobilie Dachloft mit Spreeluft', 0),
+(43, 1, 1, 1, 'Immobilien', 'Bank', 0, 'Kauf von Immobilie Altbau-Maisonette-Wohnung mit Luxusausstattung, Kamin und Garten', 0),
+(44, 1, 1, 1, 'Immobilien', 'Bank', 0, 'Kauf von Immobilie Idyllisch gelegener Luxusneubau mit eigener Dach-Terrasse', 0),
+(45, 1, 1, 1, 'Personalaufwendungen', 'Bank', 60750, 'Abfindung für Mitarbeiter René Faber - Bauleiter', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `Downloads`
+--
+
+CREATE TABLE IF NOT EXISTS `Downloads` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `Kategorie` varchar(100) NOT NULL,
+  `Runde` int(11) NOT NULL,
+  `URL` varchar(250) NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Daten für Tabelle `Downloads`
+--
+
+INSERT INTO `Downloads` (`ID`, `Kategorie`, `Runde`, `URL`) VALUES
+(1, 'Immobilien', 1, '/downloads/Ratgeber_Immobilien_GJ_1.pdf');
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `Einnahmen`
+--
+
+CREATE TABLE IF NOT EXISTS `Einnahmen` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `SpielID` int(11) NOT NULL,
+  `UnternehmensID` int(11) NOT NULL,
+  `Runde` int(11) NOT NULL,
+  `Zeit` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `Summe` varchar(11) NOT NULL,
+  `Beschreibung` varchar(250) NOT NULL,
+  `Details` varchar(250) NOT NULL,
+  `Typ` varchar(8) NOT NULL DEFAULT 'Einnahme',
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=31 ;
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `Ereignis`
+--
+
+CREATE TABLE IF NOT EXISTS `Ereignis` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `Viertel` int(11) NOT NULL,
+  `Beschreibung` varchar(500) NOT NULL,
+  `Runde` int(11) NOT NULL,
+  `Gentrifizierung` int(11) NOT NULL,
+  `Beliebtheit` int(11) NOT NULL,
+  `Lage` int(11) NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `Kaeufer`
+--
+
+CREATE TABLE IF NOT EXISTS `Kaeufer` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `Name` varchar(120) NOT NULL,
+  `Preis` float NOT NULL,
+  `Zahlungsdatum` int(11) NOT NULL DEFAULT '0',
+  `Bonitaet` int(11) NOT NULL DEFAULT '2',
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+
+--
+-- Daten für Tabelle `Kaeufer`
+--
+
+INSERT INTO `Kaeufer` (`ID`, `Name`, `Preis`, `Zahlungsdatum`, `Bonitaet`) VALUES
+(1, 'Spire GmbH', 0.85, 0, 0),
+(2, 'Dennis Tovote', 1.25, 2, 3),
+(3, 'John Wick', 1.05, 1, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `Konto`
+--
+
+CREATE TABLE IF NOT EXISTS `Konto` (
+  `ID` int(11) NOT NULL,
+  `Beschreibung` int(11) NOT NULL,
+  `Kontenart` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `Kredit`
+--
+
+CREATE TABLE IF NOT EXISTS `Kredit` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `Bankname` varchar(200) NOT NULL,
+  `Kredittyp` varchar(100) NOT NULL,
+  `Kreditsumme` int(11) NOT NULL,
+  `Kreditzins` float NOT NULL,
+  `Laufzeit` int(11) NOT NULL,
+  `Genehmigungswahrscheinlichkeit` int(11) NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+
+--
+-- Daten für Tabelle `Kredit`
+--
+
+INSERT INTO `Kredit` (`ID`, `Bankname`, `Kredittyp`, `Kreditsumme`, `Kreditzins`, `Laufzeit`, `Genehmigungswahrscheinlichkeit`) VALUES
+(1, 'Vereinigte Volksbank e.G.', 'Annuitätendarlehen', 2000000, 7.5, 5, 10),
+(2, 'Deutsche Bank AG', 'endfälliger Kredit', 500000, 10, 2, 89),
+(3, 'Commerzbank AG', 'endfälliger Kredit', 750000, 9.5, 3, 72);
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `marktanalyse`
+--
+
+CREATE TABLE IF NOT EXISTS `marktanalyse` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `Tipp` varchar(1000) NOT NULL,
+  `Runde` int(5) NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+
+--
+-- Daten für Tabelle `marktanalyse`
+--
+
+INSERT INTO `marktanalyse` (`ID`, `Tipp`, `Runde`) VALUES
+(1, 'Absoluter In-Treffpunkt in Berlin Mitte sind seit einigen Jahren die Hackeschen Höfe, über die wir im Rahmen dieser Webseite schon genauer berichtet haben. Sie beherbergen eine ganze Reihe verschiedener Lokalitäten, in denen sich die Berliner Nachtschwärmer regelmäßig treffen. Doch Berlin Mitte hat noch mehr zu bieten, zum Beispiel die Oranienburger Straße mit ihren schrägen Szeneläden und den kleinen, aber feinen Bars und Clubs.', 0),
+(2, 'Absoluter In-Treffpunkt in Berlin Mitte sind seit einigen Jahren die Hackeschen Höfe, über die wir im Rahmen dieser Webseite schon genauer berichtet haben. Sie beherbergen eine ganze Reihe verschiedener Lokalitäten, in denen sich die Berliner Nachtschwärmer regelmäßig treffen. Doch Berlin Mitte hat noch mehr zu bieten, zum Beispiel die Oranienburger Straße mit ihren schrägen Szeneläden und den kleinen, aber feinen Bars und Clubs.', 1),
+(3, 'Absoluter In-Treffpunkt in Berlin Mitte sind seit einigen Jahren die Hackeschen Höfe, über die wir im Rahmen dieser Webseite schon genauer berichtet haben. Sie beherbergen eine ganze Reihe verschiedener Lokalitäten, in denen sich die Berliner Nachtschwärmer regelmäßig treffen. Doch Berlin Mitte hat noch mehr zu bieten, zum Beispiel die Oranienburger Straße mit ihren schrägen Szeneläden und den kleinen, aber feinen Bars und Clubs.', 2),
+(4, 'Absoluter In-Treffpunkt in Berlin Mitte sind seit einigen Jahren die Hackeschen Höfe, über die wir im Rahmen dieser Webseite schon genauer berichtet haben. Sie beherbergen eine ganze Reihe verschiedener Lokalitäten, in denen sich die Berliner Nachtschwärmer regelmäßig treffen. Doch Berlin Mitte hat noch mehr zu bieten, zum Beispiel die Oranienburger Straße mit ihren schrägen Szeneläden und den kleinen, aber feinen Bars und Clubs.', 3);
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `Masteruser`
+--
+
+CREATE TABLE IF NOT EXISTS `Masteruser` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `username` varchar(100) NOT NULL,
+  `passwort` varchar(100) NOT NULL,
+  `lizenzen` int(11) NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Daten für Tabelle `Masteruser`
+--
+
+INSERT INTO `Masteruser` (`ID`, `username`, `passwort`, `lizenzen`) VALUES
+(1, 'nern', 'e10adc3949ba59abbe56e057f20f883e', 3);
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `Mieter`
+--
+
+CREATE TABLE IF NOT EXISTS `Mieter` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `Name` varchar(250) NOT NULL,
+  `Preis` float NOT NULL,
+  `Einzugsdatum` int(11) NOT NULL DEFAULT '0',
+  `Sauberkeit` int(11) NOT NULL DEFAULT '0',
+  `Bonitaet` int(11) NOT NULL DEFAULT '2',
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+
+--
+-- Daten für Tabelle `Mieter`
+--
+
+INSERT INTO `Mieter` (`ID`, `Name`, `Preis`, `Einzugsdatum`, `Sauberkeit`, `Bonitaet`) VALUES
+(1, 'Josef Müller', 1, 0, 2, 2),
+(2, 'Dominik Wiehs', 1.2, 1, 0, 2),
+(3, 'Frederik Meier', 0.85, 0, 3, 3);
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `Mitarbeiter`
+--
+
+CREATE TABLE IF NOT EXISTS `Mitarbeiter` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `Fachrichtung` varchar(40) NOT NULL,
+  `Name` varchar(80) NOT NULL,
+  `Beschreibung` varchar(500) NOT NULL,
+  `Gehalt` double NOT NULL,
+  `Faehigkeit` int(11) NOT NULL DEFAULT '5',
+  `Motivation` int(11) NOT NULL DEFAULT '5',
+  `Vertragslaufzeit` int(11) NOT NULL DEFAULT '0',
+  `Bild` varchar(200) NOT NULL,
+  `xing` varchar(400) NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=31 ;
+
+--
+-- Daten für Tabelle `Mitarbeiter`
+--
+
+INSERT INTO `Mitarbeiter` (`ID`, `Fachrichtung`, `Name`, `Beschreibung`, `Gehalt`, `Faehigkeit`, `Motivation`, `Vertragslaufzeit`, `Bild`, `xing`) VALUES
+(1, 'Bauleiter', 'René Faber', 'x', 81000, 9, 2, 0, 'http://www.marketingsfinest.com/spire/pictu/personal/person02.jpg', 'x'),
+(2, 'Bauleiter', 'Rainer Bonhoff', 'x', 75000, 6, 5, 0, 'http://www.marketingsfinest.com/spire/pictu/personal/person07.jpg', 'x'),
+(3, 'Bauleiter', 'Katharina Kaiser', '', 74000, 6, 5, 0, 'http://www.marketingsfinest.com/spire/pictu/personal/person01.jpg', ''),
+(4, 'Bauleiter', 'Jessica Engel', '', 69000, 4, 4, 0, 'http://www.marketingsfinest.com/spire/pictu/personal/person21.jpg', ''),
+(5, 'Bauleiter', 'Luca Kluge', '', 72000, 3, 7, 0, 'http://www.marketingsfinest.com/spire/pictu/personal/person03.jpg', ''),
+(6, 'Bauleiter', 'Jürgen Eggers', '', 76000, 5, 6, 0, 'http://www.marketingsfinest.com/spire/pictu/personal/person18.jpg', ''),
+(7, 'Bauleiter', 'Tim Schwartz', '', 69000, 4, 5, 0, 'http://www.marketingsfinest.com/spire/pictu/personal/person27.jpg', ''),
+(8, 'Makler', 'Lothar Gelhaus', '', 39000, 4, 5, 0, 'http://www.marketingsfinest.com/spire/pictu/personal/person06.jpg', ''),
+(9, 'Makler', 'Mathias Kastner', '', 40000, 7, 5, 0, 'http://www.marketingsfinest.com/spire/pictu/personal/person32.jpg', ''),
+(10, 'Makler', 'Claudia Glockner', '', 39000, 5, 5, 0, 'http://www.marketingsfinest.com/spire/pictu/personal/person13.jpg', ''),
+(11, 'Makler', 'Daniel M. Copland', '', 44000, 6, 6, 0, 'http://www.marketingsfinest.com/spire/pictu/personal/person14.jpg', ''),
+(12, 'Makler', 'Janina Hofmann', '', 42000, 7, 7, 0, 'http://www.marketingsfinest.com/spire/pictu/personal/person22.jpg', ''),
+(13, 'Makler', 'Nicole Keller', '', 45000, 6, 5, 0, 'http://www.marketingsfinest.com/spire/pictu/personal/person25.jpg', ''),
+(14, 'Makler', 'Alexander Fiedler', '', 32000, 1, 3, 0, 'http://www.marketingsfinest.com/spire/pictu/personal/person40.jpg', ''),
+(15, 'Sachbearbeiterin', 'Karolin Fuhrman', '', 29000, 4, 5, 0, 'http://www.marketingsfinest.com/spire/pictu/personal/person24.jpg', ''),
+(16, 'Sachbearbeiterin', 'Leon Dietrich', '', 34500, 6, 8, 0, 'http://www.marketingsfinest.com/spire/pictu/personal/person35.jpg', ''),
+(17, 'Sachbearbeiterin', 'Sabine Rollinger', '', 33000, 7, 8, 0, 'http://www.marketingsfinest.com/spire/pictu/personal/person11.jpg', ''),
+(18, 'Sachbearbeiterin', 'Petra Drechsler', '', 31000, 4, 5, 0, 'http://www.marketingsfinest.com/spire/pictu/personal/person20.jpg', ''),
+(19, 'Sachbearbeiterin', 'Anna Vogt', '', 29000, 3, 8, 0, 'http://www.marketingsfinest.com/spire/pictu/personal/person33.jpg', ''),
+(20, 'Sachbearbeiterin', 'Isabell Neumann', '', 29000, 5, 5, 0, 'http://www.marketingsfinest.com/spire/pictu/personal/person19.jpg', ''),
+(21, 'Sachbearbeiterin', 'Laura Schulz', '', 31000, 4, 3, 0, 'http://www.marketingsfinest.com/spire/pictu/personal/person04.jpg', ''),
+(22, 'Bauingenieur', 'Boris Müller', '', 79000, 8, 5, 0, 'http://www.marketingsfinest.com/spire/pictu/personal/person12.jpg', ''),
+(23, 'Bauingenieur', 'Felix Traugott', '', 65000, 5, 5, 0, 'http://www.marketingsfinest.com/spire/pictu/personal/person08.jpg', ''),
+(24, 'Bauingenieur', 'Sophia Friedmann', '', 65000, 4, 7, 0, 'http://www.marketingsfinest.com/spire/pictu/personal/person10.jpg', ''),
+(25, 'Bauingenieur', 'Hermann Meise', '', 60000, 5, 2, 0, 'http://www.marketingsfinest.com/spire/pictu/personal/person30.jpg', ''),
+(26, 'Bauingenieur', 'Clayton B. Towner', '', 70000, 6, 5, 0, 'http://www.marketingsfinest.com/spire/pictu/personal/person17.jpg', ''),
+(27, 'Bauingenieur', 'Lema Nahas', '', 66000, 6, 3, 0, 'http://www.marketingsfinest.com/spire/pictu/personal/person26.jpg', ''),
+(28, 'Bauingenieur', 'Steffen Brandt', '', 60000, 3, 3, 0, 'http://www.marketingsfinest.com/spire/pictu/personal/person16.jpg', '');
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `Neuigkeiten`
+--
+
+CREATE TABLE IF NOT EXISTS `Neuigkeiten` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `Titel` varchar(150) NOT NULL,
+  `Beschreibung` varchar(1500) NOT NULL,
+  `Bild` varchar(140) NOT NULL,
+  `Autor` varchar(40) NOT NULL,
+  `Jahr` int(11) NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=13 ;
+
+--
+-- Daten für Tabelle `Neuigkeiten`
+--
+
+INSERT INTO `Neuigkeiten` (`ID`, `Titel`, `Beschreibung`, `Bild`, `Autor`, `Jahr`) VALUES
+(1, 'Unternehmen planen den Umbruch', 'Rote Zahlen und veraltete Unternehmensstrategien zwingen mehre Unternehmen zum Umbruch. Die WIJA konnte im Interview in Erfahrung bringen, wie das Change Management die Unternehmen in der IMMOBILIA-Welt wieder auf Erfolgskurs bringen soll. Es wird auf junge und engagierte Nachwuchsführungskräfte gesetzt. Die Umsetzung soll über zwei Geschäftsjahre erfolgen, in der die alte Unternehmensleitung sich immer mehr aus der Entscheidungsebene herauszieht.\nDie Aufgabengebiete der Nachwuchskräfte beschränken sich in den ersten beiden Geschäftsjahren hauptsächlich auf das Rechnungswesen und in die Einarbeitung in das Unternehmen. Weiterhin müssen erste übertragende Entscheidungen getroffen werden. Die Redaktion wird über den Entwicklungsprozess in den nächsten Ausgaben weiter berichten und wünscht den Nachwuchskräften viel Erfolg.', 'http://future-transformation.de/wp-content/uploads/2015/12/Symbolbild_Kundenorientierung.jpg', 'Wirtschaftswoche', 1),
+(2, 'Trends und Tendenzen', 'Flexibler Grundriss, einfache und schnörkellose Formen und mietfrei in den eigenen vier Wänden - so wollen Haus- und Wohnungseigentümer das nächste Geschäftsjahr wohnen. Am liebsten ein Leben lang.', 'https://wfis.wellsfargo.com/CoreSiteImages/Insights/HealthcareTrendProjections2016_Large.jpg', 'Immobilien Outlook', 1),
+(3, 'NEUE REGULIERUNGEN IM PERSONALWESEN', 'Neue Regulierungen im Personalwesen treffen auf die Unternehmensleitungen. Aufgrund eines neuen Beschlusses, sind folgende Regulierungen im Personalwesen einzuhalten:\n1. Um ein Geschäftsfeld auszuüben, muss der entsprechende Leiter des Geschäftsfeldes im Unternehmen beschäftigt sein. Die Vertragslaufzeit der Leiter beläuft sich auf 1 Jahr, das sich ansonsten stillschweigend um ein weiteres Jahr verlängert.\n2. Des Weiteren wurde beschlossen, dass sich die Anzahl der Sachbearbeiter für die Verwaltung an der Anzahl der Objekte im Bestand orientiert.', 'http://www.dasinvestment.com/uploads/images/teaser/big/paragrafen_berater_fotolia_web_02.jpg', 'Bundesregierung', 1),
+(4, 'Planspiele', 'Planspiele wie wir sie erleben, besitzen asiatische Wurzeln. Bereits vor rund 5.000 Jahren gab es im asiatischen Raum militärische Strategiespiele. Diese markieren wahrscheinlich den Ursprung des Planspiels, das heute als innovative Lehrmethode mit nachhaltigem Lernerfolg eingesetzt wird.', 'http://www.onlineplanspiele.de/IntroductionImage/129_1/Planspiele.jpg', 'Infocenter', 1),
+(7, 'Fünf vor Zwölf', 'Auch im letzten Geschäftsjahr gab es kaum eine Verbesserung in der Geschäftstätigkeit. Wir berichteten bereits in der letzten Ausgabe, über den Umbruch in der IMMOBILIA-Welt, jedoch hat die alte Unternehmensleitung noch zu viel Entscheidungsbefugnis.\r\nEs kamen im laufenden Geschäftsjahr immer frustrierte Stimmen der Nachwuchskräfte auf, die dieses bemängelten und erklärten, dass sich die prekäre Situation, in der sich das Unternehmen be ndet, so nicht verändert. Wie wir von der amtierenden Unternehmensleitung erfahren haben, soll sich jedoch dieses in diesem Geschäftsjahr verändern und den Nachwuchs mehr Entscheidungen übertragen werden.\r\nWeiterhin erfuhren wir, dass Beispielsweise die Planung für das nächste Geschäftsjahr, sowie eine mögliche Spendenaktion, gesamtheitlich übertragen werden soll.', 'https://cdn.pixabay.com/photo/2012/04/10/16/07/clock-26094_1280.png', 'Wirtschaftsnews', 2),
+(8, 'SPENDEN nicht nur ein steuerlicher Vorteil', 'Sie möchten sich als Unternehmen sozial engagieren und gesellschaftliche Verantwortung übernehmen? Bei SOS-Kinderdorf können Sie sich darauf verlassen, dass Ihre Spende genau dort ankommt, wo sie dringend benötigt wird: Bei Kindern und Jugendlichen in Not. SOS-Kinderdorf steht in der ganzen Welt für Familie und ein liebevolles Zuhause. Nutzen Sie die Faszination dieser Marke für die Kommunikation Ihres Engagements!', 'http://audiopress.de/wp-content/uploads/2016/02/SOS-Kinderdorf_Symbol.jpg', 'SOS-Kinderdorf e.V.', 2),
+(10, 'Neue Vertriebskanäle für Unternehmen in der Immobilienbranche', 'Neue Vertriebskanäle in der IMMOBILIA-Welt gesichtet. Erstmals können Immobilien in Form einer stillen Auktion ersteigert werden. Für die Auktion wurden schnell interessante Immobilien gefunden. Die diesjährige Auktion umfasst eine Immobilie zum Ankauf und eine Immobilie zum Verkauf.\r\nBei der diesjährigen Auktion handelt es sich um eine abgewandelte Art der stillen Auktion, in der jedes Unternehmen lediglich einmal für jedes Objekt bieten kann. Die Abgabe des Gebotes erfolgt über ein Schriftstück, in der die Kennung der Auktion, sowie der Name des Unternehmens und Gebot enthalten sind. Zu einer vereinbarten Zeit wird die Auktion geschlossen und derjenige gewinnt die Auktion, der das höchste bzw. niedrigste Gebot abgegeben hat. Haben mehrere das gleiche Gebot abgegeben, dann gewinnt der, der das Gebot früher abgegeben hat.', 'http://www.handelsblatt.com/images/haus-unterm-hammer/11955722/5-format2010.jpg', 'Handelsblatt', 3),
+(11, 'Bauunternehmer locken mit günstigen Baupreisen', 'Am Markt befinden sich drei Baugebiete, mit prognostizierten Verkehrswertentwicklungen und Mietpreisentwicklungen. Die örtlichen Bauunternehmen locken mit einer neuen Technologie aus den USA zur Fertigstellung. Der Clou: Die Immobilien sind direkt in dem selben Jahr des Bauauftrags bezugsfertig (Schlüsselfertig) und können sofort vermietet werden. Marktbeobachter sind sich einig, dass Neubauten eine höhere Mietpreisentwicklung verzeichnen werden, als gleichwertige Immobilien in Berlin. Geschäftsführer G. Meyer der Baufirma Meyer & Sohn bietet Abonnenten der Immonews ein besonders vergünstigtes Bauangebot und weißt nochmals daraufhin, dass ein Bauingenieur im Unternehmen beschäftigt werden muss.', 'http://www.immosbk.de/upload/125000-Berger-1-2.jpg', 'Immonews', 3),
+(12, 'Gute Nachrichten für Immobilieneigentümer', 'Sanierungsbedürftige Immobilien können ab sofort saniert werden. Jedoch sind die Aufbesserungsmöglichkeiten eingeschränkt. Nur Objekte in den Standort-Kategorien „Gering“ und „Mittel“ können saniert werden. Für die Überwachung der Sanierung muss der Bauingenieur im Unternehmen beschäftigt sein. Ohne einen Bauingenieur ist die Sanierungsabwicklung nicht möglich.', 'http://www.holzbau-frerk.de/files/holzbau-frerk/content/leistungen/leistungen-big/energetische-sanierung-pavatex.jpg', 'Immobilia', 3);
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `Objekt`
+--
+
+CREATE TABLE IF NOT EXISTS `Objekt` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `Beschreibung` varchar(500) NOT NULL,
+  `Strasse` varchar(120) NOT NULL,
+  `PLZ` int(11) NOT NULL,
+  `Ort` varchar(120) NOT NULL,
+  `Bild` varchar(140) NOT NULL,
+  `Flaeche` int(11) NOT NULL,
+  `Wert` double NOT NULL,
+  `Wertentwicklung` int(11) NOT NULL,
+  `Miete` double NOT NULL,
+  `Mietentwicklung` int(11) NOT NULL,
+  `Kaufpreis` double NOT NULL,
+  `Viertel` int(11) NOT NULL,
+  `Lage` int(11) NOT NULL DEFAULT '5',
+  `Zustand` int(11) NOT NULL DEFAULT '5',
+  `Long` float NOT NULL,
+  `Lat` float NOT NULL,
+  `Bestand` varchar(300) NOT NULL,
+  `Abschreibungsbasis` int(11) NOT NULL,
+  `Abschreibung` int(11) NOT NULL,
+  `Rendite` float NOT NULL,
+  `Baugrundstueck` int(11) NOT NULL DEFAULT '0',
+  `Vermietet` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=21 ;
+
+--
+-- Daten für Tabelle `Objekt`
+--
+
+INSERT INTO `Objekt` (`ID`, `Beschreibung`, `Strasse`, `PLZ`, `Ort`, `Bild`, `Flaeche`, `Wert`, `Wertentwicklung`, `Miete`, `Mietentwicklung`, `Kaufpreis`, `Viertel`, `Lage`, `Zustand`, `Long`, `Lat`, `Bestand`, `Abschreibungsbasis`, `Abschreibung`, `Rendite`, `Baugrundstueck`, `Vermietet`) VALUES
+(1, 'Weitläufige Wohnung', 'Wilmersdorfer Straße 13', 37682, 'Berlin - Charlottenburg', 'http://www.marketingsfinest.com/spire/pictu/immobilien/immo01.jpg', 100, 125500, -5500, 8800, -400, 125500, 11, 5, 5, 13.3324, 52.5073, '', 1506, 1440, 0, 0, 0),
+(2, 'Zentrale 4 Zimmer Wohnung', 'Klayallee 12', 15612, 'Berlin - Tempelhof', 'http://www.marketingsfinest.com/spire/pictu/immobilien/immo03.jpg', 250, 525000, 100000, 40000, 5000, 525000, 11, 5, 5, 13.3186, 52.5842, '', 6300, 7500, 0, 0, 0),
+(3, 'Geräumiges Haus 3 Etagen', 'Am Wannsee 154', 21415, 'Berlin - Wannsee', 'http://www.marketingsfinest.com/spire/pictu/immobilien/immo02.jpg', 100, 125500, -5500, 8800, -400, 125500, 11, 5, 5, 13.3749, 52.5566, '', 1506, 1440, 0, 0, 0),
+(4, 'Zentrale 4 Zimmer Wohnung', 'Bahnhofsstraße 15', 12415, 'Berlin - Mitte', 'http://www.marketingsfinest.com/spire/pictu/immobilien/immo03.jpg', 100, 125500, -5500, 8800, -400, 125500, 11, 5, 5, 13.3186, 52.5842, '', 1506, 1440, 0, 0, 0),
+(5, 'Zentrale 5 Zimmer Wohnung', 'Prenzlauer Berg 1', 12515, 'Berlin - Kreuzberg', 'http://www.marketingsfinest.com/spire/pictu/immobilien/immo04.jpg', 100, 106250, 13750, 7950, 450, 106250, 11, 5, 5, 13.4862, 52.4638, '', 2640, 3240, 0, 0, 0),
+(6, 'Zentrale 3 Zimmer Wohnung', 'Marktstraße 15', 37671, 'Berlin - Neukölln', 'http://www.marketingsfinest.com/spire/pictu/immobilien/immo05.jpg', 150, 171000, 9000, 11850, 750, 171000, 11, 5, 5, 13.4669, 52.5408, '', 2640, 3240, 0, 0, 0),
+(7, 'Gute Lage Apartment', 'Mittlerer Weg 4', 15771, 'Berlin - Neukölln', 'http://www.marketingsfinest.com/spire/pictu/immobilien/immo06.jpg', 150, 237500, 32500, 17000, 1000, 237500, 11, 5, 5, 13.3918, 52.4986, '', 2640, 3240, 0, 0, 0),
+(8, '8.Etage in guter Nachbarschaft', 'Charlottenburger Straße 77', 15169, 'Berlin - Wilmersdorf', 'http://www.marketingsfinest.com/spire/pictu/immobilien/immo07.jpg', 150, 220000, 50000, 17550, 2250, 220000, 11, 5, 5, 13.3815, 52.5011, '', 3810, 4320, 0, 0, 0),
+(9, 'Studentenwohnung', 'Bahnhofsstraße 2', 15722, 'Berlin - Zoologischer Garten', 'http://www.marketingsfinest.com/spire/pictu/immobilien/immo08.jpg', 200, 472500, 27500, 32000, 4000, 472500, 11, 5, 5, 13.3846, 52.4967, '', 4878, 6000, 0, 0, 0),
+(10, 'Wohnung guter Zustand ', 'Hanauerstraße Weg Stadt Straße Mitte Oben Unten 144', 15151, 'Berlin - Sackgassenhafenflugplatzhintermmondgesichtkopfrund', 'http://www.marketingsfinest.com/spire/pictu/immobilien/immo09.jpg', 200, 406500, 93500, 32000, 4000, 406500, 11, 5, 5, 13.3915, 52.4943, '', 4878, 6000, 0, 0, 0),
+(11, 'Dachloft mit Spreeluft', 'Waldstraße 2', 10551, 'Berlin Moabit', 'http://www.marketingsfinest.com/spire/pictu/immobilien/immo21.jpg', 164, 406500, 93500, 32000, 4000, 0, 0, 8, 8, 13.3309, 52.5277, '', 4878, 6000, 0, 0, 0),
+(12, 'Eigentumswohnung mit Gartenanteil', 'Lubminer Str.44', 12619, 'Berlin - Charlottenburg', 'http://www.marketingsfinest.com/spire/pictu/immobilien/immo14.jpg', 46, 64000, 6000, 3500, 100, 0, 11, 2, 3, 13.5811, 52.5191, '', 1506, 1440, 0, 0, 0),
+(13, '2-Zimmer-Eigentumswohnung mit Balkon', 'Friedrich-Karl-Straße 7', 12103, 'Berlin - Charlottenburg', 'http://www.marketingsfinest.com/spire/pictu/immobilien/immo13.jpg', 63, 125500, -5500, 8800, 400, 0, 11, 5, 5, 13.3799, 52.4561, '', 1506, 1440, 0, 0, 0),
+(14, '102 m² zum Wohlfühlen in Berlin', 'Uranustsr. 12', 12524, 'Berlin - Charlottenburg', 'http://www.marketingsfinest.com/spire/pictu/immobilien/immo12.jpg', 102, 171000, 9000, 11850, 750, 0, 11, 2, 4, 13.5239, 52.3997, '', 2052, 2160, 0, 0, 0),
+(15, 'Sehr helle Souterrain-Wohnung auf der Südseite', 'Kurfürstenstr.27', 10787, 'Berlin - Charlottenburg', 'http://www.marketingsfinest.com/spire/pictu/immobilien/immo11.jpg', 67, 100000, 5000, 8800, 400, 0, 11, 8, 5, 13.3102, 52.5002, '', 1506, 1440, 0, 0, 0),
+(16, 'Historisches Wohnhaus mit modernem Anbau', 'Sadowastr. 301', 10318, 'Berlin - Charlottenburg', 'http://www.marketingsfinest.com/spire/pictu/immobilien/immo08.jpg', 86, 125000, 5500, 8800, 400, 0, 11, 5, 6, 13.5143, 52.4775, '', 1275, 1440, 0, 0, 0),
+(17, 'Ansehen lohnt sich! Schönes Haus in ruhiger Lage', 'Rintelner Straße 42', 14193, 'Berlin', 'http://www.marketingsfinest.com/spire/pictu/immobilien/immo10.jpg', 63, 146250, 33750, 11650, 1550, 0, 1, 2, 6, 13.2941, 52.49, '', 1755, 2160, 0, 0, 0),
+(18, 'Traumhafte 2,5-Zimmer-Dachgeschosswohnung mit Westterrasse', 'Palisadenstr. 17', 10243, 'Berlin', 'http://www.marketingsfinest.com/spire/pictu/immobilien/immo16.jpg', 72, 158750, 21250, 10850, 1150, 0, 0, 8, 5, 13.4349, 52.5195, '', 1905, 2160, 0, 0, 0),
+(19, 'Idyllisch gelegener Luxusneubau mit eigener Dach-Terrasse', 'Schwedter Straße 54', 10435, 'Berlin', 'http://www.marketingsfinest.com/spire/pictu/immobilien/immo17.jpg', 123, 205000, 45000, 15800, 2125, 0, 0, 6, 8, 13.4046, 52.5406, '', 2460, 3000, 0, 0, 0),
+(20, 'Altbau-Maisonette-Wohnung mit Luxusausstattung, Kamin und Garten', 'Lichtenrade Damm 38', 12305, 'Berlin', 'http://www.marketingsfinest.com/spire/pictu/immobilien/immo19.jpg', 161, 305000, 70000, 23870, 3125, 0, 0, 2, 8, 13.4061, 52.4007, '', 3660, 4500, 0, 0, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `Posts`
+--
+
+CREATE TABLE IF NOT EXISTS `Posts` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `Bild` varchar(200) NOT NULL,
+  `Titel` varchar(150) NOT NULL,
+  `Beschreibung` varchar(300) NOT NULL,
+  `Zeit` varchar(100) NOT NULL,
+  `Jahr` int(1) NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Daten für Tabelle `Posts`
+--
+
+INSERT INTO `Posts` (`ID`, `Bild`, `Titel`, `Beschreibung`, `Zeit`, `Jahr`) VALUES
+(1, 'https://scontent.xx.fbcdn.net/v/t31.0-8/11046873_1095276567153817_181346424008682067_o.jpg?oh=a7d503b8159eb825f7bb19b663bed417&oe=590790B8', 'Klaus H.', 'ist endlich in seine eigenen 4 Wände eingezogen!', 'vor 2 Tagen', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `Rundendaten`
+--
+
+CREATE TABLE IF NOT EXISTS `Rundendaten` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `SpielID` int(11) NOT NULL,
+  `UnternehmensID` int(11) NOT NULL,
+  `Runde` int(11) NOT NULL,
+  `Kapital` float NOT NULL,
+  `Fremdkapital` float NOT NULL DEFAULT '0',
+  `Anlagekapital` float NOT NULL DEFAULT '0',
+  `Strategie1` int(11) NOT NULL,
+  `Strategie2` int(11) NOT NULL,
+  `Strategie3` int(11) NOT NULL,
+  `Social` int(11) NOT NULL DEFAULT '0',
+  `Konkurrenz` int(11) NOT NULL DEFAULT '0',
+  `Kredit` tinyint(1) NOT NULL DEFAULT '0',
+  `Anlage` tinyint(1) NOT NULL DEFAULT '0',
+  `Marktanalyse` tinyint(1) NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+
+--
+-- Daten für Tabelle `Rundendaten`
+--
+
+INSERT INTO `Rundendaten` (`ID`, `SpielID`, `UnternehmensID`, `Runde`, `Kapital`, `Fremdkapital`, `Anlagekapital`, `Strategie1`, `Strategie2`, `Strategie3`, `Social`, `Konkurrenz`, `Kredit`, `Anlage`, `Marktanalyse`) VALUES
+(6, 1, 1, 1, 9939250, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `Spiel`
+--
+
+CREATE TABLE IF NOT EXISTS `Spiel` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `Startzeit` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `Unternehmen1` int(11) DEFAULT NULL,
+  `Unternehmen2` int(11) DEFAULT NULL,
+  `Unternehmen3` int(11) DEFAULT NULL,
+  `Unternehmen4` int(11) DEFAULT NULL,
+  `Unternehmen5` int(11) DEFAULT NULL,
+  `Unternehmen6` int(11) DEFAULT NULL,
+  `Unternehmen7` int(11) DEFAULT NULL,
+  `Unternehmen8` int(11) DEFAULT NULL,
+  `Unternehmen9` int(11) DEFAULT NULL,
+  `Unternehmen10` int(11) DEFAULT NULL,
+  `Unternehmen11` int(11) DEFAULT NULL,
+  `Unternehmen12` int(11) DEFAULT NULL,
+  `Unternehmen13` int(11) DEFAULT NULL,
+  `Unternehmen14` int(11) DEFAULT NULL,
+  `Unternehmen15` int(11) DEFAULT NULL,
+  `Unternehmen16` int(11) DEFAULT NULL,
+  `Unternehmen17` int(11) DEFAULT NULL,
+  `Unternehmen18` int(11) DEFAULT NULL,
+  `Unternehmen19` int(11) DEFAULT NULL,
+  `Unternehmen20` int(11) DEFAULT NULL,
+  `Runde` int(11) NOT NULL,
+  `Schwierigkeit` int(11) NOT NULL,
+  `Beschreibung` varchar(140) NOT NULL,
+  `Szenario` int(11) NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Daten für Tabelle `Spiel`
+--
+
+INSERT INTO `Spiel` (`ID`, `Startzeit`, `Unternehmen1`, `Unternehmen2`, `Unternehmen3`, `Unternehmen4`, `Unternehmen5`, `Unternehmen6`, `Unternehmen7`, `Unternehmen8`, `Unternehmen9`, `Unternehmen10`, `Unternehmen11`, `Unternehmen12`, `Unternehmen13`, `Unternehmen14`, `Unternehmen15`, `Unternehmen16`, `Unternehmen17`, `Unternehmen18`, `Unternehmen19`, `Unternehmen20`, `Runde`, `Schwierigkeit`, `Beschreibung`, `Szenario`) VALUES
+(1, '2016-11-25 20:27:33', 1, 2, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 5, 'Testspiel Beschreibung', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `Stadt`
+--
+
+CREATE TABLE IF NOT EXISTS `Stadt` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `Name` varchar(40) NOT NULL,
+  `Einwohner` int(11) NOT NULL,
+  `Beschreibung` varchar(500) NOT NULL,
+  `Attraktivitaet` int(11) NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Daten für Tabelle `Stadt`
+--
+
+INSERT INTO `Stadt` (`ID`, `Name`, `Einwohner`, `Beschreibung`, `Attraktivitaet`) VALUES
+(1, 'Berlin', 3500000, 'Berlin ist die Bundeshauptstadt der Bundesrepublik Deutschland und zugleich eines ihrer Länder. Die Stadt Berlin ist mit gut 3,5 Millionen Einwohnern die bevölkerungsreichste und mit 892 Quadratkilometern die flächengrößte Gemeinde Deutschlands.', 8);
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `Startobjekt`
+--
+
+CREATE TABLE IF NOT EXISTS `Startobjekt` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `Beschreibung` varchar(500) NOT NULL,
+  `Strasse` varchar(120) NOT NULL,
+  `PLZ` int(11) NOT NULL,
+  `Ort` varchar(120) NOT NULL,
+  `Bild` varchar(140) NOT NULL,
+  `Flaeche` int(11) NOT NULL,
+  `Wert` double NOT NULL,
+  `Wertentwicklung` int(11) NOT NULL,
+  `Miete` double NOT NULL,
+  `Mietentwicklung` int(11) NOT NULL,
+  `Kaufpreis` double NOT NULL,
+  `Viertel` int(11) NOT NULL,
+  `Lage` int(11) NOT NULL DEFAULT '5',
+  `Zustand` int(11) NOT NULL DEFAULT '5',
+  `Long` float NOT NULL,
+  `Lat` float NOT NULL,
+  `Bestand` varchar(300) NOT NULL,
+  `Abschreibungsbasis` int(11) NOT NULL,
+  `Abschreibung` int(11) NOT NULL,
+  `Rendite` float NOT NULL,
+  `Baugrundstueck` int(11) NOT NULL DEFAULT '0',
+  `Vermietet` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=21 ;
+
+--
+-- Daten für Tabelle `Startobjekt`
+--
+
+INSERT INTO `Startobjekt` (`ID`, `Beschreibung`, `Strasse`, `PLZ`, `Ort`, `Bild`, `Flaeche`, `Wert`, `Wertentwicklung`, `Miete`, `Mietentwicklung`, `Kaufpreis`, `Viertel`, `Lage`, `Zustand`, `Long`, `Lat`, `Bestand`, `Abschreibungsbasis`, `Abschreibung`, `Rendite`, `Baugrundstueck`, `Vermietet`) VALUES
+(1, 'Barrierefreie 2-Raumwohnung zum Verlieben', 'Hoffmannstraße 1', 12487, 'Berlin - Adlershof', 'http://www.marketingsfinest.com/spire/pictu/immobilien/immo32.jpg', 87, 125500, 5500, 8800, 400, 0, 0, 3, 4, 0, 0, '', 1506, 1440, 0, 0, 0),
+(2, 'Klassisch schöne Altbauwohnung in bester Charlottenburger Kiezlage', 'Mierendorffplatz 118', 10589, 'Berlin-Charlottenburg', 'http://www.marketingsfinest.com/spire/pictu/immobilien/immo37.jpg', 117, 237500, 32500, 17000, 1000, 0, 0, 5, 5, 0, 0, '', 2850, 3240, 0, 0, 0),
+(3, 'Über den Dächern von Berlin', 'Torstrasse 79a', 10117, 'Berlin - Mitte', 'http://www.marketingsfinest.com/spire/pictu/immobilien/immo30.jpg', 212, 317500, 42500, 24950, 1450, 0, 0, 7, 6, 0, 0, '', 3810, 4320, 0, 0, 0),
+(4, 'Moderne Stadtvilla im ästhetischen Bauhausdesign in Köpenick-Nord', 'Lindenstraße 46', 12555, 'Berlin - Köpenick', 'http://www.marketingsfinest.com/spire/pictu/immobilien/immo38.jpg', 260, 525000, 100000, 40000, 5000, 0, 0, 8, 7, 0, 0, '', 6300, 7500, 0, 0, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `Strategien`
+--
+
+CREATE TABLE IF NOT EXISTS `Strategien` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `Titel` varchar(200) NOT NULL,
+  `Kennzahl` varchar(120) NOT NULL,
+  `Beschreibung` varchar(500) NOT NULL,
+  `Begründung` varchar(800) NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+
+--
+-- Daten für Tabelle `Strategien`
+--
+
+INSERT INTO `Strategien` (`ID`, `Titel`, `Kennzahl`, `Beschreibung`, `Begründung`) VALUES
+(1, 'Umsatz- und Cashflowsteigerung', 'Umsatz', 'Um den Umsatz zu steigern muss man mehr Immobilien verkaufen amk', ''),
+(2, 'Gewinnmaximierung', 'Gewinn', 'Um den Gewinn zu steigern muss man mehr Immobilien verkaufen und weniger Geld ausgeben', ''),
+(3, 'Mitarbeiterzufriedenheit erhöhen', 'Mitarbeiterzufriedenheit und Ansehen', 'Mehr Gehalt = Mehr Zufriedenheit', ''),
+(4, 'Maximum Cheap', 'Ausgaben', 'MAXIMUM CHEAP HAB ICH GESAGT!', ''),
+(5, 'Pure Profit', 'Einnahmen', 'PURE PROFIT IST DAS BESTE!', '');
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `Unternehmen`
+--
+
+CREATE TABLE IF NOT EXISTS `Unternehmen` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `SID` int(11) NOT NULL,
+  `Nutzername` varchar(20) NOT NULL,
+  `Passwort` varchar(100) NOT NULL,
+  `Unternehmensname` varchar(100) NOT NULL,
+  `Spieler1` varchar(40) DEFAULT NULL,
+  `Spieler2` varchar(40) DEFAULT NULL,
+  `Spieler3` varchar(40) DEFAULT NULL,
+  `Spieler4` varchar(40) DEFAULT NULL,
+  `Spieler5` varchar(40) DEFAULT NULL,
+  `Spieler6` varchar(40) DEFAULT NULL,
+  `Spieler7` varchar(40) DEFAULT NULL,
+  `Spieler8` varchar(40) DEFAULT NULL,
+  `Spieler9` varchar(40) DEFAULT NULL,
+  `Spieler10` varchar(40) DEFAULT NULL,
+  `Bestand` varchar(300) NOT NULL,
+  `Mitarbeiter` varchar(200) NOT NULL,
+  `Verwalten` int(11) NOT NULL DEFAULT '4',
+  `Verkaufen` int(11) NOT NULL DEFAULT '0',
+  `Bauen` int(11) NOT NULL DEFAULT '0',
+  `Sanieren` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+
+--
+-- Daten für Tabelle `Unternehmen`
+--
+
+INSERT INTO `Unternehmen` (`ID`, `SID`, `Nutzername`, `Passwort`, `Unternehmensname`, `Spieler1`, `Spieler2`, `Spieler3`, `Spieler4`, `Spieler5`, `Spieler6`, `Spieler7`, `Spieler8`, `Spieler9`, `Spieler10`, `Bestand`, `Mitarbeiter`, `Verwalten`, `Verkaufen`, `Bauen`, `Sanieren`) VALUES
+(1, 1, 'spire', '202cb962ac59075b964b07152d234b70', 'Spire GmbH', 'Tobias Scheel', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', '', 4, 0, -1, 0),
+(2, 1, 'erikson', 'b87a5f4a829d238a60811f85dca46bad', 'dejawoo UG', 'Erik Eiermän', 'Thomas Furunkel', 'Lena WEEEEEEEKKK', 'Alex Dumm', NULL, NULL, NULL, NULL, NULL, NULL, '', '', 4, 0, 0, 0),
+(3, 1, 'hawk1', 'e10adc3949ba59abbe56e057f20f883e', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', '', 4, 0, 0, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `Unternehmensbestand`
+--
+
+CREATE TABLE IF NOT EXISTS `Unternehmensbestand` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `SpielID` int(11) NOT NULL,
+  `UnternehmensID` int(11) NOT NULL,
+  `ObjektID` int(11) NOT NULL,
+  `Saniert` int(11) NOT NULL DEFAULT '0',
+  `Zustand` int(11) NOT NULL DEFAULT '0',
+  `Gekauft` int(11) NOT NULL DEFAULT '0',
+  `Verkauft` int(11) NOT NULL DEFAULT '0',
+  `Wert` float NOT NULL,
+  `Status` varchar(120) NOT NULL,
+  `Vermietet` int(11) NOT NULL DEFAULT '0',
+  `Bau` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=21 ;
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `Viertel`
+--
+
+CREATE TABLE IF NOT EXISTS `Viertel` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `Name` varchar(500) NOT NULL,
+  `Gentrifizierung` int(11) NOT NULL DEFAULT '5',
+  `Beliebtheit` int(11) NOT NULL DEFAULT '5',
+  `Infrastruktur` int(5) NOT NULL,
+  `Kriminalität` int(5) NOT NULL,
+  `Lebensstandart` int(5) NOT NULL,
+  `Lage` int(11) NOT NULL DEFAULT '5',
+  `Jahr` int(11) NOT NULL,
+  `Beschreibung` varchar(4000) NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=40 ;
+
+--
+-- Daten für Tabelle `Viertel`
+--
+
+INSERT INTO `Viertel` (`ID`, `Name`, `Gentrifizierung`, `Beliebtheit`, `Infrastruktur`, `Kriminalität`, `Lebensstandart`, `Lage`, `Jahr`, `Beschreibung`) VALUES
+(1, 'Mitte', 2, 4, 3, 4, 2, 4, 0, 'Mitte ist ein Berliner Ortsteil im gleichnamigen Bezirk und umfasst einen Teil der historischen Stadtteile von Berlin. In ihm liegt das östliche Zentrum der deutschen Hauptstadt mit den ehemaligen Stadtkernen von Alt-Berlin und Cölln, dem Brandenburger Tor, der Straße Unter den Linden, der Humboldt-Universität, der Museumsinsel und dem Fernsehturm. In Mitte befinden sich zahlreiche Einrichtungen des Bundes, der Berliner Senat im Roten Rathaus und das Abgeordnetenhaus von Berlin im Preußischen Landtag sowie zahlreiche Botschaften.  Bis zur Verwaltungsreform im Jahr 2001 war der Ortsteil ein eigener Bezirk. Dieser Bezirk Mitte wurde mit den Bezirken Tiergarten und Wedding zum neuen Bezirk Mitte von Berlin fusioniert.'),
+(2, 'Friedrichshain-Kreuzberg', 2, 2, 3, 4, 3, 3, 0, 'Friedrichshain ist ein Ortsteil im Bezirk Friedrichshain-Kreuzberg von Berlin. Bis zur Fusion mit dem benachbarten damaligen Bezirk Kreuzberg bei der Verwaltungsreform 2001 gab es einen eigenständigen Bezirk Friedrichshain, der mit dem heutigen Ortsteil Friedrichshain deckungsgleich ist. Der Ortsteil hat seinen Namen vom Volkspark Friedrichshain im Norden und erstreckt sich nach Süden bis zum Spreeufer.\n\nDer Ortsteil gehört zu den Szenevierteln Berlins und wartet mit einem lebendigen Nacht- und Kulturleben auf, das über die Stadtgrenzen hinaus populär ist.'),
+(3, 'Pankow', 1, 3, 4, 3, 2, 2, 0, 'Pankow ist der namensgebende Ortsteil des Berliner Bezirks Pankow.  Im Sprachgebrauch können Örtlichkeiten von Pankow auch in den nördlich angrenzenden Bebauungen von Heinersdorf (Pankow-Heinersdorf) und Niederschönhausen (Pankow-Schönhausen) liegen. Pankow liegt im Urstromtal der Panke und ist nach diesem Nebenfluss der Spree benannt.'),
+(4, 'Charlottenburg-Wilmersdorf', 3, 4, 3, 3, 3, 4, 0, 'Charlottenburg ist ein Ortsteil des Bezirks Charlottenburg-Wilmersdorf von Berlin.  Im Jahr 1705 als Stadt gegründet, wurde Charlottenburg 1893 zur Großstadt. Bei der Eingemeindung 1920 nach Groß-Berlin wurde daraus der eigenständige Bezirk Charlottenburg. Zuvor war Charlottenburg zeitweise die Gemeinde mit dem höchsten Steueraufkommen pro Kopf in Deutschland gewesen. Nach der Fusion mit dem damaligen Bezirk Wilmersdorf zum neuen Bezirk Charlottenburg-Wilmersdorf bei der Verwaltungsreform 2001 wurde der Bezirk Charlottenburg zum Ortsteil herabgestuft.'),
+(5, 'Spandau', 0, 1, 3, 3, 1, 1, 0, 'Spandau ist der namensgebende Ortsteil im Berliner Bezirk Spandau. Der Ortsteil Spandau repräsentiert den Ortskern des ehemaligen Stadtkreises Spandau, der 1920 nach Groß-Berlin eingemeindet wurde. Im Sprachgebrauch können Ortsangaben in Spandau auch in den direkt angrenzenden Bebauungen der Ortsteile Wilhelmstadt (Spandau-Wilhelmstadt), Haselhorst (Spandau-Haselhorst) und Falkenhagener Feld (Spandau-Falkenhagener Feld) liegen'),
+(6, 'Steglitz-Zehlendorf', 1, 2, 3, 3, 4, 3, 0, 'Steglitz ist ein Berliner Ortsteil im sechsten Verwaltungsbezirk Steglitz-Zehlendorf, der auf das historische brandenburgische Dorf Steglitz zurückgeht (bis 1920: Landkreis Teltow).'),
+(7, 'Tempelhof-Schöneberg', 1, 1, 3, 3, 2, 1, 0, 'Tempelhof ist ein Ortsteil im siebten Berliner Bezirk Tempelhof-Schöneberg. Bis zur Verwaltungsreform 2001 gab es einen eigenständigen Bezirk Tempelhof, der als 13. Bezirk die Ortsteile Mariendorf, Marienfelde, Lichtenrade und den namensgebenden Ortsteil Tempelhof umfasste.'),
+(8, 'Neukölln', 1, 0, 4, 4, 1, 1, 0, 'Neukölln ist der namensgebende Ortsteil des nördlichsten und am dichtesten bebauten Teils des Berliner Bezirks Neukölln. Bis 1920 war Neukölln eine eigenständige Stadt, die bis 1912 den Namen Rixdorf trug. Gelegentlich wird der Ortsteil in Abgrenzung vom gesamten Bezirk auch als Neukölln-Nord oder Nord-Neukölln bezeichnet.  Das Gebiet nordöstlich des Hermannplatzes (Reuterkiez) gehört unter der umgangssprachlichen Bezeichnung „Kreuzkölln“ zu den Szenevierteln Berlins und unter anderem deshalb ist der nördliche Ortsteil stärker von Gentrifizierung betroffen als der restliche Bezirk.'),
+(9, 'Treptow-Köpenick', 0, 0, 3, 2, 2, 2, 0, 'Treptow ist ein ehemaliger Verwaltungsbezirk von Berlin. Er wurde im Rahmen des Groß-Berlin-Gesetzes am 1. Oktober 1920 gegründet. Am 1. Januar 2001 wurde er mit dem Nachbarbezirk Köpenick zum neuen Bezirk Treptow-Köpenick von Berlin zusammengeschlossen.'),
+(10, 'Marzahn-Hellersdorf', 0, 0, 2, 2, 1, 0, 0, 'Marzahn ist ein Ortsteil im Berliner Bezirk Marzahn-Hellersdorf. Der Begriff Marzahn bezeichnet zugleich den ehemaligen Berliner Stadtbezirk Marzahn und die größte Großsiedlung auf dem seinerzeitigen Gebiet der DDR.  Der Ortsteil Marzahn geht auf ein mittelalterliches Angerdorf zurück, das, seinen dörflichen Charakter bewahrend, noch heute erhalten ist. Der Dorfkern steht seit 1977 unter Denkmalschutz. In seiner Umgebung entwickelten sich um 1900 einige Kleinsiedlungsbereiche. Zwischen der zweiten Hälfte der 1970er Jahre und dem Ende der 1980er Jahre entstand rund um das alte Dorf die als üppig durchgrünte Stadtlandschaft konzipierte und realisierte Großwohnsiedlung Marzahn. Die Siedlung wurde überwiegend in Plattenbauweise errichtet.'),
+(11, 'Lichtenberg', 1, 0, 3, 2, 2, 2, 0, 'Lichtenberg ist ein Ortsteil im gleichnamigen Bezirk Lichtenberg von Berlin. Zur Abgrenzung spricht man auch von Alt-Lichtenberg.  Der heutige Ortsteil geht zurück auf das im 13. Jahrhundert im Barnim gegründete Dorf Lichtenberg. Dieses Dorf blieb über viele Jahrhunderte eine kleine, landwirtschaftlich geprägte Siedlung mit wenigen hundert Einwohnern im Osten der Stadt Berlin. Erst Ende des 19. Jahrhunderts stieg durch die Industrialisierung die Einwohnerzahl Lichtenbergs um ein Vielfaches, sodass der Ortschaft 1907 das Stadtrecht verliehen wurde. Durch die Gründung von Groß-Berlin im Jahr 1920 wurde die Stadt Lichtenberg jedoch nach Berlin eingemeindet und bildet seitdem den namensgebenden Ortsteil für den Berliner Bezirk Lichtenberg.'),
+(12, 'Mitte', 4, 4, 3, 4, 4, 4, 1, 'Mitte ist ein Berliner Ortsteil im gleichnamigen Bezirk und umfasst einen Teil der historischen Stadtteile von Berlin. In ihm liegt das östliche Zentrum der deutschen Hauptstadt mit den ehemaligen Stadtkernen von Alt-Berlin und Cölln, dem Brandenburger Tor, der Straße Unter den Linden, der Humboldt-Universität, der Museumsinsel und dem Fernsehturm. In Mitte befinden sich zahlreiche Einrichtungen des Bundes, der Berliner Senat im Roten Rathaus und das Abgeordnetenhaus von Berlin im Preußischen Landtag sowie zahlreiche Botschaften.  Bis zur Verwaltungsreform im Jahr 2001 war der Ortsteil ein eigener Bezirk. Dieser Bezirk Mitte wurde mit den Bezirken Tiergarten und Wedding zum neuen Bezirk Mitte von Berlin fusioniert.'),
+(13, 'Friedrichshain-Kreuzberg', 4, 3, 3, 4, 4, 4, 1, 'Friedrichshain ist ein Ortsteil im Bezirk Friedric...'),
+(14, 'Pankow', 2, 2, 4, 3, 3, 1, 1, 'Pankow ist der namensgebende Ortsteil des Berliner...'),
+(15, 'Charlottenburg-Wilmersdorf', 4, 4, 3, 3, 4, 4, 1, 'Charlottenburg ist ein Ortsteil des Bezirks Charlottenburg-Wilmersdorf von Berlin.  Im Jahr 1705 als Stadt gegründet, wurde Charlottenburg 1893 zur Großstadt. Bei der Eingemeindung 1920 nach Groß-Berlin wurde daraus der eigenständige Bezirk Charlottenburg. Zuvor war Charlottenburg zeitweise die Gemeinde mit dem höchsten Steueraufkommen pro Kopf in Deutschland gewesen. Nach der Fusion mit dem damaligen Bezirk Wilmersdorf zum neuen Bezirk Charlottenburg-Wilmersdorf bei der Verwaltungsreform 2001 wurde der Bezirk Charlottenburg zum Ortsteil herabgestuft.'),
+(16, 'Spandau', 1, 2, 3, 3, 3, 3, 1, 'Spandau ist der namensgebende Ortsteil im Berliner...'),
+(17, 'Steglitz-Zehlendorf', 2, 3, 3, 2, 4, 3, 1, 'Steglitz ist ein Berliner Ortsteil im sechsten Verwaltungsbezirk Steglitz-Zehlendorf, der auf das historische brandenburgische Dorf Steglitz zurückgeht (bis 1920: Landkreis Teltow).'),
+(18, 'Tempelhof-Schöneberg', 1, 3, 3, 3, 3, 2, 1, 'Tempelhof ist ein Ortsteil im siebten Berliner Bezirk Tempelhof-Schöneberg. Bis zur Verwaltungsreform 2001 gab es einen eigenständigen Bezirk Tempelhof, der als 13. Bezirk die Ortsteile Mariendorf, Marienfelde, Lichtenrade und den namensgebenden Ortsteil Tempelhof umfasste.'),
+(19, 'Neukölln', 3, 2, 4, 4, 3, 2, 1, 'Neukölln ist der namensgebende Ortsteil des nördlichsten und am dichtesten bebauten Teils des Berliner Bezirks Neukölln. Bis 1920 war Neukölln eine eigenständige Stadt, die bis 1912 den Namen Rixdorf trug. Gelegentlich wird der Ortsteil in Abgrenzung vom gesamten Bezirk auch als Neukölln-Nord oder Nord-Neukölln bezeichnet.  Das Gebiet nordöstlich des Hermannplatzes (Reuterkiez) gehört unter der umgangssprachlichen Bezeichnung „Kreuzkölln“ zu den Szenevierteln Berlins und unter anderem deshalb ist der nördliche Ortsteil stärker von Gentrifizierung betroffen als der restliche Bezirk.'),
+(20, 'Treptow-Köpenick', 1, 1, 3, 2, 2, 1, 1, 'Treptow ist ein ehemaliger Verwaltungsbezirk von Berlin. Er wurde im Rahmen des Groß-Berlin-Gesetzes am 1. Oktober 1920 gegründet. Am 1. Januar 2001 wurde er mit dem Nachbarbezirk Köpenick zum neuen Bezirk Treptow-Köpenick von Berlin zusammengeschlossen.'),
+(21, 'Marzahn-Hellersdorf', 4, 4, 2, 2, 2, 1, 1, 'Marzahn ist ein Ortsteil im Berliner Bezirk Marzahn-Hellersdorf. Der Begriff Marzahn bezeichnet zugleich den ehemaligen Berliner Stadtbezirk Marzahn und die größte Großsiedlung auf dem seinerzeitigen Gebiet der DDR.  Der Ortsteil Marzahn geht auf ein mittelalterliches Angerdorf zurück, das, seinen dörflichen Charakter bewahrend, noch heute erhalten ist. Der Dorfkern steht seit 1977 unter Denkmalschutz. In seiner Umgebung entwickelten sich um 1900 einige Kleinsiedlungsbereiche. Zwischen der zweiten Hälfte der 1970er Jahre und dem Ende der 1980er Jahre entstand rund um das alte Dorf die als üppig durchgrünte Stadtlandschaft konzipierte und realisierte Großwohnsiedlung Marzahn. Die Siedlung wurde überwiegend in Plattenbauweise errichtet.'),
+(22, 'Lichtenberg', 1, 1, 3, 2, 2, 3, 1, 'Lichtenberg ist ein Ortsteil im gleichnamigen Bezirk Lichtenberg von Berlin. Zur Abgrenzung spricht man auch von Alt-Lichtenberg.  Der heutige Ortsteil geht zurück auf das im 13. Jahrhundert im Barnim gegründete Dorf Lichtenberg. Dieses Dorf blieb über viele Jahrhunderte eine kleine, landwirtschaftlich geprägte Siedlung mit wenigen hundert Einwohnern im Osten der Stadt Berlin. Erst Ende des 19. Jahrhunderts stieg durch die Industrialisierung die Einwohnerzahl Lichtenbergs um ein Vielfaches, sodass der Ortschaft 1907 das Stadtrecht verliehen wurde. Durch die Gründung von Groß-Berlin im Jahr 1920 wurde die Stadt Lichtenberg jedoch nach Berlin eingemeindet und bildet seitdem den namensgebenden Ortsteil für den Berliner Bezirk Lichtenberg.'),
+(23, 'Mitte', 4, 4, 3, 4, 4, 4, 2, 'Mitte ist ein Berliner Ortsteil im gleichnamigen Bezirk und umfasst einen Teil der historischen Stadtteile von Berlin. In ihm liegt das östliche Zentrum der deutschen Hauptstadt mit den ehemaligen Stadtkernen von Alt-Berlin und Cölln, dem Brandenburger Tor, der Straße Unter den Linden, der Humboldt-Universität, der Museumsinsel und dem Fernsehturm. In Mitte befinden sich zahlreiche Einrichtungen des Bundes, der Berliner Senat im Roten Rathaus und das Abgeordnetenhaus von Berlin im Preußischen Landtag sowie zahlreiche Botschaften.  Bis zur Verwaltungsreform im Jahr 2001 war der Ortsteil ein eigener Bezirk. Dieser Bezirk Mitte wurde mit den Bezirken Tiergarten und Wedding zum neuen Bezirk Mitte von Berlin fusioniert.'),
+(24, 'Friedrichshain-Kreuzberg', 4, 4, 3, 4, 4, 4, 2, 'Friedrichshain ist ein Ortsteil im Bezirk Friedric...'),
+(25, 'Pankow', 3, 3, 4, 3, 3, 3, 2, 'Pankow ist der namensgebende Ortsteil des Berliner...'),
+(26, 'Charlottenburg-Wilmersdorf', 4, 4, 3, 3, 4, 4, 2, 'Charlottenburg ist ein Ortsteil des Bezirks Charlottenburg-Wilmersdorf von Berlin.  Im Jahr 1705 als Stadt gegründet, wurde Charlottenburg 1893 zur Großstadt. Bei der Eingemeindung 1920 nach Groß-Berlin wurde daraus der eigenständige Bezirk Charlottenburg. Zuvor war Charlottenburg zeitweise die Gemeinde mit dem höchsten Steueraufkommen pro Kopf in Deutschland gewesen. Nach der Fusion mit dem damaligen Bezirk Wilmersdorf zum neuen Bezirk Charlottenburg-Wilmersdorf bei der Verwaltungsreform 2001 wurde der Bezirk Charlottenburg zum Ortsteil herabgestuft.'),
+(27, 'Spandau', 2, 3, 3, 3, 3, 3, 2, 'Spandau ist der namensgebende Ortsteil im Berliner...'),
+(28, 'Steglitz-Zehlendorf', 3, 3, 3, 2, 4, 4, 2, 'Steglitz ist ein Berliner Ortsteil im sechsten Verwaltungsbezirk Steglitz-Zehlendorf, der auf das historische brandenburgische Dorf Steglitz zurückgeht (bis 1920: Landkreis Teltow).'),
+(29, 'Tempelhof-Schöneberg', 4, 4, 3, 3, 3, 4, 2, 'Tempelhof ist ein Ortsteil im siebten Berliner Bezirk Tempelhof-Schöneberg. Bis zur Verwaltungsreform 2001 gab es einen eigenständigen Bezirk Tempelhof, der als 13. Bezirk die Ortsteile Mariendorf, Marienfelde, Lichtenrade und den namensgebenden Ortsteil Tempelhof umfasste.'),
+(30, 'Neukölln', 4, 4, 4, 4, 3, 3, 2, 'Neukölln ist der namensgebende Ortsteil des nördlichsten und am dichtesten bebauten Teils des Berliner Bezirks Neukölln. Bis 1920 war Neukölln eine eigenständige Stadt, die bis 1912 den Namen Rixdorf trug. Gelegentlich wird der Ortsteil in Abgrenzung vom gesamten Bezirk auch als Neukölln-Nord oder Nord-Neukölln bezeichnet.  Das Gebiet nordöstlich des Hermannplatzes (Reuterkiez) gehört unter der umgangssprachlichen Bezeichnung „Kreuzkölln“ zu den Szenevierteln Berlins und unter anderem deshalb ist der nördliche Ortsteil stärker von Gentrifizierung betroffen als der restliche Bezirk.'),
+(31, 'Treptow-Köpenick', 2, 2, 3, 2, 2, 2, 2, 'Treptow ist ein ehemaliger Verwaltungsbezirk von Berlin. Er wurde im Rahmen des Groß-Berlin-Gesetzes am 1. Oktober 1920 gegründet. Am 1. Januar 2001 wurde er mit dem Nachbarbezirk Köpenick zum neuen Bezirk Treptow-Köpenick von Berlin zusammengeschlossen.'),
+(32, 'Marzahn-Hellersdorf', 4, 4, 2, 2, 2, 1, 2, 'Marzahn ist ein Ortsteil im Berliner Bezirk Marzahn-Hellersdorf. Der Begriff Marzahn bezeichnet zugleich den ehemaligen Berliner Stadtbezirk Marzahn und die größte Großsiedlung auf dem seinerzeitigen Gebiet der DDR.  Der Ortsteil Marzahn geht auf ein mittelalterliches Angerdorf zurück, das, seinen dörflichen Charakter bewahrend, noch heute erhalten ist. Der Dorfkern steht seit 1977 unter Denkmalschutz. In seiner Umgebung entwickelten sich um 1900 einige Kleinsiedlungsbereiche. Zwischen der zweiten Hälfte der 1970er Jahre und dem Ende der 1980er Jahre entstand rund um das alte Dorf die als üppig durchgrünte Stadtlandschaft konzipierte und realisierte Großwohnsiedlung Marzahn. Die Siedlung wurde überwiegend in Plattenbauweise errichtet.'),
+(33, 'Lichtenberg', 1, 2, 3, 2, 2, 3, 2, 'Lichtenberg ist ein Ortsteil im gleichnamigen Bezirk Lichtenberg von Berlin. Zur Abgrenzung spricht man auch von Alt-Lichtenberg.  Der heutige Ortsteil geht zurück auf das im 13. Jahrhundert im Barnim gegründete Dorf Lichtenberg. Dieses Dorf blieb über viele Jahrhunderte eine kleine, landwirtschaftlich geprägte Siedlung mit wenigen hundert Einwohnern im Osten der Stadt Berlin. Erst Ende des 19. Jahrhunderts stieg durch die Industrialisierung die Einwohnerzahl Lichtenbergs um ein Vielfaches, sodass der Ortschaft 1907 das Stadtrecht verliehen wurde. Durch die Gründung von Groß-Berlin im Jahr 1920 wurde die Stadt Lichtenberg jedoch nach Berlin eingemeindet und bildet seitdem den namensgebenden Ortsteil für den Berliner Bezirk Lichtenberg.');
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `Viertelbeschreibung`
+--
+
+CREATE TABLE IF NOT EXISTS `Viertelbeschreibung` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `Kriterien` varchar(400) NOT NULL,
+  `Beschreibung` varchar(400) NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=31 ;
+
+--
+-- Daten für Tabelle `Viertelbeschreibung`
+--
+
+INSERT INTO `Viertelbeschreibung` (`ID`, `Kriterien`, `Beschreibung`) VALUES
+(1, 'Gentrifizierung0', 'In diesem Viertel ist die Gentrifizierung niedrig.'),
+(2, 'Gentrifizierung1', 'Die Gentrifizierung in diesem Stadtteil ist auf einem niedrigen niveau.'),
+(3, 'Gentrifizierung2', 'Die Gentrifizierung in diesem Viertel ist ausgeglichen.'),
+(4, 'Gentrifizierung3', 'Eine ausgeprägte Gentrifizierung ist in diesem Viertel zu erwarten.'),
+(5, 'Gentrifizierung4', 'Eine sehr hohe Gentrifizierung ist in diesem Viertel zu erwarten.'),
+(6, 'Beliebtheit0', 'Dieses Viertel wird gemieden.'),
+(7, 'Beliebtheit1', 'Dieser Stadteil ist nicht beliebt.'),
+(8, 'Beliebtheit2', 'Diese Gegend befindet sich im Aufschwung und gewinnt mehr und mehr an beliebtheit.'),
+(9, 'Beliebtheit3', 'Dieser Stadtteil genießt hohe beliebtheit.'),
+(10, 'Beliebtheit4', 'Ein Viertel mit der höchsten Beliebtheit.'),
+(11, 'Infrastruktur0', 'Es ist kaum Infrastruktur vorhanden.'),
+(12, 'Infrastruktur1', 'Die Infrastruktur in diesem Viertel ist niedrig.'),
+(13, 'Infrastruktur2', 'Die Infrastruktur in diesem Stadteil ist normal.'),
+(14, 'Infrastruktur3', 'Die Infrastruktur in diesem Viertel ist gut.'),
+(15, 'Infrastruktur4', 'Eine sehr gute Infrastruktur ist in diesem Stadtteil gegeben.'),
+(16, 'Kriminalität0', 'Es ist keine Kriminalität in diesem Stadtteil vorhanden.'),
+(17, 'Kriminalität1', 'Die Kriminalität ist auf einem niedrigen Niveau.'),
+(18, 'Kriminalität2', 'Die Kriminalität in dieser Gegend ist im aufwind.'),
+(19, 'Kriminalität3', 'Die Kriminalität gewinnt langsam an überhand.'),
+(20, 'Kriminalität4', 'Höchste Alarmstufe, die Polizei meidet dieses Viertel.'),
+(21, 'Lebensstandart0', 'In diesem Viertel ist der Lebensstandart sehr niedrig.'),
+(22, 'Lebensstandart1', 'Der Lebensstandart ist auf einem niedrigen Niveau.'),
+(23, 'Lebensstandart2', 'Eine sehr ausgewogene Lebensqualität ist in diesem Viertel vorherschend.'),
+(24, 'Lebensstandart3', 'Der Lebensstandart in diesem Viertel ist gut.'),
+(25, 'Lebensstandart4', 'Exzellenter Lebensstandart in diesem Stadtteil.'),
+(26, 'Lage0', 'Sehr schlechte Lage und Anbindung.'),
+(27, 'Lage1', 'Die Lage in diesem Viertel lässt zu wünschen übrig.'),
+(28, 'Lage2', 'Die Lage dieses Viertels ist nicht optimal.'),
+(29, 'Lage3', 'Dieses Viertel hat eine gute Lage.'),
+(30, 'Lage4', 'Eine ausgezeichnete Lage kann dieses Viertel vorweisen.');
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `Zukunftsausgaben`
+--
+
+CREATE TABLE IF NOT EXISTS `Zukunftsausgaben` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `SpielID` int(11) NOT NULL,
+  `UnternehmensID` int(11) NOT NULL,
+  `Runde` int(11) NOT NULL,
+  `Auszahlung` int(11) NOT NULL,
+  `Zeit` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `Summe` varchar(11) NOT NULL,
+  `Beschreibung` varchar(250) NOT NULL,
+  `Details` varchar(250) NOT NULL,
+  `Typ` varchar(7) NOT NULL DEFAULT 'Ausgabe',
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `Zukunftseinnahmen`
+--
+
+CREATE TABLE IF NOT EXISTS `Zukunftseinnahmen` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `SpielID` int(11) NOT NULL,
+  `UnternehmensID` int(11) NOT NULL,
+  `Runde` int(11) NOT NULL,
+  `Auszahlung` int(11) NOT NULL,
+  `Zeit` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `Summe` varchar(11) NOT NULL,
+  `Beschreibung` varchar(250) NOT NULL,
+  `Details` varchar(250) NOT NULL,
+  `Typ` varchar(8) NOT NULL DEFAULT 'Einnahme',
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+
+--
+-- Daten für Tabelle `Zukunftseinnahmen`
+--
+
+INSERT INTO `Zukunftseinnahmen` (`ID`, `SpielID`, `UnternehmensID`, `Runde`, `Auszahlung`, `Zeit`, `Summe`, `Beschreibung`, `Details`, `Typ`) VALUES
+(1, 1, 1, 1, 2, '2017-03-14 08:55:41', '131775', 'Sadowastr. 301, 10318 Berlin - Charlottenburg', 'Immobilienverkauf: Historisches Wohnhaus mit modernem Anbau', 'Einnahme'),
+(2, 1, 1, 1, 3, '2017-03-14 08:56:15', '80000', 'Lubminer Str.44, 12619 Berlin - Charlottenburg', 'Immobilienverkauf: Eigentumswohnung mit Gartenanteil', 'Einnahme');

@@ -100,6 +100,7 @@ class Markt {
         ?>
                 
               <div class="col-md-12">
+                <div class="col-md-8 col-lg-8 col-sm-7">
                 <div class="x_panel">
                   <div class="x_title">
                     <h2>Geheimtipp <small></small></h2>
@@ -116,6 +117,7 @@ class Markt {
                   </div>
                 </div>
               </div>
+            </div>
                 
                             
         <?php
@@ -155,113 +157,58 @@ class Markt {
         for($i = 0; $i <= sizeof($viertel); $i++){
             
             //Gentrifizierung
-            if($gentrifizierung[$i]==0){
-                $gentrifizierungsTexte[$i] = $viertelbeschreibungTexte[0]["Beschreibung"];
+            for($j = 0;$j <= 4;$j++){
+                if($gentrifizierung[$i]==$j){
+                    $gentrifizierungsTexte[$i] = $viertelbeschreibungTexte[$j]["Beschreibung"];
+                } 
             }
-            if($gentrifizierung[$i]==1){
-                $gentrifizierungsTexte[$i] = $viertelbeschreibungTexte[1]["Beschreibung"];
-            }
-            if($gentrifizierung[$i]==2){
-                $gentrifizierungsTexte[$i] = $viertelbeschreibungTexte[2]["Beschreibung"];
-            }
-            if($gentrifizierung[$i]==3){
-                $gentrifizierungsTexte[$i] = $viertelbeschreibungTexte[3]["Beschreibung"];
-            }
-            if($gentrifizierung[$i]==4){
-                $gentrifizierungsTexte[$i] = $viertelbeschreibungTexte[4]["Beschreibung"];
-            }
-            
+
             //Beliebtheit
-            if($beliebtheit[$i]==0){
-                $beliebtheitsTexte[$i] = $viertelbeschreibungTexte[5]["Beschreibung"];
-            }
-            if($beliebtheitsTexte[$i]==1){
-                $beliebtheitsTexte[$i] = $viertelbeschreibungTexte[6]["Beschreibung"];
-            }
-            if($beliebtheitsTexte[$i]==2){
-                $beliebtheitsTexte[$i] = $viertelbeschreibungTexte[7]["Beschreibung"];
-            }
-            if($beliebtheitsTexte[$i]==3){
-                $beliebtheitsTexte[$i] = $viertelbeschreibungTexte[8]["Beschreibung"];
-            }
-            if($gentrifizierung[$i]==4){
-                $beliebtheitsTexte[$i] = $viertelbeschreibungTexte[9]["Beschreibung"];
+            for($j = 5;$j <= 9;$j++){
+                if($beliebtheit[$i]==$j){
+                    $beliebtheitsTexte[$i] = $viertelbeschreibungTexte[$j]["Beschreibung"];
+                }
             }
             
             //Infrastruktur
-            if($infrastruktur[$i]==0){
-                $infrastrukturTexte[$i] = $viertelbeschreibungTexte[10]["Beschreibung"];
-            }
-            if($infrastruktur[$i]==1){
-                $infrastrukturTexte[$i] = $viertelbeschreibungTexte[11]["Beschreibung"];
-            }
-            if($infrastruktur[$i]==2){
-                $infrastrukturTexte[$i] = $viertelbeschreibungTexte[12]["Beschreibung"];
-            }
-            if($infrastruktur[$i]==3){
-                $infrastrukturTexte[$i] = $viertelbeschreibungTexte[13]["Beschreibung"];
-            }
-            if($infrastruktur[$i]==4){
-                $infrastrukturTexte[$i] = $viertelbeschreibungTexte[14]["Beschreibung"];
+            for($j = 10;$j <= 14;$j++){
+                if($infrastruktur[$i]==$j){
+                    $infrastrukturTexte[$i] = $viertelbeschreibungTexte[$j]["Beschreibung"];
+                }
             }
             
             //Kriminalität
-            if($kriminalität[$i]==0){
-                $kriminalitätsTexte[$i] = $viertelbeschreibungTexte[15]["Beschreibung"];
-            }
-            if($kriminalität[$i]==1){
-                $kriminalitätsTexte[$i] = $viertelbeschreibungTexte[16]["Beschreibung"];
-            }
-            if($kriminalität[$i]==2){
-                $kriminalitätsTexte[$i] = $viertelbeschreibungTexte[17]["Beschreibung"];
-            }
-            if($kriminalität[$i]==3){
-                $kriminalitätsTexte[$i] = $viertelbeschreibungTexte[18]["Beschreibung"];
-            }
-            if($kriminalität[$i]==4){
-                $kriminalitätsTexte[$i] = $viertelbeschreibungTexte[19]["Beschreibung"];
+            for($j = 15;$j <= 19;$j++){
+                if($kriminalität[$i]==$j){
+                    $kriminalitätsTexte[$i] = $viertelbeschreibungTexte[$j]["Beschreibung"];
+                }
             }
             
             //Lebensstandart
-            if($lebensstandart[$i]==0){
-                $lebensstandartTexte[$i] = $viertelbeschreibungTexte[20]["Beschreibung"];
-            }
-            if($lebensstandart[$i]==1){
-                $lebensstandartTexte[$i] = $viertelbeschreibungTexte[21]["Beschreibung"];
-            }
-            if($lebensstandart[$i]==2){
-                $lebensstandartTexte[$i] = $viertelbeschreibungTexte[22]["Beschreibung"];
-            }
-            if($lebensstandart[$i]==3){
-                $lebensstandartTexte[$i] = $viertelbeschreibungTexte[23]["Beschreibung"];
-            }
-            if($lebensstandart[$i]==4){
-                $lebensstandartTexte[$i] = $viertelbeschreibungTexte[24]["Beschreibung"];
+            for($j = 20;$j <= 24;$j++){
+                if($lebensstandart[$i]==$j){
+                    $lebensstandartTexte[$i] = $viertelbeschreibungTexte[$j]["Beschreibung"];
+                }
             }
             
             //Lage
-            if($lage[$i]==0){
-                $lageTexte[$i] = $viertelbeschreibungTexte[25]["Beschreibung"];
+            for($j = 25;$j <= 29;$j++){
+                if($lage[$i]==$j){
+                    $lageTexte[$i] = $viertelbeschreibungTexte[$j]["Beschreibung"];
+                }
             }
-            if($lage[$i]==1){
-                $lageTexte[$i] = $viertelbeschreibungTexte[26]["Beschreibung"];
-            }
-            if($lage[$i]==2){
-                $lageTexte[$i] = $viertelbeschreibungTexte[27]["Beschreibung"];
-            }
-            if($lage[$i]==3){
-                $lageTexte[$i] = $viertelbeschreibungTexte[28]["Beschreibung"];
-            }
-            if($lage[$i]==4){
-                $lageTexte[$i] = $viertelbeschreibungTexte[29]["Beschreibung"];
-            }
+  
         }
 
     ?>
 
             <div class="col-md-12 col-sm-12 col-xs-12" style="margin-bottom:50px;">
                 
-                <?php Markt::createTipp();?>                
+                <?php 
+                    Markt::createTipp();
+                    Markt::createDownload();
+                ?>
+                
                 <div class="x_panel">
                   <div class="x_title">
                     <h2><i class="fa fa-bars"></i> Viertelübersicht <small> mit Kriterien</small></h2>
@@ -453,6 +400,37 @@ class Markt {
                 </div>
               </div>
 
+    <?php
+    }
+    
+    public static function createDownload(){
+         
+    ?>
+    <div class="col-md-4" style="float:right">
+        <div class="x_panel">
+          <div class="x_title">
+            <h2>Ratgeber <small>Immobilienwirtschaft</small></h2>
+            <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+            <ul class="list-unstyled msg_list">
+
+            <?php
+
+            $downloadDirectory = "http://" . $_SERVER["HTTP_HOST"] . "" . $_SERVER["PHP_SELF"];
+            $url = rtrim($downloadDirectory, "/markt.php");
+            $mLink = Request::getDownloadLink("Markt");
+            $mFile = $mLink[0]["URL"];
+            $martkURL = $url . "a" . $mFile;
+            
+            ?>
+
+            <a href=<?php echo "'" . $martkURL . "'";"" ?> class="btn btn-primary btn-success col-md-12">Ratgeber Immobilien</a>
+
+            </ul>
+          </div>
+        </div>
+      </div>
     <?php
     }
     
