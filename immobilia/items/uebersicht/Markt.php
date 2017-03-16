@@ -224,6 +224,59 @@ class Markt {
                 $lageTexte[$i] = $viertelbeschreibungTexte[29]["Beschreibung"];
             }
             
+                            
+        /*
+
+        TO BE CONTINUED
+
+        //Gentrifizierung
+            for($j = 0;$j <= 4;$j++){
+                if($gentrifizierung[$i]==$j){
+                    $gentrifizierungsTexte[$i] = $viertelbeschreibungTexte[$j]["Beschreibung"];
+                    var_dump($gentrifizierung[$i]) . $i;
+                }
+            }
+
+            //Beliebtheit
+            for($k = 5;$k <= 9;$k++){
+                if($beliebtheit[$i]==$k){
+                    $beliebtheitsTexte[$i] = $viertelbeschreibungTexte[$k]["Beschreibung"];
+
+                }
+            }
+            
+            //Infrastruktur
+            for($j = 10;$j <= 14;$j++){
+                if($infrastruktur[$i]==$j){
+                    $infrastrukturTexte[$i] = $viertelbeschreibungTexte[$j]["Beschreibung"];
+
+                }
+            }
+            
+            //Kriminalität
+            for($j = 15;$j <= 19;$j++){
+                if($kriminalität[$i]==$j){
+                    $kriminalitätsTexte[$i] = $viertelbeschreibungTexte[$j]["Beschreibung"];
+
+                }
+            }
+            
+            //Lebensstandart
+            for($j = 20;$j <= 24;$j++){
+                if($lebensstandart[$i]==$j){
+                    $lebensstandartTexte[$i] = $viertelbeschreibungTexte[$j]["Beschreibung"];
+
+                }
+            }
+            
+            //Lage
+            for($j = 24;$j <= 28;$j++){
+                if($lage[$i]==$j){
+                    $lageTexte[$i] = $viertelbeschreibungTexte[$j]["Beschreibung"];
+
+                }
+            }*/
+            
          
   
         }
@@ -501,5 +554,3 @@ class Markt {
         
     
 }
-
-?>
