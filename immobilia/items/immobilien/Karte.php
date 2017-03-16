@@ -33,16 +33,17 @@ class Karte {
                 var data = {
                   "count": 5,
                   "photos": [
-  				<?php
-  				  for($i = 0; $i < sizeof($objekte); $i++) {
-  							
-  				?>
+                        <?php
+                          for($i = 0; $i < sizeof($objekte); $i++) {
+
+                        ?>
   				 {"longitude": "<?php echo $objekte[$i]["Long"]?>" ,
                     "latitude": "<?php echo $objekte[$i]["Lat"] ?>" ,
                     "created_by": "<?php echo $objekte[$i]["Kaufpreis"]." €"?>",
                     "created_date": "<?php echo $objekte[$i]["Flaeche"]." € "?>",
                     "msisdn": "<?php echo $objekte[$i]["Bild"]?>",
-                    "registrant": "<?php echo $objekte[$i]["Beschreibung"] ?>"
+                    "registrant": "<?php echo $objekte[$i]["Beschreibung"] ?>",
+                    "id": "<?php echo "marker" . $i; ?>"
                   }, <?php  
   				}
   				?>
@@ -126,15 +127,20 @@ class Karte {
                   var marker = new google.maps.Marker({
                     position: latLng
                   });
-                  var html = "<div class='infowin'><strong>" + dataPhoto.registrant + "</strong><br>";
-                  html = html + "<img src='"+ dataPhoto.msisdn + "' width='200px' height='auto'><br>";
+                  var html = "<div id='acc" + dataPhoto.id +"' style='width:200px;'><strong style='font-weight:bold;margin-top:5px;'>" + dataPhoto.registrant + "</strong><br><br>";
+                  html = html + "<img src='"+ dataPhoto.msisdn + "' width='200px' height='auto'><br><br>";
                   html = html + "<strong>Fläche in m²: </strong>" + dataPhoto.created_date + "";
-                  html = html + "<p><strong>Verkehrswert:</strong>" + dataPhoto.created_by + "</p>";
+                  html = html + "<br><p><strong>Verkehrswert:</strong>" + dataPhoto.created_by + "</p>";
                   html_array.push(html);
                   google.maps.event.addListener(marker, 'click', (function(marker, i) {
                     return function() {
                       infoWindow.setContent(html_array[i]);
                       infoWindow.open(map, this);
+                      
+                      //Es wird auf einen Marker geklickt
+                       myFunction(i);
+
+                      
                     }
                   })(marker, i));
                   //google.maps.event.addListener(marker, 'mouseout', function() {
@@ -160,13 +166,77 @@ class Karte {
             </script>
 
             <script>
+                
+            function myFunction(p1) {
+                    
+                /*
+                for (i = 0; i <= 20; i++) {
+                    $('#acc'+i).collapse('hide');
+                }*/
+                $('.panel-collapse.in').collapse('hide');
+                
+                $('#acc'+p1).collapse('show');
+                                
+                $('.panel-collapse').on('shown.bs.collapse', function (e) {
+                    var $panel = $(this).closest('.panel');
+                    //var $panel = '#acc'+p1;
+                    $('#accordion').animate({
+                        scrollTop: $panel.offset().top -100
+                    }, 500); 
+                }); 
+
+/*
+                $('#heading'+p1).click(function(){
+                    $.scrollTo('#acc'+p1);                                                 
+                });
+                
+                /*
+                $("#accordion").on("shown.bs.collapse", function () {
+                    //var myEl = $(this).find('.collapse.in');
+                    /*
+                    $('#accordion').animate({
+                        scrollTop: $('#acc'+p1).offset().top
+                    }, 500);
+   
+
+                });
+
+                */
+
+                
+            }
+
+            function eventFire(el, etype){
+                if (el.fireEvent) {
+                  el.fireEvent('on' + etype);
+                } else {
+                  var evObj = document.createEvent('Events');
+                  evObj.initEvent(etype, true, false);
+                  el.dispatchEvent(evObj);
+                }
+            }
+            
               $(document).ready(function() {
                 $(".iframe").colorbox({
                   iframe: true,
                   width: "85%",
                   height: "96%"
                 });
+                
+                $('#heading0').click(function(){
+                    google.maps.event.addListener(marker, 'click', (function(marker, i) {
+                        return function() {
+                          infoWindow.setContent(html_array[i]);
+                          infoWindow.open(map, this);
 
+                          //Es wird auf einen Marker geklickt
+                           myFunction(i);
+
+
+                        }
+                      })(marker, i));                
+                });
+                
                 //Example of preserving a JavaScript event for inline calls.
                 $("#click").click(function() {
                   $('#click').css({
@@ -176,6 +246,8 @@ class Karte {
                   }).text("Open this window again and this message will still be here.");
                   return false;
                 });
+                
+                
               });
             </script>
   		  
@@ -187,7 +259,7 @@ class Karte {
 
   public static function createAccordionMap(){
   	
-  	$anzahlGewählteZiele = 0;
+    $anzahlGewählteZiele = 0;
 
     $objekte = Request::getUnownedImmobilien();
 
@@ -200,8 +272,8 @@ class Karte {
             <!--<ul class="nav navbar-right" style="cursor:pointer">
               <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
             </ul>-->
-			<!-- Hilfe Funktionalität / Text / Popup-->
-		    <?php include 'help/karte_immobilien_help.php'; ?>
+            <!-- Hilfe Funktionalität / Text / Popup-->
+            <?php include 'help/karte_immobilien_help.php'; ?>
             <div class="clearfix"></div>
           </div>
           <div class="x_content">
@@ -211,14 +283,15 @@ class Karte {
             <?php
 
             for($i = 0; $i < sizeof($objekte); $i++) {
-
+                
+              
             ?>
 
               <div class="panel">
 
                 <a class="panel-heading" role="tab" id="<?php echo "heading".$i;?>" data-toggle="collapse" data-parent="#accordion" href="<?php echo "#acc".$i;?>" aria-expanded="false" aria-controls="<?php echo "acc".$i;?>"><h4 class="panel-title"><?php echo $objekte[$i]["Beschreibung"];?></h4></a>
-
-                <div id=<?php echo '"' . 'acc' . $i . '"';?> class="panel-collapse collapse in" role="tabpanel" aria-labelledby=<?php echo '"' . 'heading' . $i . '"';?>>
+                <!-- dafür es auf ist 'in' in class rein-->
+                <div id=<?php echo '"' . 'acc' . $i . '"';?> class="panel-collapse collapse " role="tabpanel" aria-labelledby=<?php echo '"' . 'heading' . $i . '"';?>>
 
                   <div class="panel-body">
                     <img class="col-md-12" src=<?php echo '"' . $objekte[$i]["Bild"] . '"'; ?> width="250px" height="auto" style="margin-bottom:15px;">
@@ -241,7 +314,7 @@ class Karte {
                     <?php
                       $immoid = $objekte[$i]["ID"];
                     ?>
-                    <a href=<?php echo "http://".$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF']."?immokauf=$immoid";?> class="btn btn-success col-md-12">IMMOBILIE KAUFEN</a>
+                    <a href=<?php echo "http://".$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF']."?immokauf=$immoid";?> class="btn btn-success col-md-12"><?php if($objekte[$i]['Baugrundstueck']==1){echo "BAUGRUNDSTÜCK KAUFEN";}else{ echo "IMMOBILIE KAUFEN";} ?></a>
 
                   </div>
                 </div>
@@ -252,6 +325,7 @@ class Karte {
 
             ?>
           </div>
+
         </div>
       </div>
     </div>
@@ -263,5 +337,4 @@ class Karte {
 }
 ?>
 
-		  
-  
+ 

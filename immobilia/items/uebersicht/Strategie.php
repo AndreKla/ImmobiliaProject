@@ -144,10 +144,11 @@ class Strategie {
                 $strat1 = $_GET["1"];
                 $strat2 = $_GET["2"];
                 $strat3 = $_GET["3"];
+                $strat4 = $_GET["4"];
 
                 $query = "
                 UPDATE Rundendaten
-                SET Strategie1 = '" . $strat1 . "', Strategie2 = '" . $strat2 ."', Strategie3 = '" . $strat3 ."'
+                SET Strategie1 = '" . $strat1 . "', Strategie2 = '" . $strat2 ."', Strategie3 = '" . $strat3 ."', Begruendung = '" . $strat4 ."'
                 WHERE UnternehmensID = $unternehmensID AND SpielID = $spielID AND Runde = $runde
                 ;";
                 Database::sqlUpdate($query);
@@ -166,5 +167,36 @@ class Strategie {
 				
 						  
 <?php
-}}
+}
+
+    public static function createBegruendung($aktuellesGeschäftsjahr){
+        
+        
+    ?>
+      
+    <div class="clearfix"></div>
+    
+    <div class="col-md-6 col-sm-6 col-xs-12">
+      <div class="x_panel">
+        <div class="x_title">
+          <h2>Begründung für <?php echo date('Y', strtotime("+$aktuellesGeschäftsjahr year")); ?></h2>
+          <div class="clearfix"></div>
+        </div>
+        <div class="x_content" id="unternehmensziele">
+            <div class="col-md-12">
+	            <label for="message">Bitte gib hier deine Begründung ein:</label><br>
+	            <label for="message"> - Wieso hast du dich dafür entschieden?</label>
+	            <textarea id="message" required="required" class="form-control" 
+	                      name="message" data-parsley-trigger="keyup" data-parsley-minlength="100" 
+	                      data-parsley-maxlength="800" data-parsley-minlength-message="Bitte gebe hier deine Begründung ein"
+	                      data-parsley-validation-threshold="10" style="resize:none; height: 200px;"> 
+	            </textarea>
+            </div>
+        </div>        
+      </div>
+    </div>
+      
+    <?php
+    }
+}
 ?>

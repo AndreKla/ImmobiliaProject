@@ -93,7 +93,7 @@ class Neuigkeiten {
           <div class="x_title">
             <h2>Analyse <small>von Social Intelligence</small></h2>
 			<!-- Hilfe Funktionalität / Text / Popup-->
-		    <?php include 'help/neuigkeiten_analyse_help.php'; ?>
+                <?php include 'help/neuigkeiten_analyse_help.php'; ?>
             <div class="clearfix"></div>
           </div>
           <div class="x_content">
@@ -240,7 +240,7 @@ class Neuigkeiten {
 
     for($i = 0; $i < sizeof($posts); $i++) {        
     ?>
-      <li>
+      <li style="list-style:none;">
         <a>
           <span class="image">
             <img src=<?php echo $posts[$i]["Bild"];?> alt="img" />
@@ -257,12 +257,12 @@ class Neuigkeiten {
     <?php 
     }
     ?>
-      <li>
+      <li style="list-style:none;">
         <div class="x_content">
           <canvas id="canvasDoughnut"></canvas>
         </div>
       </li>
-      <li>
+      <li style="list-style:none;">
         <div class="x_content">
           <canvas id="lineChart"></canvas>
         </div>
