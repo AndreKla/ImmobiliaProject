@@ -757,7 +757,7 @@ class API {
         }
         
     }
-
+   
     
     public static function showBuchungsAufgaben(){
         
@@ -827,5 +827,31 @@ class API {
         }         
         
     }
+    
+    public static function checkBuchungenErledigt(){
+        
+        $sid = $_SESSION["SID"];
+        $uid = $_SESSION["UID"];
+        $runde = $_SESSION["Runde"];
+        
+         
+        $query = "
+        SELECT Bezahlt FROM Buchungsaufgaben WHERE UnternehmensID= $uid AND Runde= $runde AND SpielID = $sid;";
+        $bezahlt = Database::sqlSelect($query); 
+        $count;
+        
+        for($i = 0; $i < sizeof($bezahlt);$i++){
+            if($bezahlt[$i]['Bezahlt']=="0"){
+                $count++;
+            }
+        }
+
+        if($count != 0){
+            return false;
+        }else{
+            return true;
+        }
+    }
+
 }
 ?>

@@ -25,13 +25,16 @@
 		<div class="right_col" role="main">
 		
 		<?php
-			Strategie::createStrategieListe(0);
+                        $runde = $_SESSION["Runde"];
+
+			Strategie::createStrategieListe($runde);
 			Strategie::createStrategieInfo(0);
 			Strategie::createStrategieInfo(1);
 			Strategie::createStrategieInfo(2);
 			Strategie::createStrategieInfo(3);
 			Strategie::createStrategieInfo(4);
                         
+                        Strategie::createBegruendung($runde);
                         
 		?>
                     
@@ -43,18 +46,8 @@
             -->
             
  
-        <div class="clearfix"></div>
-            <div class="col-md-6" style="margin-top:25px">
-	            <label for="message">Bitte gib hier deine Begründung ein:</label><br>
-	            <label for="message"> - Wieso hast du dich dafür entschieden?</label>
-	            <textarea id="message" required="required" class="form-control" 
-	                      name="message" data-parsley-trigger="keyup" data-parsley-minlength="100" 
-	                      data-parsley-maxlength="800" data-parsley-minlength-message="Bitte gebe hier deine Begründung ein"
-	                      data-parsley-validation-threshold="10" style="resize:none; height: 200px;"> 
-	            </textarea>
-            </div>
-                    
-		</div>
+
+
 		<!-- /page content -->
 
 		<script>
@@ -76,8 +69,8 @@
 			FROM Rundendaten
 			WHERE SpielID = $spielID AND UnternehmensID = $unternehmensID
 			ORDER BY Runde DESC
-		    ;";
-		    $unternehmensStrategie = Database::sqlSelect($query);
+                        ;";
+                        $unternehmensStrategie = Database::sqlSelect($query);
 
 			if(sizeof($_GET) > 0 || $unternehmensStrategie[0]["Strategie1"] != 0) {
 				?>
@@ -135,12 +128,13 @@
 				}
 				else {
 					var selected = [];
+                                        var text = $("#message").val();
 					$('input[type=checkbox]').each(function() {
 					   if ($(this).is(":checked")) {
 					       selected.push($(this).attr('name'));
 					   }
 					});
-					window.location.href = "http://localhost:8888/ImmobiliaProject/immobilia/strategie.php?1=" + selected[0] + "&2=" + selected[1] + "&3=" + selected[2] + "";
+					window.location.href = "<?php echo "http://".$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF']."?1=";?>" + selected[0] + "&2=" + selected[1] + "&3=" + selected[2] +  "&4=" + text;  
 				}
 			});
 		});
