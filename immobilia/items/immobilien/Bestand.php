@@ -37,7 +37,13 @@ public static function createBestand($aktuellesGeschäftsjahr){
                         
                         $immobilienID = $immobilien[$i]["ObjektID"];
                         
-                        $objekt = Request::getImmobilieByID($immobilienID);
+                        if($immobilien[$i]["Gekauft"] == 0) {
+                          $objekt = Request::getStartImmobilieByID($immobilienID);
+                        }
+                        else {
+                          $objekt = Request::getImmobilieByID($immobilienID);
+                        }
+                        
 
                         if($immobilien[$i]["Verkauft"] == 0) {
                           

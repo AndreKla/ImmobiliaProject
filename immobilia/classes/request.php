@@ -120,6 +120,16 @@ class Request {
 
     }
 
+    public static function getStartImmobilieByID($id) {
+
+        $query = "
+        SELECT * FROM Startobjekt
+        WHERE ID = $id
+        ;";
+        return Database::sqlSelect($query);
+
+    }
+
     public static function getBestandsimmobilieByID($id) {
 
         $query = "
@@ -400,6 +410,19 @@ class Request {
         return Database::sqlSelect($query);
 
     }
+    public static function getMitarbeiterOfPlayer($uid) {
+
+        $sid = $_SESSION["SID"];
+        $runde = $_SESSION["Runde"];
+
+        $query = "
+        SELECT Mitarbeiter
+        FROM Unternehmen
+        WHERE SID = $sid AND ID = $uid
+        ;";
+        return Database::sqlSelect($query);
+
+    }
 
     public static function getFreieMitarbeiter() {
 
@@ -655,6 +678,41 @@ class Request {
         SELECT *
         FROM Unternehmensbestand
         WHERE UnternehmensID = $id
+        ;";
+        return Database::sqlSelect($query);
+
+    }
+
+    public static function getNumberOfObjekte() {
+
+        $query = "
+        SELECT *
+        FROM Objekt
+        ;";
+        $result = Database::sqlSelect($query);
+
+        return sizeof($result);
+    }
+
+    public static function getRundendatenById($uid) {
+
+        $sid = $_SESSION["SID"];
+
+        $query = "
+        SELECT *
+        FROM Rundendaten
+        WHERE UnternehmensID = $uid AND SpielID = $sid
+        ORDER BY Runde ASC
+        ;";
+        return Database::sqlSelect($query);
+
+    }
+
+    public static function getStartbestand() {
+
+        $query = "
+        SELECT *
+        FROM Startobjekt
         ;";
         return Database::sqlSelect($query);
 

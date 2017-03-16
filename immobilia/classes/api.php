@@ -49,6 +49,25 @@ class API {
 
 	}
 
+    public static function addStartEinnahme($summe, $beschreibung, $details) {
+
+        $sid = $_SESSION["SID"];
+        $uid = $_SESSION["UID"];
+
+        $query = "
+        INSERT INTO Einnahmen (SpielID, UnternehmensID, Runde, Summe, Beschreibung, Details)
+        VALUES ('" . $sid . "', '" . $uid . "', 1, '" . $summe . "', '" . $beschreibung . "', '" . $details . "')
+        ;";
+        Database::sqlInsert($query);
+
+        $kapital = Request::getKontostand();
+
+        $kontostand = $kapital + $summe;
+
+        Request::setKontostand($kontostand);
+
+    }
+
     public static function addFremdkapital($summe) {
         $sid = $_SESSION["SID"];
         $uid = $_SESSION["UID"];

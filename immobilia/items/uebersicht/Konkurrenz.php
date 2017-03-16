@@ -77,9 +77,6 @@ class Konkurrenz {
 
   /*
 
-  Marktanteil (in Wert)
-  Anzahl Immobilien
-  Anzahl Mitarbeiter
   Strategien
   Social Media Analyse gekauft
   Marktanalyse gekauft
@@ -112,6 +109,12 @@ class Konkurrenz {
 
                 $playerBestandsWerte = Array();
 
+                $playerBestandAmount = Array();
+
+                $gesamtBestandAmount = Request::getNumberOfObjekte();
+
+                $restBestandAmount = $gesamtBestandAmount;
+
                 for($i = 0; $i < sizeof($playerData); $i++) {
 
                   $immobilienBestand = Request::getBestandByPlayer($playerData[$i]["ID"]);
@@ -123,6 +126,10 @@ class Konkurrenz {
                   }
 
                   array_push($playerBestandsWerte, $bestandsWert);
+
+                  array_push($playerBestandAmount, sizeof($immobilienBestand));
+
+                  $restBestandAmount -= sizeof($immobilienBestand);
                   
 
                 }
@@ -135,7 +142,6 @@ class Konkurrenz {
                   $restmarktvolumen -= $playerBestandsWerte[$i];
                 }
 
-                echo $restmarktvolumen;
                 ?>
                 <div class="col-md-6 col-sm-12 col-xs-12">
                   <div class="x_panel">
@@ -164,6 +170,20 @@ class Konkurrenz {
                   </div>
 
                 </div>
+                <div class="col-md-6 col-sm-12 col-xs-12">
+                  <div class="x_panel">
+                    <div class="x_title">
+                      <h2>Marktanteil<small>Gesamtimmobilien</small></h2>
+                      <div class="clearfix"></div>
+                    </div>
+                    <br>
+                    <div class="x_content">
+                      <canvas id="barChart"></canvas>
+                      <br><br>
+                    </div>
+                  </div>
+
+                </div>
               </div>
             <!-- Einzelner Konkurrent -->
 
@@ -171,11 +191,122 @@ class Konkurrenz {
               <h2>Einzelanalyse</h2>
               <div class="clearfix"></div>
             </div>
-            <div class="col-md-4">
-              <div class="x_panel">
-                
-              </div>
-            </div>
+
+            <?php
+
+              for($i = 0; $i < sizeof($playerData); $i++) {
+
+                $mitarbeiter = Request::getMitarbeiterOfPlayer($playerData[$i]["ID"]);
+
+
+                if($mitarbeiter[0]["Mitarbeiter"] != "") {
+                  $anzahlMitarbeiter = sizeof(explode(';', $mitarbeiter[0]["Mitarbeiter"]));
+                }
+                else {
+                  $anzahlMitarbeiter = 0;
+                }
+
+                $rundendaten = Request::getRundendatenById($playerData[$i]["ID"]);
+
+                $kapital = $rundendaten[0]["Kapital"];
+
+
+                ?>
+                <div class="col-md-4">
+                  <div class="x_panel">
+
+                  <div class="col-md-3 col-xs-12 widget widget_tally_box">
+                        <div class="x_panel fixed_height_390">
+                          <div class="x_content">
+
+                            <div class="flex">
+                              <ul class="list-inline widget_profile_box">
+                                <li>
+                                <a style="visibility: hidden"></a>
+                                </li>
+                                <li>
+                                  <img src="images/user.png" alt="..." class="img-circle profile_img" style="width:75px; height:75px;">
+                                </li>
+                                <li>
+                                <a style="visibility: hidden"></a>
+                                </li>
+                              </ul>
+                            </div>
+
+                            <h4 class="name" style="margin-bottom:10px;"><?php echo $playerData[$i]["Unternehmensname"]; ?></h4>
+                            <h6 class="name" style="margin-top:0px;"><?php echo $playerData[$i]["Spieler1"]; ?></h6>
+
+                            <div class="flex">
+                              <ul class="list-inline count2">
+                                <li>
+                                  <h4><?php echo $playerBestandAmount[$i]; ?></h4>
+                                  <span style="font-size:10px">Immobilien</span>
+                                </li>
+                                <li>
+                                  <h4><?php echo round($kapital / 1000000, 1) . " M";?></h4>
+                                  <span style="font-size:10px">Kapital</span>
+                                </li>
+                                <li>
+                                  <h4><?php echo $anzahlMitarbeiter; ?></h4>
+                                  <span style="font-size:10px">Mitarbeiter</span>
+                                </li>
+                              </ul>
+                            </div>
+                            <p>
+                            <?php
+                            if($rundendaten[0]["Social"] == 1) {
+                              ?>
+                              <span class="label label-success pull-left"> <i class="fa fa-check-circle-o" aria-hidden="true"></i></span> Social Media Analyse
+                              <?php
+                            }
+                            else {
+                              ?>
+                              <span class="label label-danger pull-left"> <i class="fa fa-times-circle-o" aria-hidden="true"></i></span> Social Media Analyse
+                              <?php
+                            }
+
+                            ?>
+                            <br>
+                            <?php
+                            if($rundendaten[0]["Marktanalyse"] == 1) {
+                              ?>
+                              <span class="label label-success pull-left"> <i class="fa fa-check-circle-o" aria-hidden="true"></i></span> Marktanalyse
+                              <?php
+                            }
+                            else {
+                              ?>
+                              <span class="label label-danger pull-left"> <i class="fa fa-times-circle-o" aria-hidden="true"></i></span> Marktanalyse
+                              <?php
+                            }
+
+                            ?>
+                            <br>
+                            <?php
+                            if($rundendaten[0]["Konkurrenz"] == 1) {
+                              ?>
+                              <span class="label label-success pull-left"> <i class="fa fa-check-circle-o" aria-hidden="true"></i></span> Konkurrenzanalyse
+                              <?php
+                            }
+                            else {
+                              ?>
+                              <span class="label label-danger pull-left"> <i class="fa fa-times-circle-o" aria-hidden="true"></i></span> Konkurrenzanalyse
+                              <?php
+                            }
+
+                            ?>
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+
+                    
+                  </div>
+                </div>
+              <?php
+              }
+
+            ?>
+            
           </div>
         </div>
       </div>
@@ -250,6 +381,54 @@ class Konkurrenz {
                     }
                 }
             },
+        }
+      });
+
+
+
+      var ctx2 = document.getElementById("barChart");
+      var data = {
+        labels: [
+          "Neutral",
+          <?php for($i = 0; $i < $numberOfPlayers; $i++) { if($i != $numberOfPlayers - 1) { echo '"' . $playerData[$i]["Unternehmensname"] . '",';  } else { echo '"' . $playerData[$i]["Unternehmensname"] . '"'; } } ?>
+        ],
+        datasets: [{
+          data: [<?php echo $restBestandAmount . ","; for($i = 0; $i < sizeof($playerBestandAmount); $i++) { if($i != sizeof($playerBestandAmount) - 1) { echo $playerBestandAmount[$i] . ","; } else { echo $playerBestandAmount[$i]; }}?>],
+          backgroundColor: [
+            "#BDC3C7",
+            "#455C73",
+            "#26B99A",
+            "#3498DB"
+          ],
+          hoverBackgroundColor: [
+            "#CFD4D8",
+            "#34495E",
+            "#36CAAB",
+            "#49A9EA"
+          ]
+        }]
+      };
+      var lineChart = new Chart(ctx2, {
+        type: 'bar',
+        tooltipFillColor: "rgba(51, 51, 51, 0.55)",
+        data: data,
+        options: {
+            tooltips: {
+                enabled: true,
+                mode: 'single',
+                callbacks: {
+                    label: function(tooltipItems, data) { 
+                        return data.datasets[tooltipItems.datasetIndex].data[tooltipItems.index] + ' Immobilien';
+                    }
+                }
+            },
+            scales: {
+              yAxes: [{
+                  ticks: {
+                      beginAtZero: true
+                  }
+              }]
+            }
         }
       });
 

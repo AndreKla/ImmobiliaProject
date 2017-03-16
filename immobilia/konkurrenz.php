@@ -37,10 +37,10 @@
 	<div class="right_col" role="main">
 	<?php 
 		if(Konkurrenz::checkForKonkurrenz()) {
-			Konkurrenz::createKonkurrenz();
+			Konkurrenz::showKonkurrenz();
 		}
 		else {
-			Konkurrenz::showKonkurrenz();
+			Konkurrenz::createKonkurrenz();
 		}
 	?>
 	</div>

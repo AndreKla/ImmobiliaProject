@@ -6,7 +6,7 @@
 	
     Menu::includeHead();
 
-    $startkapital = 10000000;
+    $startkapital = 500000;
 
     if(isset($_POST["unternehmensname"])) {
       
@@ -14,6 +14,7 @@
       $sid = $_SESSION["SID"];
 
       $unternehmensname = $_POST["unternehmensname"];
+      $passwort = $_POST["passwort"];
 
       if($_POST["rechtsform"] == "GmbH") {
         $unternehmensname = $unternehmensname . " GmbH";
@@ -27,72 +28,28 @@
       else if($_POST["rechtsform"] == "GmbH & Co. KG") {
         $unternehmensname = $unternehmensname . " GmbH & Co. KG";
       }
+
+      $spielerArray = Array();
+
       if(isset($_POST["gf1"])) {
-
-        if(isset($_POST["gf2"])) {
-
-          if(isset($_POST["gf3"])) {
-            $query = "UPDATE Unternehmen
-            SET Unternehmensname = '" . $unternehmensname . "', Spieler1 = '" . $_POST['gf1'] . "', Spieler2 = '" . $_POST['gf2'] . "', Spieler3 = '" . $_POST['gf3'] . "', Passwort = '" . md5($_POST['passwort']) . "'
-            WHERE ID = $id
-            ;";
-            Database::sqlUpdate($query);
-
-            $query = "INSERT INTO Rundendaten (SpielID, UnternehmensID, Runde, Kapital, Strategie1, Strategie2, Strategie3, Social)
-                    VALUES ('" . $sid . "', '" . $id . "', 1, $startkapital, 0, 0, 0, 0);";
-            Database::sqlInsert($query);
-            ?>
-              <script language="javascript">
-                  window.location.href = "neuigkeiten.php"
-              </script>
-            <?php    
-                    
-          }
-          else {
-            $query = "UPDATE Unternehmen
-            SET Unternehmensname = '" . $unternehmensname . "', Spieler1 = '" . $_POST['gf1'] . "', Spieler2 = '" . $_POST['gf2'] . "', Passwort = '" . md5($_POST['passwort']) . "'
-            WHERE ID = $id
-            ;";
-            Database::sqlUpdate($query);
-
-            $query = "INSERT INTO Rundendaten (SpielID, UnternehmensID, Runde, Kapital, Strategie1, Strategie2, Strategie3, Social)
-                    VALUES ('" . $sid . "', '" . $id . "', 1, $startkapital, 0, 0, 0, 0);";
-            Database::sqlInsert($query);
-
-          ?>
-            <script language="javascript">
-                window.location.href = "neuigkeiten.php"
-            </script>
-          <?php
-          }
-
-        }
-        else {
-          $query = "UPDATE Unternehmen
-          SET Unternehmensname = '" . $unternehmensname . "', Spieler1 = '" . $_POST['gf1'] . "', Passwort = '" . md5($_POST['passwort']) . "'
-          WHERE ID = $id
-          ;";
-          Database::sqlUpdate($query);
-
-          $query = "INSERT INTO Rundendaten (SpielID, UnternehmensID, Runde, Kapital, Strategie1, Strategie2, Strategie3, Social)
-                    VALUES ('" . $sid . "', '" . $id . "', 1, $startkapital, 0, 0, 0, 0);";
-          Database::sqlInsert($query);
-
-          echo "sid: " . $sid . " id: " . $id;
-
-          ?>
-            <script language="javascript">
-                //window.location.href = "neuigkeiten.php"
-            </script>
-          <?php
-
-        }
-
+        array_push($spielerArray, $_POST["gf1"]);
       }
-      else {
-        echo "Kein Geschäftsführer eingetragen";
+      if(isset($_POST["gf2"])) {
+        array_push($spielerArray, $_POST["gf2"]);
+      }
+      if(isset($_POST["gf3"])) {
+        array_push($spielerArray, $_POST["gf3"]);
       }
 
+      Loop::setCompany($unternehmensname, $spielerArray, $passwort, $id);
+      Loop::setRundendaten($sid, $id, $startkapital);
+      Loop::setStartbestand($sid, $id, 0);
+
+      ?>      
+        <script language="javascript">
+            window.location.href = "neuigkeiten.php"
+        </script>
+      <?php
     }
     else {
       if($_SESSION["Runde"] == 0) {
