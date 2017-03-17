@@ -152,6 +152,8 @@ class Strategie {
                 WHERE UnternehmensID = $unternehmensID AND SpielID = $spielID AND Runde = $runde
                 ;";
                 Database::sqlUpdate($query);
+                
+                Helper::showMessage("Erfolgreich", "Deine Strategie wurde hinterlegt!", "success");
               }
 
               for($i = 0; $i < sizeof($strategien); $i++) {
@@ -176,6 +178,7 @@ class Strategie {
       
     <div class="clearfix"></div>
     
+    
     <div class="col-md-6 col-sm-6 col-xs-12">
       <div class="x_panel">
         <div class="x_title">
@@ -184,17 +187,20 @@ class Strategie {
         </div>
         <div class="x_content" id="unternehmensziele">
             <div class="col-md-12">
-	            <label for="message">Bitte gib hier deine Begründung ein:</label><br>
-	            <label for="message"> - Wieso hast du dich dafür entschieden?</label>
-	            <textarea id="message" required="required" class="form-control" 
-	                      name="message" data-parsley-trigger="keyup" data-parsley-minlength="100" 
-	                      data-parsley-maxlength="800" data-parsley-minlength-message="Bitte gebe hier deine Begründung ein"
-	                      data-parsley-validation-threshold="10" style="resize:none; height: 200px;"> 
+	            <label >Bitte gib hier deine Begründung ein:</label><br>
+	            <label > - Wieso hast du dich dafür entschieden?</label>
+	            <textarea id="message" required="required" class="form-control" name="message" data-parsley-trigger="keyup"  data-parsley-maxlength="800"  data-parsley-validation-threshold="" style="resize:none; height: 200px;"> 
 	            </textarea>
             </div>
         </div>        
       </div>
     </div>
+    
+    <script>
+    $(document).ready(function(){
+        $('#message').val() = " ";
+    });    
+    </script>
       
     <?php
     }

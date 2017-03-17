@@ -14,8 +14,41 @@
       In diesem if muss nichts passieren, einfach nur anzeigen das man warten muss bis alle fertig sind und dann einmal die Seite neu laden soll.
 
     */
+        ?>
 
-    echo "Waiting for other Players";
+
+      
+      <div class="text-center text-center">
+
+              <div class="mid_center">
+                <!--<h3>Auf andere Spieler warten!</h3>-->
+                <div class="mid_center animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <div class="tile-stats">
+                      <div class="icon"><i class="fa fa-check-square-o"></i></div>
+                      <div class="count">Warten</div>
+                      <p>Warten, auf die restlichen Spieler.</p>
+                    </div>
+                <form>
+                  <div class="col-xs-12 form-group pull-right top_search">
+                    <div class="input-group">
+                      <span class="input-group-btn">
+                              <button id="refresh" class="btn btn-default" type="button">Aktualisieren</button>
+                          </span>
+                    </div>
+                  </div>
+                </form>
+            </div>
+
+            </div>
+    </div>
+    <script>
+        $('#refresh').click(function() {
+        location.reload();
+    });
+    </script>
+           
+   <?php 
+   
 
   }
   else {
