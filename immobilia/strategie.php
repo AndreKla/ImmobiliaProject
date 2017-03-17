@@ -137,8 +137,7 @@
 
 					window.location.href = "<?php echo "http://".$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF']."?1=";?>" + selected[0] + "&2=" + selected[1] + "&3=" + selected[2] +  "&4=" + text;  
 					
-				}					   }
-
+				}
 			});
 		});
 		</script>
