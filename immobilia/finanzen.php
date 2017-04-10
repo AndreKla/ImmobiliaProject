@@ -40,7 +40,6 @@
     }
 
     Finanzen::createFinanzenTopData(sizeof($rundendaten));
-    Finanzen::createKapitalbewegungen(sizeof($rundendaten));
     Finanzen::createBankview(sizeof($rundendaten));
 
 	?>

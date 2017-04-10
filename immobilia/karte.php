@@ -14,7 +14,7 @@
 
     }
 
-    Karte::createAccordionMap();
+    //Karte::createAccordionMap();
     
 ?>
 

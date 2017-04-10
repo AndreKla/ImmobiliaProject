@@ -76,5 +76,8 @@
 <script src="vendors/starrr/dist/starrr.js"></script>
 
 <!-- Morris JS -->
-    <script src="vendors/raphael/raphael.min.js"></script>
-    <script src="vendors/morris.js/morris.min.js"></script>
+<script src="vendors/raphael/raphael.min.js"></script>
+<script src="vendors/morris.js/morris.min.js"></script>
+
+<!-- Vue JS -->
+<script src="https://unpkg.com/vue"></script>

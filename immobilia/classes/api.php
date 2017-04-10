@@ -21,6 +21,7 @@ class API {
             $kontostand = $kapital - $summe;
 
             Request::setKontostand($kontostand);
+
             return true;
         }
         else {

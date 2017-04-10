@@ -121,6 +121,9 @@ public static function createMenu($titel) {
 	</style>
 	
 	<style>
+		[v-cloak] {
+		  display: none;
+		}
 		.main_container{
 			height:100%;
 			
@@ -149,14 +152,14 @@ public static function createMenu($titel) {
 	<div class="clearfix"></div>
 
 	<!-- menu profile quick info -->
-	<div class="profile">
+	<div class="profile" style="margin-right:10px">
 	  <div class="profile_info">
 		<h2><?php echo $unternehmen[0]["Spieler1"]; ?></h2>
 	  </div>
-	  	<span style="margin-left:10px; color: #9AC;"> <?php echo "Geschäftsjahr: " . $aktuelleRunde; ?> </span><br>
-		<span style="margin-left:10px; color: #9AC;"> Kontostand:</span><span class="green"> <?php echo number_format($runde[0]["Kapital"], 2, ',', '.'); ?> € </span><br>
-                <span style="margin-left:10px; color: #9AC;"> Immobilien: <?php echo sizeof($bestand);?></span><br>
-		<span style="margin-left:10px; color: #9AC;"> Mitarbeiter: <?php echo sizeof($mitarbeiter); ?></span>
+	  	<span class="aero" style="margin-left:10px"> Geschäftsjahr: </span> <span class="aero pull-right"> <?php echo $aktuelleRunde; ?> </span><br>
+		<span class="aero" style="margin-left:10px"> Kontostand: </span><span class="green pull-right" id="kontostand" v-cloak> {{ balance }} € </span><br>
+        <span class="aero" style="margin-left:10px"> Immobilien: </span><span class="aero pull-right" id="immobilien" v-cloak> {{ bestand }} </span><br>
+		<span class="aero" style="margin-left:10px"> Mitarbeiter: </span><span class="aero pull-right" id="mitarbeiter" v-cloak> {{ employees }} </span>
 	</div>
 	<!-- /menu profile quick info -->
 
@@ -173,7 +176,8 @@ public static function createMenu($titel) {
 		  <li><a><i class="fa fa-cubes"></i> Management Cockpit <span class="fa fa-chevron-down"></span></a>
 			<ul class="nav child_menu">
 			  <li><a href="neuigkeiten.php">Neuigkeiten</a></li>
-			  <li><a href="finanzen.php">Finanzen</a></li>
+			  <li><a href="finanzen.php">Unternehmenskennzahlen</a></li>
+			  <li><a href="umsaetze.php">Umsätze</a></li>
 			  <li><a href="markt.php">Markt</a></li>
 			  <li><a href="konkurrenz.php">Konkurrenz</a></li>
 			  <li><a href="strategie.php" id="menu_strategie">Strategie</a></li>
@@ -182,6 +186,7 @@ public static function createMenu($titel) {
 		  <li><a><i class="fa fa-home"></i> Immobilien <span class="fa fa-chevron-down"></span></a>
 			<ul class="nav child_menu">
 			  <li><a href="karte.php">Karte</a></li>
+			  <li><a href="liste.php">Immobilienliste</a></li>
 			  <li><a href="bestand.php">Bestand</a></li>
 			  <li><a href="auktion.php">Auktionen</a></li>
 			</ul>
@@ -249,27 +254,53 @@ public static function createFooter() {
     ;";
     $kapital = Database::sqlSelect($query);
 
-?>
+    $mitarbeiter = Request::getMitarbeiter();
 
-<!-- footer content 
-<footer style="background-color:#EDEDED;z-index:30" >
-  <div class="pull-right fixed" >
-  	<p style="text-align: right"><i class="fa fa-bank"></i> Kontostand</p>
-	<h4 style="color: #1ABB9C"><?php echo number_format($kapital[0]["Kapital"], 2, ',', ' '); ?> <i class="fa fa-euro"></i></h4>
-  </div>
-  <div class="clearfix"></div>
-</footer>
--->
+    if($mitarbeiter[0]["Mitarbeiter"] != "") {
+		$mitarbeiter = explode(';', $mitarbeiter[0]["Mitarbeiter"]);
+	}
+	else {
+		$mitarbeiter = Array();
+	}
+
+	$bestand = Request::getBestand();
+
+?>
 
       </div>
     </div>
 
-	<?php include 'includes_js.php'; ?> 
+	<?php include 'includes_js.php'; ?>
+	<script>
+
+	  var kontostand = new Vue({
+	  	el: '#kontostand',
+	  	data: {
+	  		balance: <?php echo "'" . number_format($kapital[0]["Kapital"], 2, ',', '.') . "'"; ?>
+	  	}
+	  })
+
+	  var mitarbeiter = new Vue({
+	  	el: '#mitarbeiter',
+	  	data: {
+	  		employees: <?php echo "'" . sizeof($mitarbeiter) . "'"; ?>
+	  	}
+	  })
+
+	  var immobilien = new Vue({
+	  	el: '#immobilien',
+	  	data: {
+	  		bestand: <?php echo "'" . sizeof($bestand) . "'"; ?>
+	  	}
+	  })
+
+  	</script> 
 	
   </body>
 </html>
 
 <?php
+echo "blabla: " . sizeof($mitarbeiter);
 }}
 ?>
 

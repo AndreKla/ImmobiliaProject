@@ -25,15 +25,16 @@ class Finanzen {
   public static function createKapitalbewegungen($year) {
 
   ?>
-    <div class="col-md-9 col-sm-9 col-xs-9">
-      <div class="x_panel" style="height:auto">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+      <div class="x_panel" style="height:93.3%">
         <div class="x_title">
           <h2>Umsätze <small><?php echo date('Y', strtotime("+" . $year . " year")); ?></small></h2>
 			<!-- Hilfe Funktionalität / Text / Popup-->
 		    <?php include 'help/finanzen_umsaetze_help.php'; ?>
           <div class="clearfix"></div>
         </div>
-        <table class="table table-striped col-md-12" style="font-size: 10pt;">
+        <div id="umsaetze" style="overflow:auto;height:90%">
+        <table class="table table-striped col-md-12" style="font-size: 10pt">
           <tr>
             <th>Wertstellung</th>
             <th>Umsatzdetails</th>
@@ -67,6 +68,7 @@ class Finanzen {
 
           ?>
         </table>
+        </div>
       </div>
       <br><br><br>
     </div>

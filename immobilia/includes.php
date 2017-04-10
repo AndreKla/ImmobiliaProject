@@ -20,6 +20,7 @@ require_once $itemsFolder . "uebersicht/Konkurrenz.php";
 require_once $itemsFolder . "uebersicht/Strategie.php";
 
 require_once $itemsFolder . "immobilien/Karte.php";
+require_once $itemsFolder . "immobilien/Liste.php";
 require_once $itemsFolder . "immobilien/Bestand.php";
 require_once $itemsFolder . "immobilien/Auktion.php";
 

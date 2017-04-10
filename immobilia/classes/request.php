@@ -73,7 +73,7 @@ class Request {
         union all
         SELECT SpielID, UnternehmensID, Runde, Zeit, Summe, Beschreibung, Details, Typ FROM Ausgaben
         WHERE SpielID = $sid AND UnternehmensID = $uid
-        ORDER BY(`Zeit`) DESC
+        ORDER BY(`Zeit`) ASC
         ;";
         return Database::sqlSelect($query);
 
