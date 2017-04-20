@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+<Document><name>My document</name>
+<description>Content</description>
+<Style id="Lump">
+<LineStyle><color>CD0000FF</color><width>2</width></LineStyle>
+<PolyStyle><color>9AFF0000</color></PolyStyle>
+</Style>
+<Style id="Path">
+<LineStyle><color>FF0000FF</color><width>3</width></LineStyle>
+</Style>
+<Style id="markerstyle">
+<IconStyle><Icon><href>
+http://maps.google.com/intl/en_us/mapfiles/ms/micons/red-dot.png
+</href></Icon></IconStyle>
+</Style>
+<Placemark><name>NAME</name>
+<description>YES</description>
+<styleUrl>#Path</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<altitudeMode>clampToGround</altitudeMode>
+<coordinates>
+13.407372,52.486021,0.0 
+13.404367,52.484871,0.0 
+13.401278,52.484819,0.0 
+13.400248,52.483617,0.0 
+13.394411,52.484035,0.0 
+13.388231,52.484557,0.0 
+13.384369,52.484976,0.0 
+13.376129,52.485237,0.0 
+13.370979,52.485185,0.0 
+13.376816,52.491718,0.0 
+13.369074,52.492867,0.0 
+13.369074,52.492867,0.0 
+13.369520,52.494749,0.0 
+13.370979,52.497257,0.0 
+13.370378,52.498145,0.0 
+13.369263,52.498824,0.0 
+</coordinates>
+</LineString>
+</Placemark>
+</Document>
+</kml>

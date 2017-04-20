@@ -49,6 +49,7 @@ class Karte {
   				?>
                 ]};
 
+				
                 var center = new google.maps.LatLng(52.51929194655397, 13.405414583394304); //-7.0849437,35.8401773);
                 var map = new google.maps.Map(document.getElementById('map'), {
                   zoom: 12,
@@ -118,6 +119,57 @@ class Karte {
                     }]
                   }]
                 });
+
+				/*
+				var srcKreuzberg = 'http://www.spire.de/kml/kreuzberg.kml';
+				var srcMitte = 'http://www.spire.de/kml/mitte.kml';
+				var srcLichtenberg = 'http://www.spire.de/kml/lichtenberg.kml';
+				var srcMarzahn = 'http://www.spire.de/kml/marzahn.kml';
+				var srcPankow = 'http://www.spire.de/kml/pankow.kml';
+				var srcTempelhof = 'http://www.spire.de/kml/tempelhof.kml';
+				var srcReinickendorf = 'http://www.spire.de/kml/reinickendorf.kml';
+				var srcTreptow = 'http://www.spire.de/kml/treptow-joepenick.kml';
+				var srcNeukoelln = 'http://www.spire.de/kml/neukoelln.kml';
+
+				loadKmlLayer(srcKreuzberg, map);
+				loadKmlLayer(srcMitte, map);
+				loadKmlLayer(srcLichtenberg, map);
+				loadKmlLayer(srcMarzahn, map);
+				loadKmlLayer(srcPankow, map);				
+				loadKmlLayer(srcTempelhof, map);
+				loadKmlLayer(srcReinickendorf, map);
+				loadKmlLayer(srcTreptow, map);
+				loadKmlLayer(srcNeukoelln, map);*/
+				var srcSteglitz = 'http://www.spire.de/kml/steglitz2.kml';
+				var srcSpandau = 'http://www.spire.de/kml/spandau2.kml';
+				var srcCharlottenburg = 'http://www.spire.de/kml/charlottenburg12.kml';
+				var srcReinickendorf = 'http://www.spire.de/kml/reinickendorf3.kml';
+				var srcPankow = 'http://www.spire.de/kml/pankow5.kml';
+				var srcLichtenberg = 'http://www.spire.de/kml/lichtenberg1.kml';
+				var srcTreptow = 'http://www.spire.de/kml/treptow1.kml';
+
+				loadKmlLayer(srcReinickendorf, map);
+				loadKmlLayer(srcSpandau, map);
+				loadKmlLayer(srcSteglitz, map);
+				loadKmlLayer(srcCharlottenburg, map);
+				loadKmlLayer(srcPankow, map);				
+				loadKmlLayer(srcLichtenberg, map);				
+				loadKmlLayer(srcTreptow, map);				
+
+				
+				function loadKmlLayer(src, map) {
+				var kmlLayer = new google.maps.KmlLayer(src, {
+				  suppressInfoWindows: true,
+				  preserveViewport: false,
+				  map: map
+				});
+				google.maps.event.addListener(kmlLayer, 'click', function(event) {
+				  var content = event.featureData.infoWindowHtml;
+				  var testimonial = document.getElementById('capture');
+				  testimonial.innerHTML = content;
+				});
+			  }
+				
                 var infoWindow = new google.maps.InfoWindow();
                 var markers = [];
                 var html_array = [];
