@@ -37,20 +37,9 @@ class Liste {
                         if($immobilien[$i]["Verkauft"] == 0) {
                           
                 ?>
-                <thead>
-                  <tr>
-                    <th style="max-width:10px;"></th>
-                    <th></th>
-                    <th style="width:10%; text-align:center"></th>
-                    <th style="width:10%; text-align:center; min-width:100px;"></th>
-                    <th style="width:10%; text-align:center; min-width:100px;"></th>
-                    <th style="width:10%; text-align:center; min-width:100px;"></th>
-                    <th style="width:10%; text-align:center; min-width:100px;"></th>
-                  </tr>
-                </thead>
-                <tbody>
+                <tbody style="border-bottom: 10px double #73879C; margin-top:10px">
                 <tr>
-                  <td rowspan="3" width="140px">
+                  <td rowspan="2" width="140px">
                     <div class="modal-content" style="border:none;">
                         <img src="<?php echo $objekt[0]["Bild"];?>" width="140px" style="vertical-align:center;">
                     </div>
@@ -93,47 +82,40 @@ class Liste {
                         
                     </div>
                   </td>                          
-                  <td colspan="6">
+                  <td rowspan="1" colspan="2" style="max-width:250px">
                     <a><small style="font-size:10pt"><strong><?php echo $objekt[0]["Beschreibung"]; ?></strong></small></a><br>
                     <a><small style="font-size:10pt"><?php echo $objekt[0]["Strasse"]; ?></small></a><br>
                     <a><small style="font-size:10pt"><?php echo $objekt[0]["PLZ"] . " " . $objekt[0]["Ort"]; ?></small></a>
-                  
-                </tr>
-                <tr>
-                  <td></td>
-                  <td style="text-align:center; padding-bottom:50px">
-                      <a><small style="font-size:10pt;"><strong>Mikrolage</strong></small></a><br><br>
+                  </td>
+                  <td style="text-align:center;" rowspan="1">
+                      <a><small style="font-size:10pt;padding-left:10px;padding-right:10px"><strong>Mikrolage</strong></small></a><br><br>
                       <span class="label label-<?php if($objekt[0]["Lage"] < 4) { echo "danger"; } else if($objekt[0]["Lage"] < 7) { echo "warning"; } else { echo "success"; } ?>"><?php if($objekt[0]["Lage"] < 4) { echo "schlecht"; } else if($objekt[0]["Lage"] < 7) { echo "mittel"; } else { echo "gut"; } ?></span>
                   </td>
-                  <td style="text-align:center; padding-bottom:20px">
-                      <a><small style="font-size:10pt;"><strong>Mikrolage</strong></small></a><br><br>
+                  <td style="text-align:center;" rowspan="1">
+                      <a><small style="font-size:10pt;padding-left:10px;padding-right:10px"><strong>Mikrolage</strong></small></a><br><br>
                       <span class="label label-<?php if($objekt[0]["Lage"] < 4) { echo "danger"; } else if($objekt[0]["Lage"] < 7) { echo "warning"; } else { echo "success"; } ?>"><?php if($objekt[0]["Lage"] < 4) { echo "schlecht"; } else if($objekt[0]["Lage"] < 7) { echo "mittel"; } else { echo "gut"; } ?></span>
                   </td>
-                  <td style="text-align:center; padding-bottom:20px">
-                      <a><small style="font-size:10pt;"><strong>Mikrolage</strong></small></a><br><br>
+                  <td style="text-align:center;" rowspan="1">
+                      <a><small style="font-size:10pt;padding-left:10px;padding-right:10px"><strong>Mikrolage</strong></small></a><br><br>
                       <span class="label label-<?php if($objekt[0]["Lage"] < 4) { echo "danger"; } else if($objekt[0]["Lage"] < 7) { echo "warning"; } else { echo "success"; } ?>"><?php if($objekt[0]["Lage"] < 4) { echo "schlecht"; } else if($objekt[0]["Lage"] < 7) { echo "mittel"; } else { echo "gut"; } ?></span>
                   </td>
-                  <td style="text-align:center">
-                      <a><small style="font-size:10pt;"><strong>Wohnfläche</strong></small></a><br><br>
+                  <td style="text-align:center" rowspan="1">
+                      <a><small style="font-size:10pt;padding-left:10px;padding-right:10px"><strong>Wohnfläche</strong></small></a><br><br>
                       <span class="label label-<?php if($immobilien[$i]["Bau"] == 1) { echo "default"; } else if($immobilien[$i]["Flaeche"] < 80) { echo "danger"; } else if($immobilien[$i]["Flaeche"] < 130) { echo "warning"; } else { echo "success"; } ?>"><?php if($immobilien[$i]["Bau"] == 1) { echo "n/a"; } else if($immobilien[$i]["Zustand"] < 4) { echo $immobilien[$i]["Flaeche"] . " qm"; } else if($immobilien[$i]["Zustand"] < 7) { echo $immobilien[$i]["Flaeche"] . " qm"; } else { echo $immobilien[$i]["Flaeche"] . " qm"; } ?></span>
                   </td>
-                  <td style="text-align:center">
-                      <a><small style="font-size:10pt;"><strong>Zustand</strong></small></a><br><br>
+                  <td style="text-align:center" rowspan="1">
+                      <a><small style="font-size:10pt;padding-left:10px;padding-right:10px"><strong>Zustand</strong></small></a><br><br>
                       <span class="label label-<?php if($immobilien[$i]["Bau"] > 0) { echo "default"; } else if($immobilien[$i]["Zustand"] < 4) { echo "danger"; } else if($immobilien[$i]["Zustand"] < 7) { echo "warning"; } else { echo "success"; } ?>"><?php if($immobilien[$i]["Bau"] > 0) { echo "n/a"; } else if($immobilien[$i]["Zustand"] < 4) { echo "schlecht"; } else if($immobilien[$i]["Zustand"] < 7) { echo "mittel"; } else { echo "gut"; } ?></span>
                   </td>
                 </tr>
                 <tr>
-
-                    <td colspan="6" style="padding-top:12px">
+                    <td colspan="7" style="padding-top:12px">
                         <div style="text-align:center">
-                            <a href="#" class="btn btn-dark btn-xs weiterbilden col-md-3 col-md-offset-9"><i class="fa fa-eur"></i>  &nbsp; Kaufen </a>
+                            <a href="#" class="btn btn-dark btn-xs weiterbilden col-md-8 col-md-offset-2" style="padding:10px; margin-top:10px; margin-bottom:10px"><i class="fa fa-eur"></i>  &nbsp; Kaufen </a>
                         </div>
                     </td>
                 </tr>
-                <?php 
-
-                    
-
+                <?php  
                 }
                 ?>
                 </tbody>
