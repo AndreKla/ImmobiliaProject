@@ -3,11 +3,11 @@
 <Document><name>My document</name>
 <description>Content</description>
 <Style id="Lump">
-<LineStyle><color>CD0000FF</color><width>2</width></LineStyle>
-<PolyStyle><color>9AFF0000</color></PolyStyle>
+<LineStyle><color>CD87b1ff</color><width>2</width></LineStyle>
+<PolyStyle><color>9A87b1ff</color></PolyStyle>
 </Style>
 <Style id="Path">
-<LineStyle><color>d8d8d802</color><width>5</width></LineStyle>
+<LineStyle><color>87b1ff02</color><width>5</width></LineStyle>
 </Style>
 <Style id="markerstyle">
 <IconStyle><Icon><href>
@@ -16,11 +16,11 @@ http://maps.google.com/intl/en_us/mapfiles/ms/micons/red-dot.png
 </Style>
 <Placemark><name>NAME</name>
 <description>YES</description>
-<styleUrl>#Path</styleUrl>
-<LineString>
+<styleUrl>#Lump</styleUrl>
+<Polygon>
 <tessellate>1</tessellate>
 <altitudeMode>clampToGround</altitudeMode>
-<coordinates>
+<outerBoundaryIs><LinearRing><coordinates>
 13.391476,52.566438,0.0 
 13.390617,52.568317,0.0 
 13.387356,52.570299,0.0 
@@ -261,9 +261,8 @@ http://maps.google.com/intl/en_us/mapfiles/ms/micons/red-dot.png
 13.396196,52.561325,0.0 
 13.393021,52.564560,0.0 
 13.391476,52.566438,0.0 
-
-</coordinates>
-</LineString>
+</coordinates></LinearRing></outerBoundaryIs>
+</Polygon>
 </Placemark>
 </Document>
 </kml>

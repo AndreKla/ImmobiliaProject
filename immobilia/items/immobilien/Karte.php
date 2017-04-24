@@ -52,10 +52,10 @@ class Karte {
 				
                 var center = new google.maps.LatLng(52.51929194655397, 13.405414583394304); //-7.0849437,35.8401773);
                 var map = new google.maps.Map(document.getElementById('map'), {
-                  zoom: 12,
+                  zoom: 11,
                   scrollwheel: false,
-                  maxZoom: 30,
-                  minZoom: 12,
+                  maxZoom: 16,
+                  minZoom: 11,
                   center: center,
   				streetViewControl: false,
   				draggable: true, 
@@ -119,42 +119,81 @@ class Karte {
                     }]
                   }]
                 });
+				
+				var location = 'http://www.spire.de/kml/color/';
 
-				/*
-				var srcKreuzberg = 'http://www.spire.de/kml/kreuzberg.kml';
-				var srcMitte = 'http://www.spire.de/kml/mitte.kml';
-				var srcLichtenberg = 'http://www.spire.de/kml/lichtenberg.kml';
-				var srcMarzahn = 'http://www.spire.de/kml/marzahn.kml';
-				var srcPankow = 'http://www.spire.de/kml/pankow.kml';
-				var srcTempelhof = 'http://www.spire.de/kml/tempelhof.kml';
-				var srcReinickendorf = 'http://www.spire.de/kml/reinickendorf.kml';
-				var srcTreptow = 'http://www.spire.de/kml/treptow-joepenick.kml';
-				var srcNeukoelln = 'http://www.spire.de/kml/neukoelln.kml';
+				var srcCharlottenburgBorder = location + 'border_charlottenburg.kml';
+				var srcCharlottenburgFill = location + 'fill_charlottenburg.kml';
+				
+				var srcSpandauBorder = location + 'border_spandau.kml';
+				var srcSpandauFill = location + 'fill_spandau.kml';
 
-				loadKmlLayer(srcKreuzberg, map);
-				loadKmlLayer(srcMitte, map);
-				loadKmlLayer(srcLichtenberg, map);
-				loadKmlLayer(srcMarzahn, map);
-				loadKmlLayer(srcPankow, map);				
-				loadKmlLayer(srcTempelhof, map);
-				loadKmlLayer(srcReinickendorf, map);
-				loadKmlLayer(srcTreptow, map);
-				loadKmlLayer(srcNeukoelln, map);*/
-				var srcSteglitz = 'http://www.spire.de/kml/steglitz2.kml';
-				var srcSpandau = 'http://www.spire.de/kml/spandau2.kml';
-				var srcCharlottenburg = 'http://www.spire.de/kml/charlottenburg12.kml';
-				var srcReinickendorf = 'http://www.spire.de/kml/reinickendorf3.kml';
-				var srcPankow = 'http://www.spire.de/kml/pankow5.kml';
-				var srcLichtenberg = 'http://www.spire.de/kml/lichtenberg1.kml';
-				var srcTreptow = 'http://www.spire.de/kml/treptow1.kml';
+				var srcReinickendorfBorder = location + 'border_reinickendorf.kml';
+				var srcReinickendorfFill = location + 'fill_reinickendorf.kml';
 
-				loadKmlLayer(srcReinickendorf, map);
-				loadKmlLayer(srcSpandau, map);
-				loadKmlLayer(srcSteglitz, map);
-				loadKmlLayer(srcCharlottenburg, map);
-				loadKmlLayer(srcPankow, map);				
-				loadKmlLayer(srcLichtenberg, map);				
-				loadKmlLayer(srcTreptow, map);				
+				var srcPankowBorder = location + 'border_pankow.kml';
+				var srcPankowFill = location + 'fill_pankow.kml';
+
+				var srcLichtenbergBorder = location + 'border_lichtenberg.kml';
+				var srcLichtenbergFill = location + 'fill_lichtenberg.kml';
+				
+				var srcMarzahnBorder = location + 'border_marzahn.kml';
+				var srcMarzahnFill = location + 'fill_marzahn.kml';
+
+				var srcSteglitzBorder = location + 'border_steglitz.kml';
+				var srcSteglitzFill = location + 'fill_steglitz.kml';
+	
+				var srcTreptowBorder = location + 'border_treptow.kml';
+				var srcTreptowFill = location + 'fill_treptow.kml';
+
+				var srcNeukoellnBorder = location + 'border_neukoelln.kml';	
+				var srcNeukoellnFill = location + 'fill_neukoelln.kml';
+
+				var srcTempelhofBorder = location + 'border_tempelhof.kml';
+				var srcTempelhofFill = location + 'fill_tempelhof3.kml';
+
+				var srcMitteBorder =  location + 'border_mitte.kml';
+				var srcMitteFill = location + 'fill_mitte.kml';
+				
+				var srcKreuzbergBorder = location + 'border_kreuzberg.kml';
+				var srcKreuzbergFill = location + 'fill_kreuzberg.kml';
+
+					
+				//loadKmlLayer(srcCharlottenburgBorder, map);
+				loadKmlLayer(srcCharlottenburgFill, map);				
+				
+				//loadKmlLayer(srcSpandauBorder, map);
+				loadKmlLayer(srcSpandauFill, map);
+				
+				//loadKmlLayer(srcReinickendorfBorder, map);
+				loadKmlLayer(srcReinickendorfFill, map);
+				
+				//loadKmlLayer(srcPankowBorder, map);				
+				loadKmlLayer(srcPankowFill, map);					
+				
+				//loadKmlLayer(srcMarzahnBorder, map);				
+				loadKmlLayer(srcMarzahnFill, map);	
+				
+				//loadKmlLayer(srcSteglitzBorder, map);				
+				loadKmlLayer(srcSteglitzFill, map);	
+				
+				//loadKmlLayer(srcLichtenbergBorder, map);				
+				loadKmlLayer(srcLichtenbergFill, map);
+								
+				//loadKmlLayer(srcTreptowBorder, map);				
+				loadKmlLayer(srcTreptowFill, map);
+				
+				//loadKmlLayer(srcNeukoellnBorder, map);
+				loadKmlLayer(srcNeukoellnFill, map);
+
+				//loadKmlLayer(srcTempelhofBorder, map);
+				loadKmlLayer(srcTempelhofFill, map);
+
+				loadKmlLayer(srcMitteBorder, map);
+				//loadKmlLayer(srcMitteFill, map);
+
+				//loadKmlLayer(srcKreuzbergBorder, map);
+				loadKmlLayer(srcKreuzbergFill, map);
 
 				
 				function loadKmlLayer(src, map) {

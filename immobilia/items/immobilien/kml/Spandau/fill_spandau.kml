@@ -3,11 +3,11 @@
 <Document><name>My document</name>
 <description>Content</description>
 <Style id="Lump">
-<LineStyle><color>CD0000FF</color><width>2</width></LineStyle>
-<PolyStyle><color>9AFF0000</color></PolyStyle>
+<LineStyle><color>CD87ffe1</color><width>2</width></LineStyle>
+<PolyStyle><color>9A87ffe1</color></PolyStyle>
 </Style>
 <Style id="Path">
-<LineStyle><color>66FF0000</color><width>5</width></LineStyle>
+<LineStyle><color>87ffe102</color><width>5</width></LineStyle>
 </Style>
 <Style id="markerstyle">
 <IconStyle><Icon><href>
@@ -16,11 +16,12 @@ http://maps.google.com/intl/en_us/mapfiles/ms/micons/red-dot.png
 </Style>
 <Placemark><name>NAME</name>
 <description>YES</description>
-<styleUrl>#Path</styleUrl>
-<LineString>
+<styleUrl>#Lump</styleUrl>
+<Polygon>
 <tessellate>1</tessellate>
 <altitudeMode>clampToGround</altitudeMode>
-<coordinates>13.123040,52.439688,0.0 
+<outerBoundaryIs><LinearRing><coordinates>
+13.123040,52.439688,0.0 
 13.123126,52.439662,0.0 
 13.120036,52.441388,0.0 
 13.119478,52.442095,0.0 
@@ -403,8 +404,8 @@ http://maps.google.com/intl/en_us/mapfiles/ms/micons/red-dot.png
 13.131271,52.441885,0.0 
 13.124577,52.440944,0.0 
 13.122860,52.439793,0.0 
-</coordinates>
-</LineString>
+</coordinates></LinearRing></outerBoundaryIs>
+</Polygon>
 </Placemark>
 </Document>
 </kml>
