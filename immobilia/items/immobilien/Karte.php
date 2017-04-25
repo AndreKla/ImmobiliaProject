@@ -37,7 +37,7 @@ class Karte {
                           for($i = 0; $i < sizeof($objekte); $i++) {
 
                         ?>
-  				 {"longitude": "<?php echo $objekte[$i]["Long"]?>" ,
+                    {"longitude": "<?php echo $objekte[$i]["Long"]?>" ,
                     "latitude": "<?php echo $objekte[$i]["Lat"] ?>" ,
                     "created_by": "<?php echo $objekte[$i]["Kaufpreis"]." €"?>",
                     "created_date": "<?php echo $objekte[$i]["Flaeche"]." € "?>",
@@ -48,7 +48,6 @@ class Karte {
   				}
   				?>
                 ]};
-
 				
                 var center = new google.maps.LatLng(52.51929194655397, 13.405414583394304); //-7.0849437,35.8401773);
                 var map = new google.maps.Map(document.getElementById('map'), {
@@ -218,10 +217,13 @@ class Karte {
                   var marker = new google.maps.Marker({
                     position: latLng
                   });
-                  var html = "<div id='acc" + dataPhoto.id +"' style='width:200px;'><strong style='font-weight:bold;margin-top:5px;'>" + dataPhoto.registrant + "</strong><br><br>";
-                  html = html + "<img src='"+ dataPhoto.msisdn + "' width='200px' height='auto'><br><br>";
+                  var html = "<div id='acc" + dataPhoto.id +"' style='width:250px;height:325px;overflow:hidden;'><strong style='font-weight:bold;font-size:12pt;margin-top:5px;'>" + dataPhoto.registrant + "</strong><br><br>";
+                  html = html + "<img src='"+ dataPhoto.msisdn + "' width='250px' height='auto'><br><br>";
+                  html = html + "<span class='label label-warning' style='margin:5px;'>Mikrolage</span>";
+                  html = html + "<span class='label label-danger' style='margin:5px;'>Ausstattung</span><br><br>";
+                                    html = html + "<button type='button' class='btn btn-primary' style='float:right' data-toggle='modal' data-target='.bs-example-modal-lg'>Details</button>";
                   html = html + "<strong>Fläche in m²: </strong>" + dataPhoto.created_date + "";
-                  html = html + "<br><p><strong>Verkehrswert:</strong>" + dataPhoto.created_by + "</p>";
+                  html = html + "<br><p><strong>Verkehrswert: </strong>" + dataPhoto.created_by + "</p>";
                   html_array.push(html);
                   google.maps.event.addListener(marker, 'click', (function(marker, i) {
                     return function() {
