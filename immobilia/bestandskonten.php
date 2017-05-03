@@ -4,7 +4,7 @@
     require_once("includes.php"); 
     Menu::createMenu("Bestandskonten"); 
     
-    API::checkBuchungenErledigt();
+    //API::checkBuchungenErledigt();
     Bestandskonten::createBuchungstool();	
 
 ?>

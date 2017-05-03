@@ -201,7 +201,7 @@ public static function createMenu($titel) {
 			<ul class="nav child_menu">
 			  <li><a href="bestandskonten.php">Konten</a></li>
 			  <li><a href="sbk.php">SBK </a></li>
-			  <li><a href="gewinn_verlust.php">GV</a></li>
+			  <!--<li><a href="gewinn_verlust.php">GV</a></li>-->
 			</ul>
 		  </li>
 		  <li><a><i class="fa fa-spinner"></i> Geschäftsjahr abschließen</a>

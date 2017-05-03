@@ -414,7 +414,7 @@ class Request {
         WHERE SpielID = $sid AND UnternehmensID = $uid AND Runde = $runde
         ;";
         Database::sqlUpdate($query);
-
+        
     }
 
     public static function getAnlageoptionen() {

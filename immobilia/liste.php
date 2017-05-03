@@ -13,7 +13,22 @@
         <?php
 
         Liste::createListe();
-
+        
+        if(isset($_GET["id"])){
+            $id = $_GET["id"];
+            
+            ?>
+            <script>
+                
+                //var divPosition = $('<?php echo "#". $id; ?>').offset();
+                
+                //$('html, body').animate({scrollTop: divPosition.top}, "slow");
+                
+                location.hash = '<?php echo "#". $id; ?>';
+                //document.getElementById('<?php echo "#". $id; ?>').scrollIntoView()
+            </script>
+        <?php
+        }
         ?>
 
     </div>

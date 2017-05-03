@@ -56,11 +56,11 @@ class Karte {
                   maxZoom: 16,
                   minZoom: 11,
                   center: center,
-  				streetViewControl: false,
-  				draggable: true, 
-  				zoomControl: true, 
-  				scrollwheel: true, 
-  				disableDoubleClickZoom: true,
+                streetViewControl: false,
+                draggable: true, 
+                zoomControl: true, 
+                scrollwheel: true, 
+                disableDoubleClickZoom: true,
                   mapTypeId: google.maps.MapTypeId.ROADMAP,
                   styles: [{
                     "featureType": "landscape",
@@ -217,13 +217,14 @@ class Karte {
                   var marker = new google.maps.Marker({
                     position: latLng
                   });
-                  var html = "<div id='acc" + dataPhoto.id +"' style='width:250px;height:325px;overflow:hidden;'><strong style='font-weight:bold;font-size:12pt;margin-top:5px;'>" + dataPhoto.registrant + "</strong><br><br>";
+                  var html = "<form action='liste.php' type='post' style='overflow:hidden;'><div id='acc" + dataPhoto.id +"' style='width:250px;height:325px;overflow:hidden;'><strong style='font-weight:bold;font-size:12pt;margin-top:5px;'>" + dataPhoto.registrant + "</strong><br><br>";
                   html = html + "<img src='"+ dataPhoto.msisdn + "' width='250px' height='auto'><br><br>";
                   html = html + "<span class='label label-warning' style='margin:5px;'>Mikrolage</span>";
+                  html = html + "<input name='id' value='acc" + dataPhoto.id + "' style='display:none'>";
                   html = html + "<span class='label label-danger' style='margin:5px;'>Ausstattung</span><br><br>";
-                                    html = html + "<button type='button' class='btn btn-primary' style='float:right' data-toggle='modal' data-target='.bs-example-modal-lg'>Details</button>";
+                                    html = html + "<button type='submit' name='details' class='btn btn-primary' style='float:right'>Details</button>";
                   html = html + "<strong>Fläche in m²: </strong>" + dataPhoto.created_date + "";
-                  html = html + "<br><p><strong>Verkehrswert: </strong>" + dataPhoto.created_by + "</p>";
+                  html = html + "<br><p><strong>Verkehrswert: </strong>" + dataPhoto.created_by + "</p></form>";
                   html_array.push(html);
                   google.maps.event.addListener(marker, 'click', (function(marker, i) {
                     return function() {

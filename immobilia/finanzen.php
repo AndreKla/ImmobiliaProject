@@ -4,11 +4,19 @@
 	Menu::createMenu("Jahresabschluss"); 
 ?>
 
+
 	<div class="right_col" role="main">
 		
 	<?php
 
-    if(isset($_GET["credit"])) {
+
+        
+    if(isset($_POST["kreditsumme"])) {
+        
+        $summe = $_POST["kreditsumme"];
+        API::checkCreditZulassung($summe);
+
+        /*
       $kredit = Request::getKreditByID($_GET["credit"]);
 
       $random = rand(0, 100);
@@ -21,7 +29,7 @@
       }
       else {
         Helper::showMessage("Kreditantrag abgelehnt", "Dein Kreditantrag wurde leider nicht angenommen!", "error");
-      }
+      }*/
     }
 
     if(isset($_GET["anlage"])) {
@@ -41,7 +49,8 @@
 
     Finanzen::createFinanzenTopData(sizeof($rundendaten));
     Finanzen::createBankview(sizeof($rundendaten));
-
+    API::creditKonditionenModal();
+    Finanzen::createCashflowGraph();
 	?>
 
 	</div>

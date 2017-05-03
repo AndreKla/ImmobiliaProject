@@ -52,7 +52,61 @@ class Strategie {
 
   }
 
-  public static function createStrategie($titel, $id) {
+  public static function createStrategie2($titel, $id) {
+
+    if(isset($_GET["1"])) {
+          $checked = "checked";
+        }
+        else {
+          if(sizeof($_GET) > 0) {
+            $checked = "disabled";
+          }
+        }
+
+    $spielID = $_SESSION["SID"];
+    $unternehmensID = $_SESSION["UID"];
+
+    $query = "
+    SELECT Strategie1, Strategie2, Strategie3
+    FROM Rundendaten
+    WHERE SpielID = $spielID AND UnternehmensID = $unternehmensID
+    ORDER BY Runde DESC
+    ;";
+    $unternehmensStrategie = Database::sqlSelect($query);
+
+    if(sizeof($unternehmensStrategie) > 0) {
+      if($unternehmensStrategie[0]["Strategie1"] != 0) {
+        if($unternehmensStrategie[0]["Strategie1"] == $id) {
+          $checked = "checked";
+        }
+        else if($unternehmensStrategie[0]["Strategie2"] == $id) {
+          $checked = "checked";
+        }
+        else if($unternehmensStrategie[0]["Strategie3"] == $id) {
+          $checked = "checked";
+        }
+        else {
+          $checked = "disabled";
+        }
+      }
+      else {
+        $checked = "";
+      }
+    }
+
+    
+
+    ?>
+      <li class="strategy_item" id=<?php echo "'" . $id . "'"; ?> style="cursor: pointer">
+        <p>
+          <input type="checkbox" id="langzeitcheckbox" class="flat tests" name=<?php echo "'" . $id . "' "; ?> id=<?php echo "'" . $id . "' " . $checked; ?>> <?php echo $titel; ?> 
+        </p>
+      </li>
+    <?php
+  }
+	
+
+    public static function createStrategie($titel, $id) {
 
     if(isset($_GET["1"])) {
           $checked = "checked";
@@ -105,7 +159,8 @@ class Strategie {
     <?php
   }
 	
-	
+
+  
   public static function createStrategieListe($aktuellesGeschäftsjahr) {
 
     $query = "
@@ -197,6 +252,71 @@ class Strategie {
     </div>
       
     <?php
+    }
+    
+    public static function createLangzeitStrategie($aktuellesGeschäftsjahr){
+        
+        $query = "
+        SELECT *
+        FROM Strategien
+        ;";
+        $strategien = Database::sqlSelect($query);
+
+        $disabled = "";
+
+        if(sizeof($_GET) > 0) {
+          $disabled = "disabled";
+        }
+        
+        if($aktuellesGeschäftsjahr == 2){
+    ?>
+    
+    
+       <div class="col-md-6 col-sm-6 col-xs-12">
+      <div class="x_panel">
+        <div class="x_title">
+          <h2>Langzeit Unternehmensstrategie <small id="zielLabel2">0 von 1 Zielen gewählt</small></h2>
+			<!-- Hilfe Funktionalität / Text / Popup-->
+            <?php include 'help/strategie_unternehmensstrategie_help.php'; ?>
+          <div class="clearfix"></div>
+        </div>
+        <div class="x_content" id="langzeitziele">
+          <div class="">
+            <ul class="to_do">
+            <?php
+
+              if(isset($_GET["1"])) {
+
+                $unternehmensID = $_SESSION["UID"];
+                $spielID = $_SESSION["SID"];
+                $runde = $_SESSION["Runde"];
+
+                $strat1 = $_GET["1"];
+                $strat2 = $_GET["2"];
+                $strat3 = $_GET["3"];
+                $strat4 = $_GET["4"];
+
+                $query = "
+                UPDATE Rundendaten
+                SET Strategie1 = '" . $strat1 . "', Strategie2 = '" . $strat2 ."', Strategie3 = '" . $strat3 ."', Begruendung = '" . $strat4 ."'
+                WHERE UnternehmensID = $unternehmensID AND SpielID = $spielID AND Runde = $runde
+                ;";
+                Database::sqlUpdate($query);
+              }
+
+                for($i = 0; $i < sizeof($strategien); $i++) {
+                Strategie::createStrategie2($strategien[$i]["Titel"], $i+1);
+              }
+            ?>
+            </ul>
+          </div>
+          <input type="button" id="langzeitziele_speichern" class="btn_" value="Langzeitziel festlegen" style="float: right;" <?php echo " " . $disabled; ?>>
+        </div>
+      </div>
+    </div>
+    
+    <?php
+        }
     }
 }
 ?>

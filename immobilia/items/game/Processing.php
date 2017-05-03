@@ -28,6 +28,12 @@ class Processing {
     }
 
   }
+  
+  public static function payKredite(){
+      
+      API::payKreditLaufendeKosten();
+      
+  }
 
   public static function gatherMieteinnahmen() {
 

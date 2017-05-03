@@ -329,5 +329,12 @@ class Neuigkeiten {
     </script>
     <?php
   }
-}
+  
+    public static function createDynamischerText() {
+     
+     ?>
+    
+    <?php
+    }
+ }
 ?>

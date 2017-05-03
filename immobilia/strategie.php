@@ -26,6 +26,7 @@
 		
 		<?php
                         $runde = $_SESSION["Runde"];
+                        Strategie::createLangzeitStrategie(2);
 
 			Strategie::createStrategieListe($runde);
 			Strategie::createStrategieInfo(0);
@@ -33,6 +34,7 @@
 			Strategie::createStrategieInfo(2);
 			Strategie::createStrategieInfo(3);
 			Strategie::createStrategieInfo(4);
+                        
                         
                         Strategie::createBegruendung($runde);
                         
@@ -136,6 +138,50 @@
 					});
 
 					window.location.href = "<?php echo "http://".$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF']."?1=";?>" + selected[0] + "&2=" + selected[1] + "&3=" + selected[2] +  "&4=" + text;  
+					
+				}
+
+			});
+                        
+                        
+                        
+                        
+                        $('#langzeitcheckbox').on('ifChecked', function(event){
+                                    $(this).iCheck('check', function(){
+                                            anzahl++;
+                                            $('#zielLabel2').text(anzahl + " von 1 Ziel gewählt");
+                                            if(anzahl == 1) {
+                                                    $('input[type="checkbox"]:not(:checked)').iCheck('disable');
+                                            }
+                                    });
+                            });
+
+                            
+                            $('#langzeitcheckbox').on('ifUnchecked', function(event){
+                                    $(this).iCheck('uncheck', function(){
+                                            anzahl--;
+                                            $('#zielLabel2').text(anzahl + " von 1 Ziel gewählt");
+                                            if(anzahl <= 1) {
+                                                    $('input[type="checkbox"]:not(:checked)').iCheck('enable');
+                                            }
+                                    });
+                            });
+                            
+
+                        $('#langzeitziele_speichern').click(function(event) {
+				if(anzahl < 1) {
+					alert("Bitte entscheide dich für eine Langzeitstrategie");
+				}
+				else {
+					var selected = [];
+                                        var text = $("#message").val();
+					$('input[type=checkbox]').each(function() {
+					   if ($(this).is(":checked")) {
+					       selected.push($(this).attr('name'));
+					   }
+					});
+
+					window.location.href = "<?php echo "http://".$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF']."?l1=";?>" + selected[0] + "&2=" + selected[1] + "&3=" + selected[2] +  "&4=" + text;  
 					
 				}
 

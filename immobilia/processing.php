@@ -56,6 +56,7 @@
     Processing::checkWhoWonAuction();
     Processing::gatherMieteinnahmen();
     Processing::payEmployees();
+    Processing::payKredite();
     ?>
     <script language="javascript">
         window.location.href = "neuigkeiten.php"

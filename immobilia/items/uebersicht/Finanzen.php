@@ -165,7 +165,7 @@ class Finanzen {
     ?>
     <br><br><br>
       <div class="modal fade bs-example-modal-lg" id=<?php echo "'" . $id . "'";?> tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
+        <div class="modal-dialog modal-sm">
           <div class="modal-content">
 
             <div class="modal-header">
@@ -176,14 +176,42 @@ class Finanzen {
             <?php
 
             if($id == "kredit") {
+                
+                ?>
+              
+                <div class="modal-body col-md-12">
+                    <div class="x_panel">
+                        <p>Lasse deine Kreditantrag prüfen:</p>
+                        <form action="finanzen.php" method="post">
+                        <div class="col-md-12 col-sm-12 col-xs-12" style="margin:0;padding:0;margin-bottom:15px;">
+                          <input id="kreditsumme" name="kreditsumme" required="required" class="form-control col-md-12 col-xs-12" type="text">
+                        </div>
+                        <br><br>
+                        <button type="submit" id="confirm" class="btn btn-primary">Kredit beantragen</button>
 
+                        </form>
+                        <!--<p>Wahrscheinlichkeit: <?php echo $chance; ?> %</p>-->
+                        <!--href=<?php echo 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'].'?credit="' . $id .'"'; ?> -->
+                    </div>
+                    
+                    <div id="result"></div>
+
+                </div>
+              
+               
+                
+              
+                <?php
+
+                /*
               $kredite = Request::getKredite();
 
+              /*
               for ($i = 0; $i < sizeof($kredite); $i++) {
 
                 API::createCreditRequest($kredite[$i]["ID"], $kredite[$i]["Bankname"], $kredite[$i]["Kredittyp"], $kredite[$i]["Kreditsumme"], $kredite[$i]["Kreditzins"], $kredite[$i]["Laufzeit"], $kredite[$i]["Genehmigungswahrscheinlichkeit"]);
 
-              }
+              }*/
 
             }
             else {
@@ -350,6 +378,27 @@ class Finanzen {
   
   <?php
   }
+  
+    /*
+     * Cashflow
+     * Eigenkapitalquote
+     * Schuldtilgungsdauer
+     * Gesamtkapitalrentabilität
+     */
+  
+   public static function createCashflowGraph() {
+       
+        $sid = $_SESSION["SID"];
+        $uid = $_SESSION["UID"];
+        $runde = $_SESSION["Runde"];
+        
+        ?>
+
+
+    <?php
+        
+       
+   }
 
 }
 ?>
