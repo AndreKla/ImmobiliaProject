@@ -5,6 +5,12 @@
     require_once("includes.php"); 
     
     Menu::createMenu("Immobilienliste"); 
+
+    if(isset($_GET['immokauf'])) {
+
+        API::buyImmobilie($_GET['immokauf']);
+
+    }
     
 ?>
 

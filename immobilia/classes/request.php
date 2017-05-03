@@ -2,6 +2,20 @@
 
 class Request {
 
+
+    public static function getAllPlayers() {
+
+        $sid = $_SESSION["SID"];
+
+        $query = "
+        SELECT *
+        FROM Unternehmen
+        WHERE SID = $sid
+        ;";
+        return Database::sqlSelect($query);
+
+    }
+
     public static function getRundendaten() {
 
         $sid = $_SESSION["SID"];
@@ -203,10 +217,12 @@ class Request {
         }
         $vermietet = $immobilie["Vermietet"];
         $wert = $immobilie["Wert"];
+        $viertel = $immobilie["Viertel"];
+        $kaufpreis = API::getMarktImmobilienValueById($immobilienId);
 
         $query = "
-        INSERT INTO Unternehmensbestand (SpielID, UnternehmensID, ObjektID, Saniert, Zustand, Gekauft, Verkauft, Wert, Status, Vermietet, Bau)
-        VALUES ('" . $sid . "', '" . $uid . "', '" . $immobilienId . "', 0, '" . $zustand . "', '" . $runde . "', 0, '" . $wert . "', 0, '" . $vermietet . "', '" . $baugrundstueck . "');";
+        INSERT INTO Unternehmensbestand (SpielID, UnternehmensID, ObjektID, Viertel, Saniert, Zustand, Gekauft, Verkauft, Wert, Kaufpreis, Status, Vermietet, Bau)
+        VALUES ('" . $sid . "', '" . $uid . "', '" . $immobilienId . "', '" . $viertel . "', 0, '" . $zustand . "', '" . $runde . "', 0, '" . $wert . "', '" . $kaufpreis . "', 0, '" . $vermietet . "', '" . $baugrundstueck . "');";
         Database::sqlInsert($query);
 
     }
@@ -758,6 +774,63 @@ class Request {
         $result = Database::sqlSelect($query);
 
         return sizeof($result);
+    }
+
+    public static function getViertelById($id) {
+
+        $runde = $_SESSION["Runde"];
+
+        $query = "
+        SELECT *
+        FROM Viertel
+        WHERE ID = $id
+        ;";
+        return Database::sqlSelect($query);
+
+        /*
+        if($runde == 1) {
+            $query = "
+            SELECT ID, Name, Gentrifizierung, Beliebtheit, Infrastruktur, Kriminalität, Lebensstandart, Lage, Jahr, Beschreibung
+            FROM Viertel
+            WHERE ID = $id
+            ;";
+            return Database::sqlSelect($query);
+        }
+        else if ($runde == 2) {
+            $query = "
+            SELECT ID, Name, Gentrifizierung2, Beliebtheit2, Infrastruktur2, Kriminalität2, Lebensstandart2, Lage2, Jahr, Beschreibung
+            FROM Viertel
+            WHERE ID = $id
+            ;";
+            return Database::sqlSelect($query);
+        }
+        else if ($runde == 3) {
+            $query = "
+            SELECT ID, Name, Gentrifizierung3, Beliebtheit3, Infrastruktur3, Kriminalität3, Lebensstandart3, Lage3, Jahr, Beschreibung
+            FROM Viertel
+            WHERE ID = $id
+            ;";
+            return Database::sqlSelect($query);
+        }
+        else if ($runde == 4) {
+            $query = "
+            SELECT ID, Name, Gentrifizierung4, Beliebtheit4, Infrastruktur4, Kriminalität4, Lebensstandart4, Lage4, Jahr, Beschreibung
+            FROM Viertel
+            WHERE ID = $id
+            ;";
+            return Database::sqlSelect($query);
+        }
+        else if ($runde == 5) {
+            $query = "
+            SELECT ID, Name, Gentrifizierung5, Beliebtheit5, Infrastruktur5, Kriminalität5, Lebensstandart5, Lage5, Jahr, Beschreibung
+            FROM Viertel
+            WHERE ID = $id
+            ;";
+            return Database::sqlSelect($query);
+        }*/
+
+        
+
     }
 
     public static function getRundendatenById($uid) {

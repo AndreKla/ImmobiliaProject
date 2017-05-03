@@ -23,7 +23,29 @@ class Helper {
 
 	}
 
+	public static function checkIfThisPlayerFinishedRound() {
 
+		$rundendaten = Request::getRundendaten();
+
+		if($rundendaten[0]["Abgeschlossen"] == 1) {
+			?>
+  			<script>
+  			window.location.href = 'processing.php';
+  			</script>
+  			<?php
+		}
+
+  	}
+
+  	public static function checkIfThisPlayerIsLoggedIn() {
+  		if($_SESSION["SID"] == "") {
+  			?>
+  			<script>
+  			window.location.href = 'login.php';
+  			</script>
+  			<?php
+  		}
+  	}
 
 
 }

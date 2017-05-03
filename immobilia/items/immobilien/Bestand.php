@@ -113,7 +113,10 @@ public static function createBestand($aktuellesGeschäftsjahr){
                     <a><small style="font-size:10pt"><?php echo $objekt[0]["PLZ"] . " " . $objekt[0]["Ort"]; ?></small></a>
                   </td>
                   <td></td>
-                  <td></td>
+                  <td style="text-align:center; padding-bottom:20px">
+                    <a><small style="font-size:10pt;"><strong>Kaufpreis</strong></small></a><br><br>
+                      <span class="label label-default"><?php echo number_format($immobilien[$i]["Kaufpreis"], 2, ',', '.') . " €"; ?></span>
+                  </td>
                   <td style="text-align:center; padding-bottom:20px">
                       <a><small style="font-size:10pt;"><strong>Lage</strong></small></a><br><br>
                       <span class="label label-<?php if($objekt[0]["Lage"] < 4) { echo "danger"; } else if($objekt[0]["Lage"] < 7) { echo "warning"; } else { echo "success"; } ?>"><?php if($objekt[0]["Lage"] < 4) { echo "schlecht"; } else if($objekt[0]["Lage"] < 7) { echo "mittel"; } else { echo "gut"; } ?></span>
@@ -145,10 +148,8 @@ public static function createBestand($aktuellesGeschäftsjahr){
                 <tr>
                   <td colspan="1">
                     <small class="pull-left"><strong>Geschäftsjahr</strong></small><br><br>
-                    <small class="pull-left">Verkehrswert:</small><br>
-                    <small class="pull-left">Verkehrswertentwicklung (p.a.): </small><br>
+                    <small class="pull-left">Verkehrswert: </small><br>
                     <small class="pull-left">Miete (p.a.): </small><br>
-                    <small class="pull-left">Mietpreisentwicklung (p.a.): </small><br>
                     <small class="pull-left">Abschreibung (p.a.): </small>
 
 
@@ -160,11 +161,11 @@ public static function createBestand($aktuellesGeschäftsjahr){
                             <small><strong> <?php echo date('Y', strtotime("+$f year")); ?></strong></small><br><br>
                         <?php
                             if($f < $runde){
+
+                              $round = $f + 1;
                         ?>
-                                <small class="pull-right <?php if($immobilien[$i]["Wert"]<= 0){echo "red";}?>">  <?php echo number_format($immobilien[$i]["Wert"] + $objekt[0]["Wertentwicklung"] * $f, 2, ',', '.') . " €"; ?></small><br>
-                                <small class="pull-right <?php if($objekt[0]["Wert"]<= 0){echo "red";}?>">  <?php echo number_format($objekt[0]["Wertentwicklung"], 2, ',', '.') . " €"; ?></small><br>
-                                <small class="pull-right <?php if($objekt[0]["Miete"]<= 0){echo "red";}?>">  <?php echo number_format($objekt[0]["Miete"] + $objekt[0]["Mietentwicklung"] * $f, 2, ',', '.') . " €"; ?></small><br>
-                                <small class="pull-right <?php if($objekt[0]["Wert"]<= 0){echo "red";}?>">  <?php echo number_format($objekt[0]["Mietentwicklung"], 2, ',', '.') . " €"; ?></small><br>
+                                <small class="pull-right <?php if($immobilien[$i]["Wert"]<= 0){echo "red";}?>">  <?php echo API::getBestandsImmobilienValueById($objekt[0]["ID"], $round); ?></small><br>
+                                <small class="pull-right">  <?php echo number_format($objekt[0]["Miete"] + $objekt[0]["Mietentwicklung"] * $f, 2, ',', '.') . " €"; ?></small><br>
                                 <small class="pull-right <?php if($objekt[0]["Wert"]<= 0){echo "red";}?>">  <?php echo number_format($objekt[0]["Abschreibung"], 2, ',', '.') . " €"; ?></small>
                             </td>
                         <?php 
@@ -175,8 +176,6 @@ public static function createBestand($aktuellesGeschäftsjahr){
                                 <small class="pull-right">-</small><br>
                                 <small class="pull-right">-</small><br>
                                 <small class="pull-right">-</small><br>
-                                <small class="pull-right">-</small><br>
-                                <small class="pull-right">-</small>
                             </td>
                         <?php
                             }
@@ -309,17 +308,34 @@ public static function createModalViewSell($id, $title) {
                     <div class="modal-content pull-right" style="width:200px; height:150px; border:none">
                         <img src=<?php echo $immobilie[0]["Bild"]; ?> width="200px" height="150px">
                     </div>
+                    <div style="margin-left:15px">
                     <h2><?php echo $immobilie[0]["Beschreibung"]; ?></h2>
                     <p><i><?php echo $immobilie[0]["Strasse"]; ?></i><br>
-                    <i><?php echo $immobilie[0]["PLZ"] . " " . $immobilie[0]["Ort"]; ?></i></p><br><br><br><br>
-                    <?php
+                    <i><?php echo $immobilie[0]["PLZ"] . " " . $immobilie[0]["Ort"]; ?></i></p>
+                    <p>Vorjahresmiete: <i><?php echo number_format($immobilie[0]["Miete"], 2, ',', '.') . " € p.a."; ?></i></p>
+                    <p>Jede Immobilie kann pro Geschäftsjahr nur einmal auf dem Wohnungsmarkt zur Miete angeboten werden. Wenn sich zu der gewünschten Miete kein Mieter finden lässt, wird die Immobilie weiterhin leer stehen.
+                    Daher ist es ratsam sich an realistischen Mietpreisentwicklungen zu orientieren.</p>
+                    </div><br><br>
 
+                    <div class="col-md-4 col-sm-4 col-xs-12 col-md-offset-4 form-group has-feedback">
+                      <input type="text" class="form-control has-feedback-left" placeholder="gewünschte Jahresmiete">
+                      <span class="fa fa-eur form-control-feedback left" aria-hidden="true"></span>
+                    </div><br><br>
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                      <button type="button" class="btn btn-primary col-md-offset-5 col-md-2">Vermieten</button>
+                    </div>
+
+                    
+
+
+                    <?php
+/*
                         $mieterdaten = Request::getMieterdaten();
 
                         for($i = 0; $i < sizeof($mieterdaten); $i++) {
                           API::createRentOffer($immoID, $mieterdaten[$i]["Name"], $immobilie[0]["Miete"] * $mieterdaten[$i]["Preis"], $mieterdaten[$i]["Einzugsdatum"], $mieterdaten[$i]["Sauberkeit"], $mieterdaten[$i]["Bonitaet"]);
                         }
-
+*/
                     ?>
                 </div>        
               </div>
@@ -363,7 +379,7 @@ public static function createModalViewSell($id, $title) {
                     <?php
 
                           API::createRenewOption($immoID, "Oberflächliche Sanierung", "Eine schnelle, oberflächliche Sanierung. Es werden arbeiten durchgeführt wie z.B. Streichen und Tapezieren.", $immobilie[0]["Wert"] * 0.05, $immobilie[0]["Wert"] * 0.06, 2);
-                          API::createRenewOption($immoID, "Gründliche Sanierung", "Eine gründliche Sanierung, die etwas mehr Aufwand benötigt. Es wird ein neuer Fußboden verlegt und besser isolierte Fenster verbaut.", $immobilie[0]["Wert"] * 0.10, $immobilie[0]["Wert"] * 0.15, 4);
+                          API::createRenewOption($immoID, "Gründliche Sanierung", "Eine gründliche Sanierung, die etwas mehr Aufwand erfordert. Es wird ein neuer Fußboden verlegt und besser isolierte Fenster verbaut.", $immobilie[0]["Wert"] * 0.10, $immobilie[0]["Wert"] * 0.15, 4);
                           API::createRenewOption($immoID, "Rundumerneuerung", "Die Immobilie wird rundum erneuert. Es wird eine neue Einbauküche verbaut und es werden schöne, neue Badmöbel gekauft.",$immobilie[0]["Wert"] * 0.15, $immobilie[0]["Wert"] * 0.25, 6);
 
                     ?>

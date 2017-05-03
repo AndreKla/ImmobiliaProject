@@ -80,10 +80,13 @@ class Neuigkeiten {
   
   $anzahlGewählteZiele = 0;
 
+    $uid = $_SESSION["UID"];
+    $sid = $_SESSION["SID"];
+
     $query = "
     SELECT Social
     FROM Rundendaten
-    WHERE Runde = $aktuellesGeschäftsjahr
+    WHERE Runde = $aktuellesGeschäftsjahr AND UnternehmensID = $uid AND SpielID = $sid
     ;";
     $social = Database::sqlSelect($query);
 

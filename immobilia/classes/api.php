@@ -2,6 +2,85 @@
 
 class API {
 
+    public static function getBestandsImmobilienValueById($immobilienId, $runde) {
+
+        $immobilie = Request::getBestandsimmobilieByID($immobilienId);
+        $wert = $immobilie[0]["Wert"];
+        $zustand = $immobilie[0]["Zustand"];
+
+        $viertel = Request::getViertelById($immobilie[0]["Viertel"]);
+
+        if($runde != 1) {
+            $gentrifizierung = $viertel[0]["Gentrifizierung" . $runde];
+            $beliebtheit = $viertel[0]["Beliebtheit" . $runde];
+            $infrastruktur = $viertel[0]["Infrastruktur" . $runde];
+            $kriminalität = $viertel[0]["Kriminalität" . $runde];
+            $lebensstandard = $viertel[0]["Lebensstandard" . $runde];
+            $lage = $viertel[0]["Lage" . $runde];
+        }
+        else {
+            $gentrifizierung = $viertel[0]["Gentrifizierung"];
+            $beliebtheit = $viertel[0]["Beliebtheit"];
+            $infrastruktur = $viertel[0]["Infrastruktur"];
+            $kriminalität = $viertel[0]["Kriminalität"];
+            $lebensstandard = $viertel[0]["Lebensstandard"];
+            $lage = $viertel[0]["Lage"];
+        }
+
+        $makrolage = $gentrifizierung + $beliebtheit + $infrastruktur + $kriminalität + $lebensstandard + $lage;
+
+        $faktor = $makrolage / 100 + 1;
+
+        $realValue = $wert * $faktor;
+
+        echo number_format($realValue, 2, ',', '.') . " €";
+
+    }
+
+    public static function getMarktImmobilienValueById($immobilienId) {
+
+        $runde = $_SESSION["Runde"];
+
+        $immobilie = Request::getImmobilieByID($immobilienId);
+        $wert = $immobilie[0]["Wert"];
+        $zustand = $immobilie[0]["Zustand"];
+
+        $viertel = Request::getViertelById($immobilie[0]["Viertel"]);
+
+        if($runde > 1) {
+            $gentrifizierung = $viertel[0]["Gentrifizierung" . $runde];
+            $beliebtheit = $viertel[0]["Beliebtheit" . $runde];
+            $infrastruktur = $viertel[0]["Infrastruktur" . $runde];
+            $kriminalität = $viertel[0]["Kriminalität" . $runde];
+            $lebensstandard = $viertel[0]["Lebensstandard" . $runde];
+            $lage = $viertel[0]["Lage" . $runde];
+        }
+        else {
+            $gentrifizierung = $viertel[0]["Gentrifizierung"];
+            $beliebtheit = $viertel[0]["Beliebtheit"];
+            $infrastruktur = $viertel[0]["Infrastruktur"];
+            $kriminalität = $viertel[0]["Kriminalität"];
+            $lebensstandard = $viertel[0]["Lebensstandard"];
+            $lage = $viertel[0]["Lage"];
+        }
+        
+        
+        $makrolage = $gentrifizierung + $beliebtheit + $infrastruktur + $kriminalität + $lebensstandard + $lage;
+
+        $faktor = $makrolage / 100 + 1;
+
+        $realValue = $wert * $faktor;
+
+        return $realValue;
+
+        //number_format($realValue, 2, ',', '.') . " €";
+
+
+        //$immobilien[$i]["Wert"] + $objekt[0]["Wertentwicklung"] * $f
+
+
+    }
+
 	public static function addAusgabe($summe, $beschreibung, $details) {
 
         if(API::checkKontostand($summe)){
@@ -133,7 +212,7 @@ class API {
         $immobilie = Request::getImmobilieByID($immobilienId);
         if(API::canBuyImmobilie()) {
 
-            if(API::addAusgabe($immobilie[0]["Wert"], $immobilie[0]["Strasse"] . ", " . $immobilie[0]["PLZ"] . " " . $immobilie[0]["Ort"], "Immobilienkauf: " . $immobilie[0]["Beschreibung"])) {
+            if(API::addAusgabe(API::getMarktImmobilienValueById($immobilie[0]["ID"]), $immobilie[0]["Strasse"] . ", " . $immobilie[0]["PLZ"] . " " . $immobilie[0]["Ort"], "Immobilienkauf: " . $immobilie[0]["Beschreibung"])) {
                 
                 Request::setBestand($immobilienId);
 
@@ -144,7 +223,7 @@ class API {
                 //Create Buchungeintrag in Datenbank
                 
                 $beschreibung = "Kauf von Immobilie " .$immobilie[0]["Beschreibung"];
-                $summe = $immobilie[0]["Kaufpreis"];
+                $summe = API::getMarktImmobilienValueById($immobilie[0]["ID"]);
                 $sollkonto = "Immobilien";
                 $habenkonto = "Bank";
                 API::createBuchungsAufgabe($sollkonto,$habenkonto,$summe,$beschreibung);

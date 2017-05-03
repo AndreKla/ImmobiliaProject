@@ -94,15 +94,8 @@ class Konkurrenz {
           <h2>Konkurrenzanalyse <small>Konkurrenzsituation Berlin 2017</small></h2>
           <div class="clearfix"></div>
         </div>
-        <div class="x_content">
-          <div class="x_panel col-md-12">
-          <div class="x_title">
-            <h2>Überblick</h2>
-            <div class="clearfix"></div>
-          </div>
 
             <!-- Gesamtanalyse -->
-              <div class="x_panel">
               <?php
 
                 $playerData = Request::getKonkurrenzData();
@@ -144,9 +137,8 @@ class Konkurrenz {
 
                 ?>
                 <div class="col-md-6 col-sm-12 col-xs-12">
-                  <div class="x_panel">
                     <div class="x_title">
-                      <h2>Marktanteil<small>geschätzte Immobilienwerte</small></h2>
+                      <h6>Marktanteil <small> geschätzte Immobilienwerte</small></h6>
                       <div class="clearfix"></div>
                     </div>
                     <div class="x_content">
@@ -167,13 +159,11 @@ class Konkurrenz {
 
                         ?>
                       </div>
-                  </div>
 
                 </div>
                 <div class="col-md-6 col-sm-12 col-xs-12">
-                  <div class="x_panel">
                     <div class="x_title">
-                      <h2>Marktanteil<small>Gesamtimmobilien</small></h2>
+                      <h6>Marktanteil <small> Gesamtimmobilien</small></h6>
                       <div class="clearfix"></div>
                     </div>
                     <br>
@@ -181,16 +171,15 @@ class Konkurrenz {
                       <canvas id="barChart"></canvas>
                       <br><br>
                     </div>
-                  </div>
 
-                </div>
               </div>
             <!-- Einzelner Konkurrent -->
+            <div class="col-md-12 col-sm-12 col-xs-12" style="margin-top:50px">
+                    <div class="x_title">
+                      <h6>Einzelanalyse <small> Konkurrenten</small></h6>
+                      <div class="clearfix"></div>
+                    </div>
 
-            <div class="x_title">
-              <h2>Einzelanalyse</h2>
-              <div class="clearfix"></div>
-            </div>
 
             <?php
 
@@ -210,10 +199,9 @@ class Konkurrenz {
 
                 $kapital = $rundendaten[0]["Kapital"];
 
-
                 ?>
+
                 <div class="col-md-4">
-                  <div class="x_panel">
 
                   <div class="col-md-3 col-xs-12 widget widget_tally_box">
                         <div class="x_panel fixed_height_390">
@@ -300,7 +288,6 @@ class Konkurrenz {
                       </div>
 
                     
-                  </div>
                 </div>
               <?php
               }
@@ -311,7 +298,6 @@ class Konkurrenz {
         </div>
       </div>
     </div>
-
     <?php
 
       $numberOfPlayers = Request::getNumberOfPlayers();

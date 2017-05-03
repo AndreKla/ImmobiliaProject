@@ -96,6 +96,7 @@ class Abschluss {
           <?php
             if($allChecked) {
           ?>
+              <p class="col-md-12"> <small><b>ACHTUNG:</b> Wenn du das Geschäftsjahr abschließt kannst du keine weiteren Planungen für das aktuelle Jahr vornehmen und musst warten bis alle anderen Spielteilnehmer das Geschäftsjahr ebenfalls abgeschlossen haben.<br><br></small> </p>
               <a href=<?php echo 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'].'?startprocessing=1'; ?> class="btn btn-default bg-green col-md-12"> Geschäftsjahr abschließen! </a>
           <?php
             }

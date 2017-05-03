@@ -16,31 +16,69 @@
     */
         ?>
 
+        <div></div>
+        <div class="col-md-offset-3 col-md-6 col-sm-6 col-xs-12">
+          <div class="x_panel tile">
+            <div class="x_title">
+              <h2>Geschäftsjahr abgeschlossen</h2>
+              <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+              <div class="dashboard-widget-content">
+                <ul class="quick-list">
+                  <?php
+
+                    $players = Request::getAllPlayers();
+
+                    for($i = 0; $i < sizeof($players); $i++) {
+
+                      $rundendaten = Request::getRundendatenById($players[$i]["ID"]);
+
+                  ?>
+                  <li>
+                  <?php
+                  if($rundendaten[0]["Abgeschlossen"] == 0) {
+                    echo "<span class='green'><i class='fa fa-clock-o'></i></span>";
+                  }
+                  else {
+                    echo "<i class='fa fa-check' style='color: #1ABB9C'></i>";
+                  }
+                  ?>
+                  
+                  <a href="#"><?php echo $players[$i]["Unternehmensname"]; ?></a>
+                  </li>
+                  <?php
+                    }
+                  ?>
+                </ul>
+
+                <div class="sidebar-widget">
+                  <h4>Bitte warten</h4>
+                  <div class="goal-wrapper">
+                    <i class="fa fa-clock-o" style="font-size:50pt;padding:20px"></i>
+                    <br><br>
+                    <form>
+                      <div class="col-xs-12 form-group pull-right top_search">
+                        <div class="input-group">
+                          <span class="input-group-btn">
+                              <button id="refresh" class="btn btn-dark" type="button" style="color: white">Aktualisieren</button>
+                          </span>
+                        </div><br>
+                        <small>Bitte warten Sie bis alle Spielteilnehmer das aktuelle Geschäftsjahr beendet haben.</small>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
 
       
-      <div class="text-center text-center">
-
-              <div class="mid_center">
-                <!--<h3>Auf andere Spieler warten!</h3>-->
-                <div class="mid_center animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                    <div class="tile-stats">
-                      <div class="icon"><i class="fa fa-check-square-o"></i></div>
-                      <div class="count">Warten</div>
-                      <p>Warten, auf die restlichen Spieler.</p>
-                    </div>
-                <form>
-                  <div class="col-xs-12 form-group pull-right top_search">
-                    <div class="input-group">
-                      <span class="input-group-btn">
-                              <button id="refresh" class="btn btn-default" type="button">Aktualisieren</button>
-                          </span>
-                    </div>
-                  </div>
-                </form>
-            </div>
-
-            </div>
+      <div class="text-center text-center">      
+        
     </div>
+
     <script>
         $('#refresh').click(function() {
         location.reload();

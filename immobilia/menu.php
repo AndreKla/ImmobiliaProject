@@ -238,6 +238,8 @@ public static function createMenu($titel) {
 <?php
 
 Menu::checkForCompletion();
+Helper::checkIfThisPlayerIsLoggedIn();
+Helper::checkIfThisPlayerFinishedRound();
 
 }
 
@@ -300,7 +302,6 @@ public static function createFooter() {
 </html>
 
 <?php
-echo "blabla: " . sizeof($mitarbeiter);
 }}
 ?>
 
