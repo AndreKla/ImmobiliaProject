@@ -39,8 +39,8 @@ class Karte {
                         ?>
                     {"longitude": "<?php echo $objekte[$i]["Long"]?>" ,
                     "latitude": "<?php echo $objekte[$i]["Lat"] ?>" ,
-                    "created_by": "<?php echo $objekte[$i]["Kaufpreis"]." €"?>",
-                    "created_date": "<?php echo $objekte[$i]["Flaeche"]." € "?>",
+                    "created_by": "<?php echo $objekte[$i]["Kaufpreis"]. " €"?>",
+                    "created_date": "<?php echo $objekte[$i]["Flaeche"]. " m² "?>",
                     "msisdn": "<?php echo $objekte[$i]["Bild"]?>",
                     "registrant": "<?php echo $objekte[$i]["Beschreibung"] ?>",
                     "id": "<?php echo "marker" . $i; ?>"
@@ -51,10 +51,10 @@ class Karte {
 				
                 var center = new google.maps.LatLng(52.51929194655397, 13.405414583394304); //-7.0849437,35.8401773);
                 var map = new google.maps.Map(document.getElementById('map'), {
-                  zoom: 11,
                   scrollwheel: false,
                   maxZoom: 16,
                   minZoom: 11,
+                  zoom: 12,
                   center: center,
                 streetViewControl: false,
                 draggable: true, 
@@ -209,6 +209,7 @@ class Karte {
 			  }
 				
                 var infoWindow = new google.maps.InfoWindow();
+
                 var markers = [];
                 var html_array = [];
                 for (var i = 0, dataPhoto; dataPhoto = data.photos[i]; i++) {
@@ -222,7 +223,7 @@ class Karte {
                   html = html + "<span class='label label-warning' style='margin:5px;'>Mikrolage</span>";
                   html = html + "<input name='id' value='acc" + dataPhoto.id + "' style='display:none'>";
                   html = html + "<span class='label label-danger' style='margin:5px;'>Ausstattung</span><br><br>";
-                                    html = html + "<button type='submit' name='details' class='btn btn-primary' style='float:right'>Details</button>";
+                   html = html + "<button type='submit' name='details' class='btn btn-primary' style='float:right'>Details</button>";
                   html = html + "<strong>Fläche in m²: </strong>" + dataPhoto.created_date + "";
                   html = html + "<br><p><strong>Verkehrswert: </strong>" + dataPhoto.created_by + "</p></form>";
                   html_array.push(html);
@@ -243,6 +244,7 @@ class Karte {
                   markers.push(marker);
                 }
                 var markerCluster = new MarkerClusterer(map, markers);
+
               }
             </script>
             <div id="map-container" style="height:700px">

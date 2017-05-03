@@ -319,7 +319,7 @@ class API {
                
             }else{
                 
-                if($kreditCheck == 0){
+                
                 
                     $bankname = "Planspiel AG 2";
                     $zins = 5;
@@ -362,10 +362,7 @@ class API {
                     Request::setKreditForRound();
 
                     return true;
-                }
-                else{
-                    return false;
-                }
+
                 ?>
                
             <?php

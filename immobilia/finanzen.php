@@ -11,9 +11,9 @@
 
 
         
-    if(isset($_POST["kreditsumme"])) {
+    if(isset($_GET["kreditsumme"])) {
         
-        $summe = $_POST["kreditsumme"];
+        $summe = $_GET["kreditsumme"];
         API::checkCreditZulassung($summe);
 
         /*

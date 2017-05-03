@@ -123,104 +123,104 @@ class Markt {
         for($i = 0; $i <= sizeof($viertel); $i++){
             
              //Gentrifizierung
-            if($gentrifizierung[$i]==0){
+            if($gentrifizierung[$i]==-2){
                 $gentrifizierungsTexte[$i] = $viertelbeschreibungTexte[0]["Beschreibung"];
             }
-            if($gentrifizierung[$i]==1){
+            if($gentrifizierung[$i]==-1){
                 $gentrifizierungsTexte[$i] = $viertelbeschreibungTexte[1]["Beschreibung"];
             }
-            if($gentrifizierung[$i]==2){
+            if($gentrifizierung[$i]==0){
                 $gentrifizierungsTexte[$i] = $viertelbeschreibungTexte[2]["Beschreibung"];
             }
-            if($gentrifizierung[$i]==3){
+            if($gentrifizierung[$i]==1){
                 $gentrifizierungsTexte[$i] = $viertelbeschreibungTexte[3]["Beschreibung"];
             }
-            if($gentrifizierung[$i]==4){
+            if($gentrifizierung[$i]==2){
                 $gentrifizierungsTexte[$i] = $viertelbeschreibungTexte[4]["Beschreibung"];
             }
             
             //Beliebtheit
-            if($beliebtheit[$i]==0){
+            if($beliebtheit[$i]==-2){
                 $beliebtheitsTexte[$i] = $viertelbeschreibungTexte[5]["Beschreibung"];
             }
-            if($beliebtheitsTexte[$i]==1){
+            if($beliebtheitsTexte[$i]==-1){
                 $beliebtheitsTexte[$i] = $viertelbeschreibungTexte[6]["Beschreibung"];
             }
-            if($beliebtheitsTexte[$i]==2){
+            if($beliebtheitsTexte[$i]==0){
                 $beliebtheitsTexte[$i] = $viertelbeschreibungTexte[7]["Beschreibung"];
             }
-            if($beliebtheitsTexte[$i]==3){
+            if($beliebtheitsTexte[$i]==1){
                 $beliebtheitsTexte[$i] = $viertelbeschreibungTexte[8]["Beschreibung"];
             }
-            if($gentrifizierung[$i]==4){
+            if($gentrifizierung[$i]==2){
                 $beliebtheitsTexte[$i] = $viertelbeschreibungTexte[9]["Beschreibung"];
             }
             
             //Infrastruktur
-            if($infrastruktur[$i]==0){
+            if($infrastruktur[$i]==-2){
                 $infrastrukturTexte[$i] = $viertelbeschreibungTexte[10]["Beschreibung"];
             }
-            if($infrastruktur[$i]==1){
+            if($infrastruktur[$i]==-1){
                 $infrastrukturTexte[$i] = $viertelbeschreibungTexte[11]["Beschreibung"];
             }
-            if($infrastruktur[$i]==2){
+            if($infrastruktur[$i]==0){
                 $infrastrukturTexte[$i] = $viertelbeschreibungTexte[12]["Beschreibung"];
             }
-            if($infrastruktur[$i]==3){
+            if($infrastruktur[$i]==1){
                 $infrastrukturTexte[$i] = $viertelbeschreibungTexte[13]["Beschreibung"];
             }
-            if($infrastruktur[$i]==4){
+            if($infrastruktur[$i]==2){
                 $infrastrukturTexte[$i] = $viertelbeschreibungTexte[14]["Beschreibung"];
             }
             
             //Kriminalität
-            if($kriminalität[$i]==0){
+            if($kriminalität[$i]==-2){
                 $kriminalitätsTexte[$i] = $viertelbeschreibungTexte[15]["Beschreibung"];
             }
-            if($kriminalität[$i]==1){
+            if($kriminalität[$i]==-1){
                 $kriminalitätsTexte[$i] = $viertelbeschreibungTexte[16]["Beschreibung"];
             }
-            if($kriminalität[$i]==2){
+            if($kriminalität[$i]==0){
                 $kriminalitätsTexte[$i] = $viertelbeschreibungTexte[17]["Beschreibung"];
             }
-            if($kriminalität[$i]==3){
+            if($kriminalität[$i]==1){
                 $kriminalitätsTexte[$i] = $viertelbeschreibungTexte[18]["Beschreibung"];
             }
-            if($kriminalität[$i]==4){
+            if($kriminalität[$i]==2){
                 $kriminalitätsTexte[$i] = $viertelbeschreibungTexte[19]["Beschreibung"];
             }
             
             //Lebensstandart
-            if($lebensstandart[$i]==0){
+            if($lebensstandart[$i]==-2){
                 $lebensstandartTexte[$i] = $viertelbeschreibungTexte[20]["Beschreibung"];
             }
-            if($lebensstandart[$i]==1){
+            if($lebensstandart[$i]==-1){
                 $lebensstandartTexte[$i] = $viertelbeschreibungTexte[21]["Beschreibung"];
             }
-            if($lebensstandart[$i]==2){
+            if($lebensstandart[$i]==0){
                 $lebensstandartTexte[$i] = $viertelbeschreibungTexte[22]["Beschreibung"];
             }
-            if($lebensstandart[$i]==3){
+            if($lebensstandart[$i]==1){
                 $lebensstandartTexte[$i] = $viertelbeschreibungTexte[23]["Beschreibung"];
             }
-            if($lebensstandart[$i]==4){
+            if($lebensstandart[$i]==2){
                 $lebensstandartTexte[$i] = $viertelbeschreibungTexte[24]["Beschreibung"];
             }
             
             //Lage
-            if($lage[$i]==0){
+            if($lage[$i]==-2){
                 $lageTexte[$i] = $viertelbeschreibungTexte[25]["Beschreibung"];
             }
-            if($lage[$i]==1){
+            if($lage[$i]==-1){
                 $lageTexte[$i] = $viertelbeschreibungTexte[26]["Beschreibung"];
             }
-            if($lage[$i]==2){
+            if($lage[$i]==0){
                 $lageTexte[$i] = $viertelbeschreibungTexte[27]["Beschreibung"];
             }
-            if($lage[$i]==3){
+            if($lage[$i]==1){
                 $lageTexte[$i] = $viertelbeschreibungTexte[28]["Beschreibung"];
             }
-            if($lage[$i]==4){
+            if($lage[$i]==2){
                 $lageTexte[$i] = $viertelbeschreibungTexte[29]["Beschreibung"];
             }
             
