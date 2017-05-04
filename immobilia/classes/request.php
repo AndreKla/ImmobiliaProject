@@ -293,7 +293,14 @@ class Request {
 
         $query = "
         UPDATE Unternehmensbestand
-        SET Vermietet = $runde AND Miete = $summe
+        SET Vermietet = $runde
+        WHERE SpielID = $sid AND UnternehmensID = $uid AND ObjektID = $immobilienId
+        ;";
+        Database::sqlUpdate($query);
+
+        $query = "
+        UPDATE Unternehmensbestand
+        SET Miete = $summe
         WHERE SpielID = $sid AND UnternehmensID = $uid AND ObjektID = $immobilienId
         ;";
         Database::sqlUpdate($query);

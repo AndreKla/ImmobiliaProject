@@ -273,8 +273,6 @@ class API {
         <?php
     }
 
-<<<<<<< HEAD
-=======
     public static function checkCreditZulassung($summes) {
             
             $sid = $_SESSION["SID"];
@@ -460,7 +458,6 @@ class API {
             API::addAusgabe($zuZahlen, "Kredittilgung", "Kredittilgung");
             
     }
->>>>>>> origin/master
 
     public static function createAnlageRequest($id, $name, $beschreibung, $summe, $ertrag, $laufzeit, $risiko) {
         ?>
@@ -672,7 +669,7 @@ class API {
 
     }
 
-    public static function rentImmobilie($id, $summe, $zeitpunkt) {
+    public static function rentImmobilie($id, $summe, $zeitpunkt, $previousMiete) {
 
         $sid = $_SESSION["SID"];
         $uid = $_SESSION["UID"];
@@ -684,7 +681,7 @@ class API {
         $details = "Mieteinnahmen: " . $immobilie[0]["Beschreibung"];
 
         //if($zeitpunkt == 0) {
-        if($immobilie[0]["Miete"] * 1.1 > $summe) {
+        if($previousMiete * 1.1 > $summe) {
             API::addEinnahme($summe, $beschreibung, $details);
             Request::setImmobilieRented($id, $summe);
             Helper::showMessage("Immobilie vermietet", "Immobilie wurde erfolgreich vermietet!", "success");

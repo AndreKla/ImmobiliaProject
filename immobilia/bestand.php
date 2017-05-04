@@ -21,8 +21,9 @@
 	if(isset($_POST["vermieten"])) {
 		$immoID = $_POST["vermieten"];
 		$summe = $_POST["preis"];
+		$previousMiete = $_POST["previousMiete"];
 
-		API::rentImmobilie($immoID, $summe, 0);
+		API::rentImmobilie($immoID, $summe, 0, $previousMiete);
 	}
 
 	if(isset($_GET["sanieren"])) {

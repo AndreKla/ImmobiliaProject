@@ -165,7 +165,7 @@ public static function createBestand($aktuellesGeschäftsjahr){
                               $round = $f + 1;
                         ?>
                                 <small class="pull-right <?php if($objekt[0]["Wert"]<= 0){echo "red";}?>">  <?php echo API::getBestandsImmobilienValueById($objekt[0]["ID"], $round); ?></small><br>
-                                <small class="pull-right">  <?php echo number_format($immobilien[$i]["Miete"] + $objekt[0]["Mietentwicklung"] * $f, 2, ',', '.') . " €"; ?></small><br>
+                                <small class="pull-right">  <?php echo number_format($immobilien[$i]["Miete"], 2, ',', '.') . " €"; ?></small><br>
                                 <small class="pull-right <?php if($objekt[0]["Wert"]<= 0){echo "red";}?>">  <?php echo number_format($objekt[0]["Abschreibung"], 2, ',', '.') . " €"; ?></small>
                             </td>
                         <?php 
@@ -276,8 +276,6 @@ public static function createModalViewSell($id, $title) {
                     <i><?php echo $objekt[0]["PLZ"] . " " . $objekt[0]["Ort"]; ?></i></p><br><br><br><br>
                     <?php
 
-                        var_dump($objekt);
-
                         $kaeuferdaten = Request::getKaeuferdaten();
 
                         for($i = 0; $i < sizeof($kaeuferdaten); $i++) {
@@ -343,6 +341,7 @@ public static function createModalViewSell($id, $title) {
                       <input type="text" class="form-control has-feedback-left" name="preis" placeholder="gewünschte Jahresmiete">
                       <span class="fa fa-eur form-control-feedback left" aria-hidden="true"></span>
                       <input type="hidden" name="vermieten" value="<?php echo $immoID; ?>">
+                      <input type="hidden" name="previousMiete" value="<?php echo $objekt[0]["Miete"]; ?>">
                     </div><br><br>
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <button type="submit" class="btn btn-primary col-md-offset-5 col-md-2">Vermieten</button>
