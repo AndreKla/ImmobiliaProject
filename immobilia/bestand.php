@@ -18,12 +18,11 @@
 		}
 	}
 
-	if(isset($_GET["vermieten"])) {
-		$immoID = $_GET["vermieten"];
-		$summe = $_GET["preis"];
-		$zeitpunkt = $_GET["zeitpunkt"];
+	if(isset($_POST["vermieten"])) {
+		$immoID = $_POST["vermieten"];
+		$summe = $_POST["preis"];
 
-		API::rentImmobilie($immoID, $summe, $zeitpunkt);
+		API::rentImmobilie($immoID, $summe, 0);
 	}
 
 	if(isset($_GET["sanieren"])) {

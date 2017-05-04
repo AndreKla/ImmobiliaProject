@@ -20,10 +20,18 @@ class Loop {
       }
       $vermietet = $immobilie["Vermietet"];
       $wert = $immobilie["Wert"];
+      $viertel = $immobilie["Viertel"];
+
+      if($vermietet == 1) {
+        $miete = $immobilie["Miete"];
+      }
+      else {
+        $miete = 0;
+      }
 
       $query = "
-      INSERT INTO Unternehmensbestand (SpielID, UnternehmensID, ObjektID, Saniert, Zustand, Gekauft, Verkauft, Wert, Status, Vermietet, Bau)
-      VALUES ('" . $sid . "', '" . $uid . "', '" . $immobilienId . "', 0, '" . $zustand . "', '" . $runde . "', 0, '" . $wert . "', 0, '" . $vermietet . "', '" . $baugrundstueck . "');";
+      INSERT INTO Unternehmensbestand (SpielID, UnternehmensID, ObjektID, Viertel, Saniert, Zustand, Gekauft, Verkauft, Wert, Miete, Status, Vermietet, Bau)
+      VALUES ('" . $sid . "', '" . $uid . "', '" . $immobilienId . "', '" . $viertel . "', 0, '" . $zustand . "', '" . $runde . "', 0, '" . $wert . "', '" . $miete . "', 0, '" . $vermietet . "', '" . $baugrundstueck . "');";
       Database::sqlInsert($query);
 
       API::addStartEinnahme($immobilie["Miete"], $immobilie["Strasse"] . ", " . $immobilie["PLZ"] . " " . $immobilie["Ort"], "Mieteinnahmen: " . $immobilie["Beschreibung"]);

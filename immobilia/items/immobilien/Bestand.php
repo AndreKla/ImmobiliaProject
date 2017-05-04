@@ -41,7 +41,7 @@ public static function createBestand($aktuellesGeschäftsjahr){
                           $objekt = Request::getStartImmobilieByID($immobilienID);
                         }
                         else if($immobilien[$i]["Gekauft"] == 0 && $immobilien[$i]["Ersteigert"] == 1) {
-                          $objekt = Request::getAuktionImmobilieByID($immobilienID);
+                          $objekt = Request::getAuktionsobjektByID($immobilienID);
                         }
                         else {
                           $objekt = Request::getImmobilieByID($immobilienID);
@@ -139,7 +139,7 @@ public static function createBestand($aktuellesGeschäftsjahr){
 
                             <a href="#" class="btn btn-dark btn-xs weiterbilden col-md-2" <?php if($immobilien[$i]["Bau"] != 0) { echo "disabled"; } else if($immobilien[$i]["Zustand"] >= 7) { echo "disabled"; } else { echo "data-toggle='modal' data-target=#r$immobilienID"; } ?>><i class="fa fa-caret-square-o-up"></i>  &nbsp; Sanieren </a>
 
-                            <a href="#" class="btn btn-dark btn-xs weiterbilden col-md-2" <?php if($immobilien[$i]["Bau"] != 0) { echo "disabled"; } else if($immobilien[$i]["Vermietet"] == 1) { echo "disabled"; } else { echo "data-toggle='modal' data-target=#v$immobilienID"; } ?>><i class="fa fa-clipboard"></i>  &nbsp; Vermieten </a>
+                            <a href="#" class="btn btn-dark btn-xs weiterbilden col-md-2" <?php if($immobilien[$i]["Bau"] != 0) { echo "disabled"; } else if($immobilien[$i]["Vermietet"] != 0) { echo "disabled"; } else { echo "data-toggle='modal' data-target=#v$immobilienID"; } ?>><i class="fa fa-clipboard"></i>  &nbsp; Vermieten </a>
                         
                             <a href="#" class="btn btn-dark btn-xs kuendigen col-md-2" <?php if($immobilien[$i]["Bau"] > 0 && $immobilien[$i]["Bau"] != 10) { echo "disabled"; } else { echo "data-toggle='modal' data-target=#s$immobilienID"; } ?>><i class="fa fa-eur"></i>  &nbsp;Verkaufen </a>
                         </div>
@@ -164,8 +164,8 @@ public static function createBestand($aktuellesGeschäftsjahr){
 
                               $round = $f + 1;
                         ?>
-                                <small class="pull-right <?php if($immobilien[$i]["Wert"]<= 0){echo "red";}?>">  <?php echo API::getBestandsImmobilienValueById($objekt[0]["ID"], $round); ?></small><br>
-                                <small class="pull-right">  <?php echo number_format($objekt[0]["Miete"] + $objekt[0]["Mietentwicklung"] * $f, 2, ',', '.') . " €"; ?></small><br>
+                                <small class="pull-right <?php if($objekt[0]["Wert"]<= 0){echo "red";}?>">  <?php echo API::getBestandsImmobilienValueById($objekt[0]["ID"], $round); ?></small><br>
+                                <small class="pull-right">  <?php echo number_format($immobilien[$i]["Miete"] + $objekt[0]["Mietentwicklung"] * $f, 2, ',', '.') . " €"; ?></small><br>
                                 <small class="pull-right <?php if($objekt[0]["Wert"]<= 0){echo "red";}?>">  <?php echo number_format($objekt[0]["Abschreibung"], 2, ',', '.') . " €"; ?></small>
                             </td>
                         <?php 
@@ -238,10 +238,21 @@ public static function createBestand($aktuellesGeschäftsjahr){
 
 public static function createModalViewSell($id, $title) {
 
+    $immobilien = Request::getBestand();
+
     $immoID = ltrim($id, 's');
 
-    $bestandsimmobilie = Request::getBestandsimmobilieByID($immoID);
-    $immobilie = Request::getImmobilieByID($immoID);
+    $immobilie = Request::getBestandsimmobilieByID($immoID);
+                        
+    if($immobilie[0]["Gekauft"] == 0 && $immobilie[0]["Ersteigert"] == 0) {
+      $objekt = Request::getStartImmobilieByID($immoID);
+    }
+    else if($immobilie[0]["Ersteigert"] == 1) {
+      $objekt = Request::getAuktionsobjektById($immoID);
+    }
+    else {
+      $objekt = Request::getImmobilieByID($immoID);
+    }
 
     ?>
     <br><br><br>
@@ -258,17 +269,19 @@ public static function createModalViewSell($id, $title) {
                 <div class="x_panel">
 
                     <div class="modal-content pull-right" style="width:200px; height:150px; border:none">
-                        <img src=<?php echo $immobilie[0]["Bild"]; ?> width="200px" height="150px">
+                        <img src=<?php echo $objekt[0]["Bild"]; ?> width="200px" height="150px">
                     </div>
-                    <h2><?php echo $immobilie[0]["Beschreibung"]; ?></h2>
-                    <p><i><?php echo $immobilie[0]["Strasse"]; ?></i><br>
-                    <i><?php echo $immobilie[0]["PLZ"] . " " . $immobilie[0]["Ort"]; ?></i></p><br><br><br><br>
+                    <h2><?php echo $objekt[0]["Beschreibung"]; ?></h2>
+                    <p><i><?php echo $objekt[0]["Strasse"]; ?></i><br>
+                    <i><?php echo $objekt[0]["PLZ"] . " " . $objekt[0]["Ort"]; ?></i></p><br><br><br><br>
                     <?php
+
+                        var_dump($objekt);
 
                         $kaeuferdaten = Request::getKaeuferdaten();
 
                         for($i = 0; $i < sizeof($kaeuferdaten); $i++) {
-                          API::createSalesOffer($immoID, $kaeuferdaten[$i]["Name"], $bestandsimmobilie[0]["Wert"] * $kaeuferdaten[$i]["Preis"], $kaeuferdaten[$i]["Zahlungsdatum"], $kaeuferdaten[$i]["Bonitaet"]);
+                          API::createSalesOffer($immoID, $kaeuferdaten[$i]["Name"], $objekt[0]["Wert"] * $kaeuferdaten[$i]["Preis"], $kaeuferdaten[$i]["Zahlungsdatum"], $kaeuferdaten[$i]["Bonitaet"]);
                         }
 
                     ?>
@@ -288,8 +301,17 @@ public static function createModalViewSell($id, $title) {
 
     $immoID = ltrim($id, 'v');
 
-    $bestandsimmobilie = Request::getBestandsimmobilieByID($immoID);
-    $immobilie = Request::getImmobilieByID($immoID);
+    $immobilie = Request::getBestandsimmobilieByID($immoID);
+                        
+    if($immobilie[0]["Gekauft"] == 0 && $immobilie[0]["Ersteigert"] == 0) {
+      $objekt = Request::getStartImmobilieByID($immoID);
+    }
+    else if($immobilie[0]["Ersteigert"] == 1) {
+      $objekt = Request::getAuktionsobjektById($immoID);
+    }
+    else {
+      $objekt = Request::getImmobilieByID($immoID);
+    }
 
     ?>
     <br><br><br>
@@ -306,25 +328,26 @@ public static function createModalViewSell($id, $title) {
                 <div class="x_panel">
 
                     <div class="modal-content pull-right" style="width:200px; height:150px; border:none">
-                        <img src=<?php echo $immobilie[0]["Bild"]; ?> width="200px" height="150px">
+                        <img src=<?php echo $objekt[0]["Bild"]; ?> width="200px" height="150px">
                     </div>
                     <div style="margin-left:15px">
-                    <h2><?php echo $immobilie[0]["Beschreibung"]; ?></h2>
-                    <p><i><?php echo $immobilie[0]["Strasse"]; ?></i><br>
-                    <i><?php echo $immobilie[0]["PLZ"] . " " . $immobilie[0]["Ort"]; ?></i></p>
-                    <p>Vorjahresmiete: <i><?php echo number_format($immobilie[0]["Miete"], 2, ',', '.') . " € p.a."; ?></i></p>
+                    <h2><?php echo $objekt[0]["Beschreibung"]; ?></h2>
+                    <p><i><?php echo $objekt[0]["Strasse"]; ?></i><br>
+                    <i><?php echo $objekt[0]["PLZ"] . " " . $objekt[0]["Ort"]; ?></i></p>
+                    <p>Vorjahresmiete: <i><?php echo number_format($objekt[0]["Miete"], 2, ',', '.') . " € p.a."; ?></i></p>
                     <p>Jede Immobilie kann pro Geschäftsjahr nur einmal auf dem Wohnungsmarkt zur Miete angeboten werden. Wenn sich zu der gewünschten Miete kein Mieter finden lässt, wird die Immobilie weiterhin leer stehen.
                     Daher ist es ratsam sich an realistischen Mietpreisentwicklungen zu orientieren.</p>
                     </div><br><br>
-
+                    <form action="bestand.php" method="POST">
                     <div class="col-md-4 col-sm-4 col-xs-12 col-md-offset-4 form-group has-feedback">
-                      <input type="text" class="form-control has-feedback-left" placeholder="gewünschte Jahresmiete">
+                      <input type="text" class="form-control has-feedback-left" name="preis" placeholder="gewünschte Jahresmiete">
                       <span class="fa fa-eur form-control-feedback left" aria-hidden="true"></span>
+                      <input type="hidden" name="vermieten" value="<?php echo $immoID; ?>">
                     </div><br><br>
                     <div class="col-md-12 col-sm-12 col-xs-12">
-                      <button type="button" class="btn btn-primary col-md-offset-5 col-md-2">Vermieten</button>
+                      <button type="submit" class="btn btn-primary col-md-offset-5 col-md-2">Vermieten</button>
                     </div>
-
+                    </form>
                     
 
 
@@ -353,8 +376,17 @@ public static function createModalViewSell($id, $title) {
 
     $immoID = ltrim($id, 'r');
 
-    $bestandsimmobilie = Request::getBestandsimmobilieByID($immoID);
-    $immobilie = Request::getImmobilieByID($immoID);
+    $immobilie = Request::getBestandsimmobilieByID($immoID);
+
+    if($immobilie[0]["Gekauft"] == 0 && $immobilie[0]["Ersteigert"] == 0) {
+      $objekt = Request::getStartImmobilieByID($immoID);
+    }
+    else if($immobilie[0]["Ersteigert"] == 1) {
+      $objekt = Request::getAuktionsobjektById($immoID);
+    }
+    else {
+      $objekt = Request::getImmobilieByID($immoID);
+    }
 
     ?>
     <br><br><br>
@@ -371,16 +403,16 @@ public static function createModalViewSell($id, $title) {
                 <div class="x_panel">
 
                     <div class="modal-content pull-right" style="width:200px; height:150px; border:none">
-                        <img src=<?php echo $immobilie[0]["Bild"]; ?> width="200px" height="150px">
+                        <img src=<?php echo $objekt[0]["Bild"]; ?> width="200px" height="150px">
                     </div>
-                    <h2><?php echo $immobilie[0]["Beschreibung"]; ?></h2>
-                    <p><i><?php echo $immobilie[0]["Strasse"]; ?></i><br>
-                    <i><?php echo $immobilie[0]["PLZ"] . " " . $immobilie[0]["Ort"]; ?></i></p><br><br><br><br>
+                    <h2><?php echo $objekt[0]["Beschreibung"]; ?></h2>
+                    <p><i><?php echo $objekt[0]["Strasse"]; ?></i><br>
+                    <i><?php echo $objekt[0]["PLZ"] . " " . $objekt[0]["Ort"]; ?></i></p><br><br><br><br>
                     <?php
 
-                          API::createRenewOption($immoID, "Oberflächliche Sanierung", "Eine schnelle, oberflächliche Sanierung. Es werden arbeiten durchgeführt wie z.B. Streichen und Tapezieren.", $immobilie[0]["Wert"] * 0.05, $immobilie[0]["Wert"] * 0.06, 2);
-                          API::createRenewOption($immoID, "Gründliche Sanierung", "Eine gründliche Sanierung, die etwas mehr Aufwand erfordert. Es wird ein neuer Fußboden verlegt und besser isolierte Fenster verbaut.", $immobilie[0]["Wert"] * 0.10, $immobilie[0]["Wert"] * 0.15, 4);
-                          API::createRenewOption($immoID, "Rundumerneuerung", "Die Immobilie wird rundum erneuert. Es wird eine neue Einbauküche verbaut und es werden schöne, neue Badmöbel gekauft.",$immobilie[0]["Wert"] * 0.15, $immobilie[0]["Wert"] * 0.25, 6);
+                          API::createRenewOption($immoID, "Oberflächliche Sanierung", "Eine schnelle, oberflächliche Sanierung. Es werden arbeiten durchgeführt wie z.B. Streichen und Tapezieren.", $objekt[0]["Wert"] * 0.05, $objekt[0]["Wert"] * 0.06, 2);
+                          API::createRenewOption($immoID, "Gründliche Sanierung", "Eine gründliche Sanierung, die etwas mehr Aufwand erfordert. Es wird ein neuer Fußboden verlegt und besser isolierte Fenster verbaut.", $objekt[0]["Wert"] * 0.10, $objekt[0]["Wert"] * 0.15, 4);
+                          API::createRenewOption($immoID, "Rundumerneuerung", "Die Immobilie wird rundum erneuert. Es wird eine neue Einbauküche verbaut und es werden schöne, neue Badmöbel gekauft.",$objekt[0]["Wert"] * 0.15, $objekt[0]["Wert"] * 0.25, 6);
 
                     ?>
                 </div>        

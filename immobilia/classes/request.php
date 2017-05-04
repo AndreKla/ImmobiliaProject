@@ -220,9 +220,16 @@ class Request {
         $viertel = $immobilie["Viertel"];
         $kaufpreis = API::getMarktImmobilienValueById($immobilienId);
 
+        if($vermietet == 1) {
+            $miete = $immobilie["Miete"];
+        }
+        else {
+            $miete = 0;
+        }
+
         $query = "
-        INSERT INTO Unternehmensbestand (SpielID, UnternehmensID, ObjektID, Viertel, Saniert, Zustand, Gekauft, Verkauft, Wert, Kaufpreis, Status, Vermietet, Bau)
-        VALUES ('" . $sid . "', '" . $uid . "', '" . $immobilienId . "', '" . $viertel . "', 0, '" . $zustand . "', '" . $runde . "', 0, '" . $wert . "', '" . $kaufpreis . "', 0, '" . $vermietet . "', '" . $baugrundstueck . "');";
+        INSERT INTO Unternehmensbestand (SpielID, UnternehmensID, ObjektID, Viertel, Saniert, Zustand, Gekauft, Verkauft, Wert, Miete, Kaufpreis, Status, Vermietet, Bau)
+        VALUES ('" . $sid . "', '" . $uid . "', '" . $immobilienId . "', '" . $viertel . "', 0, '" . $zustand . "', '" . $runde . "', 0, '" . $wert . "', '" . $miete . "','" . $kaufpreis . "', 0, '" . $vermietet . "', '" . $baugrundstueck . "');";
         Database::sqlInsert($query);
 
     }
@@ -278,7 +285,7 @@ class Request {
 
     }
 
-    public static function setImmobilieRented($immobilienId) {
+    public static function setImmobilieRented($immobilienId, $summe) {
 
         $sid = $_SESSION["SID"];
         $uid = $_SESSION["UID"];
@@ -286,7 +293,7 @@ class Request {
 
         $query = "
         UPDATE Unternehmensbestand
-        SET Vermietet = $runde
+        SET Vermietet = $runde AND Miete = $summe
         WHERE SpielID = $sid AND UnternehmensID = $uid AND ObjektID = $immobilienId
         ;";
         Database::sqlUpdate($query);

@@ -37,12 +37,9 @@ class Liste {
                         if($immobilien[$i]["Verkauft"] == 0) {
                           
                 ?>
-<<<<<<< Updated upstream
                  <!---->
-                <tbody style="border-bottom: 10px double #73879C; margin-top:10px" id="<?php echo "accmarker".$i;?>">
-=======
-                <tbody>
->>>>>>> Stashed changes
+                <tbody id="<?php echo "accmarker".$i;?>">
+
                 <tr>
                   <td rowspan="2" width="140px">
                     <div class="modal-content" style="border:none;">

@@ -6,7 +6,7 @@
 	
     Menu::includeHead();
 
-    $startkapital = 500000;
+    $startkapital = 750000;
 
     if(isset($_POST["unternehmensname"])) {
       
