@@ -1,0 +1,1840 @@
+-- phpMyAdmin SQL Dump
+-- version 4.0.10.17
+-- https://www.phpmyadmin.net
+--
+-- Host: tobias-db.czo3mjccdla1.eu-central-1.rds.amazonaws.com:3306
+-- Erstellungszeit: 03. Mai 2017 um 22:52
+-- Server Version: 5.6.27-log
+-- PHP-Version: 5.6.29
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+
+--
+-- Datenbank: `Planspiel`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `Anlageoptionen`
+--
+
+CREATE TABLE IF NOT EXISTS `Anlageoptionen` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `Name` varchar(200) NOT NULL,
+  `Beschreibung` varchar(200) NOT NULL,
+  `Summe` float NOT NULL,
+  `Ertrag` float NOT NULL,
+  `Dauer` int(11) NOT NULL,
+  `Risiko` varchar(100) NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+
+--
+-- Daten für Tabelle `Anlageoptionen`
+--
+
+INSERT INTO `Anlageoptionen` (`ID`, `Name`, `Beschreibung`, `Summe`, `Ertrag`, `Dauer`, `Risiko`) VALUES
+(1, 'Gold', 'In Zeiten schwacher Wirtschaftsleistung ist Gold eine sichere alternative um sein Geld gewinnbringend anzulegen.', 100000, 5.5, 2, 'gering'),
+(2, 'Wertpapiere & Aktien', 'Mit Aktien lassen sich große Gewinne erzielen, allerdings ist auch das Risiko Verluste zu machen deutlich höher.', 250000, 12.5, 1, 'hoch'),
+(3, 'Oldtimer', 'Oldtimer sind eine beliebte Investition für Liebhaber. Sie steigen stetig im Wert und können recht risikolos als Geldanlage genutzt werden.', 120000, 7.25, 4, 'mittel');
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `Auktion`
+--
+
+CREATE TABLE IF NOT EXISTS `Auktion` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `Runde` int(11) NOT NULL,
+  `Mindestgebot` int(11) NOT NULL,
+  `Objekt` int(11) NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+
+--
+-- Daten für Tabelle `Auktion`
+--
+
+INSERT INTO `Auktion` (`ID`, `Runde`, `Mindestgebot`, `Objekt`) VALUES
+(1, 1, 100000, 1),
+(2, 2, 50000, 2),
+(3, 3, 150000, 3),
+(4, 4, 100000, 4);
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `Auktionsobjekt`
+--
+
+CREATE TABLE IF NOT EXISTS `Auktionsobjekt` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `Beschreibung` varchar(500) NOT NULL,
+  `Strasse` varchar(120) NOT NULL,
+  `PLZ` int(11) NOT NULL,
+  `Ort` varchar(120) NOT NULL,
+  `Bild` varchar(140) NOT NULL,
+  `Flaeche` int(11) NOT NULL,
+  `Wert` double NOT NULL,
+  `Wertentwicklung` int(11) NOT NULL,
+  `Miete` double NOT NULL,
+  `Mietentwicklung` int(11) NOT NULL,
+  `Kaufpreis` double NOT NULL,
+  `Viertel` int(11) NOT NULL,
+  `Lage` int(11) NOT NULL DEFAULT '5',
+  `Zustand` int(11) NOT NULL DEFAULT '5',
+  `Long` float NOT NULL,
+  `Lat` float NOT NULL,
+  `Bestand` varchar(300) NOT NULL,
+  `Abschreibungsbasis` int(11) NOT NULL,
+  `Abschreibung` int(11) NOT NULL,
+  `Rendite` float NOT NULL,
+  `Baugrundstueck` int(11) NOT NULL DEFAULT '0',
+  `Vermietet` int(11) NOT NULL DEFAULT '0',
+  `Runde` int(11) NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=21 ;
+
+--
+-- Daten für Tabelle `Auktionsobjekt`
+--
+
+INSERT INTO `Auktionsobjekt` (`ID`, `Beschreibung`, `Strasse`, `PLZ`, `Ort`, `Bild`, `Flaeche`, `Wert`, `Wertentwicklung`, `Miete`, `Mietentwicklung`, `Kaufpreis`, `Viertel`, `Lage`, `Zustand`, `Long`, `Lat`, `Bestand`, `Abschreibungsbasis`, `Abschreibung`, `Rendite`, `Baugrundstueck`, `Vermietet`, `Runde`) VALUES
+(1, 'Stabile Wertanlage - außerordentliche 4-Zimmer-Erdgeschosswohnung, vermietet', 'Warschauer Straße 31', 10245, 'Berlin - Friedrichshain-Kreuzberg', 'http://www.marketingsfinest.com/spire/pictu/immobilien/immo51.jpg', 139, 244000, 0, 20715, 915, 0, 2, 4, 7, 0, 0, '', 2880, 3240, 0, 0, 1, 2),
+(2, 'Frisch renoviertes Dachgeschoss - 3 Zimmer mit großer Terrasse sofort bezugsfertig', 'Am Teichberg 30', 13125, 'Berlin - Pankow (Karow)', 'http://www.marketingsfinest.com/spire/pictu/immobilien/immo52.jpg', 104, 106250, 13750, 7950, 450, 0, 3, 3, 4, 0, 0, '', 1275, 1440, 0, 0, 0, 3),
+(3, 'Vermietete 3-Zimmer-Wohnung mit mehreren Balkonen', 'Summter Str. 41', 12623, 'Berlin - Marzahn-Hellersdorf (Mahlsdorf-Süd)', 'http://www.marketingsfinest.com/spire/pictu/immobilien/immo53.jpg', 230, 315000, 0, 24500, 3050, 0, 10, 6, 6, 0, 0, '', 3780, 4400, 0, 0, 1, 4),
+(4, 'Hochwertige, lichtdurchflutete Wohnungen in gediegener Lage', 'Prenzlauer Allee 54', 10405, 'Berlin - Pankow (Kollwitzkiez)', 'http://www.marketingsfinest.com/spire/pictu/immobilien/immo55.jpg', 266, 545000, 110000, 40000, 5500, 0, 3, 8, 9, 0, 0, '', 6540, 8000, 0, 0, 0, 5);
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `Ausgaben`
+--
+
+CREATE TABLE IF NOT EXISTS `Ausgaben` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `SpielID` int(11) NOT NULL,
+  `UnternehmensID` int(11) NOT NULL,
+  `Runde` int(11) NOT NULL,
+  `Zeit` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `Summe` varchar(11) NOT NULL,
+  `Beschreibung` varchar(250) NOT NULL,
+  `Details` varchar(250) NOT NULL,
+  `Typ` varchar(7) NOT NULL DEFAULT 'Ausgabe',
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=240 ;
+
+--
+-- Daten für Tabelle `Ausgaben`
+--
+
+INSERT INTO `Ausgaben` (`ID`, `SpielID`, `UnternehmensID`, `Runde`, `Zeit`, `Summe`, `Beschreibung`, `Details`, `Typ`) VALUES
+(83, 2, 4, 1, '2017-03-16 23:26:07', '50000', 'Marktforschung', 'Social Intelligence Analysis', 'Ausgabe'),
+(84, 2, 4, 1, '2017-03-16 23:26:12', '20000', 'Marktforschung', 'Social Intelligence Analysis', 'Ausgabe'),
+(85, 2, 4, 1, '2017-03-16 23:26:49', '25000', 'Konkurrenzanalyse', 'Immobilienmarkt Analyse - Konkurrenz', 'Ausgabe'),
+(86, 2, 4, 1, '2017-03-16 23:27:12', '33000', 'Jahresgehalt', 'Sabine Rollinger - Sachbearbeiterin', 'Ausgabe'),
+(87, 2, 4, 1, '2017-03-16 23:27:28', '171000', 'Uranustsr. 12, 12524 Berlin - Charlottenburg', 'Immobilienkauf: 102 m² zum Wohlfühlen in Berlin', 'Ausgabe'),
+(88, 2, 5, 1, '2017-03-17 08:29:40', '50000', 'Marktforschung', 'Social Intelligence Analysis', 'Ausgabe'),
+(89, 2, 5, 1, '2017-03-17 08:29:58', '25000', 'Konkurrenzanalyse', 'Immobilienmarkt Analyse - Konkurrenz', 'Ausgabe'),
+(90, 2, 5, 1, '2017-03-17 08:31:27', '34500', 'Jahresgehalt', 'Leon Dietrich - Sachbearbeiterin', 'Ausgabe'),
+(91, 2, 5, 1, '2017-03-17 08:32:02', '237500', 'Mittlerer Weg 4, 15771 Berlin - Neukölln', 'Immobilienkauf: Gute Lage Apartment', 'Ausgabe'),
+(92, 2, 5, 1, '2017-03-17 08:32:08', '171000', 'Trappenpfad 39, 37671 Berlin - Neukölln', 'Immobilienkauf: Zentrale 3 Zimmer Wohnung', 'Ausgabe'),
+(93, 2, 6, 1, '2017-03-17 08:32:10', '33000', 'Jahresgehalt', 'Sabine Rollinger - Sachbearbeiterin', 'Ausgabe'),
+(94, 2, 6, 1, '2017-03-17 08:32:27', '406500', 'Holsteinische Strasse 76, 10717 Berlin-Wilmersdorf', 'Immobilienkauf: Penthouse in Wilmersdorf', 'Ausgabe'),
+(95, 2, 6, 1, '2017-03-17 08:33:41', '106250', 'Prenzlauer Berg 1, 12515 Berlin - Kreuzberg', 'Immobilienkauf: Zentrale 5 Zimmer Wohnung', 'Ausgabe'),
+(96, 2, 6, 1, '2017-03-17 08:34:07', '25000', 'Konkurrenzanalyse', 'Immobilienmarkt Analyse - Konkurrenz', 'Ausgabe'),
+(97, 2, 6, 2, '2017-03-17 08:35:43', '33000', 'Jahresgehalt', 'Sabine Rollinger - Sachbearbeiterin', 'Ausgabe'),
+(98, 2, 5, 2, '2017-03-17 08:35:46', '34500', 'Jahresgehalt', 'Leon Dietrich - Sachbearbeiterin', 'Ausgabe'),
+(99, 2, 5, 2, '2017-03-17 08:35:56', '20000', 'Marktforschung', 'Social Intelligence Analysis', 'Ausgabe'),
+(100, 2, 6, 2, '2017-03-17 08:36:07', '20000', 'Marktforschung', 'Social Intelligence Analysis', 'Ausgabe'),
+(101, 2, 5, 2, '2017-03-17 08:36:35', '50000', 'Marktforschung', 'Social Intelligence Analysis', 'Ausgabe'),
+(102, 2, 5, 2, '2017-03-17 08:36:58', '25000', 'Konkurrenzanalyse', 'Immobilienmarkt Analyse - Konkurrenz', 'Ausgabe'),
+(103, 2, 6, 2, '2017-03-17 08:37:01', '64000', 'Lubminer Str.44, 12619 Berlin - Charlottenburg', 'Immobilienkauf: Eigentumswohnung mit Gartenanteil', 'Ausgabe'),
+(104, 2, 6, 2, '2017-03-17 08:38:22', '5312.5', 'Prenzlauer Berg 1, 12515 Berlin - Kreuzberg', 'Sanierung: Zentrale 5 Zimmer Wohnung', 'Ausgabe'),
+(105, 2, 6, 2, '2017-03-17 08:39:14', '25000', 'Konkurrenzanalyse', 'Immobilienmarkt Analyse - Konkurrenz', 'Ausgabe'),
+(106, 2, 6, 2, '2017-03-17 08:39:24', '50000', 'Marktforschung', 'Social Intelligence Analysis', 'Ausgabe'),
+(107, 2, 6, 2, '2017-03-17 08:40:32', '220000', 'Charlottenburger Straße 77, 15169 Berlin - Wilmersdorf', 'Immobilienkauf: 8.Etage in guter Nachbarschaft', 'Ausgabe'),
+(108, 2, 6, 2, '2017-03-17 08:40:52', '3200', 'Lubminer Str.44, 12619 Berlin - Charlottenburg', 'Sanierung: Eigentumswohnung mit Gartenanteil', 'Ausgabe'),
+(109, 2, 6, 2, '2017-03-17 08:41:00', '33000', 'Charlottenburger Straße 77, 15169 Berlin - Wilmersdorf', 'Sanierung: 8.Etage in guter Nachbarschaft', 'Ausgabe'),
+(110, 2, 6, 2, '2017-03-17 08:41:10', '15937.5', 'Prenzlauer Berg 1, 12515 Berlin - Kreuzberg', 'Sanierung: Zentrale 5 Zimmer Wohnung', 'Ausgabe'),
+(111, 2, 5, 2, '2017-03-17 08:41:45', '158750', 'Palisadenstr. 17, 10243 Berlin', 'Immobilienkauf: Traumhafte 2,5-Zimmer-Dachgeschosswohnung mit Westterrasse', 'Ausgabe'),
+(112, 2, 5, 2, '2017-03-17 08:42:07', '31000', 'Jahresgehalt', 'Petra Drechsler - Sachbearbeiterin', 'Ausgabe'),
+(113, 2, 6, 2, '2017-03-17 08:44:37', '45000', 'Steffen Brandt - Bauingenieur', 'Abfindung: Kündigung', 'Ausgabe'),
+(114, 2, 4, 2, '2017-03-17 08:44:58', '33000', 'Jahresgehalt', 'Sabine Rollinger - Sachbearbeiterin', 'Ausgabe'),
+(115, 2, 4, 2, '2017-03-17 08:45:20', '25000', 'Konkurrenzanalyse', 'Immobilienmarkt Analyse - Konkurrenz', 'Ausgabe'),
+(116, 2, 6, 3, '2017-03-17 08:46:07', '33000', 'Jahresgehalt', 'Sabine Rollinger - Sachbearbeiterin', 'Ausgabe'),
+(117, 2, 4, 3, '2017-03-17 08:46:10', '33000', 'Jahresgehalt', 'Sabine Rollinger - Sachbearbeiterin', 'Ausgabe'),
+(118, 2, 5, 3, '2017-03-17 08:46:15', '34500', 'Jahresgehalt', 'Leon Dietrich - Sachbearbeiterin', 'Ausgabe'),
+(119, 2, 5, 3, '2017-03-17 08:46:15', '31000', 'Jahresgehalt', 'Petra Drechsler - Sachbearbeiterin', 'Ausgabe'),
+(120, 2, 6, 3, '2017-03-17 08:46:16', '20000', 'Marktforschung', 'Social Intelligence Analysis', 'Ausgabe'),
+(121, 2, 6, 3, '2017-03-17 08:46:27', '50000', 'Marktforschung', 'Social Intelligence Analysis', 'Ausgabe'),
+(122, 2, 6, 3, '2017-03-17 08:46:54', '25000', 'Konkurrenzanalyse', 'Immobilienmarkt Analyse - Konkurrenz', 'Ausgabe'),
+(123, 2, 4, 3, '2017-03-17 08:50:27', '50000', 'Marktforschung', 'Social Intelligence Analysis', 'Ausgabe'),
+(124, 2, 4, 3, '2017-03-17 08:51:27', '25000', 'Konkurrenzanalyse', 'Immobilienmarkt Analyse - Konkurrenz', 'Ausgabe'),
+(125, 3, 8, 1, '2017-03-17 10:53:40', '50000', 'Marktforschung', 'Social Intelligence Analysis', 'Ausgabe'),
+(126, 3, 7, 1, '2017-03-17 10:53:46', '50000', 'Marktforschung', 'Social Intelligence Analysis', 'Ausgabe'),
+(127, 3, 8, 1, '2017-03-17 11:06:45', '25000', 'Konkurrenzanalyse', 'Immobilienmarkt Analyse - Konkurrenz', 'Ausgabe'),
+(128, 3, 7, 1, '2017-03-17 11:07:21', '25000', 'Konkurrenzanalyse', 'Immobilienmarkt Analyse - Konkurrenz', 'Ausgabe'),
+(129, 3, 8, 1, '2017-03-17 11:07:50', '33000', 'Jahresgehalt', 'Sabine Rollinger - Sachbearbeiterin', 'Ausgabe'),
+(130, 3, 7, 1, '2017-03-17 11:11:32', '29000', 'Jahresgehalt', 'Karolin Fuhrman - Sachbearbeiterin', 'Ausgabe'),
+(131, 3, 8, 1, '2017-03-17 11:12:39', '149000', 'Zur Nachtheide 35, 12557 Berlin - Treptow-Köpenick', 'Immobilienkauf: Großes Baugrundstück', 'Ausgabe'),
+(132, 3, 9, 1, '2017-03-17 11:20:10', '31000', 'Jahresgehalt', 'Petra Drechsler - Sachbearbeiterin', 'Ausgabe'),
+(133, 3, 9, 1, '2017-03-17 11:20:29', '220000', 'Charlottenburger Straße 77, 15169 Berlin - Wilmersdorf', 'Immobilienkauf: 8.Etage in guter Nachbarschaft', 'Ausgabe'),
+(134, 3, 9, 1, '2017-03-17 11:20:47', '237500', 'Mittlerer Weg 4, 15771 Berlin - Neukölln', 'Immobilienkauf: Gute Lage Apartment', 'Ausgabe'),
+(135, 3, 7, 2, '2017-03-17 11:28:14', '29000', 'Jahresgehalt', 'Karolin Fuhrman - Sachbearbeiterin', 'Ausgabe'),
+(136, 3, 8, 2, '2017-03-17 11:28:22', '33000', 'Jahresgehalt', 'Sabine Rollinger - Sachbearbeiterin', 'Ausgabe'),
+(137, 3, 9, 2, '2017-03-17 11:28:25', '31000', 'Jahresgehalt', 'Petra Drechsler - Sachbearbeiterin', 'Ausgabe'),
+(138, 3, 8, 2, '2017-03-17 11:29:21', '50000', 'Marktforschung', 'Social Intelligence Analysis', 'Ausgabe'),
+(139, 3, 8, 2, '2017-03-17 11:31:23', '25000', 'Konkurrenzanalyse', 'Immobilienmarkt Analyse - Konkurrenz', 'Ausgabe'),
+(140, 3, 8, 2, '2017-03-17 11:31:54', '29000', 'Jahresgehalt', 'Karolin Fuhrman - Sachbearbeiterin', 'Ausgabe'),
+(141, 3, 8, 2, '2017-03-17 11:33:02', '158750', 'Palisadenstr. 17, 10243 Berlin', 'Immobilienkauf: Traumhafte 2,5-Zimmer-Dachgeschosswohnung mit Westterrasse', 'Ausgabe'),
+(142, 3, 7, 2, '2017-03-17 11:34:19', '25000', 'Konkurrenzanalyse', 'Immobilienmarkt Analyse - Konkurrenz', 'Ausgabe'),
+(143, 3, 9, 2, '2017-03-17 13:03:36', '50000', 'Marktforschung', 'Social Intelligence Analysis', 'Ausgabe'),
+(144, 3, 9, 2, '2017-03-17 13:04:46', '25000', 'Konkurrenzanalyse', 'Immobilienmarkt Analyse - Konkurrenz', 'Ausgabe'),
+(145, 3, 7, 2, '2017-03-19 21:29:57', '50000', 'Marktforschung', 'Social Intelligence Analysis', 'Ausgabe'),
+(146, 3, 7, 2, '2017-03-19 21:43:57', '33000', 'Jahresgehalt', 'Sabine Rollinger - Sachbearbeiterin', 'Ausgabe'),
+(147, 3, 7, 2, '2017-03-19 22:05:29', '21750', 'Karolin Fuhrman - Sachbearbeiterin', 'Abfindung: Kündigung', 'Ausgabe'),
+(148, 3, 7, 2, '2017-03-20 01:16:37', '171000', 'Trappenpfad 39, 37671 Berlin - Neukölln', 'Immobilienkauf: Zentrale 3 Zimmer Wohnung', 'Ausgabe'),
+(149, 3, 7, 2, '2017-03-21 13:03:16', '74000', 'Jahresgehalt', 'Katharina Kaiser - Bauleiter', 'Ausgabe'),
+(150, 3, 7, 2, '2017-03-21 13:08:21', '81000', 'Jahresgehalt', 'René Faber - Bauleiter', 'Ausgabe'),
+(151, 3, 7, 2, '2017-03-27 14:31:56', '472500', 'Bahnhofsstraße 2, 15722 Berlin - Zoologischer Garten', 'Immobilienkauf: Beste Wohnlage - modernes Haus - erstklassige Infrastruktur', 'Ausgabe'),
+(152, 3, 7, 2, '2017-04-05 19:29:23', '75000', 'Jahresgehalt', 'Rainer Bonhoff - Bauleiter', 'Ausgabe'),
+(153, 4, 14, 1, '2017-05-03 20:07:16', '33000', 'Jahresgehalt', 'Sabine Rollinger - Sachbearbeiterin', 'Ausgabe'),
+(154, 4, 11, 1, '2017-05-03 20:12:35', '50000', 'Marktforschung', 'Social Intelligence Analysis', 'Ausgabe'),
+(155, 4, 11, 1, '2017-05-03 20:17:21', '20000', 'Marktforschung', 'Social Intelligence Analysis', 'Ausgabe'),
+(156, 4, 13, 1, '2017-05-03 20:21:07', '50000', 'Marktforschung', 'Social Intelligence Analysis', 'Ausgabe'),
+(157, 4, 12, 1, '2017-05-03 20:21:07', '33000', 'Jahresgehalt', 'Sabine Rollinger - Sachbearbeiterin', 'Ausgabe'),
+(158, 4, 14, 1, '2017-05-03 20:21:08', '50000', 'Marktforschung', 'Social Intelligence Analysis', 'Ausgabe'),
+(159, 4, 14, 1, '2017-05-03 20:21:17', '25000', 'Konkurrenzanalyse', 'Immobilienmarkt Analyse - Konkurrenz', 'Ausgabe'),
+(160, 4, 11, 1, '2017-05-03 20:21:50', '25000', 'Konkurrenzanalyse', 'Immobilienmarkt Analyse - Konkurrenz', 'Ausgabe'),
+(161, 4, 13, 1, '2017-05-03 20:22:05', '25000', 'Konkurrenzanalyse', 'Immobilienmarkt Analyse - Konkurrenz', 'Ausgabe'),
+(162, 4, 12, 1, '2017-05-03 20:22:56', '99000', 'Johannisthaler Chaussee 212, 12351 Berlin - Neukölln', 'Immobilienkauf: Helle 2 Zi.-Whg. mit Balkon, Aufzug und Garage', 'Ausgabe'),
+(163, 4, 11, 1, '2017-05-03 20:25:23', '29000', 'Jahresgehalt', 'Karolin Fuhrman - Sachbearbeiterin', 'Ausgabe'),
+(164, 4, 13, 1, '2017-05-03 20:25:45', '34500', 'Jahresgehalt', 'Leon Dietrich - Sachbearbeiterin', 'Ausgabe'),
+(165, 4, 11, 1, '2017-05-03 20:26:31', '171000', 'Trappenpfad 39, 37671 Berlin - Neukölln', 'Immobilienkauf: Zentrale 3 Zimmer Wohnung', 'Ausgabe'),
+(166, 4, 13, 1, '2017-05-03 20:27:28', '74200', 'Lindauer Allee, 13407 Berlin - Reinickendorf ', 'Immobilienkauf: 1-Zimmer-Wohnung in Reinickendorf mit solider Rendite!', 'Ausgabe'),
+(167, 4, 13, 1, '2017-05-03 20:28:01', '104940', 'Frohnauer Str. 166, 13465 Berlin - Reinickendorf (Frohnau)', 'Immobilienkauf: Gewerbefläche mit guter Verkehrsanbindung', 'Ausgabe'),
+(168, 4, 14, 1, '2017-05-03 20:29:06', '156487.5', 'Rintelner Straße 42, 14193 Berlin - Charlottenburg-Wilmersdorf', 'Immobilienkauf: Ansehen lohnt sich! Schönes Haus in ruhiger Lage', 'Ausgabe'),
+(169, 4, 11, 1, '2017-05-03 20:30:12', '65000', 'Jahresgehalt', 'Felix Traugott - Bauingenieur', 'Ausgabe'),
+(170, 4, 11, 1, '2017-05-03 20:30:21', '25650', 'Trappenpfad 39, 37671 Berlin - Neukölln', 'Sanierung: Zentrale 3 Zimmer Wohnung', 'Ausgabe'),
+(171, 4, 11, 1, '2017-05-03 20:30:38', '6275', 'Wilmersdorfer Straße 13, 37682 Berlin - Charlottenburg', 'Sanierung: Weitläufige Wohnung in Berlin Charlottenburg', 'Ausgabe'),
+(172, 4, 13, 1, '2017-05-03 20:30:38', '107000', 'Kurfürstenstr.27, 10787 Berlin - Charlottenburg', 'Immobilienkauf: Sehr helle Souterrain-Wohnung auf der Südseite', 'Ausgabe'),
+(173, 4, 11, 1, '2017-05-03 20:30:46', '26250', 'Clayallee 126, 15612 Berlin - Steglitz-Zehlendorf', 'Sanierung: Moderne Etagenwohnung mit Südbalkon', 'Ausgabe'),
+(174, 4, 14, 1, '2017-05-03 20:30:53', '116463.2', 'An der Kappe 135, 13583 Berlin - Spanndau', 'Immobilienkauf: Sichere Wertanlage', 'Ausgabe'),
+(175, 4, 11, 1, '2017-05-03 20:31:42', '39000', 'Jahresgehalt', 'Lothar Gelhaus - Makler', 'Ausgabe'),
+(176, 4, 13, 1, '2017-05-03 20:33:21', '32000', 'Jahresgehalt', 'Alexander Fiedler - Makler', 'Ausgabe'),
+(177, 4, 14, 1, '2017-05-03 20:35:17', '60000', 'Jahresgehalt', 'Hermann Meise - Bauingenieur', 'Ausgabe'),
+(178, 4, 14, 1, '2017-05-03 20:35:38', '14625', 'Rintelner Straße 42, 14193 Berlin - Charlottenburg-Wilmersdorf', 'Sanierung: Ansehen lohnt sich! Schönes Haus in ruhiger Lage', 'Ausgabe'),
+(179, 4, 14, 1, '2017-05-03 20:35:46', '11884', 'An der Kappe 135, 13583 Berlin - Spanndau', 'Sanierung: Sichere Wertanlage', 'Ausgabe'),
+(180, 4, 12, 1, '2017-05-03 20:37:11', '265000', 'Allee der Kosmonauten 45, 12681 Berlin - Lichtenberg (Herzberge)', 'Immobilienkauf: ERSTBEZUG-PARKETT-WANNENBAD-GÄSTEWC-EINBAUKÜCHE-ZWEI BALKONE-STELLPLATZ', 'Ausgabe'),
+(181, 4, 12, 1, '2017-05-03 20:37:35', '213200', 'Pettenkoferstr.17, 10247 Berlin - Friedrichshain', 'Immobilienkauf: Klassich Modernes Wohnen in Bestlage -Neubau-', 'Ausgabe'),
+(182, 4, 13, 1, '2017-05-03 20:40:51', '20000', 'Marktforschung', 'Social Intelligence Analysis', 'Ausgabe'),
+(183, 4, 14, 1, '2017-05-03 20:41:58', '40000', 'Jahresgehalt', 'Mathias Kastner - Makler', 'Ausgabe'),
+(184, 4, 14, 1, '2017-05-03 20:48:42', '77173.2', 'Köpeniker Landstraße 122, 12437 Berlin - Treptow', 'Immobilienkauf: zuverlässig Vermietetes Appartment im Plänterwald Viertel', 'Ausgabe'),
+(185, 4, 13, 2, '2017-05-03 20:51:49', '34500', 'Jahresgehalt', 'Leon Dietrich - Sachbearbeiterin', 'Ausgabe'),
+(186, 4, 13, 2, '2017-05-03 20:51:49', '32000', 'Jahresgehalt', 'Alexander Fiedler - Makler', 'Ausgabe'),
+(187, 4, 13, 2, '2017-05-03 20:51:49', '0', 'Kredittilgung', 'Kredittilgung', 'Ausgabe'),
+(188, 4, 14, 2, '2017-05-03 20:51:52', '33000', 'Jahresgehalt', 'Sabine Rollinger - Sachbearbeiterin', 'Ausgabe'),
+(189, 4, 14, 2, '2017-05-03 20:51:52', '60000', 'Jahresgehalt', 'Hermann Meise - Bauingenieur', 'Ausgabe'),
+(190, 4, 14, 2, '2017-05-03 20:51:52', '0', 'Kredittilgung', 'Kredittilgung', 'Ausgabe'),
+(191, 4, 11, 2, '2017-05-03 20:51:52', '29000', 'Jahresgehalt', 'Karolin Fuhrman - Sachbearbeiterin', 'Ausgabe'),
+(192, 4, 11, 2, '2017-05-03 20:51:53', '65000', 'Jahresgehalt', 'Felix Traugott - Bauingenieur', 'Ausgabe'),
+(193, 4, 11, 2, '2017-05-03 20:51:53', '39000', 'Jahresgehalt', 'Lothar Gelhaus - Makler', 'Ausgabe'),
+(194, 4, 11, 2, '2017-05-03 20:51:53', '0', 'Kredittilgung', 'Kredittilgung', 'Ausgabe'),
+(195, 4, 12, 2, '2017-05-03 20:51:54', '33000', 'Jahresgehalt', 'Sabine Rollinger - Sachbearbeiterin', 'Ausgabe'),
+(196, 4, 12, 2, '2017-05-03 20:51:54', '0', 'Kredittilgung', 'Kredittilgung', 'Ausgabe'),
+(197, 4, 11, 2, '2017-05-03 20:53:08', '25000', 'Konkurrenzanalyse', 'Immobilienmarkt Analyse - Konkurrenz', 'Ausgabe'),
+(198, 4, 13, 2, '2017-05-03 20:54:49', '25000', 'Konkurrenzanalyse', 'Immobilienmarkt Analyse - Konkurrenz', 'Ausgabe'),
+(199, 4, 13, 2, '2017-05-03 20:55:59', '31000', 'Jahresgehalt', 'Laura Schulz - Sachbearbeiterin', 'Ausgabe'),
+(200, 4, 11, 2, '2017-05-03 20:56:24', '48750', 'Felix Traugott - Bauingenieur', 'Abfindung: Kündigung', 'Ausgabe'),
+(201, 4, 13, 2, '2017-05-03 20:57:02', '29000', 'Jahresgehalt', 'Isabell Neumann - Sachbearbeiterin', 'Ausgabe'),
+(202, 4, 12, 2, '2017-05-03 20:58:50', '40000', 'Jahresgehalt', 'Mathias Kastner - Makler', 'Ausgabe'),
+(203, 4, 12, 3, '2017-05-03 21:08:34', '33000', 'Jahresgehalt', 'Sabine Rollinger - Sachbearbeiterin', 'Ausgabe'),
+(204, 4, 12, 3, '2017-05-03 21:08:34', '40000', 'Jahresgehalt', 'Mathias Kastner - Makler', 'Ausgabe'),
+(205, 4, 12, 3, '2017-05-03 21:08:34', '0', 'Kredittilgung', 'Kredittilgung', 'Ausgabe'),
+(206, 4, 14, 3, '2017-05-03 21:08:36', '33000', 'Jahresgehalt', 'Sabine Rollinger - Sachbearbeiterin', 'Ausgabe'),
+(207, 4, 14, 3, '2017-05-03 21:08:36', '60000', 'Jahresgehalt', 'Hermann Meise - Bauingenieur', 'Ausgabe'),
+(208, 4, 14, 3, '2017-05-03 21:08:36', '0', 'Kredittilgung', 'Kredittilgung', 'Ausgabe'),
+(209, 4, 11, 3, '2017-05-03 21:08:45', '29000', 'Jahresgehalt', 'Karolin Fuhrman - Sachbearbeiterin', 'Ausgabe'),
+(210, 4, 11, 3, '2017-05-03 21:08:45', '39000', 'Jahresgehalt', 'Lothar Gelhaus - Makler', 'Ausgabe'),
+(211, 4, 11, 3, '2017-05-03 21:08:45', '0', 'Kredittilgung', 'Kredittilgung', 'Ausgabe'),
+(212, 4, 13, 3, '2017-05-03 21:08:58', '34500', 'Jahresgehalt', 'Leon Dietrich - Sachbearbeiterin', 'Ausgabe'),
+(213, 4, 13, 3, '2017-05-03 21:08:58', '32000', 'Jahresgehalt', 'Alexander Fiedler - Makler', 'Ausgabe'),
+(214, 4, 13, 3, '2017-05-03 21:08:58', '31000', 'Jahresgehalt', 'Laura Schulz - Sachbearbeiterin', 'Ausgabe'),
+(215, 4, 13, 3, '2017-05-03 21:08:58', '29000', 'Jahresgehalt', 'Isabell Neumann - Sachbearbeiterin', 'Ausgabe'),
+(216, 4, 13, 3, '2017-05-03 21:08:58', '0', 'Kredittilgung', 'Kredittilgung', 'Ausgabe'),
+(217, 4, 13, 3, '2017-05-03 21:09:51', '25000', 'Konkurrenzanalyse', 'Immobilienmarkt Analyse - Konkurrenz', 'Ausgabe'),
+(218, 4, 12, 3, '2017-05-03 21:10:22', '209000', 'Woltanstraße 83, 10365 Berlin - Lichtenberg', 'Immobilienkauf: Bezugsfreie 3-Zimmer-Eigentumswohnung im Herzen Berlin-Lichtenbergs', 'Ausgabe'),
+(219, 4, 11, 3, '2017-05-03 21:10:48', '189250.8', 'Siegfriedstraße 20, 13156 Berlin - Pankow', 'Immobilienkauf: Vermietete und sanierte Altbau-Idylle mit Balkon zur Kapitalanlage am Schlosspark!', 'Ausgabe'),
+(220, 4, 12, 4, '2017-05-03 21:28:05', '33000', 'Jahresgehalt', 'Sabine Rollinger - Sachbearbeiterin', 'Ausgabe'),
+(221, 4, 12, 4, '2017-05-03 21:28:05', '40000', 'Jahresgehalt', 'Mathias Kastner - Makler', 'Ausgabe'),
+(222, 4, 12, 4, '2017-05-03 21:28:05', '0', 'Kredittilgung', 'Kredittilgung', 'Ausgabe'),
+(223, 4, 13, 4, '2017-05-03 21:28:05', '34500', 'Jahresgehalt', 'Leon Dietrich - Sachbearbeiterin', 'Ausgabe'),
+(224, 4, 13, 4, '2017-05-03 21:28:05', '32000', 'Jahresgehalt', 'Alexander Fiedler - Makler', 'Ausgabe'),
+(225, 4, 13, 4, '2017-05-03 21:28:05', '31000', 'Jahresgehalt', 'Laura Schulz - Sachbearbeiterin', 'Ausgabe'),
+(226, 4, 13, 4, '2017-05-03 21:28:05', '29000', 'Jahresgehalt', 'Isabell Neumann - Sachbearbeiterin', 'Ausgabe'),
+(227, 4, 13, 4, '2017-05-03 21:28:05', '0', 'Kredittilgung', 'Kredittilgung', 'Ausgabe'),
+(228, 4, 14, 4, '2017-05-03 21:28:05', '33000', 'Jahresgehalt', 'Sabine Rollinger - Sachbearbeiterin', 'Ausgabe'),
+(229, 4, 14, 4, '2017-05-03 21:28:05', '60000', 'Jahresgehalt', 'Hermann Meise - Bauingenieur', 'Ausgabe'),
+(230, 4, 14, 4, '2017-05-03 21:28:05', '0', 'Kredittilgung', 'Kredittilgung', 'Ausgabe'),
+(231, 4, 11, 4, '2017-05-03 21:28:11', '29000', 'Jahresgehalt', 'Karolin Fuhrman - Sachbearbeiterin', 'Ausgabe'),
+(232, 4, 11, 4, '2017-05-03 21:28:11', '0', 'Kredittilgung', 'Kredittilgung', 'Ausgabe'),
+(233, 4, 14, 4, '2017-05-03 21:29:02', '25000', 'Konkurrenzanalyse', 'Immobilienmarkt Analyse - Konkurrenz', 'Ausgabe'),
+(234, 4, 12, 4, '2017-05-03 21:36:26', '131456', 'Weißenburgerstraße 7, 13595 Berlin - Spanndau', 'Immobilienkauf: Renditeobjekt in bester Lage', 'Ausgabe'),
+(235, 4, 13, 5, '2017-05-03 22:43:48', '34500', 'Jahresgehalt', 'Leon Dietrich - Sachbearbeiterin', 'Ausgabe'),
+(236, 4, 13, 5, '2017-05-03 22:43:48', '32000', 'Jahresgehalt', 'Alexander Fiedler - Makler', 'Ausgabe'),
+(237, 4, 13, 5, '2017-05-03 22:43:48', '31000', 'Jahresgehalt', 'Laura Schulz - Sachbearbeiterin', 'Ausgabe'),
+(238, 4, 13, 5, '2017-05-03 22:43:48', '29000', 'Jahresgehalt', 'Isabell Neumann - Sachbearbeiterin', 'Ausgabe'),
+(239, 4, 13, 5, '2017-05-03 22:43:48', '0', 'Kredittilgung', 'Kredittilgung', 'Ausgabe');
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `Bank`
+--
+
+CREATE TABLE IF NOT EXISTS `Bank` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `Beschreibung` varchar(500) NOT NULL,
+  `Risikobereitschaft` int(11) NOT NULL,
+  `Darlehenszins` double NOT NULL,
+  `Guthabenzins` double NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `Buchung`
+--
+
+CREATE TABLE IF NOT EXISTS `Buchung` (
+  `ID` int(11) NOT NULL,
+  `SID` int(11) NOT NULL,
+  `Unternehmen` int(11) NOT NULL,
+  `Runde` int(11) NOT NULL,
+  `Sollkonto` int(11) NOT NULL,
+  `Habenkonto` int(11) NOT NULL,
+  `Betrag` double NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `Buchungsaufgaben`
+--
+
+CREATE TABLE IF NOT EXISTS `Buchungsaufgaben` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `SpielID` int(100) NOT NULL,
+  `UnternehmensID` int(30) NOT NULL,
+  `Runde` int(10) NOT NULL,
+  `Sollkonto` varchar(30) NOT NULL,
+  `Habenkonto` varchar(30) NOT NULL,
+  `Summe` decimal(30,0) NOT NULL,
+  `Beschreibung` varchar(400) NOT NULL,
+  `Bezahlt` tinyint(1) NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=369 ;
+
+--
+-- Daten für Tabelle `Buchungsaufgaben`
+--
+
+INSERT INTO `Buchungsaufgaben` (`ID`, `SpielID`, `UnternehmensID`, `Runde`, `Sollkonto`, `Habenkonto`, `Summe`, `Beschreibung`, `Bezahlt`) VALUES
+(102, 2, 4, 1, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(103, 2, 4, 1, 'Sonstiges', 'Bank', 20000, 'Social Media Analyse - Marktforschung', 0),
+(104, 2, 4, 1, 'Personalaufwendungen', 'Bank', 33000, 'Jahresgehalt Sabine Rollinger - Sachbearbeiterin', 0),
+(105, 2, 4, 1, 'Immobilien', 'Bank', 0, 'Kauf von Immobilie 102 m² zum Wohlfühlen in Berlin', 0),
+(106, 2, 5, 1, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(107, 2, 5, 1, 'Personalaufwendungen', 'Bank', 34500, 'Jahresgehalt Leon Dietrich - Sachbearbeiterin', 0),
+(108, 2, 5, 1, 'Immobilien', 'Bank', 0, 'Kauf von Immobilie Gute Lage Apartment', 0),
+(109, 2, 5, 1, 'Immobilien', 'Bank', 0, 'Kauf von Immobilie Zentrale 3 Zimmer Wohnung', 0),
+(110, 2, 6, 1, 'Personalaufwendungen', 'Bank', 33000, 'Jahresgehalt Sabine Rollinger - Sachbearbeiterin', 0),
+(111, 2, 6, 1, 'Immobilien', 'Bank', 0, 'Kauf von Immobilie Penthouse in Wilmersdorf', 0),
+(112, 2, 6, 1, 'Immobilien', 'Bank', 0, 'Kauf von Immobilie Zentrale 5 Zimmer Wohnung', 0),
+(113, 2, 5, 2, 'Sonstiges', 'Bank', 20000, 'Social Media Analyse - Marktforschung', 0),
+(114, 2, 6, 2, 'Sonstiges', 'Bank', 20000, 'Social Media Analyse - Marktforschung', 0),
+(115, 2, 5, 2, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(116, 2, 6, 2, 'Immobilien', 'Bank', 0, 'Kauf von Immobilie Eigentumswohnung mit Gartenanteil', 0),
+(117, 2, 6, 2, 'Personalaufwendungen', 'Bank', 60000, 'Jahresgehalt Steffen Brandt - Bauingenieur', 0),
+(118, 2, 6, 2, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(119, 2, 6, 2, 'Immobilien', 'Bank', 0, 'Kauf von Immobilie 8.Etage in guter Nachbarschaft', 0),
+(120, 2, 5, 2, 'Immobilien', 'Bank', 0, 'Kauf von Immobilie Traumhafte 2,5-Zimmer-Dachgeschosswohnung mit Westterrasse', 0),
+(121, 2, 5, 2, 'Personalaufwendungen', 'Bank', 31000, 'Jahresgehalt Petra Drechsler - Sachbearbeiterin', 0),
+(122, 2, 6, 2, 'Personalaufwendungen', 'Bank', 45000, 'Abfindung für Mitarbeiter Steffen Brandt - Bauingenieur', 0),
+(123, 2, 6, 3, 'Sonstiges', 'Bank', 20000, 'Social Media Analyse - Marktforschung', 0),
+(124, 2, 6, 3, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(125, 2, 4, 3, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(126, 3, 8, 1, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(127, 3, 7, 1, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(128, 3, 8, 1, 'Personalaufwendungen', 'Bank', 33000, 'Jahresgehalt Sabine Rollinger - Sachbearbeiterin', 0),
+(129, 3, 7, 1, 'Personalaufwendungen', 'Bank', 29000, 'Jahresgehalt Karolin Fuhrman - Sachbearbeiterin', 0),
+(130, 3, 8, 1, 'Immobilien', 'Bank', 0, 'Kauf von Immobilie Großes Baugrundstück', 0),
+(131, 3, 9, 1, 'Personalaufwendungen', 'Bank', 31000, 'Jahresgehalt Petra Drechsler - Sachbearbeiterin', 0),
+(132, 3, 9, 1, 'Immobilien', 'Bank', 0, 'Kauf von Immobilie 8.Etage in guter Nachbarschaft', 0),
+(133, 3, 9, 1, 'Immobilien', 'Bank', 0, 'Kauf von Immobilie Gute Lage Apartment', 0),
+(134, 3, 8, 2, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(135, 3, 8, 2, 'Personalaufwendungen', 'Bank', 29000, 'Jahresgehalt Karolin Fuhrman - Sachbearbeiterin', 0),
+(136, 3, 8, 2, 'Immobilien', 'Bank', 0, 'Kauf von Immobilie Traumhafte 2,5-Zimmer-Dachgeschosswohnung mit Westterrasse', 0),
+(137, 3, 9, 2, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(138, 3, 7, 2, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(139, 3, 7, 2, 'Personalaufwendungen', 'Bank', 33000, 'Jahresgehalt Sabine Rollinger - Sachbearbeiterin', 0),
+(140, 3, 7, 2, 'Personalaufwendungen', 'Bank', 21750, 'Abfindung für Mitarbeiter Karolin Fuhrman - Sachbearbeiterin', 0),
+(141, 3, 7, 2, 'Immobilien', 'Bank', 0, 'Kauf von Immobilie Zentrale 3 Zimmer Wohnung', 0),
+(142, 3, 7, 2, 'Personalaufwendungen', 'Bank', 74000, 'Jahresgehalt Katharina Kaiser - Bauleiter', 0),
+(143, 3, 7, 2, 'Personalaufwendungen', 'Bank', 81000, 'Jahresgehalt René Faber - Bauleiter', 0),
+(144, 3, 7, 2, 'Immobilien', 'Bank', 0, 'Kauf von Immobilie Beste Wohnlage - modernes Haus - erstklassige Infrastruktur', 0),
+(145, 3, 7, 2, 'Personalaufwendungen', 'Bank', 75000, 'Jahresgehalt Rainer Bonhoff - Bauleiter', 0),
+(146, 0, 0, 0, 'Personalaufwendungen', 'Bank', 29000, 'Jahresgehalt Karolin Fuhrman - Sachbearbeiterin', 0),
+(147, 0, 0, 0, 'Personalaufwendungen', 'Bank', 29000, 'Jahresgehalt Isabell Neumann - Sachbearbeiterin', 0),
+(148, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(149, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(150, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(151, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(152, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(153, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(154, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(155, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(156, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(157, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(158, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(159, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(160, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(161, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(162, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(163, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(164, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(165, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(166, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(167, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(168, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(169, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(170, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(171, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(172, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(173, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(174, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(175, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(176, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(177, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(178, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(179, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(180, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(181, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(182, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(183, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(184, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(185, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(186, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(187, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(188, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(189, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(190, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(191, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(192, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(193, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(194, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(195, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(196, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(197, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(198, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(199, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(200, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(201, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(202, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(203, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(204, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(205, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(206, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(207, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(208, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(209, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(210, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(211, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(212, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(213, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(214, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(215, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(216, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(217, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(218, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(219, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(220, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(221, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(222, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(223, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(224, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(225, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(226, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(227, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(228, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(229, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(230, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(231, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(232, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(233, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(234, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(235, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(236, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(237, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(238, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(239, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(240, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(241, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(242, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(243, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(244, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(245, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(246, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(247, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(248, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(249, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(250, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(251, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(252, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(253, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(254, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(255, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(256, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(257, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(258, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(259, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(260, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(261, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(262, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(263, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(264, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(265, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(266, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(267, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(268, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(269, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(270, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(271, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(272, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(273, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(274, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(275, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(276, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(277, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(278, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(279, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(280, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(281, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(282, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(283, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(284, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(285, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(286, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(287, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(288, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(289, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(290, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(291, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(292, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(293, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(294, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(295, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(296, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(297, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(298, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(299, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(300, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(301, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(302, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(303, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(304, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(305, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(306, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(307, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(308, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(309, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(310, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(311, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(312, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(313, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(314, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(315, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(316, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(317, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(318, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(319, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(320, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(321, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(322, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(323, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(324, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(325, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(326, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(327, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(328, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(329, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(330, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(331, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(332, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(333, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(334, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(335, 0, 0, 0, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(336, 4, 14, 1, 'Personalaufwendungen', 'Bank', 33000, 'Jahresgehalt Sabine Rollinger - Sachbearbeiterin', 0),
+(337, 4, 11, 1, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(338, 4, 11, 1, 'Sonstiges', 'Bank', 20000, 'Social Media Analyse - Marktforschung', 0),
+(339, 4, 13, 1, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(340, 4, 12, 1, 'Personalaufwendungen', 'Bank', 33000, 'Jahresgehalt Sabine Rollinger - Sachbearbeiterin', 0),
+(341, 4, 14, 1, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(342, 4, 12, 1, 'Immobilien', 'Bank', 99000, 'Kauf von Immobilie Helle 2 Zi.-Whg. mit Balkon, Aufzug und Garage', 0),
+(343, 4, 11, 1, 'Personalaufwendungen', 'Bank', 29000, 'Jahresgehalt Karolin Fuhrman - Sachbearbeiterin', 0),
+(344, 4, 13, 1, 'Personalaufwendungen', 'Bank', 34500, 'Jahresgehalt Leon Dietrich - Sachbearbeiterin', 0),
+(345, 4, 11, 1, 'Immobilien', 'Bank', 171000, 'Kauf von Immobilie Zentrale 3 Zimmer Wohnung', 0),
+(346, 4, 13, 1, 'Immobilien', 'Bank', 74200, 'Kauf von Immobilie 1-Zimmer-Wohnung in Reinickendorf mit solider Rendite!', 0),
+(347, 4, 13, 1, 'Immobilien', 'Bank', 104940, 'Kauf von Immobilie Gewerbefläche mit guter Verkehrsanbindung', 0),
+(348, 4, 14, 1, 'Immobilien', 'Bank', 156488, 'Kauf von Immobilie Ansehen lohnt sich! Schönes Haus in ruhiger Lage', 0),
+(349, 4, 11, 1, 'Personalaufwendungen', 'Bank', 65000, 'Jahresgehalt Felix Traugott - Bauingenieur', 0),
+(350, 4, 13, 1, 'Immobilien', 'Bank', 107000, 'Kauf von Immobilie Sehr helle Souterrain-Wohnung auf der Südseite', 0),
+(351, 4, 14, 1, 'Immobilien', 'Bank', 116463, 'Kauf von Immobilie Sichere Wertanlage', 0),
+(352, 4, 11, 1, 'Personalaufwendungen', 'Bank', 39000, 'Jahresgehalt Lothar Gelhaus - Makler', 0),
+(353, 4, 13, 1, 'Personalaufwendungen', 'Bank', 32000, 'Jahresgehalt Alexander Fiedler - Makler', 0),
+(354, 4, 14, 1, 'Personalaufwendungen', 'Bank', 60000, 'Jahresgehalt Hermann Meise - Bauingenieur', 0),
+(355, 4, 12, 1, 'Immobilien', 'Bank', 265000, 'Kauf von Immobilie ERSTBEZUG-PARKETT-WANNENBAD-GÄSTEWC-EINBAUKÜCHE-ZWEI BALKONE-STELLPLATZ', 0),
+(356, 4, 12, 1, 'Immobilien', 'Bank', 213200, 'Kauf von Immobilie Klassich Modernes Wohnen in Bestlage -Neubau-', 0),
+(357, 4, 12, 1, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(358, 4, 13, 1, 'Sonstiges', 'Bank', 20000, 'Social Media Analyse - Marktforschung', 0),
+(359, 4, 14, 1, 'Personalaufwendungen', 'Bank', 40000, 'Jahresgehalt Mathias Kastner - Makler', 0),
+(360, 4, 14, 1, 'Immobilien', 'Bank', 77173, 'Kauf von Immobilie zuverlässig Vermietetes Appartment im Plänterwald Viertel', 0),
+(361, 4, 13, 2, 'Personalaufwendungen', 'Bank', 31000, 'Jahresgehalt Laura Schulz - Sachbearbeiterin', 0),
+(362, 4, 11, 2, 'Personalaufwendungen', 'Bank', 48750, 'Abfindung für Mitarbeiter Felix Traugott - Bauingenieur', 0),
+(363, 4, 13, 2, 'Personalaufwendungen', 'Bank', 29000, 'Jahresgehalt Isabell Neumann - Sachbearbeiterin', 0),
+(364, 4, 12, 2, 'Personalaufwendungen', 'Bank', 40000, 'Jahresgehalt Mathias Kastner - Makler', 0),
+(365, 4, 12, 3, 'Immobilien', 'Bank', 209000, 'Kauf von Immobilie Bezugsfreie 3-Zimmer-Eigentumswohnung im Herzen Berlin-Lichtenbergs', 0),
+(366, 4, 11, 3, 'Immobilien', 'Bank', 189251, 'Kauf von Immobilie Vermietete und sanierte Altbau-Idylle mit Balkon zur Kapitalanlage am Schlosspark!', 0),
+(367, 4, 14, 4, 'Sonstiges', 'Bank', 50000, 'Social Intelligence Analyse - Marktforschung', 0),
+(368, 4, 12, 4, 'Immobilien', 'Bank', 131456, 'Kauf von Immobilie Renditeobjekt in bester Lage', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `Downloads`
+--
+
+CREATE TABLE IF NOT EXISTS `Downloads` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `Kategorie` varchar(100) NOT NULL,
+  `Runde` int(11) NOT NULL,
+  `URL` varchar(250) NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
+
+--
+-- Daten für Tabelle `Downloads`
+--
+
+INSERT INTO `Downloads` (`ID`, `Kategorie`, `Runde`, `URL`) VALUES
+(1, 'Immobilien', 1, '/downloads/Ratgeber_Immobilien_GJ_1.pdf'),
+(2, 'Markt', 1, '/downloads/Marktanalyse_Berlin.pdf'),
+(3, 'Markt', 2, '/downloads/Marktanalyse_Berlin.pdf'),
+(4, 'Markt', 3, '/downloads/Marktanalyse_Berlin.pdf'),
+(5, 'Buchung\r\n', 1, '/downloads/T-Kontenblatt.jpg\r\n'),
+(6, 'Buchung\r\n', 2, '/downloads/T-Kontenblatt.jpg\r\n'),
+(7, 'Buchung\r\n', 3, '/downloads/T-Kontenblatt.jpg\r\n');
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `Einnahmen`
+--
+
+CREATE TABLE IF NOT EXISTS `Einnahmen` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `SpielID` int(11) NOT NULL,
+  `UnternehmensID` int(11) NOT NULL,
+  `Runde` int(11) NOT NULL,
+  `Zeit` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `Summe` varchar(11) NOT NULL,
+  `Beschreibung` varchar(250) NOT NULL,
+  `Details` varchar(250) NOT NULL,
+  `Typ` varchar(8) NOT NULL DEFAULT 'Einnahme',
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=299 ;
+
+--
+-- Daten für Tabelle `Einnahmen`
+--
+
+INSERT INTO `Einnahmen` (`ID`, `SpielID`, `UnternehmensID`, `Runde`, `Zeit`, `Summe`, `Beschreibung`, `Details`, `Typ`) VALUES
+(62, 2, 4, 1, '2017-03-16 23:24:56', '8800', 'Hoffmannstraße 1, 12487 Berlin - Adlershof', 'Mieteinnahmen: Barrierefreie 2-Raumwohnung zum Verlieben', 'Einnahme'),
+(63, 2, 4, 1, '2017-03-16 23:24:56', '17000', 'Mierendorffplatz 118, 10589 Berlin-Charlottenburg', 'Mieteinnahmen: Klassisch schöne Altbauwohnung in bester Charlottenburger Kiezlage', 'Einnahme'),
+(64, 2, 4, 1, '2017-03-16 23:24:56', '24950', 'Torstrasse 79a, 10117 Berlin - Mitte', 'Mieteinnahmen: Über den Dächern von Berlin', 'Einnahme'),
+(65, 2, 4, 1, '2017-03-16 23:24:56', '40000', 'Lindenstraße 46, 12555 Berlin - Köpenick', 'Mieteinnahmen: Moderne Stadtvilla im ästhetischen Bauhausdesign in Köpenick-Nord', 'Einnahme'),
+(66, 2, 4, 1, '2017-03-16 23:25:17', '8800', 'Wilmersdorfer Straße 13, 37682 Berlin - Charlottenburg', 'Mieteinnahmen: Weitläufige Wohnung in Berlin Charlottenburg', 'Einnahme'),
+(67, 2, 4, 1, '2017-03-16 23:25:21', '40000', 'Clayallee 126, 15612 Berlin - Dahlem', 'Mieteinnahmen: Moderne Etagenwohnung mit Südbalkon', 'Einnahme'),
+(68, 2, 4, 1, '2017-03-16 23:25:26', '8800', 'Am Wannsee 154, 21415 Berlin - Wannsee', 'Mieteinnahmen: Zentrale 4 Zimmer Wohnung ', 'Einnahme'),
+(69, 2, 4, 1, '2017-03-16 23:25:30', '8800', 'Bahnhofsstraße 15, 12415 Berlin - Mitte', 'Mieteinnahmen: Dachgeschosswohnung mit Ausblick bis zum Fernsehturm!', 'Einnahme'),
+(70, 2, 4, 1, '2017-03-16 23:28:05', '11850', 'Uranustsr. 12, 12524 Berlin - Charlottenburg', 'Mieteinnahmen: 102 m² zum Wohlfühlen in Berlin', 'Einnahme'),
+(71, 2, 6, 1, '2017-03-17 08:27:51', '8800', 'Hoffmannstraße 1, 12487 Berlin - Adlershof', 'Mieteinnahmen: Barrierefreie 2-Raumwohnung zum Verlieben', 'Einnahme'),
+(72, 2, 6, 1, '2017-03-17 08:27:51', '17000', 'Mierendorffplatz 118, 10589 Berlin-Charlottenburg', 'Mieteinnahmen: Klassisch schöne Altbauwohnung in bester Charlottenburger Kiezlage', 'Einnahme'),
+(73, 2, 6, 1, '2017-03-17 08:27:52', '24950', 'Torstrasse 79a, 10117 Berlin - Mitte', 'Mieteinnahmen: Über den Dächern von Berlin', 'Einnahme'),
+(74, 2, 6, 1, '2017-03-17 08:27:52', '40000', 'Lindenstraße 46, 12555 Berlin - Köpenick', 'Mieteinnahmen: Moderne Stadtvilla im ästhetischen Bauhausdesign in Köpenick-Nord', 'Einnahme'),
+(75, 2, 5, 1, '2017-03-17 08:28:25', '8800', 'Hoffmannstraße 1, 12487 Berlin - Adlershof', 'Mieteinnahmen: Barrierefreie 2-Raumwohnung zum Verlieben', 'Einnahme'),
+(76, 2, 5, 1, '2017-03-17 08:28:25', '17000', 'Mierendorffplatz 118, 10589 Berlin-Charlottenburg', 'Mieteinnahmen: Klassisch schöne Altbauwohnung in bester Charlottenburger Kiezlage', 'Einnahme'),
+(77, 2, 5, 1, '2017-03-17 08:28:25', '24950', 'Torstrasse 79a, 10117 Berlin - Mitte', 'Mieteinnahmen: Über den Dächern von Berlin', 'Einnahme'),
+(78, 2, 5, 1, '2017-03-17 08:28:25', '40000', 'Lindenstraße 46, 12555 Berlin - Köpenick', 'Mieteinnahmen: Moderne Stadtvilla im ästhetischen Bauhausdesign in Köpenick-Nord', 'Einnahme'),
+(79, 2, 6, 1, '2017-03-17 08:32:27', '32000', 'Holsteinische Strasse 76, 10717 Berlin-Wilmersdorf', 'Mieteinnahmen: Penthouse in Wilmersdorf', 'Einnahme'),
+(80, 2, 6, 2, '2017-03-17 08:35:43', '8400', 'Wilmersdorfer Straße 13, 37682 Berlin - Charlottenburg', 'Mieteinnahmen: Weitläufige Wohnung in Berlin Charlottenburg', 'Einnahme'),
+(81, 2, 6, 2, '2017-03-17 08:35:43', '45000', 'Clayallee 126, 15612 Berlin - Dahlem', 'Mieteinnahmen: Moderne Etagenwohnung mit Südbalkon', 'Einnahme'),
+(82, 2, 6, 2, '2017-03-17 08:35:43', '8400', 'Am Wannsee 154, 21415 Berlin - Wannsee', 'Mieteinnahmen: Zentrale 4 Zimmer Wohnung ', 'Einnahme'),
+(83, 2, 6, 2, '2017-03-17 08:35:43', '8400', 'Bahnhofsstraße 15, 12415 Berlin - Mitte', 'Mieteinnahmen: Dachgeschosswohnung mit Ausblick bis zum Fernsehturm!', 'Einnahme'),
+(84, 2, 6, 2, '2017-03-17 08:35:43', '36000', 'Holsteinische Strasse 76, 10717 Berlin-Wilmersdorf', 'Mieteinnahmen: Penthouse in Wilmersdorf', 'Einnahme'),
+(85, 2, 6, 2, '2017-03-17 08:35:43', '8400', 'Prenzlauer Berg 1, 12515 Berlin - Kreuzberg', 'Mieteinnahmen: Zentrale 5 Zimmer Wohnung', 'Einnahme'),
+(86, 2, 5, 2, '2017-03-17 08:35:46', '8400', 'Wilmersdorfer Straße 13, 37682 Berlin - Charlottenburg', 'Mieteinnahmen: Weitläufige Wohnung in Berlin Charlottenburg', 'Einnahme'),
+(87, 2, 5, 2, '2017-03-17 08:35:46', '45000', 'Clayallee 126, 15612 Berlin - Dahlem', 'Mieteinnahmen: Moderne Etagenwohnung mit Südbalkon', 'Einnahme'),
+(88, 2, 5, 2, '2017-03-17 08:35:46', '8400', 'Am Wannsee 154, 21415 Berlin - Wannsee', 'Mieteinnahmen: Zentrale 4 Zimmer Wohnung ', 'Einnahme'),
+(89, 2, 5, 2, '2017-03-17 08:35:46', '8400', 'Bahnhofsstraße 15, 12415 Berlin - Mitte', 'Mieteinnahmen: Dachgeschosswohnung mit Ausblick bis zum Fernsehturm!', 'Einnahme'),
+(90, 2, 5, 2, '2017-03-17 08:35:46', '18000', 'Mittlerer Weg 4, 15771 Berlin - Neukölln', 'Mieteinnahmen: Gute Lage Apartment', 'Einnahme'),
+(91, 2, 5, 2, '2017-03-17 08:35:46', '12600', 'Trappenpfad 39, 37671 Berlin - Neukölln', 'Mieteinnahmen: Zentrale 3 Zimmer Wohnung', 'Einnahme'),
+(92, 2, 5, 2, '2017-03-17 08:37:40', '500000', 'endfälliger Kredit', 'Deutsche Bank AG', 'Einnahme'),
+(93, 2, 5, 2, '2017-03-17 08:37:56', '500000', 'endfälliger Kredit', 'Deutsche Bank AG', 'Einnahme'),
+(94, 2, 5, 2, '2017-03-17 08:38:07', '500000', 'endfälliger Kredit', 'Deutsche Bank AG', 'Einnahme'),
+(95, 2, 5, 2, '2017-03-17 08:38:09', '500000', 'endfälliger Kredit', 'Deutsche Bank AG', 'Einnahme'),
+(96, 2, 6, 2, '2017-03-17 08:38:50', '500000', 'endfälliger Kredit', 'Deutsche Bank AG', 'Einnahme'),
+(97, 2, 6, 2, '2017-03-17 08:38:55', '500000', 'endfälliger Kredit', 'Deutsche Bank AG', 'Einnahme'),
+(98, 2, 6, 2, '2017-03-17 08:38:58', '500000', 'endfälliger Kredit', 'Deutsche Bank AG', 'Einnahme'),
+(99, 2, 6, 2, '2017-03-17 08:39:00', '500000', 'endfälliger Kredit', 'Deutsche Bank AG', 'Einnahme'),
+(100, 2, 6, 2, '2017-03-17 08:39:02', '500000', 'endfälliger Kredit', 'Deutsche Bank AG', 'Einnahme'),
+(101, 2, 6, 2, '2017-03-17 08:39:04', '500000', 'endfälliger Kredit', 'Deutsche Bank AG', 'Einnahme'),
+(102, 2, 6, 2, '2017-03-17 08:41:22', '9540', 'Prenzlauer Berg 1, 12515 Berlin - Kreuzberg', 'Mieteinnahmen: Zentrale 5 Zimmer Wohnung', 'Einnahme'),
+(103, 2, 6, 2, '2017-03-17 08:41:27', '48000', 'Clayallee 126, 15612 Berlin - Dahlem', 'Mieteinnahmen: Moderne Etagenwohnung mit Südbalkon', 'Einnahme'),
+(104, 2, 6, 2, '2017-03-17 08:41:33', '10560', 'Bahnhofsstraße 15, 12415 Berlin - Mitte', 'Mieteinnahmen: Dachgeschosswohnung mit Ausblick bis zum Fernsehturm!', 'Einnahme'),
+(105, 2, 6, 2, '2017-03-17 08:41:42', '4200', 'Lubminer Str.44, 12619 Berlin - Charlottenburg', 'Mieteinnahmen: Eigentumswohnung mit Gartenanteil', 'Einnahme'),
+(106, 2, 6, 2, '2017-03-17 08:41:47', '21060', 'Charlottenburger Straße 77, 15169 Berlin - Wilmersdorf', 'Mieteinnahmen: 8.Etage in guter Nachbarschaft', 'Einnahme'),
+(107, 2, 6, 2, '2017-03-17 08:41:55', '10560', 'Am Wannsee 154, 21415 Berlin - Wannsee', 'Mieteinnahmen: Zentrale 4 Zimmer Wohnung ', 'Einnahme'),
+(108, 2, 6, 2, '2017-03-17 08:41:59', '10560', 'Wilmersdorfer Straße 13, 37682 Berlin - Charlottenburg', 'Mieteinnahmen: Weitläufige Wohnung in Berlin Charlottenburg', 'Einnahme'),
+(109, 2, 4, 2, '2017-03-17 08:44:58', '8400', 'Wilmersdorfer Straße 13, 37682 Berlin - Charlottenburg', 'Mieteinnahmen: Weitläufige Wohnung in Berlin Charlottenburg', 'Einnahme'),
+(110, 2, 4, 2, '2017-03-17 08:44:58', '45000', 'Clayallee 126, 15612 Berlin - Dahlem', 'Mieteinnahmen: Moderne Etagenwohnung mit Südbalkon', 'Einnahme'),
+(111, 2, 4, 2, '2017-03-17 08:44:58', '8400', 'Am Wannsee 154, 21415 Berlin - Wannsee', 'Mieteinnahmen: Zentrale 4 Zimmer Wohnung ', 'Einnahme'),
+(112, 2, 4, 2, '2017-03-17 08:44:58', '8400', 'Bahnhofsstraße 15, 12415 Berlin - Mitte', 'Mieteinnahmen: Dachgeschosswohnung mit Ausblick bis zum Fernsehturm!', 'Einnahme'),
+(113, 2, 4, 2, '2017-03-17 08:44:58', '12600', 'Uranustsr. 12, 12524 Berlin - Charlottenburg', 'Mieteinnahmen: 102 m² zum Wohlfühlen in Berlin', 'Einnahme'),
+(114, 2, 4, 2, '2017-03-17 08:44:58', '45000', 'Clayallee 126, 15612 Berlin - Dahlem', 'Mieteinnahmen: Moderne Etagenwohnung mit Südbalkon', 'Einnahme'),
+(115, 2, 4, 2, '2017-03-17 08:44:58', '45000', 'Clayallee 126, 15612 Berlin - Dahlem', 'Mieteinnahmen: Moderne Etagenwohnung mit Südbalkon', 'Einnahme'),
+(116, 2, 4, 2, '2017-03-17 08:44:58', '45000', 'Clayallee 126, 15612 Berlin - Dahlem', 'Mieteinnahmen: Moderne Etagenwohnung mit Südbalkon', 'Einnahme'),
+(117, 2, 6, 3, '2017-03-17 08:46:07', '8000', 'Wilmersdorfer Straße 13, 37682 Berlin - Charlottenburg', 'Mieteinnahmen: Weitläufige Wohnung in Berlin Charlottenburg', 'Einnahme'),
+(118, 2, 6, 3, '2017-03-17 08:46:07', '50000', 'Clayallee 126, 15612 Berlin - Dahlem', 'Mieteinnahmen: Moderne Etagenwohnung mit Südbalkon', 'Einnahme'),
+(119, 2, 6, 3, '2017-03-17 08:46:07', '8000', 'Am Wannsee 154, 21415 Berlin - Wannsee', 'Mieteinnahmen: Zentrale 4 Zimmer Wohnung ', 'Einnahme'),
+(120, 2, 6, 3, '2017-03-17 08:46:07', '8000', 'Bahnhofsstraße 15, 12415 Berlin - Mitte', 'Mieteinnahmen: Dachgeschosswohnung mit Ausblick bis zum Fernsehturm!', 'Einnahme'),
+(121, 2, 6, 3, '2017-03-17 08:46:07', '40000', 'Holsteinische Strasse 76, 10717 Berlin-Wilmersdorf', 'Mieteinnahmen: Penthouse in Wilmersdorf', 'Einnahme'),
+(122, 2, 6, 3, '2017-03-17 08:46:07', '8850', 'Prenzlauer Berg 1, 12515 Berlin - Kreuzberg', 'Mieteinnahmen: Zentrale 5 Zimmer Wohnung', 'Einnahme'),
+(123, 2, 6, 3, '2017-03-17 08:46:07', '3700', 'Lubminer Str.44, 12619 Berlin - Charlottenburg', 'Mieteinnahmen: Eigentumswohnung mit Gartenanteil', 'Einnahme'),
+(124, 2, 6, 3, '2017-03-17 08:46:07', '22050', 'Charlottenburger Straße 77, 15169 Berlin - Wilmersdorf', 'Mieteinnahmen: 8.Etage in guter Nachbarschaft', 'Einnahme'),
+(125, 2, 4, 3, '2017-03-17 08:46:10', '8000', 'Wilmersdorfer Straße 13, 37682 Berlin - Charlottenburg', 'Mieteinnahmen: Weitläufige Wohnung in Berlin Charlottenburg', 'Einnahme'),
+(126, 2, 4, 3, '2017-03-17 08:46:10', '50000', 'Clayallee 126, 15612 Berlin - Dahlem', 'Mieteinnahmen: Moderne Etagenwohnung mit Südbalkon', 'Einnahme'),
+(127, 2, 4, 3, '2017-03-17 08:46:10', '8000', 'Am Wannsee 154, 21415 Berlin - Wannsee', 'Mieteinnahmen: Zentrale 4 Zimmer Wohnung ', 'Einnahme'),
+(128, 2, 4, 3, '2017-03-17 08:46:10', '8000', 'Bahnhofsstraße 15, 12415 Berlin - Mitte', 'Mieteinnahmen: Dachgeschosswohnung mit Ausblick bis zum Fernsehturm!', 'Einnahme'),
+(129, 2, 4, 3, '2017-03-17 08:46:10', '13350', 'Uranustsr. 12, 12524 Berlin - Charlottenburg', 'Mieteinnahmen: 102 m² zum Wohlfühlen in Berlin', 'Einnahme'),
+(130, 2, 4, 3, '2017-03-17 08:46:10', '50000', 'Clayallee 126, 15612 Berlin - Dahlem', 'Mieteinnahmen: Moderne Etagenwohnung mit Südbalkon', 'Einnahme'),
+(131, 2, 4, 3, '2017-03-17 08:46:10', '50000', 'Clayallee 126, 15612 Berlin - Dahlem', 'Mieteinnahmen: Moderne Etagenwohnung mit Südbalkon', 'Einnahme'),
+(132, 2, 4, 3, '2017-03-17 08:46:10', '50000', 'Clayallee 126, 15612 Berlin - Dahlem', 'Mieteinnahmen: Moderne Etagenwohnung mit Südbalkon', 'Einnahme'),
+(133, 2, 4, 3, '2017-03-17 08:46:10', '8000', 'Am Wannsee 154, 21415 Berlin - Wannsee', 'Mieteinnahmen: Zentrale 4 Zimmer Wohnung ', 'Einnahme'),
+(134, 2, 4, 3, '2017-03-17 08:46:10', '8000', 'Am Wannsee 154, 21415 Berlin - Wannsee', 'Mieteinnahmen: Zentrale 4 Zimmer Wohnung ', 'Einnahme'),
+(135, 2, 5, 3, '2017-03-17 08:46:15', '8000', 'Wilmersdorfer Straße 13, 37682 Berlin - Charlottenburg', 'Mieteinnahmen: Weitläufige Wohnung in Berlin Charlottenburg', 'Einnahme'),
+(136, 2, 5, 3, '2017-03-17 08:46:15', '50000', 'Clayallee 126, 15612 Berlin - Dahlem', 'Mieteinnahmen: Moderne Etagenwohnung mit Südbalkon', 'Einnahme'),
+(137, 2, 5, 3, '2017-03-17 08:46:15', '8000', 'Am Wannsee 154, 21415 Berlin - Wannsee', 'Mieteinnahmen: Zentrale 4 Zimmer Wohnung ', 'Einnahme'),
+(138, 2, 5, 3, '2017-03-17 08:46:15', '8000', 'Bahnhofsstraße 15, 12415 Berlin - Mitte', 'Mieteinnahmen: Dachgeschosswohnung mit Ausblick bis zum Fernsehturm!', 'Einnahme'),
+(139, 2, 5, 3, '2017-03-17 08:46:15', '19000', 'Mittlerer Weg 4, 15771 Berlin - Neukölln', 'Mieteinnahmen: Gute Lage Apartment', 'Einnahme'),
+(140, 2, 5, 3, '2017-03-17 08:46:15', '13350', 'Trappenpfad 39, 37671 Berlin - Neukölln', 'Mieteinnahmen: Zentrale 3 Zimmer Wohnung', 'Einnahme'),
+(141, 2, 5, 3, '2017-03-17 08:46:15', '13150', 'Palisadenstr. 17, 10243 Berlin', 'Mieteinnahmen: Traumhafte 2,5-Zimmer-Dachgeschosswohnung mit Westterrasse', 'Einnahme'),
+(142, 3, 9, 1, '2017-03-17 10:48:13', '8800', 'Hoffmannstraße 1, 12487 Berlin - Adlershof', 'Mieteinnahmen: Barrierefreie 2-Raumwohnung zum Verlieben', 'Einnahme'),
+(143, 3, 9, 1, '2017-03-17 10:48:13', '17000', 'Mierendorffplatz 118, 10589 Berlin-Charlottenburg', 'Mieteinnahmen: Klassisch schöne Altbauwohnung in bester Charlottenburger Kiezlage', 'Einnahme'),
+(144, 3, 9, 1, '2017-03-17 10:48:13', '24950', 'Torstrasse 79a, 10117 Berlin - Mitte', 'Mieteinnahmen: Über den Dächern von Berlin', 'Einnahme'),
+(145, 3, 9, 1, '2017-03-17 10:48:13', '40000', 'Lindenstraße 46, 12555 Berlin - Köpenick', 'Mieteinnahmen: Moderne Stadtvilla im ästhetischen Bauhausdesign in Köpenick-Nord', 'Einnahme'),
+(146, 3, 8, 1, '2017-03-17 10:48:15', '8800', 'Hoffmannstraße 1, 12487 Berlin - Adlershof', 'Mieteinnahmen: Barrierefreie 2-Raumwohnung zum Verlieben', 'Einnahme'),
+(147, 3, 8, 1, '2017-03-17 10:48:15', '17000', 'Mierendorffplatz 118, 10589 Berlin-Charlottenburg', 'Mieteinnahmen: Klassisch schöne Altbauwohnung in bester Charlottenburger Kiezlage', 'Einnahme'),
+(148, 3, 8, 1, '2017-03-17 10:48:15', '24950', 'Torstrasse 79a, 10117 Berlin - Mitte', 'Mieteinnahmen: Über den Dächern von Berlin', 'Einnahme'),
+(149, 3, 8, 1, '2017-03-17 10:48:15', '40000', 'Lindenstraße 46, 12555 Berlin - Köpenick', 'Mieteinnahmen: Moderne Stadtvilla im ästhetischen Bauhausdesign in Köpenick-Nord', 'Einnahme'),
+(150, 3, 7, 1, '2017-03-17 10:49:11', '8800', 'Hoffmannstraße 1, 12487 Berlin - Adlershof', 'Mieteinnahmen: Barrierefreie 2-Raumwohnung zum Verlieben', 'Einnahme'),
+(151, 3, 7, 1, '2017-03-17 10:49:11', '17000', 'Mierendorffplatz 118, 10589 Berlin-Charlottenburg', 'Mieteinnahmen: Klassisch schöne Altbauwohnung in bester Charlottenburger Kiezlage', 'Einnahme'),
+(152, 3, 7, 1, '2017-03-17 10:49:11', '24950', 'Torstrasse 79a, 10117 Berlin - Mitte', 'Mieteinnahmen: Über den Dächern von Berlin', 'Einnahme'),
+(153, 3, 7, 1, '2017-03-17 10:49:11', '40000', 'Lindenstraße 46, 12555 Berlin - Köpenick', 'Mieteinnahmen: Moderne Stadtvilla im ästhetischen Bauhausdesign in Köpenick-Nord', 'Einnahme'),
+(154, 3, 8, 1, '2017-03-17 10:52:17', '2000000', 'Annuitätendarlehen', 'Vereinigte Volksbank e.G.', 'Einnahme'),
+(155, 3, 7, 2, '2017-03-17 11:28:14', '8400', 'Wilmersdorfer Straße 13, 37682 Berlin - Charlottenburg', 'Mieteinnahmen: Weitläufige Wohnung in Berlin Charlottenburg', 'Einnahme'),
+(156, 3, 7, 2, '2017-03-17 11:28:14', '45000', 'Clayallee 126, 15612 Berlin - Dahlem', 'Mieteinnahmen: Moderne Etagenwohnung mit Südbalkon', 'Einnahme'),
+(157, 3, 7, 2, '2017-03-17 11:28:14', '8400', 'Am Wannsee 154, 21415 Berlin - Wannsee', 'Mieteinnahmen: Zentrale 4 Zimmer Wohnung ', 'Einnahme'),
+(158, 3, 7, 2, '2017-03-17 11:28:14', '8400', 'Bahnhofsstraße 15, 12415 Berlin - Mitte', 'Mieteinnahmen: Dachgeschosswohnung mit Ausblick bis zum Fernsehturm!', 'Einnahme'),
+(159, 3, 8, 2, '2017-03-17 11:28:22', '8400', 'Wilmersdorfer Straße 13, 37682 Berlin - Charlottenburg', 'Mieteinnahmen: Weitläufige Wohnung in Berlin Charlottenburg', 'Einnahme'),
+(160, 3, 8, 2, '2017-03-17 11:28:22', '45000', 'Clayallee 126, 15612 Berlin - Dahlem', 'Mieteinnahmen: Moderne Etagenwohnung mit Südbalkon', 'Einnahme'),
+(161, 3, 8, 2, '2017-03-17 11:28:22', '8400', 'Am Wannsee 154, 21415 Berlin - Wannsee', 'Mieteinnahmen: Zentrale 4 Zimmer Wohnung ', 'Einnahme'),
+(162, 3, 8, 2, '2017-03-17 11:28:22', '8400', 'Bahnhofsstraße 15, 12415 Berlin - Mitte', 'Mieteinnahmen: Dachgeschosswohnung mit Ausblick bis zum Fernsehturm!', 'Einnahme'),
+(163, 3, 8, 2, '2017-03-17 11:28:22', '0', 'Zur Nachtheide 35, 12557 Berlin - Treptow-Köpenick', 'Mieteinnahmen: Großes Baugrundstück', 'Einnahme'),
+(164, 3, 8, 2, '2017-03-17 11:28:22', '45000', 'Clayallee 126, 15612 Berlin - Dahlem', 'Mieteinnahmen: Moderne Etagenwohnung mit Südbalkon', 'Einnahme'),
+(165, 3, 8, 2, '2017-03-17 11:28:22', '45000', 'Clayallee 126, 15612 Berlin - Dahlem', 'Mieteinnahmen: Moderne Etagenwohnung mit Südbalkon', 'Einnahme'),
+(166, 3, 9, 2, '2017-03-17 11:28:25', '8400', 'Wilmersdorfer Straße 13, 37682 Berlin - Charlottenburg', 'Mieteinnahmen: Weitläufige Wohnung in Berlin Charlottenburg', 'Einnahme'),
+(167, 3, 9, 2, '2017-03-17 11:28:25', '45000', 'Clayallee 126, 15612 Berlin - Dahlem', 'Mieteinnahmen: Moderne Etagenwohnung mit Südbalkon', 'Einnahme'),
+(168, 3, 9, 2, '2017-03-17 11:28:25', '8400', 'Am Wannsee 154, 21415 Berlin - Wannsee', 'Mieteinnahmen: Zentrale 4 Zimmer Wohnung ', 'Einnahme'),
+(169, 3, 9, 2, '2017-03-17 11:28:25', '8400', 'Bahnhofsstraße 15, 12415 Berlin - Mitte', 'Mieteinnahmen: Dachgeschosswohnung mit Ausblick bis zum Fernsehturm!', 'Einnahme'),
+(170, 3, 9, 2, '2017-03-17 11:28:25', '19800', 'Charlottenburger Straße 77, 15169 Berlin - Wilmersdorf', 'Mieteinnahmen: 8.Etage in guter Nachbarschaft', 'Einnahme'),
+(171, 3, 9, 2, '2017-03-17 11:28:25', '18000', 'Mittlerer Weg 4, 15771 Berlin - Neukölln', 'Mieteinnahmen: Gute Lage Apartment', 'Einnahme'),
+(172, 3, 7, 2, '2017-03-19 21:48:51', '500000', 'endfälliger Kredit', 'Deutsche Bank AG', 'Einnahme'),
+(173, 4, 14, 1, '2017-05-03 20:06:17', '8800', 'Hoffmannstraße 1, 12487 Berlin - Treptow-Köpenick (Adlershof)', 'Mieteinnahmen: Barrierefreie 2-Raumwohnung zum Verlieben', 'Einnahme'),
+(174, 4, 14, 1, '2017-05-03 20:06:17', '17000', 'Mierendorffplatz 118, 10589 Berlin-Charlottenburg', 'Mieteinnahmen: Klassisch schöne Altbauwohnung in bester Charlottenburger Kiezlage', 'Einnahme'),
+(175, 4, 14, 1, '2017-05-03 20:06:17', '24950', 'Torstrasse 79a, 10117 Berlin - Mitte', 'Mieteinnahmen: Über den Dächern von Berlin', 'Einnahme'),
+(176, 4, 14, 1, '2017-05-03 20:06:17', '40000', 'Lindenstraße 46, 12555 Berlin - Köpenick', 'Mieteinnahmen: Moderne Stadtvilla im ästhetischen Bauhausdesign in Köpenick-Nord', 'Einnahme'),
+(177, 4, 11, 1, '2017-05-03 20:11:12', '8800', 'Hoffmannstraße 1, 12487 Berlin - Treptow-Köpenick (Adlershof)', 'Mieteinnahmen: Barrierefreie 2-Raumwohnung zum Verlieben', 'Einnahme'),
+(178, 4, 11, 1, '2017-05-03 20:11:12', '17000', 'Mierendorffplatz 118, 10589 Berlin-Charlottenburg', 'Mieteinnahmen: Klassisch schöne Altbauwohnung in bester Charlottenburger Kiezlage', 'Einnahme'),
+(179, 4, 11, 1, '2017-05-03 20:11:12', '24950', 'Torstrasse 79a, 10117 Berlin - Mitte', 'Mieteinnahmen: Über den Dächern von Berlin', 'Einnahme'),
+(180, 4, 11, 1, '2017-05-03 20:11:12', '40000', 'Lindenstraße 46, 12555 Berlin - Köpenick', 'Mieteinnahmen: Moderne Stadtvilla im ästhetischen Bauhausdesign in Köpenick-Nord', 'Einnahme'),
+(181, 4, 13, 1, '2017-05-03 20:13:06', '8800', 'Hoffmannstraße 1, 12487 Berlin - Treptow-Köpenick (Adlershof)', 'Mieteinnahmen: Barrierefreie 2-Raumwohnung zum Verlieben', 'Einnahme'),
+(182, 4, 13, 1, '2017-05-03 20:13:06', '17000', 'Mierendorffplatz 118, 10589 Berlin-Charlottenburg', 'Mieteinnahmen: Klassisch schöne Altbauwohnung in bester Charlottenburger Kiezlage', 'Einnahme'),
+(183, 4, 13, 1, '2017-05-03 20:13:06', '24950', 'Torstrasse 79a, 10117 Berlin - Mitte', 'Mieteinnahmen: Über den Dächern von Berlin', 'Einnahme'),
+(184, 4, 13, 1, '2017-05-03 20:13:06', '40000', 'Lindenstraße 46, 12555 Berlin - Köpenick', 'Mieteinnahmen: Moderne Stadtvilla im ästhetischen Bauhausdesign in Köpenick-Nord', 'Einnahme'),
+(185, 4, 12, 1, '2017-05-03 20:13:36', '8800', 'Hoffmannstraße 1, 12487 Berlin - Treptow-Köpenick (Adlershof)', 'Mieteinnahmen: Barrierefreie 2-Raumwohnung zum Verlieben', 'Einnahme'),
+(186, 4, 12, 1, '2017-05-03 20:13:36', '17000', 'Mierendorffplatz 118, 10589 Berlin-Charlottenburg', 'Mieteinnahmen: Klassisch schöne Altbauwohnung in bester Charlottenburger Kiezlage', 'Einnahme'),
+(187, 4, 12, 1, '2017-05-03 20:13:36', '24950', 'Torstrasse 79a, 10117 Berlin - Mitte', 'Mieteinnahmen: Über den Dächern von Berlin', 'Einnahme'),
+(188, 4, 12, 1, '2017-05-03 20:13:36', '40000', 'Lindenstraße 46, 12555 Berlin - Köpenick', 'Mieteinnahmen: Moderne Stadtvilla im ästhetischen Bauhausdesign in Köpenick-Nord', 'Einnahme'),
+(189, 4, 12, 1, '2017-05-03 20:22:56', '6000', 'Johannisthaler Chaussee 212, 12351 Berlin - Neukölln', 'Mieteinnahmen: Helle 2 Zi.-Whg. mit Balkon, Aufzug und Garage', 'Einnahme'),
+(190, 4, 13, 1, '2017-05-03 20:27:28', '0', 'Lindauer Allee, 13407 Berlin - Reinickendorf ', 'Mieteinnahmen: 1-Zimmer-Wohnung in Reinickendorf mit solider Rendite!', 'Einnahme'),
+(191, 4, 14, 1, '2017-05-03 20:30:53', '4582', 'An der Kappe 135, 13583 Berlin - Spanndau', 'Mieteinnahmen: Sichere Wertanlage', 'Einnahme'),
+(192, 4, 12, 1, '2017-05-03 20:37:11', '19875', 'Allee der Kosmonauten 45, 12681 Berlin - Lichtenberg (Herzberge)', 'Mieteinnahmen: ERSTBEZUG-PARKETT-WANNENBAD-GÄSTEWC-EINBAUKÜCHE-ZWEI BALKONE-STELLPLATZ', 'Einnahme'),
+(193, 4, 12, 1, '2017-05-03 20:37:35', '15875', 'Pettenkoferstr.17, 10247 Berlin - Friedrichshain', 'Mieteinnahmen: Klassich Modernes Wohnen in Bestlage -Neubau-', 'Einnahme'),
+(194, 4, 14, 1, '2017-05-03 20:48:42', '4296', 'Köpeniker Landstraße 122, 12437 Berlin - Treptow', 'Mieteinnahmen: zuverlässig Vermietetes Appartment im Plänterwald Viertel', 'Einnahme'),
+(195, 4, 13, 2, '2017-05-03 20:51:49', '45000', 'Clayallee 126, 15612 Berlin - Steglitz-Zehlendorf', 'Mieteinnahmen: Moderne Etagenwohnung mit Südbalkon', 'Einnahme'),
+(196, 4, 13, 2, '2017-05-03 20:51:49', '8400', 'Am Wannsee 154, 21415 Berlin - Steglitz-Zehlendorf', 'Mieteinnahmen: Zentrale 4 Zimmer Wohnung ', 'Einnahme'),
+(197, 4, 13, 2, '2017-05-03 20:51:49', '8400', 'Bahnhofsstraße 15, 12415 Berlin - Mitte', 'Mieteinnahmen: Dachgeschosswohnung mit Ausblick bis zum Fernsehturm!', 'Einnahme'),
+(198, 4, 13, 2, '2017-05-03 20:51:49', '3092', 'Lindauer Allee, 13407 Berlin - Reinickendorf ', 'Mieteinnahmen: 1-Zimmer-Wohnung in Reinickendorf mit solider Rendite!', 'Einnahme'),
+(199, 4, 13, 2, '2017-05-03 20:51:49', '0', 'Frohnauer Str. 166, 13465 Berlin - Reinickendorf (Frohnau)', 'Mieteinnahmen: Gewerbefläche mit guter Verkehrsanbindung', 'Einnahme'),
+(200, 4, 13, 2, '2017-05-03 20:51:49', '9200', 'Kurfürstenstr.27, 10787 Berlin - Charlottenburg', 'Mieteinnahmen: Sehr helle Souterrain-Wohnung auf der Südseite', 'Einnahme'),
+(201, 4, 13, 2, '2017-05-03 20:51:49', '45000', 'Clayallee 126, 15612 Berlin - Steglitz-Zehlendorf', 'Mieteinnahmen: Moderne Etagenwohnung mit Südbalkon', 'Einnahme'),
+(202, 4, 14, 2, '2017-05-03 20:51:52', '8400', 'Wilmersdorfer Straße 13, 37682 Berlin - Charlottenburg', 'Mieteinnahmen: Weitläufige Wohnung in Berlin Charlottenburg', 'Einnahme'),
+(203, 4, 14, 2, '2017-05-03 20:51:52', '45000', 'Clayallee 126, 15612 Berlin - Steglitz-Zehlendorf', 'Mieteinnahmen: Moderne Etagenwohnung mit Südbalkon', 'Einnahme'),
+(204, 4, 14, 2, '2017-05-03 20:51:52', '8400', 'Am Wannsee 154, 21415 Berlin - Steglitz-Zehlendorf', 'Mieteinnahmen: Zentrale 4 Zimmer Wohnung ', 'Einnahme'),
+(205, 4, 14, 2, '2017-05-03 20:51:52', '8400', 'Bahnhofsstraße 15, 12415 Berlin - Mitte', 'Mieteinnahmen: Dachgeschosswohnung mit Ausblick bis zum Fernsehturm!', 'Einnahme'),
+(206, 4, 14, 2, '2017-05-03 20:51:52', '13200', 'Rintelner Straße 42, 14193 Berlin - Charlottenburg-Wilmersdorf', 'Mieteinnahmen: Ansehen lohnt sich! Schönes Haus in ruhiger Lage', 'Einnahme'),
+(207, 4, 14, 2, '2017-05-03 20:51:52', '4582', 'An der Kappe 135, 13583 Berlin - Spanndau', 'Mieteinnahmen: Sichere Wertanlage', 'Einnahme'),
+(208, 4, 14, 2, '2017-05-03 20:51:52', '4296', 'Köpeniker Landstraße 122, 12437 Berlin - Treptow', 'Mieteinnahmen: zuverlässig Vermietetes Appartment im Plänterwald Viertel', 'Einnahme'),
+(209, 4, 11, 2, '2017-05-03 20:51:52', '45000', 'Clayallee 126, 15612 Berlin - Steglitz-Zehlendorf', 'Mieteinnahmen: Moderne Etagenwohnung mit Südbalkon', 'Einnahme'),
+(210, 4, 11, 2, '2017-05-03 20:51:52', '8400', 'Am Wannsee 154, 21415 Berlin - Steglitz-Zehlendorf', 'Mieteinnahmen: Zentrale 4 Zimmer Wohnung ', 'Einnahme'),
+(211, 4, 11, 2, '2017-05-03 20:51:52', '8400', 'Bahnhofsstraße 15, 12415 Berlin - Mitte', 'Mieteinnahmen: Dachgeschosswohnung mit Ausblick bis zum Fernsehturm!', 'Einnahme'),
+(212, 4, 11, 2, '2017-05-03 20:51:52', '12600', 'Trappenpfad 39, 37671 Berlin - Neukölln', 'Mieteinnahmen: Zentrale 3 Zimmer Wohnung', 'Einnahme'),
+(213, 4, 12, 2, '2017-05-03 20:51:54', '8400', 'Wilmersdorfer Straße 13, 37682 Berlin - Charlottenburg', 'Mieteinnahmen: Weitläufige Wohnung in Berlin Charlottenburg', 'Einnahme'),
+(214, 4, 12, 2, '2017-05-03 20:51:54', '45000', 'Clayallee 126, 15612 Berlin - Steglitz-Zehlendorf', 'Mieteinnahmen: Moderne Etagenwohnung mit Südbalkon', 'Einnahme'),
+(215, 4, 12, 2, '2017-05-03 20:51:54', '8400', 'Am Wannsee 154, 21415 Berlin - Steglitz-Zehlendorf', 'Mieteinnahmen: Zentrale 4 Zimmer Wohnung ', 'Einnahme'),
+(216, 4, 12, 2, '2017-05-03 20:51:54', '8400', 'Bahnhofsstraße 15, 12415 Berlin - Mitte', 'Mieteinnahmen: Dachgeschosswohnung mit Ausblick bis zum Fernsehturm!', 'Einnahme'),
+(217, 4, 12, 2, '2017-05-03 20:51:54', '6000', 'Johannisthaler Chaussee 212, 12351 Berlin - Neukölln', 'Mieteinnahmen: Helle 2 Zi.-Whg. mit Balkon, Aufzug und Garage', 'Einnahme'),
+(218, 4, 12, 2, '2017-05-03 20:51:54', '21000', 'Allee der Kosmonauten 45, 12681 Berlin - Lichtenberg (Herzberge)', 'Mieteinnahmen: ERSTBEZUG-PARKETT-WANNENBAD-GÄSTEWC-EINBAUKÜCHE-ZWEI BALKONE-STELLPLATZ', 'Einnahme'),
+(219, 4, 12, 2, '2017-05-03 20:51:54', '18000', 'Pettenkoferstr.17, 10247 Berlin - Friedrichshain', 'Mieteinnahmen: Klassich Modernes Wohnen in Bestlage -Neubau-', 'Einnahme'),
+(220, 4, 12, 2, '2017-05-03 20:59:56', '201875', 'Clayallee 126, 15612 Berlin - Steglitz-Zehlendorf', 'Immobilienverkauf: Moderne Etagenwohnung mit Südbalkon', 'Einnahme'),
+(221, 4, 12, 3, '2017-05-03 21:08:33', '8000', 'Wilmersdorfer Straße 13, 37682 Berlin - Charlottenburg', 'Mieteinnahmen: Weitläufige Wohnung in Berlin Charlottenburg', 'Einnahme'),
+(222, 4, 12, 3, '2017-05-03 21:08:33', '8000', 'Am Wannsee 154, 21415 Berlin - Steglitz-Zehlendorf', 'Mieteinnahmen: Zentrale 4 Zimmer Wohnung ', 'Einnahme'),
+(223, 4, 12, 3, '2017-05-03 21:08:33', '8000', 'Bahnhofsstraße 15, 12415 Berlin - Mitte', 'Mieteinnahmen: Dachgeschosswohnung mit Ausblick bis zum Fernsehturm!', 'Einnahme'),
+(224, 4, 12, 3, '2017-05-03 21:08:33', '6000', 'Johannisthaler Chaussee 212, 12351 Berlin - Neukölln', 'Mieteinnahmen: Helle 2 Zi.-Whg. mit Balkon, Aufzug und Garage', 'Einnahme'),
+(225, 4, 12, 3, '2017-05-03 21:08:33', '22125', 'Allee der Kosmonauten 45, 12681 Berlin - Lichtenberg (Herzberge)', 'Mieteinnahmen: ERSTBEZUG-PARKETT-WANNENBAD-GÄSTEWC-EINBAUKÜCHE-ZWEI BALKONE-STELLPLATZ', 'Einnahme'),
+(226, 4, 12, 3, '2017-05-03 21:08:34', '20125', 'Pettenkoferstr.17, 10247 Berlin - Friedrichshain', 'Mieteinnahmen: Klassich Modernes Wohnen in Bestlage -Neubau-', 'Einnahme'),
+(227, 4, 14, 3, '2017-05-03 21:08:36', '8000', 'Wilmersdorfer Straße 13, 37682 Berlin - Charlottenburg', 'Mieteinnahmen: Weitläufige Wohnung in Berlin Charlottenburg', 'Einnahme'),
+(228, 4, 14, 3, '2017-05-03 21:08:36', '50000', 'Clayallee 126, 15612 Berlin - Steglitz-Zehlendorf', 'Mieteinnahmen: Moderne Etagenwohnung mit Südbalkon', 'Einnahme'),
+(229, 4, 14, 3, '2017-05-03 21:08:36', '8000', 'Am Wannsee 154, 21415 Berlin - Steglitz-Zehlendorf', 'Mieteinnahmen: Zentrale 4 Zimmer Wohnung ', 'Einnahme'),
+(230, 4, 14, 3, '2017-05-03 21:08:36', '8000', 'Bahnhofsstraße 15, 12415 Berlin - Mitte', 'Mieteinnahmen: Dachgeschosswohnung mit Ausblick bis zum Fernsehturm!', 'Einnahme'),
+(231, 4, 14, 3, '2017-05-03 21:08:36', '14750', 'Rintelner Straße 42, 14193 Berlin - Charlottenburg-Wilmersdorf', 'Mieteinnahmen: Ansehen lohnt sich! Schönes Haus in ruhiger Lage', 'Einnahme'),
+(232, 4, 14, 3, '2017-05-03 21:08:36', '4582', 'An der Kappe 135, 13583 Berlin - Spanndau', 'Mieteinnahmen: Sichere Wertanlage', 'Einnahme'),
+(233, 4, 14, 3, '2017-05-03 21:08:36', '4296', 'Köpeniker Landstraße 122, 12437 Berlin - Treptow', 'Mieteinnahmen: zuverlässig Vermietetes Appartment im Plänterwald Viertel', 'Einnahme'),
+(234, 4, 11, 3, '2017-05-03 21:08:45', '50000', 'Clayallee 126, 15612 Berlin - Steglitz-Zehlendorf', 'Mieteinnahmen: Moderne Etagenwohnung mit Südbalkon', 'Einnahme'),
+(235, 4, 11, 3, '2017-05-03 21:08:45', '8000', 'Am Wannsee 154, 21415 Berlin - Steglitz-Zehlendorf', 'Mieteinnahmen: Zentrale 4 Zimmer Wohnung ', 'Einnahme'),
+(236, 4, 11, 3, '2017-05-03 21:08:45', '13350', 'Trappenpfad 39, 37671 Berlin - Neukölln', 'Mieteinnahmen: Zentrale 3 Zimmer Wohnung', 'Einnahme'),
+(237, 4, 13, 3, '2017-05-03 21:08:58', '50000', 'Clayallee 126, 15612 Berlin - Steglitz-Zehlendorf', 'Mieteinnahmen: Moderne Etagenwohnung mit Südbalkon', 'Einnahme'),
+(238, 4, 13, 3, '2017-05-03 21:08:58', '8000', 'Am Wannsee 154, 21415 Berlin - Steglitz-Zehlendorf', 'Mieteinnahmen: Zentrale 4 Zimmer Wohnung ', 'Einnahme'),
+(239, 4, 13, 3, '2017-05-03 21:08:58', '8000', 'Bahnhofsstraße 15, 12415 Berlin - Mitte', 'Mieteinnahmen: Dachgeschosswohnung mit Ausblick bis zum Fernsehturm!', 'Einnahme'),
+(240, 4, 13, 3, '2017-05-03 21:08:58', '3092', 'Lindauer Allee, 13407 Berlin - Reinickendorf ', 'Mieteinnahmen: 1-Zimmer-Wohnung in Reinickendorf mit solider Rendite!', 'Einnahme'),
+(241, 4, 13, 3, '2017-05-03 21:08:58', '0', 'Frohnauer Str. 166, 13465 Berlin - Reinickendorf (Frohnau)', 'Mieteinnahmen: Gewerbefläche mit guter Verkehrsanbindung', 'Einnahme'),
+(242, 4, 13, 3, '2017-05-03 21:08:58', '9600', 'Kurfürstenstr.27, 10787 Berlin - Charlottenburg', 'Mieteinnahmen: Sehr helle Souterrain-Wohnung auf der Südseite', 'Einnahme'),
+(243, 4, 13, 3, '2017-05-03 21:08:58', '50000', 'Clayallee 126, 15612 Berlin - Steglitz-Zehlendorf', 'Mieteinnahmen: Moderne Etagenwohnung mit Südbalkon', 'Einnahme'),
+(244, 4, 13, 3, '2017-05-03 21:08:58', '8000', 'Am Wannsee 154, 21415 Berlin - Steglitz-Zehlendorf', 'Mieteinnahmen: Zentrale 4 Zimmer Wohnung ', 'Einnahme'),
+(245, 4, 13, 3, '2017-05-03 21:08:58', '8000', 'Am Wannsee 154, 21415 Berlin - Steglitz-Zehlendorf', 'Mieteinnahmen: Zentrale 4 Zimmer Wohnung ', 'Einnahme'),
+(246, 4, 13, 3, '2017-05-03 21:08:58', '8000', 'Am Wannsee 154, 21415 Berlin - Steglitz-Zehlendorf', 'Mieteinnahmen: Zentrale 4 Zimmer Wohnung ', 'Einnahme'),
+(247, 4, 13, 3, '2017-05-03 21:08:58', '8000', 'Am Wannsee 154, 21415 Berlin - Steglitz-Zehlendorf', 'Mieteinnahmen: Zentrale 4 Zimmer Wohnung ', 'Einnahme'),
+(248, 4, 11, 3, '2017-05-03 21:10:16', '201875', 'Clayallee 126, 15612 Berlin - Steglitz-Zehlendorf', 'Immobilienverkauf: Moderne Etagenwohnung mit Südbalkon', 'Einnahme'),
+(249, 4, 12, 3, '2017-05-03 21:10:22', '10248', 'Woltanstraße 83, 10365 Berlin - Lichtenberg', 'Mieteinnahmen: Bezugsfreie 3-Zimmer-Eigentumswohnung im Herzen Berlin-Lichtenbergs', 'Einnahme'),
+(250, 4, 11, 3, '2017-05-03 21:10:48', '3804', 'Siegfriedstraße 20, 13156 Berlin - Pankow', 'Mieteinnahmen: Vermietete und sanierte Altbau-Idylle mit Balkon zur Kapitalanlage am Schlosspark!', 'Einnahme'),
+(251, 4, 12, 4, '2017-05-03 21:28:05', '7600', 'Wilmersdorfer Straße 13, 37682 Berlin - Charlottenburg', 'Mieteinnahmen: Weitläufige Wohnung in Berlin Charlottenburg', 'Einnahme'),
+(252, 4, 12, 4, '2017-05-03 21:28:05', '7600', 'Am Wannsee 154, 21415 Berlin - Steglitz-Zehlendorf', 'Mieteinnahmen: Zentrale 4 Zimmer Wohnung ', 'Einnahme'),
+(253, 4, 12, 4, '2017-05-03 21:28:05', '7600', 'Bahnhofsstraße 15, 12415 Berlin - Mitte', 'Mieteinnahmen: Dachgeschosswohnung mit Ausblick bis zum Fernsehturm!', 'Einnahme'),
+(254, 4, 12, 4, '2017-05-03 21:28:05', '6000', 'Johannisthaler Chaussee 212, 12351 Berlin - Neukölln', 'Mieteinnahmen: Helle 2 Zi.-Whg. mit Balkon, Aufzug und Garage', 'Einnahme'),
+(255, 4, 12, 4, '2017-05-03 21:28:05', '23250', 'Allee der Kosmonauten 45, 12681 Berlin - Lichtenberg (Herzberge)', 'Mieteinnahmen: ERSTBEZUG-PARKETT-WANNENBAD-GÄSTEWC-EINBAUKÜCHE-ZWEI BALKONE-STELLPLATZ', 'Einnahme'),
+(256, 4, 12, 4, '2017-05-03 21:28:05', '22250', 'Pettenkoferstr.17, 10247 Berlin - Friedrichshain', 'Mieteinnahmen: Klassich Modernes Wohnen in Bestlage -Neubau-', 'Einnahme'),
+(257, 4, 12, 4, '2017-05-03 21:28:05', '10248', 'Woltanstraße 83, 10365 Berlin - Lichtenberg', 'Mieteinnahmen: Bezugsfreie 3-Zimmer-Eigentumswohnung im Herzen Berlin-Lichtenbergs', 'Einnahme'),
+(258, 4, 13, 4, '2017-05-03 21:28:05', '55000', 'Clayallee 126, 15612 Berlin - Steglitz-Zehlendorf', 'Mieteinnahmen: Moderne Etagenwohnung mit Südbalkon', 'Einnahme'),
+(259, 4, 13, 4, '2017-05-03 21:28:05', '7600', 'Am Wannsee 154, 21415 Berlin - Steglitz-Zehlendorf', 'Mieteinnahmen: Zentrale 4 Zimmer Wohnung ', 'Einnahme'),
+(260, 4, 13, 4, '2017-05-03 21:28:05', '7600', 'Bahnhofsstraße 15, 12415 Berlin - Mitte', 'Mieteinnahmen: Dachgeschosswohnung mit Ausblick bis zum Fernsehturm!', 'Einnahme'),
+(261, 4, 13, 4, '2017-05-03 21:28:05', '3092', 'Lindauer Allee, 13407 Berlin - Reinickendorf ', 'Mieteinnahmen: 1-Zimmer-Wohnung in Reinickendorf mit solider Rendite!', 'Einnahme'),
+(262, 4, 13, 4, '2017-05-03 21:28:05', '0', 'Frohnauer Str. 166, 13465 Berlin - Reinickendorf (Frohnau)', 'Mieteinnahmen: Gewerbefläche mit guter Verkehrsanbindung', 'Einnahme'),
+(263, 4, 13, 4, '2017-05-03 21:28:05', '10000', 'Kurfürstenstr.27, 10787 Berlin - Charlottenburg', 'Mieteinnahmen: Sehr helle Souterrain-Wohnung auf der Südseite', 'Einnahme'),
+(264, 4, 13, 4, '2017-05-03 21:28:05', '55000', 'Clayallee 126, 15612 Berlin - Steglitz-Zehlendorf', 'Mieteinnahmen: Moderne Etagenwohnung mit Südbalkon', 'Einnahme'),
+(265, 4, 13, 4, '2017-05-03 21:28:05', '7600', 'Am Wannsee 154, 21415 Berlin - Steglitz-Zehlendorf', 'Mieteinnahmen: Zentrale 4 Zimmer Wohnung ', 'Einnahme'),
+(266, 4, 13, 4, '2017-05-03 21:28:05', '7600', 'Am Wannsee 154, 21415 Berlin - Steglitz-Zehlendorf', 'Mieteinnahmen: Zentrale 4 Zimmer Wohnung ', 'Einnahme'),
+(267, 4, 13, 4, '2017-05-03 21:28:05', '7600', 'Am Wannsee 154, 21415 Berlin - Steglitz-Zehlendorf', 'Mieteinnahmen: Zentrale 4 Zimmer Wohnung ', 'Einnahme'),
+(268, 4, 13, 4, '2017-05-03 21:28:05', '7600', 'Am Wannsee 154, 21415 Berlin - Steglitz-Zehlendorf', 'Mieteinnahmen: Zentrale 4 Zimmer Wohnung ', 'Einnahme'),
+(269, 4, 13, 4, '2017-05-03 21:28:05', '7600', 'Bahnhofsstraße 15, 12415 Berlin - Mitte', 'Mieteinnahmen: Dachgeschosswohnung mit Ausblick bis zum Fernsehturm!', 'Einnahme'),
+(270, 4, 13, 4, '2017-05-03 21:28:05', '7600', 'Bahnhofsstraße 15, 12415 Berlin - Mitte', 'Mieteinnahmen: Dachgeschosswohnung mit Ausblick bis zum Fernsehturm!', 'Einnahme'),
+(271, 4, 14, 4, '2017-05-03 21:28:05', '7600', 'Wilmersdorfer Straße 13, 37682 Berlin - Charlottenburg', 'Mieteinnahmen: Weitläufige Wohnung in Berlin Charlottenburg', 'Einnahme'),
+(272, 4, 14, 4, '2017-05-03 21:28:05', '55000', 'Clayallee 126, 15612 Berlin - Steglitz-Zehlendorf', 'Mieteinnahmen: Moderne Etagenwohnung mit Südbalkon', 'Einnahme'),
+(273, 4, 14, 4, '2017-05-03 21:28:05', '7600', 'Am Wannsee 154, 21415 Berlin - Steglitz-Zehlendorf', 'Mieteinnahmen: Zentrale 4 Zimmer Wohnung ', 'Einnahme'),
+(274, 4, 14, 4, '2017-05-03 21:28:05', '7600', 'Bahnhofsstraße 15, 12415 Berlin - Mitte', 'Mieteinnahmen: Dachgeschosswohnung mit Ausblick bis zum Fernsehturm!', 'Einnahme'),
+(275, 4, 14, 4, '2017-05-03 21:28:05', '16300', 'Rintelner Straße 42, 14193 Berlin - Charlottenburg-Wilmersdorf', 'Mieteinnahmen: Ansehen lohnt sich! Schönes Haus in ruhiger Lage', 'Einnahme'),
+(276, 4, 14, 4, '2017-05-03 21:28:05', '4582', 'An der Kappe 135, 13583 Berlin - Spanndau', 'Mieteinnahmen: Sichere Wertanlage', 'Einnahme'),
+(277, 4, 14, 4, '2017-05-03 21:28:05', '4296', 'Köpeniker Landstraße 122, 12437 Berlin - Treptow', 'Mieteinnahmen: zuverlässig Vermietetes Appartment im Plänterwald Viertel', 'Einnahme'),
+(278, 4, 11, 4, '2017-05-03 21:28:11', '7600', 'Am Wannsee 154, 21415 Berlin - Steglitz-Zehlendorf', 'Mieteinnahmen: Zentrale 4 Zimmer Wohnung ', 'Einnahme'),
+(279, 4, 11, 4, '2017-05-03 21:28:11', '14100', 'Trappenpfad 39, 37671 Berlin - Neukölln', 'Mieteinnahmen: Zentrale 3 Zimmer Wohnung', 'Einnahme'),
+(280, 4, 11, 4, '2017-05-03 21:28:11', '3804', 'Siegfriedstraße 20, 13156 Berlin - Pankow', 'Mieteinnahmen: Vermietete und sanierte Altbau-Idylle mit Balkon zur Kapitalanlage am Schlosspark!', 'Einnahme'),
+(281, 4, 12, 4, '2017-05-03 21:29:49', '106675', 'Wilmersdorfer Straße 13, 37682 Berlin - Charlottenburg', 'Immobilienverkauf: Weitläufige Wohnung in Berlin Charlottenburg', 'Einnahme'),
+(282, 4, 12, 4, '2017-05-03 21:36:26', '4608', 'Weißenburgerstraße 7, 13595 Berlin - Spanndau', 'Mieteinnahmen: Renditeobjekt in bester Lage', 'Einnahme'),
+(283, 4, 13, 5, '2017-05-03 22:43:47', '60000', 'Clayallee 126, 15612 Berlin - Steglitz-Zehlendorf', 'Mieteinnahmen: Moderne Etagenwohnung mit Südbalkon', 'Einnahme'),
+(284, 4, 13, 5, '2017-05-03 22:43:47', '7200', 'Am Wannsee 154, 21415 Berlin - Steglitz-Zehlendorf', 'Mieteinnahmen: Zentrale 4 Zimmer Wohnung ', 'Einnahme'),
+(285, 4, 13, 5, '2017-05-03 22:43:47', '7200', 'Bahnhofsstraße 15, 12415 Berlin - Mitte', 'Mieteinnahmen: Dachgeschosswohnung mit Ausblick bis zum Fernsehturm!', 'Einnahme'),
+(286, 4, 13, 5, '2017-05-03 22:43:47', '3092', 'Lindauer Allee, 13407 Berlin - Reinickendorf ', 'Mieteinnahmen: 1-Zimmer-Wohnung in Reinickendorf mit solider Rendite!', 'Einnahme'),
+(287, 4, 13, 5, '2017-05-03 22:43:47', '0', 'Frohnauer Str. 166, 13465 Berlin - Reinickendorf (Frohnau)', 'Mieteinnahmen: Gewerbefläche mit guter Verkehrsanbindung', 'Einnahme'),
+(288, 4, 13, 5, '2017-05-03 22:43:47', '10400', 'Kurfürstenstr.27, 10787 Berlin - Charlottenburg', 'Mieteinnahmen: Sehr helle Souterrain-Wohnung auf der Südseite', 'Einnahme'),
+(289, 4, 13, 5, '2017-05-03 22:43:47', '60000', 'Clayallee 126, 15612 Berlin - Steglitz-Zehlendorf', 'Mieteinnahmen: Moderne Etagenwohnung mit Südbalkon', 'Einnahme'),
+(290, 4, 13, 5, '2017-05-03 22:43:47', '7200', 'Am Wannsee 154, 21415 Berlin - Steglitz-Zehlendorf', 'Mieteinnahmen: Zentrale 4 Zimmer Wohnung ', 'Einnahme'),
+(291, 4, 13, 5, '2017-05-03 22:43:47', '7200', 'Am Wannsee 154, 21415 Berlin - Steglitz-Zehlendorf', 'Mieteinnahmen: Zentrale 4 Zimmer Wohnung ', 'Einnahme'),
+(292, 4, 13, 5, '2017-05-03 22:43:47', '7200', 'Am Wannsee 154, 21415 Berlin - Steglitz-Zehlendorf', 'Mieteinnahmen: Zentrale 4 Zimmer Wohnung ', 'Einnahme'),
+(293, 4, 13, 5, '2017-05-03 22:43:47', '7200', 'Am Wannsee 154, 21415 Berlin - Steglitz-Zehlendorf', 'Mieteinnahmen: Zentrale 4 Zimmer Wohnung ', 'Einnahme'),
+(294, 4, 13, 5, '2017-05-03 22:43:47', '7200', 'Bahnhofsstraße 15, 12415 Berlin - Mitte', 'Mieteinnahmen: Dachgeschosswohnung mit Ausblick bis zum Fernsehturm!', 'Einnahme'),
+(295, 4, 13, 5, '2017-05-03 22:43:47', '7200', 'Bahnhofsstraße 15, 12415 Berlin - Mitte', 'Mieteinnahmen: Dachgeschosswohnung mit Ausblick bis zum Fernsehturm!', 'Einnahme'),
+(296, 4, 13, 5, '2017-05-03 22:43:48', '7200', 'Bahnhofsstraße 15, 12415 Berlin - Mitte', 'Mieteinnahmen: Dachgeschosswohnung mit Ausblick bis zum Fernsehturm!', 'Einnahme'),
+(297, 4, 13, 5, '2017-05-03 22:43:48', '7200', 'Bahnhofsstraße 15, 12415 Berlin - Mitte', 'Mieteinnahmen: Dachgeschosswohnung mit Ausblick bis zum Fernsehturm!', 'Einnahme'),
+(298, 4, 13, 5, '2017-05-03 22:43:48', '0', ',  ', 'Mieteinnahmen: ', 'Einnahme');
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `Employees`
+--
+
+CREATE TABLE IF NOT EXISTS `Employees` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `Name` varchar(45) DEFAULT NULL,
+  `Address` varchar(90) DEFAULT NULL,
+  PRIMARY KEY (`ID`),
+  UNIQUE KEY `ID_UNIQUE` (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `Ereignis`
+--
+
+CREATE TABLE IF NOT EXISTS `Ereignis` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `Viertel` int(11) NOT NULL,
+  `Beschreibung` varchar(500) NOT NULL,
+  `Runde` int(11) NOT NULL,
+  `Gentrifizierung` int(11) NOT NULL,
+  `Beliebtheit` int(11) NOT NULL,
+  `Lage` int(11) NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `Gebote`
+--
+
+CREATE TABLE IF NOT EXISTS `Gebote` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `SpielID` int(11) NOT NULL,
+  `UnternehmensID` int(11) NOT NULL,
+  `ObjektID` int(11) NOT NULL,
+  `Runde` int(11) NOT NULL,
+  `Gebot` int(11) NOT NULL,
+  `Gewonnen` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=15 ;
+
+--
+-- Daten für Tabelle `Gebote`
+--
+
+INSERT INTO `Gebote` (`ID`, `SpielID`, `UnternehmensID`, `ObjektID`, `Runde`, `Gebot`, `Gewonnen`) VALUES
+(2, 2, 4, 1, 1, 222958, 0),
+(3, 2, 5, 1, 1, 158322, 0),
+(4, 2, 6, 1, 1, 131924, 0),
+(5, 3, 8, 1, 1, 163618, 0),
+(6, 3, 7, 1, 1, 163393, 0),
+(7, 3, 7, 2, 2, 87501, 0),
+(8, 4, 11, 1, 1, 146657, 0),
+(9, 4, 13, 1, 1, 194777, 0),
+(10, 4, 14, 1, 1, 110553, 0),
+(11, 4, 13, 2, 2, 50315, 0),
+(12, 4, 14, 2, 2, 50000, 0),
+(13, 4, 12, 4, 4, 155834, 0),
+(14, 4, 13, 4, 4, 100000, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `Kaeufer`
+--
+
+CREATE TABLE IF NOT EXISTS `Kaeufer` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `Name` varchar(120) NOT NULL,
+  `Preis` float NOT NULL,
+  `Zahlungsdatum` int(11) NOT NULL DEFAULT '0',
+  `Bonitaet` int(11) NOT NULL DEFAULT '2',
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+
+--
+-- Daten für Tabelle `Kaeufer`
+--
+
+INSERT INTO `Kaeufer` (`ID`, `Name`, `Preis`, `Zahlungsdatum`, `Bonitaet`) VALUES
+(1, 'Spire GmbH', 0.85, 0, 0),
+(2, 'Dennis Tovote', 1.25, 2, 3),
+(3, 'John Wick', 1.05, 1, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `Konto`
+--
+
+CREATE TABLE IF NOT EXISTS `Konto` (
+  `ID` int(11) NOT NULL,
+  `Beschreibung` int(11) NOT NULL,
+  `Kontenart` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `Kredit`
+--
+
+CREATE TABLE IF NOT EXISTS `Kredit` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `Bankname` varchar(200) NOT NULL,
+  `Kredittyp` varchar(100) NOT NULL,
+  `Kreditsumme` int(11) NOT NULL,
+  `Kreditzins` float NOT NULL,
+  `Laufzeit` int(11) NOT NULL,
+  `Genehmigungswahrscheinlichkeit` int(11) NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+
+--
+-- Daten für Tabelle `Kredit`
+--
+
+INSERT INTO `Kredit` (`ID`, `Bankname`, `Kredittyp`, `Kreditsumme`, `Kreditzins`, `Laufzeit`, `Genehmigungswahrscheinlichkeit`) VALUES
+(1, 'Vereinigte Volksbank e.G.', 'Annuitätendarlehen', 2000000, 7.5, 5, 10),
+(2, 'Deutsche Bank AG', 'endfälliger Kredit', 500000, 10, 2, 89),
+(3, 'Commerzbank AG', 'endfälliger Kredit', 750000, 9.5, 3, 72);
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `marktanalyse`
+--
+
+CREATE TABLE IF NOT EXISTS `marktanalyse` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `Tipp` varchar(1000) NOT NULL,
+  `Runde` int(5) NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+
+--
+-- Daten für Tabelle `marktanalyse`
+--
+
+INSERT INTO `marktanalyse` (`ID`, `Tipp`, `Runde`) VALUES
+(1, 'Absoluter In-Treffpunkt in Berlin Mitte sind seit einigen Jahren die Hackeschen Höfe, über die wir im Rahmen dieser Webseite schon genauer berichtet haben. Sie beherbergen eine ganze Reihe verschiedener Lokalitäten, in denen sich die Berliner Nachtschwärmer regelmäßig treffen. Doch Berlin Mitte hat noch mehr zu bieten, zum Beispiel die Oranienburger Straße mit ihren schrägen Szeneläden und den kleinen, aber feinen Bars und Clubs.', 1),
+(2, 'Absoluter In-Treffpunkt in Berlin Mitte sind seit einigen Jahren die Hackeschen Höfe, über die wir im Rahmen dieser Webseite schon genauer berichtet haben. Sie beherbergen eine ganze Reihe verschiedener Lokalitäten, in denen sich die Berliner Nachtschwärmer regelmäßig treffen. Doch Berlin Mitte hat noch mehr zu bieten, zum Beispiel die Oranienburger Straße mit ihren schrägen Szeneläden und den kleinen, aber feinen Bars und Clubs.', 2),
+(3, 'Absoluter In-Treffpunkt in Berlin Mitte sind seit einigen Jahren die Hackeschen Höfe, über die wir im Rahmen dieser Webseite schon genauer berichtet haben. Sie beherbergen eine ganze Reihe verschiedener Lokalitäten, in denen sich die Berliner Nachtschwärmer regelmäßig treffen. Doch Berlin Mitte hat noch mehr zu bieten, zum Beispiel die Oranienburger Straße mit ihren schrägen Szeneläden und den kleinen, aber feinen Bars und Clubs.', 3),
+(4, 'Absoluter In-Treffpunkt in Berlin Mitte sind seit einigen Jahren die Hackeschen Höfe, über die wir im Rahmen dieser Webseite schon genauer berichtet haben. Sie beherbergen eine ganze Reihe verschiedener Lokalitäten, in denen sich die Berliner Nachtschwärmer regelmäßig treffen. Doch Berlin Mitte hat noch mehr zu bieten, zum Beispiel die Oranienburger Straße mit ihren schrägen Szeneläden und den kleinen, aber feinen Bars und Clubs.', 4);
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `Masteruser`
+--
+
+CREATE TABLE IF NOT EXISTS `Masteruser` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `username` varchar(100) NOT NULL,
+  `passwort` varchar(100) NOT NULL,
+  `lizenzen` int(11) NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Daten für Tabelle `Masteruser`
+--
+
+INSERT INTO `Masteruser` (`ID`, `username`, `passwort`, `lizenzen`) VALUES
+(1, 'nern', 'e10adc3949ba59abbe56e057f20f883e', 3);
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `Mieter`
+--
+
+CREATE TABLE IF NOT EXISTS `Mieter` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `Name` varchar(250) NOT NULL,
+  `Preis` float NOT NULL,
+  `Einzugsdatum` int(11) NOT NULL DEFAULT '0',
+  `Sauberkeit` int(11) NOT NULL DEFAULT '0',
+  `Bonitaet` int(11) NOT NULL DEFAULT '2',
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+
+--
+-- Daten für Tabelle `Mieter`
+--
+
+INSERT INTO `Mieter` (`ID`, `Name`, `Preis`, `Einzugsdatum`, `Sauberkeit`, `Bonitaet`) VALUES
+(1, 'Josef Müller', 1, 0, 2, 2),
+(2, 'Dominik Wiehs', 1.2, 1, 0, 2),
+(3, 'Frederik Meier', 0.85, 0, 3, 3);
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `Mitarbeiter`
+--
+
+CREATE TABLE IF NOT EXISTS `Mitarbeiter` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `Fachrichtung` varchar(40) NOT NULL,
+  `Name` varchar(80) NOT NULL,
+  `Beschreibung` varchar(500) NOT NULL,
+  `Gehalt` double NOT NULL,
+  `Faehigkeit` int(11) NOT NULL DEFAULT '5',
+  `Motivation` int(11) NOT NULL DEFAULT '5',
+  `Vertragslaufzeit` int(11) NOT NULL DEFAULT '0',
+  `Bild` varchar(200) NOT NULL,
+  `xing` varchar(400) NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=31 ;
+
+--
+-- Daten für Tabelle `Mitarbeiter`
+--
+
+INSERT INTO `Mitarbeiter` (`ID`, `Fachrichtung`, `Name`, `Beschreibung`, `Gehalt`, `Faehigkeit`, `Motivation`, `Vertragslaufzeit`, `Bild`, `xing`) VALUES
+(1, 'Bauleiter', 'René Faber', '', 81000, 9, 2, 0, 'http://www.marketingsfinest.com/spire/pictu/personal/person02.jpg', ''),
+(2, 'Bauleiter', 'Rainer Bonhoff', '', 75000, 6, 5, 0, 'http://www.marketingsfinest.com/spire/pictu/personal/person07.jpg', ''),
+(3, 'Bauleiter', 'Katharina Kaiser', '', 74000, 6, 5, 0, 'http://www.marketingsfinest.com/spire/pictu/personal/person01.jpg', ''),
+(4, 'Bauleiter', 'Jessica Engel', '', 69000, 4, 4, 0, 'http://www.marketingsfinest.com/spire/pictu/personal/person21.jpg', ''),
+(5, 'Bauleiter', 'Luca Kluge', '', 72000, 3, 7, 0, 'http://www.marketingsfinest.com/spire/pictu/personal/person03.jpg', ''),
+(6, 'Bauleiter', 'Jürgen Eggers', '', 76000, 5, 6, 0, 'http://www.marketingsfinest.com/spire/pictu/personal/person18.jpg', ''),
+(7, 'Bauleiter', 'Tim Schwartz', '', 69000, 4, 5, 0, 'http://www.marketingsfinest.com/spire/pictu/personal/person27.jpg', ''),
+(8, 'Makler', 'Lothar Gelhaus', '', 39000, 4, 5, 0, 'http://www.marketingsfinest.com/spire/pictu/personal/person06.jpg', ''),
+(9, 'Makler', 'Mathias Kastner', '', 40000, 7, 5, 0, 'http://www.marketingsfinest.com/spire/pictu/personal/person32.jpg', ''),
+(10, 'Makler', 'Claudia Glockner', '', 39000, 5, 5, 0, 'http://www.marketingsfinest.com/spire/pictu/personal/person13.jpg', ''),
+(11, 'Makler', 'Daniel M. Copland', '', 44000, 6, 6, 0, 'http://www.marketingsfinest.com/spire/pictu/personal/person14.jpg', ''),
+(12, 'Makler', 'Janina Hofmann', '', 42000, 7, 7, 0, 'http://www.marketingsfinest.com/spire/pictu/personal/person22.jpg', ''),
+(13, 'Makler', 'Nicole Keller', '', 45000, 6, 5, 0, 'http://www.marketingsfinest.com/spire/pictu/personal/person25.jpg', ''),
+(14, 'Makler', 'Alexander Fiedler', '', 32000, 1, 3, 0, 'http://www.marketingsfinest.com/spire/pictu/personal/person40.jpg', ''),
+(15, 'Sachbearbeiterin', 'Karolin Fuhrman', '', 29000, 4, 5, 0, 'http://www.marketingsfinest.com/spire/pictu/personal/person24.jpg', ''),
+(16, 'Sachbearbeiterin', 'Leon Dietrich', '', 34500, 6, 8, 0, 'http://www.marketingsfinest.com/spire/pictu/personal/person35.jpg', ''),
+(17, 'Sachbearbeiterin', 'Sabine Rollinger', '', 33000, 7, 8, 0, 'http://www.marketingsfinest.com/spire/pictu/personal/person11.jpg', ''),
+(18, 'Sachbearbeiterin', 'Petra Drechsler', '', 31000, 4, 5, 0, 'http://www.marketingsfinest.com/spire/pictu/personal/person20.jpg', ''),
+(19, 'Sachbearbeiterin', 'Anna Vogt', '', 29000, 3, 8, 0, 'http://www.marketingsfinest.com/spire/pictu/personal/person33.jpg', ''),
+(20, 'Sachbearbeiterin', 'Isabell Neumann', '', 29000, 5, 5, 0, 'http://www.marketingsfinest.com/spire/pictu/personal/person19.jpg', ''),
+(21, 'Sachbearbeiterin', 'Laura Schulz', '', 31000, 4, 3, 0, 'http://www.marketingsfinest.com/spire/pictu/personal/person04.jpg', ''),
+(22, 'Bauingenieur', 'Boris Müller', '', 79000, 8, 5, 0, 'http://www.marketingsfinest.com/spire/pictu/personal/person12.jpg', ''),
+(23, 'Bauingenieur', 'Felix Traugott', '', 65000, 5, 5, 0, 'http://www.marketingsfinest.com/spire/pictu/personal/person08.jpg', ''),
+(24, 'Bauingenieur', 'Sophia Friedmann', '', 65000, 4, 7, 0, 'http://www.marketingsfinest.com/spire/pictu/personal/person10.jpg', ''),
+(25, 'Bauingenieur', 'Hermann Meise', '', 60000, 5, 2, 0, 'http://www.marketingsfinest.com/spire/pictu/personal/person30.jpg', ''),
+(26, 'Bauingenieur', 'Clayton B. Towner', '', 70000, 6, 5, 0, 'http://www.marketingsfinest.com/spire/pictu/personal/person17.jpg', ''),
+(27, 'Bauingenieur', 'Lema Nahas', '', 66000, 6, 3, 0, 'http://www.marketingsfinest.com/spire/pictu/personal/person26.jpg', ''),
+(28, 'Bauingenieur', 'Steffen Brandt', '', 60000, 3, 3, 0, 'http://www.marketingsfinest.com/spire/pictu/personal/person16.jpg', '');
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `Neuigkeiten`
+--
+
+CREATE TABLE IF NOT EXISTS `Neuigkeiten` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `Titel` varchar(150) NOT NULL,
+  `Beschreibung` varchar(1500) NOT NULL,
+  `Bild` varchar(140) NOT NULL,
+  `Autor` varchar(40) NOT NULL,
+  `Jahr` int(11) NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=17 ;
+
+--
+-- Daten für Tabelle `Neuigkeiten`
+--
+
+INSERT INTO `Neuigkeiten` (`ID`, `Titel`, `Beschreibung`, `Bild`, `Autor`, `Jahr`) VALUES
+(1, 'Unternehmen planen den Umbruch', 'Rote Zahlen und veraltete Unternehmensstrategien zwingen mehre Unternehmen zum Umbruch. Die WIJA konnte im Interview in Erfahrung bringen, wie das Change Management die Unternehmen in der IMMOBILIA-Welt wieder auf Erfolgskurs bringen soll. Es wird auf junge und engagierte Nachwuchsführungskräfte gesetzt. Die Umsetzung soll über zwei Geschäftsjahre erfolgen, in der die alte Unternehmensleitung sich immer mehr aus der Entscheidungsebene herauszieht.\nDie Aufgabengebiete der Nachwuchskräfte beschränken sich in den ersten beiden Geschäftsjahren hauptsächlich auf das Rechnungswesen und in die Einarbeitung in das Unternehmen. Weiterhin müssen erste übertragende Entscheidungen getroffen werden. Die Redaktion wird über den Entwicklungsprozess in den nächsten Ausgaben weiter berichten und wünscht den Nachwuchskräften viel Erfolg.', 'http://future-transformation.de/wp-content/uploads/2015/12/Symbolbild_Kundenorientierung.jpg', 'Wirtschaftswoche', 1),
+(2, 'Trends und Tendenzen', 'Flexibler Grundriss, einfache und schnörkellose Formen und mietfrei in den eigenen vier Wänden - so wollen Haus- und Wohnungseigentümer das nächste Geschäftsjahr wohnen. Am liebsten ein Leben lang.', 'https://wfis.wellsfargo.com/CoreSiteImages/Insights/HealthcareTrendProjections2016_Large.jpg', 'Immobilien Outlook', 1),
+(3, 'NEUE REGULIERUNGEN IM PERSONALWESEN', 'Neue Regulierungen im Personalwesen treffen auf die Unternehmensleitungen. Aufgrund eines neuen Beschlusses, sind folgende Regulierungen im Personalwesen einzuhalten:\n1. Um ein Geschäftsfeld auszuüben, muss der entsprechende Leiter des Geschäftsfeldes im Unternehmen beschäftigt sein. Die Vertragslaufzeit der Leiter beläuft sich auf 1 Jahr, das sich ansonsten stillschweigend um ein weiteres Jahr verlängert.\n2. Des Weiteren wurde beschlossen, dass sich die Anzahl der Sachbearbeiter für die Verwaltung an der Anzahl der Objekte im Bestand orientiert.', 'http://www.dasinvestment.com/uploads/images/teaser/big/paragrafen_berater_fotolia_web_02.jpg', 'Bundesregierung', 1),
+(4, 'Planspiele', 'Planspiele wie wir sie erleben, besitzen asiatische Wurzeln. Bereits vor rund 5.000 Jahren gab es im asiatischen Raum militärische Strategiespiele. Diese markieren wahrscheinlich den Ursprung des Planspiels, das heute als innovative Lehrmethode mit nachhaltigem Lernerfolg eingesetzt wird.', 'http://www.onlineplanspiele.de/IntroductionImage/129_1/Planspiele.jpg', 'Infocenter', 1),
+(7, 'Fünf vor Zwölf', 'Auch im letzten Geschäftsjahr gab es kaum eine Verbesserung in der Geschäftstätigkeit. Wir berichteten bereits in der letzten Ausgabe, über den Umbruch in der IMMOBILIA-Welt, jedoch hat die alte Unternehmensleitung noch zu viel Entscheidungsbefugnis.\r\nEs kamen im laufenden Geschäftsjahr immer frustrierte Stimmen der Nachwuchskräfte auf, die dieses bemängelten und erklärten, dass sich die prekäre Situation, in der sich das Unternehmen be ndet, so nicht verändert. Wie wir von der amtierenden Unternehmensleitung erfahren haben, soll sich jedoch dieses in diesem Geschäftsjahr verändern und den Nachwuchs mehr Entscheidungen übertragen werden.\r\nWeiterhin erfuhren wir, dass Beispielsweise die Planung für das nächste Geschäftsjahr, sowie eine mögliche Spendenaktion, gesamtheitlich übertragen werden soll.', 'https://cdn.pixabay.com/photo/2012/04/10/16/07/clock-26094_1280.png', 'Wirtschaftsnews', 2),
+(8, 'SPENDEN nicht nur ein steuerlicher Vorteil', 'Sie möchten sich als Unternehmen sozial engagieren und gesellschaftliche Verantwortung übernehmen? Bei SOS-Kinderdorf können Sie sich darauf verlassen, dass Ihre Spende genau dort ankommt, wo sie dringend benötigt wird: Bei Kindern und Jugendlichen in Not. SOS-Kinderdorf steht in der ganzen Welt für Familie und ein liebevolles Zuhause. Nutzen Sie die Faszination dieser Marke für die Kommunikation Ihres Engagements!', 'http://audiopress.de/wp-content/uploads/2016/02/SOS-Kinderdorf_Symbol.jpg', 'SOS-Kinderdorf e.V.', 2),
+(10, 'Neue Vertriebskanäle für Unternehmen in der Immobilienbranche', 'Neue Vertriebskanäle in der IMMOBILIA-Welt gesichtet. Erstmals können Immobilien in Form einer stillen Auktion ersteigert werden. Für die Auktion wurden schnell interessante Immobilien gefunden. Die diesjährige Auktion umfasst eine Immobilie zum Ankauf und eine Immobilie zum Verkauf.\r\nBei der diesjährigen Auktion handelt es sich um eine abgewandelte Art der stillen Auktion, in der jedes Unternehmen lediglich einmal für jedes Objekt bieten kann. Die Abgabe des Gebotes erfolgt über ein Schriftstück, in der die Kennung der Auktion, sowie der Name des Unternehmens und Gebot enthalten sind. Zu einer vereinbarten Zeit wird die Auktion geschlossen und derjenige gewinnt die Auktion, der das höchste bzw. niedrigste Gebot abgegeben hat. Haben mehrere das gleiche Gebot abgegeben, dann gewinnt der, der das Gebot früher abgegeben hat.', 'http://www.handelsblatt.com/images/haus-unterm-hammer/11955722/5-format2010.jpg', 'Handelsblatt', 3),
+(11, 'Bauunternehmer locken mit günstigen Baupreisen', 'Am Markt befinden sich drei Baugebiete, mit prognostizierten Verkehrswertentwicklungen und Mietpreisentwicklungen. Die örtlichen Bauunternehmen locken mit einer neuen Technologie aus den USA zur Fertigstellung. Der Clou: Die Immobilien sind direkt in dem selben Jahr des Bauauftrags bezugsfertig (Schlüsselfertig) und können sofort vermietet werden. Marktbeobachter sind sich einig, dass Neubauten eine höhere Mietpreisentwicklung verzeichnen werden, als gleichwertige Immobilien in Berlin. Geschäftsführer G. Meyer der Baufirma Meyer & Sohn bietet Abonnenten der Immonews ein besonders vergünstigtes Bauangebot und weißt nochmals daraufhin, dass ein Bauingenieur im Unternehmen beschäftigt werden muss.', 'http://www.immosbk.de/upload/125000-Berger-1-2.jpg', 'Immonews', 3),
+(12, 'Gute Nachrichten für Immobilieneigentümer', 'Sanierungsbedürftige Immobilien können ab sofort saniert werden. Jedoch sind die Aufbesserungsmöglichkeiten eingeschränkt. Nur Objekte in den Standort-Kategorien „Gering“ und „Mittel“ können saniert werden. Für die Überwachung der Sanierung muss der Bauingenieur im Unternehmen beschäftigt sein. Ohne einen Bauingenieur ist die Sanierungsabwicklung nicht möglich.', 'http://www.holzbau-frerk.de/files/holzbau-frerk/content/leistungen/leistungen-big/energetische-sanierung-pavatex.jpg', 'Immobilia', 3),
+(13, 'Höhere Zinssätze, höhere Mieteinnahmen', 'Die konjunkturelle Entwicklung zwingt die Ban- ken die Konditionen der einzelnen Unterneh- men grundlegend anzupassen. Der Guthaben- zinssatz liegt in diesem Geschäftsjahr bei 1 %. Hingegen pendelt sich der Kreditzinssatz zwi- schen 3 und 5 % ein. Der Kreditzinssatz sollte in diesem Geschäftsjahr neu verhandelt wer- den, da ansonsten der Kreditzinssatz auf 5 % angepasst wird.\r\nDie Mietpreise sind auf Grund des Booms ex- ponentiell gestiegen. Wirtschaftsindikatoren prognostizieren für dieses Jahr, dass die Mie- ten außerordentlich um rund 30.000 € erhöht werden können.', 'http://www.handelsblatt.com/images/zinsen/19274018/2-formatOriginal.jpg', 'News.de', 4),
+(14, 'Personalaufwendungen zwischen Kostenersparnis und Nutzen', 'Wann sind Personalaufwendungen wirklich zu hoch? Diese Frage werden sich im letzten Geschäftsjahr wohl einige Management-Eta- gen gefragt haben. Die Auslastung der Mitar- beiter ist ein entscheidender Faktor, der über Freisetzung und Nutzen entscheidet. Deutlich wurde, das im letzten Geschäftsjahr vor allem die Sachbearbeitung nicht benötigt wurde und trotzdem im Unternehmen blieb.', 'https://www.softgarden.io/wp-content/uploads/2016/05/personalkosten-senken.jpg', 'Wirtschaftspsychologe-online.de', 4),
+(15, 'Auch dieses Jahr sind weitere Auktionen geplant', 'Wir berichteten bereits in der letzten Zeit über die neuen Vertriebskanäle in der Immobilien-Welt. Die ansässigen Unternehmen haben die Auktionen als weiteren Ver- triebskanal implementiert. Während des ersten Auktionstermins sind zwei Immobilien unter den Hammer gekommen. Dies überzeugte die Verantwortlichen, auch\r\nin diesem Geschäftsjahr Auktionen zu veran- starten.\r\nFür die Auktion wurden schnell interessante Immobilien gefunden. Die diesjährige Auktion umfasst ein besonders schönes Exemplar.', 'http://www.handelsblatt.com/images/haus-unterm-hammer/11955722/5-format2010.jpg', 'Justizportal', 4),
+(16, 'Von Job Rotation bis zum festen Teambuilding', 'Job Rotation beinhaltet den Tausch von Ar- beitsaufgaben zwischen mehreren Arbeitneh- mern. Die Wechselintervalle und Reihenfolge des Wechsels können frei gewählt werden. Ziel des Job Rotation ist einerseits die Verrin- gerung einseitiger Belastungen und Monotonie für den Arbeitnehmer, andererseits die Verfüg- barkeit über mehrere geübte Arbeitnehmer für einen Arbeitsplatz. Probleme mit Job Rotation ergeben sich (bei ungenügender Vorbereitung), weil Umlernprozesse statt nden müssen, was ggf. als Überlastung erlebt wird.\r\nTeambildung kann zum einen ein Prozess sein, den Teams im Verlauf ihres Bestehens automa- tisch phasenweise durchlaufen, zum anderen auch ein aktiver, gesteuerter Prozess sein, der der Verbesserung der Zusammenarbeit von Mitarbeitern, insbesondere bei zeitlich befriste- ten Projekten dient. Es sollen Kooperationsbe- reitschaft und Teamgeist gefördert werden, um die Arbeitsef zienz des Teams zu steigern. Oft werden dabei nicht nur Kompetenzen einzel- ner Teammitglieder oder der ganzen Gruppe (z. B. Kommunikation) optimiert, sondern auch Strukturen der Zusammenarbeit neu geordnet.\r\nBeim Teambuilding sind die Teamrollen deut- lich von einander abgegrenzt. Das Team besitzt somit klare Strukturen und eine Job Rotation ist nicht vorgesehen.', 'https://www.teamgeist.com/images/dynamic-pages/Footerbilder/Teambuilding/teambuilding.jpg', 'Prof. Dr. Lansberg', 5);
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `Objekt`
+--
+
+CREATE TABLE IF NOT EXISTS `Objekt` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `Beschreibung` varchar(500) NOT NULL,
+  `Strasse` varchar(120) NOT NULL,
+  `PLZ` int(11) NOT NULL,
+  `Ort` varchar(120) NOT NULL,
+  `Bild` varchar(140) NOT NULL,
+  `Flaeche` int(11) NOT NULL,
+  `Wert` double NOT NULL,
+  `Wertentwicklung` int(11) NOT NULL,
+  `Miete` double NOT NULL,
+  `Mietentwicklung` int(11) NOT NULL,
+  `Kaufpreis` double NOT NULL,
+  `Viertel` int(11) NOT NULL,
+  `Lage` int(11) NOT NULL DEFAULT '5',
+  `Zustand` int(11) NOT NULL DEFAULT '5',
+  `Long` float NOT NULL,
+  `Lat` float NOT NULL,
+  `Bestand` varchar(300) NOT NULL,
+  `Abschreibungsbasis` int(11) NOT NULL,
+  `Abschreibung` int(11) NOT NULL,
+  `Rendite` float NOT NULL,
+  `Baugrundstueck` int(11) NOT NULL DEFAULT '0',
+  `Vermietet` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=51 ;
+
+--
+-- Daten für Tabelle `Objekt`
+--
+
+INSERT INTO `Objekt` (`ID`, `Beschreibung`, `Strasse`, `PLZ`, `Ort`, `Bild`, `Flaeche`, `Wert`, `Wertentwicklung`, `Miete`, `Mietentwicklung`, `Kaufpreis`, `Viertel`, `Lage`, `Zustand`, `Long`, `Lat`, `Bestand`, `Abschreibungsbasis`, `Abschreibung`, `Rendite`, `Baugrundstueck`, `Vermietet`) VALUES
+(1, 'Weitläufige Wohnung in Berlin Charlottenburg', 'Wilmersdorfer Straße 13', 37682, 'Berlin - Charlottenburg', 'http://www.marketingsfinest.com/spire/pictu/immobilien/immo01.jpg', 100, 125500, -5500, 8800, -400, 0, 4, 2, 3, 13.3324, 52.5073, '', 1506, 1440, 0, 0, 0),
+(2, 'Moderne Etagenwohnung mit Südbalkon', 'Clayallee 126', 15612, 'Berlin - Steglitz-Zehlendorf', 'http://www.marketingsfinest.com/spire/pictu/immobilien/immo03.jpg', 250, 525000, 100000, 40000, 5000, 0, 6, 9, 8, 13.2735, 52.4559, '', 6300, 7500, 0, 0, 0),
+(3, 'Zentrale 4 Zimmer Wohnung ', 'Am Wannsee 154', 21415, 'Berlin - Steglitz-Zehlendorf', 'http://www.marketingsfinest.com/spire/pictu/immobilien/immo02.jpg', 100, 125500, -5500, 8800, -400, 0, 6, 5, 5, 13.3749, 52.5566, '', 1506, 1440, 0, 0, 0),
+(4, 'Dachgeschosswohnung mit Ausblick bis zum Fernsehturm!', 'Bahnhofsstraße 15', 12415, 'Berlin - Mitte', 'http://www.marketingsfinest.com/spire/pictu/immobilien/immo03.jpg', 100, 125500, -5500, 8800, -400, 0, 1, 4, 4, 13.3186, 52.5842, '', 1506, 1440, 0, 0, 0),
+(5, 'Zentrale 5 Zimmer Wohnung', 'Prenzlauer Berg 1', 12515, 'Berlin - Kreuzberg', 'http://www.marketingsfinest.com/spire/pictu/immobilien/immo04.jpg', 100, 106250, 13750, 7950, 450, 0, 2, 3, 3, 13.4862, 52.4638, '', 2640, 3240, 0, 0, 0),
+(6, 'Zentrale 3 Zimmer Wohnung', 'Trappenpfad 39', 37671, 'Berlin - Neukölln', 'http://www.marketingsfinest.com/spire/pictu/immobilien/immo05.jpg', 150, 171000, 9000, 11850, 750, 0, 8, 2, 3, 13.461, 52.5408, '', 2640, 3240, 0, 0, 0),
+(7, 'Gute Lage Apartment', 'Mittlerer Weg 4', 15771, 'Berlin - Neukölln', 'http://www.marketingsfinest.com/spire/pictu/immobilien/immo06.jpg', 150, 237500, 32500, 17000, 1000, 0, 8, 8, 9, 13.3918, 52.4401, '', 2640, 3240, 0, 0, 0),
+(8, '8.Etage in guter Nachbarschaft', 'Charlottenburger Straße 77', 15169, 'Berlin - Charlottenburg-Wilmersdorf', 'http://www.marketingsfinest.com/spire/pictu/immobilien/immo07.jpg', 150, 220000, 50000, 17550, 2250, 0, 4, 5, 5, 13.3815, 52.5011, '', 3810, 4320, 0, 0, 0),
+(9, 'Beste Wohnlage - modernes Haus - erstklassige Infrastruktur', 'Bahnhofsstraße 2', 15722, 'Berlin - Mitte (Zoologischer Garten)', 'http://www.marketingsfinest.com/spire/pictu/immobilien/immo08.jpg', 200, 472500, 27500, 32000, 4000, 0, 1, 7, 7, 13.3846, 52.4967, '', 4878, 6000, 0, 0, 0),
+(10, 'Wohnung guter Zustand ', 'Hanauerstraße 48', 15151, 'Berlin - Charlottenburg-Wilmersdorf (Schmargendorf)', 'http://www.marketingsfinest.com/spire/pictu/immobilien/immo09.jpg', 200, 406500, 93500, 32000, 4000, 0, 4, 7, 9, 13.3155, 52.4779, '', 4878, 6000, 0, 0, 0),
+(11, 'Dachloft mit Spreeluft', 'Waldstraße 2', 10551, 'Berlin - Mitte Moabit', 'http://www.marketingsfinest.com/spire/pictu/immobilien/immo21.jpg', 164, 406500, 93500, 32000, 4000, 0, 1, 8, 8, 13.3309, 52.5277, '', 4878, 6000, 0, 0, 0),
+(12, 'Eigentumswohnung mit Gartenanteil', 'Lubminer Str.44', 12619, 'Berlin - Charlottenburg', 'http://www.marketingsfinest.com/spire/pictu/immobilien/immo14.jpg', 46, 64000, 6000, 3500, 100, 0, 4, 2, 3, 13.5811, 52.5191, '', 1506, 1440, 0, 0, 0),
+(13, '2-Zimmer-Eigentumswohnung mit Balkon', 'Friedrich-Karl-Straße 7', 12103, 'Berlin - Charlottenburg', 'http://www.marketingsfinest.com/spire/pictu/immobilien/immo13.jpg', 63, 125500, -5500, 8800, 400, 0, 4, 5, 5, 13.3799, 52.4561, '', 1506, 1440, 0, 0, 0),
+(14, '102 m² zum Wohlfühlen in Berlin', 'Uranustsr. 12', 12524, 'Berlin - Charlottenburg', 'http://www.marketingsfinest.com/spire/pictu/immobilien/immo12.jpg', 102, 171000, 9000, 11850, 750, 0, 4, 2, 4, 13.5239, 52.3997, '', 2052, 2160, 0, 0, 0),
+(15, 'Sehr helle Souterrain-Wohnung auf der Südseite', 'Kurfürstenstr.27', 10787, 'Berlin - Charlottenburg', 'http://www.marketingsfinest.com/spire/pictu/immobilien/immo11.jpg', 67, 100000, 5000, 8800, 400, 0, 4, 8, 5, 13.3102, 52.5002, '', 1506, 1440, 0, 0, 0),
+(16, 'Historisches Wohnhaus mit modernem Anbau', 'Sadowastr. 301', 10318, 'Berlin - Charlottenburg', 'http://www.marketingsfinest.com/spire/pictu/immobilien/immo08.jpg', 86, 125000, 5500, 8800, 400, 0, 4, 5, 6, 13.5143, 52.4775, '', 1275, 1440, 0, 0, 0),
+(17, 'Ansehen lohnt sich! Schönes Haus in ruhiger Lage', 'Rintelner Straße 42', 14193, 'Berlin - Charlottenburg-Wilmersdorf', 'http://www.marketingsfinest.com/spire/pictu/immobilien/immo10.jpg', 63, 146250, 33750, 11650, 1550, 0, 4, 2, 6, 13.2941, 52.49, '', 1755, 2160, 0, 0, 0),
+(18, 'Traumhafte 2,5-Zimmer-Dachgeschosswohnung mit Westterrasse', 'Palisadenstr. 17', 10243, 'Berlin -Friedrichshain-Kreuzberg', 'http://www.marketingsfinest.com/spire/pictu/immobilien/immo16.jpg', 72, 158750, 21250, 10850, 1150, 0, 2, 8, 5, 13.4349, 52.5195, '', 1905, 2160, 0, 0, 0),
+(19, 'Idyllisch gelegener Luxusneubau mit eigener Dach-Terrasse', 'Schwedter Straße 54', 10435, 'Berlin - Pankow (Prenzlauerberg)', 'http://www.marketingsfinest.com/spire/pictu/immobilien/immo17.jpg', 123, 205000, 45000, 15800, 2125, 0, 3, 6, 8, 13.4046, 52.5406, '', 2460, 3000, 0, 0, 0),
+(20, 'Altbau-Maisonette-Wohnung mit Luxusausstattung, Kamin und Garten', 'Lichtenrade Damm 38', 12305, 'Berlin - Tempelhof-Schöneberg', 'http://www.marketingsfinest.com/spire/pictu/immobilien/immo19.jpg', 161, 305000, 70000, 23870, 3125, 0, 7, 2, 8, 13.4061, 52.4007, '', 3660, 4500, 0, 0, 0),
+(21, 'Baugrundstück in gefragter Lage von Biesdorf-Süd! Direkt vom Eigentümer & ohne Baubindung!', 'Gladauer Weg 11', 12683, 'Berlin - Marzahn-Hellersdorf (Biesendorf)', 'http://www.marketingsfinest.com/spire/pictu/immobilien/immo152.jpg', 200, 139000, 1300, 0, 0, 0, 10, 6, 6, 13.5493, 52.5056, '', 0, 0, 0, 1, 0),
+(22, 'Großes Baugrundstück', 'Zur Nachtheide 35', 12557, 'Berlin - Treptow-Köpenick', 'http://www.marketingsfinest.com/spire/pictu/immobilien/immo153.jpg', 250, 149000, 1400, 0, 0, 0, 9, 9, 6, 13.5886, 52.4279, '', 0, 0, 0, 1, 0),
+(23, 'Gewerbefläche mit guter Verkehrsanbindung', 'Frohnauer Str. 166', 13465, 'Berlin - Reinickendorf (Frohnau)', 'http://www.marketingsfinest.com/spire/pictu/immobilien/immo154.jpg', 160, 99000, 900, 0, 0, 0, 12, 5, 5, 13.2818, 52.6298, '', 0, 0, 0, 1, 0),
+(24, 'Grundstück am Wald für eine Stadtvilla in Nikolassee', 'Havelchaussee 2', 14193, 'Berlin - Steglitz-Zehlendorf (Nikolasse)', 'http://www.marketingsfinest.com/spire/pictu/immobilien/immo155.jpg', 535, 399000, 4000, 0, 0, 0, 6, 9, 8, 13.1966, 52.4693, '', 0, 0, 0, 1, 0),
+(25, '400qm Baugrundstück:Ihre Chance!', 'Prinz-Handjery-Str.78', 14167, 'Berlin - Steglitz-Zehlendorf (Schönower-Park)', 'http://www.marketingsfinest.com/spire/pictu/immobilien/immo156.jpg', 400, 174000, 1700, 0, 0, 0, 6, 4, 7, 13.2649, 52.4271, '', 0, 0, 0, 1, 0),
+(26, 'GRUNDSTÜCK MIT 745 m² GRUNDSTÜCKSGRÖSSE', 'Bornitzstraße', 10365, 'Berlin - Lichtenberg', '', 745, 25.45, 0, 0, 0, 0, 11, 5, 5, 13.4934, 52.5206, '', 0, 0, 0, 1, 0),
+(27, 'Baugrundstück in Charlottenburg für Stadtvilla', 'Sensburger Allee 9', 14055, 'Berlin - Charlottenburg', '', 200, 323500, 0, 0, 0, 0, 4, 5, 5, 13.2492, 52.5115, '', 0, 0, 0, 1, 0),
+(28, 'Baugrundstück', 'Am Kleinen Wannsee 30', 14109, 'Berlin - Wannsee (Zehlendorf)', '', 516, 447000, 0, 0, 0, 0, 6, 5, 5, 13.1469, 52.4151, '', 0, 0, 0, 1, 0),
+(29, 'Idyllisches Baugrundstück für Einfamilienhaus', 'Köpenicker Straße 11', 12683, 'Berlin - Marzahn (Biesdorf)', '', 604, 159600, 0, 0, 0, 0, 10, 5, 5, 13.5396, 52.4227, '', 0, 0, 0, 1, 0),
+(30, 'Idyllisch und doch zentral - individuell beplanbares Grundstück für ein massives Anturis-EFH / ZFH', 'Bucher Strasse 12', 13127, 'Berlin - Pankow (Französisch Buchholz)', '', 598, 189100, 0, 0, 0, 0, 3, 5, 5, 13.439, 52.6139, '', 0, 0, 0, 1, 0),
+(31, 'ERSTBEZUG-PARKETT-WANNENBAD-GÄSTEWC-EINBAUKÜCHE-ZWEI BALKONE-STELLPLATZ', 'Allee der Kosmonauten 45', 12681, 'Berlin - Lichtenberg (Herzberge)', 'http://www.marketingsfinest.com/spire/pictu/immobilien/immo56.jpg', 219, 265000, 35000, 19875, 1125, 0, 11, 2, 2, 13.5346, 52.5257, '', 3180, 4320, 0, 0, 1),
+(32, 'Frisch sanierte, helle 2-Zimmer-Wohnung mit großem Balkon', 'Pappelallee 54', 10437, 'Berlin - Pankow (Helmholtzkiez)', 'http://www.marketingsfinest.com/spire/pictu/immobilien/immo57.jpg', 110, 132500, 17500, 9875, 600, 0, 3, 5, 5, 13.4163, 52.5447, '', 1600, 2150, 0, 0, 0),
+(33, 'Klassich Modernes Wohnen in Bestlage -Neubau-', 'Pettenkoferstr.17', 10247, 'Berlin - Friedrichshain', 'http://www.marketingsfinest.com/spire/pictu/immobilien/immo59.jpg', 155, 205000, 45000, 15875, 2125, 0, 2, 7, 8, 13.4718, 52.5171, '', 2460, 3000, 0, 0, 1),
+(34, 'Penthouse in Wilmersdorf', 'Holsteinische Strasse 76', 10717, 'Berlin-Wilmersdorf', 'http://www.marketingsfinest.com/spire/pictu/immobilien/immo61.jpg', 198, 406500, 93500, 32000, 4000, 0, 4, 8, 8, 13.3249, 52.4914, '', 4878, 6000, 0, 0, 1),
+(35, '3-Zimmer Wohlfühloase - Am Falkenberger Luch', 'Birkholzer Weg', 13059, 'Berlin - Pankow', 'http://www.marketingsfinest.com/spire/pictu/immobilien/immo63.jpg', 97, 229000, 0, 0, 0, 0, 3, 6, 8, 13.5304, 52.5837, '', 2960, 3200, 0, 0, 0),
+(36, '1-Zimmer-Wohnung in Reinickendorf mit solider Rendite!', 'Lindauer Allee', 13407, 'Berlin - Reinickendorf ', 'http://www.marketingsfinest.com/spire/pictu/immobilien/immo62.jpg', 31, 70000, 0, 3092, 0, 0, 12, 4, 7, 13.3396, 52.5753, '', 800, 1100, 0, 0, 1),
+(37, 'Helle 2 Zi.-Whg. mit Balkon, Aufzug und Garage', 'Johannisthaler Chaussee 212', 12351, 'Berlin - Neukölln', 'http://www.marketingsfinest.com/spire/pictu/immobilien/immo52.jpg', 55, 99000, 0, 6000, 0, 0, 8, 5, 7, 13.4583, 52.4316, '', 0, 0, 0, 0, 1),
+(38, 'Kernsanierte und ruhige Wohnung/Optimaler Grundriss/Grünblick/Sehr gepflegte Wohnanlage', 'Arnold-Knoblauch-Ring 48', 14109, 'Berlin - Steglitz-Zehlendorf (Wannsee)', 'http://www.marketingsfinest.com/spire/pictu/immobilien/immo64.jpg', 54, 127900, 0, 0, 0, 0, 6, 5, 5, 13.1352, 52.4093, '', 0, 0, 0, 0, 0),
+(39, 'Bezugsfreie 3-Zimmer-Eigentumswohnung im Herzen Berlin-Lichtenbergs', 'Woltanstraße 83', 10365, 'Berlin - Lichtenberg', '', 61, 209000, 0, 10248, 0, 0, 11, 6, 3, 13.4972, 52.5168, '', 0, 0, 0, 0, 1),
+(40, 'Büros in Berlin Mitte', 'Wallstraße 18-22, 10179 Berlin', 10179, 'Berlin - Mitte', 'http://www.marketingsfinest.com/spire/pictu/immobilien/immo65.jpg', 65, 239900, 0, 0, 0, 0, 1, 7, 7, 13.4067, 52.5114, '', 2640, 3240, 0, 0, 0),
+(41, 'Renditeobjekt in bester Lage', 'Weißenburgerstraße 7', 13595, 'Berlin - Spanndau', 'http://www.marketingsfinest.com/spire/pictu/immobilien/immo47.jpg', 71, 126400, 0, 4608, 0, 0, 5, 0, 5, 13.194, 52.5228, '', 0, 0, 0, 0, 1),
+(42, 'Sichere Wertanlage', 'An der Kappe 135', 13583, 'Berlin - Spanndau', 'http://www.marketingsfinest.com/spire/pictu/immobilien/immo46.jpg', 59, 118840, 0, 4582, 0, 0, 5, 5, 5, 13.1788, 52.5409, '', 0, 0, 0, 0, 1),
+(43, 'Vermietete und sanierte Altbau-Idylle mit Balkon zur Kapitalanlage am Schlosspark!', 'Siegfriedstraße 20', 13156, 'Berlin - Pankow', '', 48, 185540, 0, 3804, 0, 0, 3, 5, 5, 13.4323, 52.4681, '', 0, 0, 0, 0, 1),
+(44, 'Jugendstilwohnung in moderner Fassung', 'Wolfshagener Straße 84', 13187, 'Berlin - Pankow', '', 85, 399000, 0, 0, 0, 0, 3, 5, 5, 13.4114, 52.5728, '', 0, 0, 0, 0, 0),
+(45, 'Wohnen im Denkmalschutz', 'Wedekindstraße 23', 10243, 'Berlin -\n Friedrichshain', 'http://www.marketingsfinest.com/spire/pictu/immobilien/immo66.jpg', 60, 360000, 0, 14640, 0, 0, 2, 5, 5, 13.4473, 52.5129, '', 292800, 0, 0, 0, 0),
+(46, 'Dachgeschoss-Wohnung mit Balkon im beliebten Weserkiez', 'Stuttgarter Straße 63', 12059, 'Berlin - Neuköln', 'http://www.marketingsfinest.com/spire/pictu/immobilien/immo69.jpg', 99, 332300, 0, 5736, 0, 0, 8, 5, 5, 13.4443, 52.4808, '', 0, 0, 0, 0, 0),
+(47, 'zuverlässig Vermietetes Appartment im Plänterwald Viertel', 'Köpeniker Landstraße 122', 12437, 'Berlin - Treptow', 'http://www.marketingsfinest.com/spire/pictu/immobilien/immo70.jpg', 41, 79560, 0, 4296, 0, 0, 9, 5, 5, 13.4782, 52.4784, '', 0, 0, 0, 0, 1),
+(48, 'Wohnung mit Spreeblick sucht Kappitalanleger', 'Calvinstraße 28', 10558, 'Berlin - Mitte (Tiergarten)', 'http://www.marketingsfinest.com/spire/pictu/immobilien/immo72.jpg', 57, 183500, 0, 3816, 0, 0, 1, 5, 5, 13.3522, 52.5229, '', 0, 0, 0, 0, 1),
+(49, 'Mietwohnung mit attraktiver Rendite', 'Sprengelstr. 16', 13595, 'Berlin - Spandau', 'http://www.marketingsfinest.com/spire/pictu/immobilien/immo71.jpg', 51, 90100, 0, 3000, 0, 0, 5, 5, 5, 13.3546, 52.5419, '', 0, 0, 0, 0, 0),
+(50, 'ETW in Berlin Staaken, sofort Bezugsfrei', 'Cosmarweg 110', 13591, 'Berlin - Spanndau', 'http://www.marketingsfinest.com/spire/pictu/immobilien/immo45.jpg', 79, 195000, 0, 0, 0, 0, 5, 5, 5, 13.1471, 52.5272, '', 0, 0, 0, 0, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `Posts`
+--
+
+CREATE TABLE IF NOT EXISTS `Posts` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `Bild` varchar(200) NOT NULL,
+  `Titel` varchar(150) NOT NULL,
+  `Beschreibung` varchar(300) NOT NULL,
+  `Zeit` varchar(100) NOT NULL,
+  `Jahr` int(1) NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
+
+--
+-- Daten für Tabelle `Posts`
+--
+
+INSERT INTO `Posts` (`ID`, `Bild`, `Titel`, `Beschreibung`, `Zeit`, `Jahr`) VALUES
+(1, 'http://forum.lulaonline.com/core/images/default/default_avatar_thumb.png', 'Klaus H.', 'ist endlich in seine eigenen 4 Wände eingezogen!', 'vor 2 Tagen', 1),
+(2, 'http://forum.lulaonline.com/core/images/default/default_avatar_thumb.png', 'Robert Möhr', 'Berlin Calling - Nächste Woche gehts los! Eine Woche Party - Ab ins Matrix here we go !!!', 'gerade eben', 1),
+(3, 'http://forum.lulaonline.com/core/images/default/default_avatar_thumb.png', 'Laura S.', 'Schönste Stadt der Welt ! <3', 'vor einer Woche', 2),
+(4, 'http://forum.lulaonline.com/core/images/default/default_avatar_thumb.png', 'Markus Sukerhügel', 'Unser Start-up zieht nach Berlin! Wir suchen ein neues Büro ab 100qm - also wenn ihr jemanden kennt, der jemanden kennt usw...', 'gestern', 2),
+(5, 'http://forum.lulaonline.com/core/images/default/default_avatar_thumb.png', 'Kris Ste.', 'Ich zeige dir wie man mit Immobilien reich wird !', 'vor 5 Tagen', 3),
+(6, 'http://forum.lulaonline.com/core/images/default/default_avatar_thumb.png', 'Nina Weike', 'Gerade Umgezogen, kommt am Samstag vorbei! ', 'vor 2 Tagen', 3),
+(7, 'http://forum.lulaonline.com/core/images/default/default_avatar_thumb.png', 'Gerlinde Pa.', 'Der Verkehr ist sooo laut Berlin-Mitte ist der schlimmste Ort der Welt, früher war alles besser...', 'vor zwei Wochen', 4),
+(8, 'http://forum.lulaonline.com/core/images/default/default_avatar_thumb.png', 'Spiegel Online', 'Flüchtling wird von 3 Frauen belästigt', 'vorgestern', 4),
+(9, 'http://forum.lulaonline.com/core/images/default/default_avatar_thumb.png', 'Kathi Wulf', 'Wer meine Nachbarn verschwinden lässt, bekommet mein Erstgeborenes.', 'heute 2:55', 5),
+(10, 'http://forum.lulaonline.com/core/images/default/default_avatar_thumb.png', 'Manfred K.', 'Ich will nicht nach Berlin #sing', 'vor 1 Minute', 5);
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `Rundendaten`
+--
+
+CREATE TABLE IF NOT EXISTS `Rundendaten` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `SpielID` int(11) NOT NULL,
+  `UnternehmensID` int(11) NOT NULL,
+  `Runde` int(11) NOT NULL,
+  `Kapital` float NOT NULL,
+  `Fremdkapital` float NOT NULL DEFAULT '0',
+  `Anlagekapital` float NOT NULL DEFAULT '0',
+  `Strategie1` int(11) NOT NULL,
+  `Strategie2` int(11) NOT NULL,
+  `Strategie3` int(11) NOT NULL,
+  `Begruendung` varchar(1200) NOT NULL,
+  `Social` int(11) NOT NULL DEFAULT '0',
+  `Konkurrenz` int(11) NOT NULL DEFAULT '0',
+  `Kredit` tinyint(1) NOT NULL DEFAULT '0',
+  `KreditID` int(11) NOT NULL,
+  `Anlage` tinyint(1) NOT NULL DEFAULT '0',
+  `Marktanalyse` tinyint(1) NOT NULL DEFAULT '0',
+  `Abgeschlossen` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=47 ;
+
+--
+-- Daten für Tabelle `Rundendaten`
+--
+
+INSERT INTO `Rundendaten` (`ID`, `SpielID`, `UnternehmensID`, `Runde`, `Kapital`, `Fremdkapital`, `Anlagekapital`, `Strategie1`, `Strategie2`, `Strategie3`, `Begruendung`, `Social`, `Konkurrenz`, `Kredit`, `KreditID`, `Anlage`, `Marktanalyse`, `Abgeschlossen`) VALUES
+(15, 2, 4, 1, 370000, 0, 0, 2, 3, 5, '', 1, 1, 0, 0, 0, 1, 1),
+(16, 2, 6, 1, 52000, 0, 0, 3, 4, 5, '', 0, 1, 0, 0, 0, 0, 1),
+(17, 2, 5, 1, 72750, 0, 0, 1, 2, 3, '1234', 0, 1, 0, 0, 0, 1, 1),
+(18, 2, 6, 2, 2766630, 3000000, 0, 3, 4, 5, '', 1, 1, 1, 0, 0, 1, 1),
+(19, 2, 5, 2, 1854300, 2000000, 0, 1, 2, 3, ' puire profit', 1, 1, 1, 0, 0, 1, 1),
+(20, 2, 4, 2, 529800, 0, 0, 2, 3, 4, 'test test', 0, 1, 0, 0, 0, 0, 1),
+(21, 2, 6, 3, 2787230, 0, 0, 3, 4, 5, '', 1, 1, 0, 0, 0, 1, 0),
+(22, 2, 4, 3, 675150, 0, 0, 2, 3, 4, '', 0, 1, 0, 0, 0, 1, 0),
+(23, 2, 5, 3, 1908300, 0, 0, 0, 0, 0, '', 0, 0, 0, 0, 0, 0, 0),
+(24, 3, 9, 1, 102250, 0, 0, 1, 2, 3, ' 123', 0, 0, 0, 0, 0, 0, 1),
+(25, 3, 8, 1, 2333750, 2000000, 0, 1, 3, 4, 'diese ziele werde ich verfolgen', 0, 1, 1, 0, 0, 1, 1),
+(26, 3, 7, 1, 486750, 0, 0, 3, 4, 5, '', 0, 1, 0, 0, 0, 1, 1),
+(27, 3, 7, 2, 24700, 500000, 0, 2, 3, 4, '', 0, 1, 1, 0, 0, 1, 1),
+(28, 3, 8, 2, 2198200, 0, 0, 0, 0, 0, '', 0, 1, 0, 0, 0, 1, 0),
+(29, 3, 9, 2, 104250, 0, 0, 0, 0, 0, '', 0, 1, 0, 0, 0, 1, 0),
+(30, 4, 14, 1, 14994.8, 0, 0, 3, 4, 5, '', 0, 1, 0, 0, 0, 1, 1),
+(31, 4, 11, 1, 133575, 0, 0, 1, 2, 3, 'Maximum Profit', 1, 1, 0, 0, 0, 1, 1),
+(32, 4, 13, 1, 143110, 0, 0, 3, 4, 5, '', 1, 1, 0, 0, 0, 1, 1),
+(33, 4, 12, 1, 22300, 0, 0, 1, 1, 0, '', 0, 0, 0, 0, 0, 1, 1),
+(34, 4, 13, 2, 110702, 0, 0, 4, 5, 6, '', 0, 1, 0, 0, 0, 0, 1),
+(35, 4, 14, 2, 14273, 0, 0, 2, 3, 4, '', 0, 1, 0, 0, 0, 0, 1),
+(36, 4, 11, 2, 1225, 0, 0, 1, 2, 3, '', 0, 1, 0, 0, 0, 0, 1),
+(37, 4, 12, 2, 266375, 0, 0, 1, 2, 3, '', 0, 0, 0, 0, 0, 0, 1),
+(38, 4, 12, 3, 66873, 0, 0, 1, 2, 3, '', 0, 0, 0, 0, 0, 0, 1),
+(39, 4, 14, 3, 18901, 0, 0, 3, 4, 5, '', 0, 1, 0, 0, 0, 0, 1),
+(40, 4, 11, 3, 21003.2, 0, 0, 2, 3, 4, '', 0, 1, 0, 0, 0, 0, 1),
+(41, 4, 13, 3, 119894, 0, 0, 4, 5, 6, '', 0, 1, 0, 0, 0, 0, 1),
+(42, 4, 12, 4, 58248, 0, 0, 1, 2, 3, '', 0, 0, 0, 0, 0, 0, 1),
+(43, 4, 13, 4, 177286, 0, 0, 2, 3, 4, '', 0, 0, 0, 0, 0, 0, 1),
+(44, 4, 14, 4, 3879, 0, 0, 2, 3, 4, '', 0, 1, 0, 0, 0, 1, 1),
+(45, 4, 11, 4, 17507.2, 0, 0, 3, 4, 5, '', 0, 1, 0, 0, 0, 0, 1),
+(46, 4, 13, 5, 256278, 0, 0, 0, 0, 0, '', 0, 0, 0, 0, 0, 0, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `Spiel`
+--
+
+CREATE TABLE IF NOT EXISTS `Spiel` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `Startzeit` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `AnzahlSpieler` int(11) NOT NULL DEFAULT '0',
+  `Unternehmen1` int(11) DEFAULT NULL,
+  `Unternehmen2` int(11) DEFAULT NULL,
+  `Unternehmen3` int(11) DEFAULT NULL,
+  `Unternehmen4` int(11) DEFAULT NULL,
+  `Unternehmen5` int(11) DEFAULT NULL,
+  `Unternehmen6` int(11) DEFAULT NULL,
+  `Unternehmen7` int(11) DEFAULT NULL,
+  `Unternehmen8` int(11) DEFAULT NULL,
+  `Unternehmen9` int(11) DEFAULT NULL,
+  `Unternehmen10` int(11) DEFAULT NULL,
+  `Unternehmen11` int(11) DEFAULT NULL,
+  `Unternehmen12` int(11) DEFAULT NULL,
+  `Unternehmen13` int(11) DEFAULT NULL,
+  `Unternehmen14` int(11) DEFAULT NULL,
+  `Unternehmen15` int(11) DEFAULT NULL,
+  `Unternehmen16` int(11) DEFAULT NULL,
+  `Unternehmen17` int(11) DEFAULT NULL,
+  `Unternehmen18` int(11) DEFAULT NULL,
+  `Unternehmen19` int(11) DEFAULT NULL,
+  `Unternehmen20` int(11) DEFAULT NULL,
+  `Runde` int(11) NOT NULL,
+  `Schwierigkeit` int(11) NOT NULL,
+  `Beschreibung` varchar(140) NOT NULL,
+  `Szenario` int(11) NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+
+--
+-- Daten für Tabelle `Spiel`
+--
+
+INSERT INTO `Spiel` (`ID`, `Startzeit`, `AnzahlSpieler`, `Unternehmen1`, `Unternehmen2`, `Unternehmen3`, `Unternehmen4`, `Unternehmen5`, `Unternehmen6`, `Unternehmen7`, `Unternehmen8`, `Unternehmen9`, `Unternehmen10`, `Unternehmen11`, `Unternehmen12`, `Unternehmen13`, `Unternehmen14`, `Unternehmen15`, `Unternehmen16`, `Unternehmen17`, `Unternehmen18`, `Unternehmen19`, `Unternehmen20`, `Runde`, `Schwierigkeit`, `Beschreibung`, `Szenario`) VALUES
+(1, '2016-11-25 20:27:33', 0, 1, 2, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 5, 'Testspiel Beschreibung', 1),
+(2, '2017-03-16 20:04:57', 3, 4, 5, 6, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 5, 'Beschreibung: Testspiel', 1),
+(3, '2017-03-16 23:22:47', 3, 7, 8, 9, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 5, 'Test', 1),
+(4, '2017-05-03 20:04:10', 4, 10, 11, 12, 13, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, '1', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `Stadt`
+--
+
+CREATE TABLE IF NOT EXISTS `Stadt` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `Name` varchar(40) NOT NULL,
+  `Einwohner` int(11) NOT NULL,
+  `Beschreibung` varchar(500) NOT NULL,
+  `Attraktivitaet` int(11) NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Daten für Tabelle `Stadt`
+--
+
+INSERT INTO `Stadt` (`ID`, `Name`, `Einwohner`, `Beschreibung`, `Attraktivitaet`) VALUES
+(1, 'Berlin', 3500000, 'Berlin ist die Bundeshauptstadt der Bundesrepublik Deutschland und zugleich eines ihrer Länder. Die Stadt Berlin ist mit gut 3,5 Millionen Einwohnern die bevölkerungsreichste und mit 892 Quadratkilometern die flächengrößte Gemeinde Deutschlands.', 8);
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `Startobjekt`
+--
+
+CREATE TABLE IF NOT EXISTS `Startobjekt` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `Beschreibung` varchar(500) NOT NULL,
+  `Strasse` varchar(120) NOT NULL,
+  `PLZ` int(11) NOT NULL,
+  `Ort` varchar(120) NOT NULL,
+  `Bild` varchar(140) NOT NULL,
+  `Flaeche` int(11) NOT NULL,
+  `Wert` double NOT NULL,
+  `Wertentwicklung` int(11) NOT NULL,
+  `Miete` double NOT NULL,
+  `Mietentwicklung` int(11) NOT NULL,
+  `Kaufpreis` double NOT NULL,
+  `Viertel` int(11) NOT NULL,
+  `Lage` int(11) NOT NULL DEFAULT '5',
+  `Zustand` int(11) NOT NULL DEFAULT '5',
+  `Long` float NOT NULL,
+  `Lat` float NOT NULL,
+  `Bestand` varchar(300) NOT NULL,
+  `Abschreibungsbasis` int(11) NOT NULL,
+  `Abschreibung` int(11) NOT NULL,
+  `Rendite` float NOT NULL,
+  `Baugrundstueck` int(11) NOT NULL DEFAULT '0',
+  `Vermietet` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=21 ;
+
+--
+-- Daten für Tabelle `Startobjekt`
+--
+
+INSERT INTO `Startobjekt` (`ID`, `Beschreibung`, `Strasse`, `PLZ`, `Ort`, `Bild`, `Flaeche`, `Wert`, `Wertentwicklung`, `Miete`, `Mietentwicklung`, `Kaufpreis`, `Viertel`, `Lage`, `Zustand`, `Long`, `Lat`, `Bestand`, `Abschreibungsbasis`, `Abschreibung`, `Rendite`, `Baugrundstueck`, `Vermietet`) VALUES
+(1, 'Barrierefreie 2-Raumwohnung zum Verlieben', 'Hoffmannstraße 1', 12487, 'Berlin - Treptow-Köpenick (Adlershof)', 'http://www.marketingsfinest.com/spire/pictu/immobilien/immo32.jpg', 87, 125500, 5500, 8800, 400, 0, 9, 3, 4, 0, 0, '', 1506, 1440, 0, 0, 0),
+(2, 'Klassisch schöne Altbauwohnung in bester Charlottenburger Kiezlage', 'Mierendorffplatz 118', 10589, 'Berlin-Charlottenburg', 'http://www.marketingsfinest.com/spire/pictu/immobilien/immo37.jpg', 117, 237500, 32500, 17000, 1000, 0, 4, 4, 5, 0, 0, '', 2850, 3240, 0, 0, 0),
+(3, 'Über den Dächern von Berlin', 'Torstrasse 79a', 10117, 'Berlin - Mitte', 'http://www.marketingsfinest.com/spire/pictu/immobilien/immo30.jpg', 212, 317500, 42500, 24950, 1450, 0, 1, 7, 6, 0, 0, '', 3810, 4320, 0, 0, 0),
+(4, 'Moderne Stadtvilla im ästhetischen Bauhausdesign in Köpenick-Nord', 'Lindenstraße 46', 12555, 'Berlin - Köpenick', 'http://www.marketingsfinest.com/spire/pictu/immobilien/immo38.jpg', 260, 525000, 100000, 40000, 5000, 0, 9, 8, 7, 0, 0, '', 6300, 7500, 0, 0, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `Strategien`
+--
+
+CREATE TABLE IF NOT EXISTS `Strategien` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `Titel` varchar(200) NOT NULL,
+  `Kennzahl` varchar(120) NOT NULL,
+  `Beschreibung` varchar(500) NOT NULL,
+  `Begründung` varchar(800) NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+
+--
+-- Daten für Tabelle `Strategien`
+--
+
+INSERT INTO `Strategien` (`ID`, `Titel`, `Kennzahl`, `Beschreibung`, `Begründung`) VALUES
+(1, 'Big Player - Umsatzwachstum', 'Umsatz', 'Umsatzwachstum\nBezeichnung für die prozentuale Veränderung des Umsatzes eines Unternehmens im Vergleich zu einem Basisjahr. Meist wird das vorherige Jahr als Basisjahr rollierend festgelegt.\n', ''),
+(2, 'Krösus - Profitabilitätssteigerung', 'Gewinn', 'Um den Gewinn zu steigern muss man mehr Immobilien verkaufen und weniger Geld ausgeben', ''),
+(3, 'Social J. Warrior - Stakeholder Value steigern', 'Mitarbeiterzufriedenheit und Ansehen', 'Unter Mitarbeiterzufriedenheit (engl. job satisfaction) wird in der Betriebswirtschaftslehre die Einstellung in Bezug auf das Arbeitsumfeld, die sich aus dem abwägenden Vergleich zwischen dem erwarteten Arbeitsumfeld (Soll) und dem tatsächlich wahrgenommenen Arbeitsumfeld (Ist) ergibt, verstanden. Die Mitarbeiterzufriedenheit ist ein Maß bzw. ein Konstrukt zur Beurteilung der Befindlichkeit der Mitarbeiter und Führungskräfte in einem Unternehmen.', ''),
+(4, 'LuxusQualitätsverbesserung', 'Ausgaben', 'Ziel der Qualitätsverbesserung ist es ständig dafür zu sorgen, dass die Qualität durch geeignete Maßnahmen innerhalb des Unternehmens gesteigert wird. Wichtigster Bestandteil dabei ist der Aufbau entsprechender Strukturen, die die Einbeziehung der Mitarbeiter beispielsweise durch ein betriebliches Verbesserungswesen oder einen kontinuierlichen Verbesserungsprozess fördert, um Produkt- und Prozessverbesserungen zu erreichen, da diese einen erheblichen Beitrag zur Qualitätsverbesserung leisten. ', ''),
+(5, 'Vergrößerung des Marktanteils / Marktmonopolisierung', 'Einnahmen', 'Der Marktanteil stellt eine Verhältniszahl dar, die den Absatz (Umsatz) eines Unternehmens zum Marktvolumen (dem Absatz bzw. Umsatz aller Unternehmen der betrachteten Branche) in Beziehung setzt. Dadurch gewinnt man ein Bild von der Marktposition und damit der relativen Bedeutung eines Unternehmens im Vergleich zu anderen Unternehmen der Branche.', ''),
+(6, 'Baulöwe', '', '', '');
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `Unternehmen`
+--
+
+CREATE TABLE IF NOT EXISTS `Unternehmen` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `SID` int(11) NOT NULL,
+  `Nutzername` varchar(20) NOT NULL,
+  `Passwort` varchar(100) NOT NULL,
+  `Unternehmensname` varchar(100) NOT NULL,
+  `Spieler1` varchar(40) DEFAULT NULL,
+  `Spieler2` varchar(40) DEFAULT NULL,
+  `Spieler3` varchar(40) DEFAULT NULL,
+  `Spieler4` varchar(40) DEFAULT NULL,
+  `Spieler5` varchar(40) DEFAULT NULL,
+  `Spieler6` varchar(40) DEFAULT NULL,
+  `Spieler7` varchar(40) DEFAULT NULL,
+  `Spieler8` varchar(40) DEFAULT NULL,
+  `Spieler9` varchar(40) DEFAULT NULL,
+  `Spieler10` varchar(40) DEFAULT NULL,
+  `Bestand` varchar(300) NOT NULL,
+  `Mitarbeiter` varchar(200) NOT NULL,
+  `Verwalten` int(11) NOT NULL DEFAULT '4',
+  `Verkaufen` int(11) NOT NULL DEFAULT '0',
+  `Bauen` int(11) NOT NULL DEFAULT '0',
+  `Sanieren` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=15 ;
+
+--
+-- Daten für Tabelle `Unternehmen`
+--
+
+INSERT INTO `Unternehmen` (`ID`, `SID`, `Nutzername`, `Passwort`, `Unternehmensname`, `Spieler1`, `Spieler2`, `Spieler3`, `Spieler4`, `Spieler5`, `Spieler6`, `Spieler7`, `Spieler8`, `Spieler9`, `Spieler10`, `Bestand`, `Mitarbeiter`, `Verwalten`, `Verkaufen`, `Bauen`, `Sanieren`) VALUES
+(4, 2, 'tobi', '202cb962ac59075b964b07152d234b70', 'robias International AG', 'Tobias Scheel', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', '17', 8, 0, 0, 0),
+(5, 2, 'andi', 'e10adc3949ba59abbe56e057f20f883e', 'Ethereum GmbH', 'andi kla', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', '16;18', 9, 0, 0, 0),
+(6, 2, 'dominik', '202cb962ac59075b964b07152d234b70', 'Miau Bau GmbH', 'Mr. Miagi', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', '17', 8, 0, 0, 0),
+(7, 3, 'spire', '202cb962ac59075b964b07152d234b70', 'Miau Bau GmbH', 'Dominik Weihs', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', '3;1;2', 8, 0, 3, 0),
+(8, 3, 'hawk', 'e10adc3949ba59abbe56e057f20f883e', 'hawk GmbH', 'test hawk', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', '17;15', 10, 0, 0, 0),
+(9, 3, 'test', 'e10adc3949ba59abbe56e057f20f883e', 'Test GmbH', 'andreas klassen', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', '18', 6, 0, 0, 0),
+(11, 4, 'schmand', 'e10adc3949ba59abbe56e057f20f883e', 'PraktikantenRaper AG', 'Schmand Rand', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', '15;8', 6, 1, 0, 0),
+(12, 4, 'willi', 'e1b89a2b92ca6120ab33047db2e50b77', 'Social Justice GmbH', 'Max Retard', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', '17;9', 8, 1, 0, 0),
+(13, 4, 'whies', '202cb962ac59075b964b07152d234b70', 'FATpride GmbH', 'Maria Kron', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', '16;14;21;20', 10, 1, 0, 0),
+(14, 4, 'schiel', '202cb962ac59075b964b07152d234b70', 'fatAcceptance AG', 'Robias Schiel', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', '17;25;9', 8, 1, 0, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `Unternehmensbestand`
+--
+
+CREATE TABLE IF NOT EXISTS `Unternehmensbestand` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `SpielID` int(11) NOT NULL,
+  `UnternehmensID` int(11) NOT NULL,
+  `ObjektID` int(11) NOT NULL,
+  `Viertel` int(11) NOT NULL,
+  `Saniert` int(11) NOT NULL DEFAULT '0',
+  `Zustand` int(11) NOT NULL DEFAULT '0',
+  `Gekauft` int(11) NOT NULL DEFAULT '0',
+  `Ersteigert` int(11) NOT NULL DEFAULT '0',
+  `Verkauft` int(11) NOT NULL DEFAULT '0',
+  `Wert` float NOT NULL,
+  `Kaufpreis` float NOT NULL,
+  `Status` varchar(120) NOT NULL,
+  `Vermietet` int(11) NOT NULL DEFAULT '0',
+  `Bau` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=161 ;
+
+--
+-- Daten für Tabelle `Unternehmensbestand`
+--
+
+INSERT INTO `Unternehmensbestand` (`ID`, `SpielID`, `UnternehmensID`, `ObjektID`, `Viertel`, `Saniert`, `Zustand`, `Gekauft`, `Ersteigert`, `Verkauft`, `Wert`, `Kaufpreis`, `Status`, `Vermietet`, `Bau`) VALUES
+(72, 2, 4, 1, 0, 0, 4, 0, 0, 0, 125500, 0, '0', 1, 0),
+(73, 2, 4, 2, 0, 0, 5, 0, 0, 0, 237500, 0, '0', 1, 0),
+(74, 2, 4, 3, 0, 0, 6, 0, 0, 0, 317500, 0, '0', 1, 0),
+(75, 2, 4, 4, 0, 0, 7, 0, 0, 0, 525000, 0, '0', 1, 0),
+(76, 2, 4, 14, 0, 0, 4, 1, 0, 0, 171000, 0, '0', 1, 0),
+(77, 2, 6, 1, 0, 0, 4, 0, 0, 0, 125500, 0, '0', 2, 0),
+(78, 2, 6, 2, 0, 0, 5, 0, 0, 0, 237500, 0, '0', 2, 0),
+(79, 2, 6, 3, 0, 0, 6, 0, 0, 0, 317500, 0, '0', 2, 0),
+(80, 2, 6, 4, 0, 0, 7, 0, 0, 0, 525000, 0, '0', 2, 0),
+(81, 2, 5, 1, 0, 0, 4, 0, 0, 0, 125500, 0, '0', 0, 0),
+(82, 2, 5, 2, 0, 0, 5, 0, 0, 0, 237500, 0, '0', 0, 0),
+(83, 2, 5, 3, 0, 0, 6, 0, 0, 0, 317500, 0, '0', 0, 0),
+(84, 2, 5, 4, 0, 0, 7, 0, 0, 0, 525000, 0, '0', 0, 0),
+(85, 2, 5, 7, 0, 0, 9, 1, 0, 0, 237500, 0, '0', 0, 0),
+(86, 2, 5, 6, 0, 0, 3, 1, 0, 0, 171000, 0, '0', 0, 0),
+(87, 2, 6, 34, 0, 0, 8, 1, 0, 0, 406500, 0, '0', 1, 0),
+(88, 2, 6, 5, 0, 0, 11, 1, 0, 0, 139188, 0, '0', 2, 0),
+(89, 2, 4, 2, 0, 0, 4, 0, 1, 0, 106250, 0, '0', 0, 0),
+(90, 2, 4, 2, 0, 0, 4, 0, 1, 0, 106250, 0, '0', 0, 0),
+(91, 2, 6, 12, 0, 0, 5, 2, 0, 0, 67840, 0, '0', 2, 0),
+(92, 2, 6, 8, 0, 0, 11, 2, 0, 0, 275000, 0, '0', 2, 0),
+(93, 2, 5, 18, 0, 0, 5, 2, 0, 0, 158750, 0, '0', 0, 0),
+(94, 2, 4, 2, 0, 0, 4, 0, 1, 0, 106250, 0, '0', 0, 0),
+(95, 2, 4, 3, 0, 0, 6, 0, 1, 0, 315000, 0, '0', 1, 0),
+(96, 2, 4, 3, 0, 0, 6, 0, 1, 0, 315000, 0, '0', 1, 0),
+(97, 2, 4, 3, 0, 0, 6, 0, 1, 0, 315000, 0, '0', 1, 0),
+(98, 3, 9, 1, 0, 0, 4, 0, 0, 0, 125500, 0, '0', 0, 0),
+(99, 3, 9, 2, 0, 0, 5, 0, 0, 0, 237500, 0, '0', 0, 0),
+(100, 3, 9, 3, 0, 0, 6, 0, 0, 0, 317500, 0, '0', 0, 0),
+(101, 3, 9, 4, 0, 0, 7, 0, 0, 0, 525000, 0, '0', 0, 0),
+(102, 3, 8, 1, 0, 0, 4, 0, 0, 0, 125500, 0, '0', 0, 0),
+(103, 3, 8, 2, 0, 0, 5, 0, 0, 0, 237500, 0, '0', 0, 0),
+(104, 3, 8, 3, 0, 0, 6, 0, 0, 0, 317500, 0, '0', 0, 0),
+(105, 3, 8, 4, 0, 0, 7, 0, 0, 0, 525000, 0, '0', 0, 0),
+(106, 3, 7, 1, 0, 0, 4, 0, 0, 0, 125500, 0, '0', 0, 0),
+(107, 3, 7, 2, 0, 0, 5, 0, 0, 0, 237500, 0, '0', 0, 0),
+(108, 3, 7, 3, 0, 0, 6, 0, 0, 0, 317500, 0, '0', 0, 0),
+(109, 3, 7, 4, 0, 0, 7, 0, 0, 0, 525000, 0, '0', 0, 0),
+(110, 3, 8, 22, 0, 0, 6, 1, 0, 0, 149000, 0, '0', 0, 10),
+(111, 3, 9, 8, 0, 0, 5, 1, 0, 0, 220000, 0, '0', 0, 0),
+(112, 3, 9, 7, 0, 0, 9, 1, 0, 0, 237500, 0, '0', 0, 0),
+(113, 3, 8, 2, 0, 0, 4, 0, 1, 0, 106250, 0, '0', 0, 0),
+(114, 3, 8, 2, 0, 0, 4, 0, 1, 0, 106250, 0, '0', 0, 0),
+(115, 3, 8, 2, 0, 0, 4, 0, 1, 0, 106250, 0, '0', 0, 0),
+(116, 3, 8, 18, 0, 0, 5, 2, 0, 0, 158750, 0, '0', 0, 0),
+(117, 3, 7, 6, 0, 0, 3, 2, 0, 0, 171000, 0, '0', 0, 0),
+(118, 3, 7, 9, 0, 0, 7, 2, 0, 0, 472500, 0, '0', 0, 0),
+(119, 4, 14, 1, 9, 0, 4, 0, 0, 0, 125500, 0, '0', 0, 0),
+(120, 4, 14, 2, 4, 0, 5, 0, 0, 0, 237500, 0, '0', 0, 0),
+(121, 4, 14, 3, 1, 0, 6, 0, 0, 0, 317500, 0, '0', 0, 0),
+(122, 4, 14, 4, 9, 0, 7, 0, 0, 0, 525000, 0, '0', 0, 0),
+(123, 4, 11, 1, 9, 0, 6, 0, 0, 1, 133030, 0, '0', 0, 0),
+(124, 4, 11, 2, 4, 0, 7, 0, 0, 3, 269000, 0, '0', 0, 0),
+(125, 4, 11, 3, 1, 0, 6, 0, 0, 0, 317500, 0, '0', 0, 0),
+(126, 4, 11, 4, 9, 0, 7, 0, 0, 2, 525000, 0, '0', 0, 0),
+(127, 4, 13, 1, 9, 0, 4, 0, 0, 1, 125500, 0, '0', 0, 0),
+(128, 4, 13, 2, 4, 0, 5, 0, 0, 0, 237500, 0, '0', 0, 0),
+(129, 4, 13, 3, 1, 0, 6, 0, 0, 0, 317500, 0, '0', 0, 0),
+(130, 4, 13, 4, 9, 0, 7, 0, 0, 0, 525000, 0, '0', 0, 0),
+(131, 4, 12, 1, 9, 0, 4, 0, 0, 4, 125500, 0, '0', 0, 0),
+(132, 4, 12, 2, 4, 0, 5, 0, 0, 2, 237500, 0, '0', 0, 0),
+(133, 4, 12, 3, 1, 0, 6, 0, 0, 0, 317500, 0, '0', 0, 0),
+(134, 4, 12, 4, 9, 0, 7, 0, 0, 0, 525000, 0, '0', 0, 0),
+(135, 4, 12, 37, 8, 0, 7, 1, 0, 0, 99000, 99000, '0', 1, 0),
+(136, 4, 11, 6, 8, 0, 9, 1, 0, 0, 213750, 171000, '0', 0, 0),
+(137, 4, 13, 36, 12, 0, 7, 1, 0, 0, 70000, 74200, '0', 1, 0),
+(138, 4, 13, 23, 12, 0, 5, 1, 0, 0, 99000, 104940, '0', 0, 10),
+(139, 4, 14, 17, 4, 0, 10, 1, 0, 0, 168188, 156488, '0', 0, 0),
+(140, 4, 13, 15, 4, 0, 5, 1, 0, 0, 100000, 107000, '0', 0, 0),
+(141, 4, 14, 42, 5, 0, 9, 1, 0, 0, 136666, 116463, '0', 1, 0),
+(142, 4, 12, 31, 11, 0, 2, 1, 0, 0, 265000, 265000, '0', 1, 0),
+(143, 4, 12, 33, 2, 0, 8, 1, 0, 0, 205000, 213200, '0', 1, 0),
+(144, 4, 14, 47, 9, 0, 5, 1, 0, 0, 79560, 77173.2, '0', 1, 0),
+(145, 4, 13, 2, 0, 0, 4, 0, 1, 0, 106250, 0, '0', 0, 0),
+(149, 4, 13, 3, 0, 0, 6, 0, 1, 0, 315000, 0, '0', 1, 0),
+(150, 4, 13, 3, 0, 0, 6, 0, 1, 0, 315000, 0, '0', 1, 0),
+(151, 4, 13, 3, 0, 0, 6, 0, 1, 0, 315000, 0, '0', 1, 0),
+(152, 4, 13, 3, 0, 0, 6, 0, 1, 0, 315000, 0, '0', 1, 0),
+(153, 4, 12, 39, 11, 0, 3, 3, 0, 0, 209000, 209000, '0', 1, 0),
+(154, 4, 11, 43, 3, 0, 5, 3, 0, 0, 185540, 189251, '0', 1, 0),
+(155, 4, 13, 4, 0, 0, 9, 0, 1, 0, 545000, 0, '0', 0, 0),
+(156, 4, 13, 4, 0, 0, 9, 0, 1, 0, 545000, 0, '0', 0, 0),
+(157, 4, 13, 4, 0, 0, 9, 0, 1, 0, 545000, 0, '0', 0, 0),
+(158, 4, 13, 4, 0, 0, 9, 0, 1, 0, 545000, 0, '0', 0, 0),
+(159, 4, 12, 41, 5, 0, 5, 4, 0, 0, 126400, 131456, '0', 1, 0),
+(160, 4, 13, 0, 0, 0, 0, 0, 1, 0, 0, 0, '0', 0, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `Viertel`
+--
+
+CREATE TABLE IF NOT EXISTS `Viertel` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `Name` varchar(500) NOT NULL,
+  `Gentrifizierung` int(11) NOT NULL DEFAULT '5',
+  `Gentrifizierung2` int(11) NOT NULL,
+  `Gentrifizierung3` int(11) NOT NULL,
+  `Gentrifizierung4` int(11) NOT NULL,
+  `Gentrifizierung5` int(11) NOT NULL,
+  `Beliebtheit` int(11) NOT NULL DEFAULT '5',
+  `Beliebtheit2` int(11) NOT NULL,
+  `Beliebtheit3` int(11) NOT NULL,
+  `Beliebtheit4` int(11) NOT NULL,
+  `Beliebtheit5` int(11) NOT NULL,
+  `Infrastruktur` int(5) NOT NULL,
+  `Infrastruktur2` int(11) NOT NULL,
+  `Infrastruktur3` int(11) NOT NULL,
+  `Infrastruktur4` int(11) NOT NULL,
+  `Infrastruktur5` int(11) NOT NULL,
+  `Kriminalität` int(5) NOT NULL,
+  `Kriminalität2` int(11) NOT NULL,
+  `Kriminalität3` int(11) NOT NULL,
+  `Kriminalität4` int(11) NOT NULL,
+  `Kriminalität5` int(11) NOT NULL,
+  `Lebensstandart` int(5) NOT NULL,
+  `Lebensstandart2` int(11) NOT NULL,
+  `Lebensstandart3` int(11) NOT NULL,
+  `Lebensstandart4` int(11) NOT NULL,
+  `Lebensstandart5` int(11) NOT NULL,
+  `Lage` int(11) NOT NULL DEFAULT '5',
+  `Lage2` int(11) NOT NULL,
+  `Lage3` int(11) NOT NULL,
+  `Lage4` int(11) NOT NULL,
+  `Lage5` int(11) NOT NULL,
+  `Jahr` int(11) NOT NULL,
+  `Beschreibung` varchar(4000) NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=40 ;
+
+--
+-- Daten für Tabelle `Viertel`
+--
+
+INSERT INTO `Viertel` (`ID`, `Name`, `Gentrifizierung`, `Gentrifizierung2`, `Gentrifizierung3`, `Gentrifizierung4`, `Gentrifizierung5`, `Beliebtheit`, `Beliebtheit2`, `Beliebtheit3`, `Beliebtheit4`, `Beliebtheit5`, `Infrastruktur`, `Infrastruktur2`, `Infrastruktur3`, `Infrastruktur4`, `Infrastruktur5`, `Kriminalität`, `Kriminalität2`, `Kriminalität3`, `Kriminalität4`, `Kriminalität5`, `Lebensstandart`, `Lebensstandart2`, `Lebensstandart3`, `Lebensstandart4`, `Lebensstandart5`, `Lage`, `Lage2`, `Lage3`, `Lage4`, `Lage5`, `Jahr`, `Beschreibung`) VALUES
+(1, 'Mitte', 0, 1, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 0, 1, 2, 2, 2, 2, 2, 2, 2, 2, 1, 'Mitte ist ein Berliner Ortsteil im gleichnamigen Bezirk und umfasst einen Teil der historischen Stadtteile von Berlin. In ihm liegt das östliche Zentrum der deutschen Hauptstadt mit den ehemaligen Stadtkernen von Alt-Berlin und Cölln, dem Brandenburger Tor, der Straße Unter den Linden, der Humboldt-Universität, der Museumsinsel und dem Fernsehturm. In Mitte befinden sich zahlreiche Einrichtungen des Bundes, der Berliner Senat im Roten Rathaus und das Abgeordnetenhaus von Berlin im Preußischen Landtag sowie zahlreiche Botschaften.  Bis zur Verwaltungsreform im Jahr 2001 war der Ortsteil ein eigener Bezirk. Dieser Bezirk Mitte wurde mit den Bezirken Tiergarten und Wedding zum neuen Bezirk Mitte von Berlin fusioniert.'),
+(2, 'Friedrichshain-Kreuzberg', 0, 1, 2, 2, 2, 0, 0, 1, 1, 2, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 1, 1, 2, 2, 2, 1, 1, 2, 2, 2, 1, 'Friedrichshain ist ein Ortsteil im Bezirk Friedrichshain-Kreuzberg von Berlin. Bis zur Fusion mit dem benachbarten damaligen Bezirk Kreuzberg bei der Verwaltungsreform 2001 gab es einen eigenständigen Bezirk Friedrichshain, der mit dem heutigen Ortsteil Friedrichshain deckungsgleich ist. Der Ortsteil hat seinen Namen vom Volkspark Friedrichshain im Norden und erstreckt sich nach Süden bis zum Spreeufer.\n\nDer Ortsteil gehört zu den Szenevierteln Berlins und wartet mit einem lebendigen Nacht- und Kulturleben auf, das über die Stadtgrenzen hinaus populär ist.'),
+(3, 'Pankow', -1, 0, 0, 0, 1, 1, 0, 0, 0, 1, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 0, 0, -1, -1, 0, 1, 'Pankow ist der namensgebende Ortsteil des Berliner Bezirks Pankow.  Im Sprachgebrauch können Örtlichkeiten von Pankow auch in den nördlich angrenzenden Bebauungen von Heinersdorf (Pankow-Heinersdorf) und Niederschönhausen (Pankow-Schönhausen) liegen. Pankow liegt im Urstromtal der Panke und ist nach diesem Nebenfluss der Spree benannt.'),
+(4, 'Charlottenburg-Wilmersdorf', 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 'Charlottenburg ist ein Ortsteil des Bezirks Charlottenburg-Wilmersdorf von Berlin.  Im Jahr 1705 als Stadt gegründet, wurde Charlottenburg 1893 zur Großstadt. Bei der Eingemeindung 1920 nach Groß-Berlin wurde daraus der eigenständige Bezirk Charlottenburg. Zuvor war Charlottenburg zeitweise die Gemeinde mit dem höchsten Steueraufkommen pro Kopf in Deutschland gewesen. Nach der Fusion mit dem damaligen Bezirk Wilmersdorf zum neuen Bezirk Charlottenburg-Wilmersdorf bei der Verwaltungsreform 2001 wurde der Bezirk Charlottenburg zum Ortsteil herabgestuft.'),
+(5, 'Spandau', -2, -1, -1, 0, 0, -1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, -1, 0, 1, 1, 1, -1, 0, 1, 2, 1, 1, 'Spandau ist der namensgebende Ortsteil im Berliner Bezirk Spandau. Der Ortsteil Spandau repräsentiert den Ortskern des ehemaligen Stadtkreises Spandau, der 1920 nach Groß-Berlin eingemeindet wurde. Im Sprachgebrauch können Ortsangaben in Spandau auch in den direkt angrenzenden Bebauungen der Ortsteile Wilhelmstadt (Spandau-Wilhelmstadt), Haselhorst (Spandau-Haselhorst) und Falkenhagener Feld (Spandau-Falkenhagener Feld) liegen'),
+(6, 'Steglitz-Zehlendorf', -1, 1, 0, 0, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 2, 2, 2, 2, 2, 1, 1, 1, 2, 2, 1, 'Steglitz ist ein Berliner Ortsteil im sechsten Verwaltungsbezirk Steglitz-Zehlendorf, der auf das historische brandenburgische Dorf Steglitz zurückgeht (bis 1920: Landkreis Teltow).'),
+(7, 'Tempelhof-Schöneberg', -1, -1, -1, 1, 2, -1, 0, 1, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1, -1, -1, 0, 0, 2, 1, 'Tempelhof ist ein Ortsteil im siebten Berliner Bezirk Tempelhof-Schöneberg. Bis zur Verwaltungsreform 2001 gab es einen eigenständigen Bezirk Tempelhof, der als 13. Bezirk die Ortsteile Mariendorf, Marienfelde, Lichtenrade und den namensgebenden Ortsteil Tempelhof umfasste.'),
+(8, 'Neukölln', -1, 0, 1, 2, 2, -2, 0, 0, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, -1, 0, 1, 1, 1, -1, -1, 0, 0, 1, 1, 'Neukölln ist der namensgebende Ortsteil des nördlichsten und am dichtesten bebauten Teils des Berliner Bezirks Neukölln. Bis 1920 war Neukölln eine eigenständige Stadt, die bis 1912 den Namen Rixdorf trug. Gelegentlich wird der Ortsteil in Abgrenzung vom gesamten Bezirk auch als Neukölln-Nord oder Nord-Neukölln bezeichnet.  Das Gebiet nordöstlich des Hermannplatzes (Reuterkiez) gehört unter der umgangssprachlichen Bezeichnung „Kreuzkölln“ zu den Szenevierteln Berlins und unter anderem deshalb ist der nördliche Ortsteil stärker von Gentrifizierung betroffen als der restliche Bezirk.'),
+(9, 'Treptow-Köpenick', -2, -2, -1, 0, 0, -2, -1, -1, -1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, -1, 0, 1, 'Treptow ist ein ehemaliger Verwaltungsbezirk von Berlin. Er wurde im Rahmen des Groß-Berlin-Gesetzes am 1. Oktober 1920 gegründet. Am 1. Januar 2001 wurde er mit dem Nachbarbezirk Köpenick zum neuen Bezirk Treptow-Köpenick von Berlin zusammengeschlossen.'),
+(10, 'Marzahn-Hellersdorf', 0, -1, -2, -2, -2, -2, -1, -2, -2, -2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, -2, -2, -1, 0, -1, 1, 'Marzahn ist ein Ortsteil im Berliner Bezirk Marzahn-Hellersdorf. Der Begriff Marzahn bezeichnet zugleich den ehemaligen Berliner Stadtbezirk Marzahn und die größte Großsiedlung auf dem seinerzeitigen Gebiet der DDR.  Der Ortsteil Marzahn geht auf ein mittelalterliches Angerdorf zurück, das, seinen dörflichen Charakter bewahrend, noch heute erhalten ist. Der Dorfkern steht seit 1977 unter Denkmalschutz. In seiner Umgebung entwickelten sich um 1900 einige Kleinsiedlungsbereiche. Zwischen der zweiten Hälfte der 1970er Jahre und dem Ende der 1980er Jahre entstand rund um das alte Dorf die als üppig durchgrünte Stadtlandschaft konzipierte und realisierte Großwohnsiedlung Marzahn. Die Siedlung wurde überwiegend in Plattenbauweise errichtet.'),
+(11, 'Lichtenberg', 1, 0, -1, 0, 0, -2, -2, -1, -1, -1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 'Lichtenberg ist ein Ortsteil im gleichnamigen Bezirk Lichtenberg von Berlin. Zur Abgrenzung spricht man auch von Alt-Lichtenberg.  Der heutige Ortsteil geht zurück auf das im 13. Jahrhundert im Barnim gegründete Dorf Lichtenberg. Dieses Dorf blieb über viele Jahrhunderte eine kleine, landwirtschaftlich geprägte Siedlung mit wenigen hundert Einwohnern im Osten der Stadt Berlin. Erst Ende des 19. Jahrhunderts stieg durch die Industrialisierung die Einwohnerzahl Lichtenbergs um ein Vielfaches, sodass der Ortschaft 1907 das Stadtrecht verliehen wurde. Durch die Gründung von Groß-Berlin im Jahr 1920 wurde die Stadt Lichtenberg jedoch nach Berlin eingemeindet und bildet seitdem den namensgebenden Ortsteil für den Berliner Bezirk Lichtenberg.'),
+(12, 'Reinickendorf', 1, 1, 2, 2, -2, 1, 1, 1, 2, -2, 1, 1, 2, 2, -1, 2, 2, 2, 2, -1, 0, 0, 1, 1, -2, 1, 1, 2, 2, -1, 0, '');
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `Viertelbeschreibung`
+--
+
+CREATE TABLE IF NOT EXISTS `Viertelbeschreibung` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `Kriterien` varchar(400) NOT NULL,
+  `Beschreibung` varchar(400) NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=31 ;
+
+--
+-- Daten für Tabelle `Viertelbeschreibung`
+--
+
+INSERT INTO `Viertelbeschreibung` (`ID`, `Kriterien`, `Beschreibung`) VALUES
+(1, 'Gentrifizierung0', 'In diesem Viertel ist die Gentrifizierung niedrig.'),
+(2, 'Gentrifizierung1', 'Die Gentrifizierung in diesem Stadtteil ist auf einem niedrigen niveau.'),
+(3, 'Gentrifizierung2', 'Die Gentrifizierung in diesem Viertel ist ausgeglichen.'),
+(4, 'Gentrifizierung3', 'Eine ausgeprägte Gentrifizierung ist in diesem Viertel zu erwarten.'),
+(5, 'Gentrifizierung4', 'Eine sehr hohe Gentrifizierung ist in diesem Viertel zu erwarten.'),
+(6, 'Beliebtheit0', 'Dieses Viertel wird gemieden.'),
+(7, 'Beliebtheit1', 'Dieser Stadteil ist nicht beliebt.'),
+(8, 'Beliebtheit2', 'Diese Gegend befindet sich im Aufschwung und gewinnt mehr und mehr an beliebtheit.'),
+(9, 'Beliebtheit3', 'Dieser Stadtteil genießt hohe beliebtheit.'),
+(10, 'Beliebtheit4', 'Ein Viertel mit der höchsten Beliebtheit.'),
+(11, 'Infrastruktur0', 'Es ist kaum Infrastruktur vorhanden.'),
+(12, 'Infrastruktur1', 'Die Infrastruktur in diesem Viertel mäßig ausgebaut.'),
+(13, 'Infrastruktur2', 'Die Infrastruktur in diesem Stadteil ist normal.'),
+(14, 'Infrastruktur3', 'Die Infrastruktur in diesem Viertel ist gut.'),
+(15, 'Infrastruktur4', 'Eine sehr gute Infrastruktur ist in diesem Stadtteil gegeben.'),
+(16, 'Kriminalität0', 'Es ist keine Kriminalität in diesem Stadtteil vorhanden.'),
+(17, 'Kriminalität1', 'Die Kriminalität ist auf einem niedrigen Niveau.'),
+(18, 'Kriminalität2', 'Die Kriminalität in dieser Gegend ist im aufwind.'),
+(19, 'Kriminalität3', 'Die Kriminalität gewinnt langsam an überhand.'),
+(20, 'Kriminalität4', 'Höchste Alarmstufe, die Polizei meidet dieses Viertel.'),
+(21, 'Lebensstandart0', 'In diesem Viertel ist der Lebensstandart sehr niedrig.'),
+(22, 'Lebensstandart1', 'Der Lebensstandart ist auf einem niedrigen Niveau.'),
+(23, 'Lebensstandart2', 'Eine sehr ausgewogene Lebensqualität ist in diesem Viertel vorherschend.'),
+(24, 'Lebensstandart3', 'Der Lebensstandart in diesem Viertel ist gut.'),
+(25, 'Lebensstandart4', 'Exzellenter Lebensstandart in diesem Stadtteil.'),
+(26, 'Lage0', 'Sehr schlechte Lage und Anbindung.'),
+(27, 'Lage1', 'Die Lage in diesem Viertel lässt zu wünschen übrig.'),
+(28, 'Lage2', 'Die Lage dieses Viertels ist nicht optimal.'),
+(29, 'Lage3', 'Dieses Viertel hat eine gute Lage.'),
+(30, 'Lage4', 'Eine ausgezeichnete Lage kann dieses Viertel vorweisen.');
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `Zukunftsausgaben`
+--
+
+CREATE TABLE IF NOT EXISTS `Zukunftsausgaben` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `SpielID` int(11) NOT NULL,
+  `UnternehmensID` int(11) NOT NULL,
+  `Runde` int(11) NOT NULL,
+  `Auszahlung` int(11) NOT NULL,
+  `Zeit` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `Summe` varchar(11) NOT NULL,
+  `Beschreibung` varchar(250) NOT NULL,
+  `Details` varchar(250) NOT NULL,
+  `Typ` varchar(7) NOT NULL DEFAULT 'Ausgabe',
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `Zukunftseinnahmen`
+--
+
+CREATE TABLE IF NOT EXISTS `Zukunftseinnahmen` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `SpielID` int(11) NOT NULL,
+  `UnternehmensID` int(11) NOT NULL,
+  `Runde` int(11) NOT NULL,
+  `Auszahlung` int(11) NOT NULL,
+  `Zeit` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `Summe` varchar(11) NOT NULL,
+  `Beschreibung` varchar(250) NOT NULL,
+  `Details` varchar(250) NOT NULL,
+  `Typ` varchar(8) NOT NULL DEFAULT 'Einnahme',
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=19 ;
+
+--
+-- Daten für Tabelle `Zukunftseinnahmen`
+--
+
+INSERT INTO `Zukunftseinnahmen` (`ID`, `SpielID`, `UnternehmensID`, `Runde`, `Auszahlung`, `Zeit`, `Summe`, `Beschreibung`, `Details`, `Typ`) VALUES
+(16, 4, 11, 1, 3, '2017-05-03 20:32:05', '156875', 'Wilmersdorfer Straße 13, 37682 Berlin - Charlottenburg', 'Immobilienverkauf: Weitläufige Wohnung in Berlin Charlottenburg', 'Einnahme'),
+(17, 4, 13, 1, 2, '2017-05-03 20:39:57', '131775', 'Wilmersdorfer Straße 13, 37682 Berlin - Charlottenburg', 'Immobilienverkauf: Weitläufige Wohnung in Berlin Charlottenburg', 'Einnahme'),
+(18, 4, 11, 2, 4, '2017-05-03 20:55:03', '656250', 'Bahnhofsstraße 15, 12415 Berlin - Mitte', 'Immobilienverkauf: Dachgeschosswohnung mit Ausblick bis zum Fernsehturm!', 'Einnahme');

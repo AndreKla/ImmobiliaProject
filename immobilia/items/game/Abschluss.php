@@ -21,7 +21,7 @@ class Abschluss {
           $rundendaten = Request::getRundendaten();
           $gebot = Request::getGebot();
 
-          if($rundendaten[0]["Strategie1"] != 0) {
+          if($rundendaten[0]["Strategie1"] == 0) {
             ?>
             <div style="font-size:14pt; padding:10px;"><span class="label label-success" style="margin:0px;"><i class="fa fa-check-circle-o" aria-hidden="true" style="font-size:14px;"></i></span> <span style="font-size:14px; margin-left:20px;">Jahresziele festgelegt</span> </div>
             <?php

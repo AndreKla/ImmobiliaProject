@@ -41,7 +41,7 @@ class SBK{
           $personalKosten = 0;
         }
         else {
-          $mitarbeiterListe = explode(';', $aktuelleMitarbeiter[$i]["Mitarbeiter"]);
+          $mitarbeiterListe = explode(';', $aktuelleMitarbeiter[0]["Mitarbeiter"]);
           $count = sizeof($mitarbeiterListe);
         }
         for($i = 0; $i < $count; $i++) {
@@ -93,6 +93,14 @@ class SBK{
             //$summe[$i] = $buchungen[$i]['Summe'];
         }
         
+        $sanierung = 0;
+        $nurZinsen = 0;
+        $nurZinsen = $kreditsumme - $zinsaufwendungen;
+        $bestandsveränderungen = 0;
+        $abschreibungen = 0;
+        $sonstiges = 0;
+        
+
         
         /*
         $vertriebsaufwendungen;
@@ -160,25 +168,25 @@ class SBK{
                       <tbody>
                         <tr>
                           <td>Vertriebsaufwendungen</td>                          
-                          <td align="right"><?php echo $vertriebsaufwendungen . " €";?></td>
+                          <td align="right">0 €</td>
                           <td>Mieterträge</td>
                           <td align="right"><?php echo $mietErträge . " €";?></td>
                         </tr>
                         <tr>
                           <td>Aufwendungen für Instandhaltung</td>                          
-                          <td align="right"><?php echo $instandhaltung . " €";?></td>
+                          <td align="right"><?php echo $sanierung . " €";?></td>
                           <td>Verkaufserlöse</td>
-                          <td align="right"><?php echo $verkaufserlöse . " €";?></td>
+                          <td align="right">0 €</td>
                         </tr>
                         <tr>
                           <td>Personalaufwand</td>                          
                           <td align="right"><?php echo $personalKosten . " €";?></td>
                           <td>Zinserträge</td>
-                          <td align="right"><?php echo $zinserträge . " €";?></td>
+                          <td align="right">0 €</td>
                         </tr>
                         <tr>
                           <td>Zinsaufwendungen</td>                          
-                          <td align="right"><?php echo $zinsaufwendungenqs . " €";?></td>
+                          <td align="right"><?php echo $nurZinsen . " €";?></td>
                           <td>Bestandsveränderung</td>
                           <td align="right"><?php echo $bestandsveränderungen . " €";?></td>
                         </tr>
@@ -208,9 +216,9 @@ class SBK{
                         </tr>
                         <tr>
                           <td>Gewinn an Eigenkapital</td>                          
-                          <td align="right"><?php echo $gewinn . " €";?></td>
+                          <td align="right"></td>
                           <td>Verlust an Eigenkapital</td>
-                          <td align="right"><?php echo $verlust . " €";?></td>
+                          <td align="right"></td>
                         </tr>
                         <tr>
                           <td></td>                          
@@ -220,9 +228,9 @@ class SBK{
                         </tr>
                         <tr>
                           <td></td>                          
-                          <td align="right"><?php echo $gewinn . " €";?></td>
+                          <td align="right"><?php echo $nurZinsen + $personalKosten . " €";?></td>
                           <td></td>
-                          <td align="right"><?php echo $verlust . " €";?></td>
+                          <td align="right"><?php echo  $mietErträge . " €";?></td>
                         </tr>
                       </tbody>
                     </table>

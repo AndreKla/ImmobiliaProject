@@ -26,15 +26,16 @@
 		
 		<?php
                         $runde = $_SESSION["Runde"];
-                        Strategie::createLangzeitStrategie(2);
+                        //Strategie::createLangzeitStrategie($runde);
 
-			Strategie::createStrategieListe($runde);
-			Strategie::createStrategieInfo(0);
-			Strategie::createStrategieInfo(1);
-			Strategie::createStrategieInfo(2);
-			Strategie::createStrategieInfo(3);
-			Strategie::createStrategieInfo(4);
-                        
+                        if($runde == 1){
+                            Strategie::createStrategieListe($runde);
+                            Strategie::createStrategieInfo(0);
+                            Strategie::createStrategieInfo(1);
+                            Strategie::createStrategieInfo(2);
+                            Strategie::createStrategieInfo(3);
+                            Strategie::createStrategieInfo(4);
+                        }
                         
                         Strategie::createBegruendung($runde);
                         

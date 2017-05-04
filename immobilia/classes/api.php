@@ -273,6 +273,194 @@ class API {
         <?php
     }
 
+<<<<<<< HEAD
+=======
+    public static function checkCreditZulassung($summes) {
+            
+            $sid = $_SESSION["SID"];
+            $uid = $_SESSION["UID"];
+            $runde = $_SESSION["Runde"];
+            
+            $summe = $summes;
+
+            $rundendaten = Request::getRundendaten();
+
+            //$fremdkapital = $rundendaten[0]["Fremdkapital"] + $summe;
+
+            $query = "
+            SELECT SUM(Wert)
+            FROM Unternehmensbestand WHERE UnternehmensID = $uid AND SpielID = $sid ;";
+            $immobilienwert = Database::sqlSelect($query);
+            
+            $query2 = "
+            SELECT Kapital
+            FROM Rundendaten WHERE UnternehmensID = $uid AND SpielID = $sid ;";
+            $kapital = Database::sqlSelect($query2);
+            
+            $query5 = "
+            SELECT Kredit
+            FROM Rundendaten WHERE UnternehmensID = $uid AND SpielID = $sid ;";
+            $kreditCheck = Database::sqlSelect($query5);
+            
+            $query3 = "
+            SELECT Fremdkapital
+            FROM Rundendaten WHERE UnternehmensID = $uid AND SpielID = $sid ;";
+            $fremdkapital = Database::sqlSelect($query3);
+                        
+                        
+            $bemessunsgrundlage = $immobilienwert[0]["SUM(Wert)"] + ($kapital[0]["Kapital"] - $fremdkapital[0]["Fremdkapital"]);
+            
+            //echo "Immobilienwert " . $immobilienwert[0]["SUM(Wert)"] . " €" . " Kapital " . $kapital[0]["Kapital"] . "Fremdkapital " . $fremdkapital[0]["Fremdkapital"] . " === " . $bemessunsgrundlage;
+            
+             $bemessunsgrundlage =  ($bemessunsgrundlage/100)*30;
+            
+            if($summe >= $bemessunsgrundlage){
+                Helper::showMessage("Kredit abgelehnt", "Der von dir gewünschte Kredit kann nicht gewehrt werden.", "error");
+                
+                return false;
+               
+            }else{
+                
+                
+                
+                    $bankname = "Planspiel AG 2";
+                    $zins = 5;
+
+                    Helper::showMessage("Kredit angenommen", "Der von dir gewünschte Kredit wurde gewehrt.", "success");
+
+                    //echo " SUMME " . $summe;
+                    $query = "
+                    INSERT INTO Kredit (Bankname,Kredittyp, Kreditsumme, Kreditzins, Laufzeit)
+                    VALUES ('" . $bankname . "' , 'Annuitätendarlehen', '" . $summe . "', '" . $zins . "', '5')
+                    ;";
+                    Database::sqlInsert($query);
+
+                    $query2 = "
+                    SELECT ID
+                    FROM Kredit 
+                    ORDER BY ID DESC
+                    ;";
+                    $id = Database::sqlSelect($query2);
+
+                    $kreditID = $id[0]["ID"];
+
+                    $query3 = "        
+                    UPDATE Rundendaten
+                    SET KreditID = $kreditID
+                    WHERE UnternehmensID = $uid AND SpielID = $sid
+                    ;";
+
+                    Database::sqlUpdate($query3);
+
+                    $query4 = "
+                    SELECT *
+                    FROM Kredit 
+                    WHERE ID = $kreditID
+                    ;";
+                    $kredit = Database::sqlSelect($query4);
+
+                    API::addEinnahme($kredit[0]["Kreditsumme"], $kredit[0]["Kredittyp"], $kredit[0]["Bankname"]);
+                    API::addFremdkapital($kredit[0]["Kreditsumme"]);
+                    Request::setKreditForRound();
+
+                    return true;
+
+                ?>
+               
+            <?php
+            }
+            
+        ?>
+
+        <?php
+    }
+    
+    public static function creditKonditionenModal(){
+        
+            $sid = $_SESSION["SID"];
+            $uid = $_SESSION["UID"];
+            $runde = $_SESSION["Runde"];
+            
+            $query1 = "
+            SELECT Kredit
+            FROM Rundendaten WHERE UnternehmensID = $uid AND SpielID = $sid ;";
+            $kreditja = Database::sqlSelect($query1);
+            $kidOne = $kreditja[0]["Kredit"];
+            
+            $query = "
+            SELECT KreditID
+            FROM Rundendaten WHERE UnternehmensID = $uid AND SpielID = $sid ;";
+            $kreditID = Database::sqlSelect($query);
+            $kid = $kreditID[0]["KreditID"];
+                        
+            $query4 = "
+            SELECT *
+            FROM Kredit 
+            WHERE ID = $kid
+            ;";
+            $kredit = Database::sqlSelect($query4);
+            
+            $zins = 5;
+            $laufzeit = 5;
+            $summe = $kredit[0]["Kreditsumme"];
+            
+            $drunter = (pow(1.05, 5)-1)/(pow(1.05, 5)*0.05);
+           
+            $zuZahlen = $summe/$drunter;
+            //echo "drunter " . $drunter . " summe " . $summe;
+            
+            if($kidOne == 1){
+
+            ?>
+                <div class="col-md-3 col-sm-3 col-xs-3">
+                <div class="x_panel" style="height:auto">
+                  <div class="x_title">
+                    <h2>Kreditkonditionen <small>Konditionen</small></h2>
+                    <div class="clearfix"></div>
+                  </div>
+                    <p> Kredithöhe : <?php echo $summe . " €";?></p>
+                    <p> Zinshöhe : 5% </p>
+                    <p> Laufzeit : 5 Jahre </p>
+                    <p> Annuität : <?php echo $zuZahlen . " € pro Jahr" ?></p>
+                </div>
+
+        <?php
+            }
+    }
+    
+    
+    public static function payKreditLaufendeKosten(){
+        
+            $sid = $_SESSION["SID"];
+            $uid = $_SESSION["UID"];
+            $runde = $_SESSION["Runde"];
+            
+            $query = "
+            SELECT KreditID
+            FROM Rundendaten WHERE UnternehmensID = $uid AND SpielID = $sid ;";
+            $kreditID = Database::sqlSelect($query);
+            $kid = $kreditID[0]["KreditID"];
+                        
+            $query4 = "
+            SELECT *
+            FROM Kredit 
+            WHERE ID = $kid
+            ;";
+            $kredit = Database::sqlSelect($query4);
+            
+            $zins = 5;
+            $laufzeit = 5;
+            $summe = $kredit[0]["Kreditsumme"];
+            
+            $drunter = (pow(1.05, 5)-1)/(pow(1.05, 5)*0.05);
+           
+            $zuZahlen = $summe/$drunter;
+            //echo "drunter " . $drunter . " summe " . $summe;
+
+            API::addAusgabe($zuZahlen, "Kredittilgung", "Kredittilgung");
+            
+    }
+>>>>>>> origin/master
 
     public static function createAnlageRequest($id, $name, $beschreibung, $summe, $ertrag, $laufzeit, $risiko) {
         ?>

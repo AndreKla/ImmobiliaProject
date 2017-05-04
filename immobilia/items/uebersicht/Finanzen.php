@@ -182,9 +182,9 @@ class Finanzen {
                 <div class="modal-body col-md-12">
                     <div class="x_panel">
                         <p>Lasse deine Kreditantrag prüfen:</p>
-                        <form action="finanzen.php" method="post">
+                        <form action="finanzen.php" method="get">
                         <div class="col-md-12 col-sm-12 col-xs-12" style="margin:0;padding:0;margin-bottom:15px;">
-                          <input id="kreditsumme" name="kreditsumme" required="required" class="form-control col-md-12 col-xs-12" type="text">
+                          <input id="kreditsumme" name="kreditsumme" required="required" placeholder="Bitte hier Summe eintragen" class="form-control col-md-12 col-xs-12" type="text">
                         </div>
                         <br><br>
                         <button type="submit" id="confirm" class="btn btn-primary">Kredit beantragen</button>
