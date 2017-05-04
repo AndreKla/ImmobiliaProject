@@ -273,6 +273,7 @@ class API {
         <?php
     }
 
+
     public static function checkCreditZulassung($summes) {
             
             $sid = $_SESSION["SID"];
