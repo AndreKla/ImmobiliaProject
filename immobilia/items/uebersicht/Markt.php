@@ -94,18 +94,25 @@ class Markt {
         $sid = $_SESSION["SID"];
         $uid = $_SESSION["UID"];
         $runde = $_SESSION["Runde"];
+        //$runde = 1;
         
-        $query = "SELECT * FROM Viertel WHERE Jahr = $runde";
+        if($runde == 1){
+            $runde = "";
+        }
+        //$query = "SELECT * FROM Viertel WHERE Jahr = $runde";
+        $query = "SELECT * FROM Viertel";
         $viertel = Database::sqlSelect($query);
+        
+        //var_dump($viertel);
         
         for($i = 0; $i <= sizeof($viertel);$i++){
             $name[$i] = $viertel[$i]["Name"];
-            $gentrifizierung[$i] = $viertel[$i]["Gentrifizierung"];
-            $beliebtheit[$i] = $viertel[$i]["Beliebtheit"];
-            $infrastruktur[$i] = $viertel[$i]["Infrastruktur"];
-            $kriminalität[$i] = $viertel[$i]["Kriminalität"];
-            $lebensstandart[$i] = $viertel[$i]["Lebensstandart"];
-            $lage[$i] = $viertel[$i]["Lage"];
+            $gentrifizierung[$i] = $viertel[$i]["Gentrifizierung".$runde];
+            $beliebtheit[$i] = $viertel[$i]["Beliebtheit".$runde];
+            $infrastruktur[$i] = $viertel[$i]["Infrastruktur".$runde];
+            $kriminalität[$i] = $viertel[$i]["Kriminalität".$runde];
+            $lebensstandart[$i] = $viertel[$i]["Lebensstandart".$runde];
+            $lage[$i] = $viertel[$i]["Lage".$runde];
             $beschreibung[$i] = $viertel[$i]["Beschreibung"];
         }
         
@@ -208,19 +215,19 @@ class Markt {
             }
             
             //Lage
-            if($lage[$i]==-2){
+            if($lage[$i]==0){
                 $lageTexte[$i] = $viertelbeschreibungTexte[25]["Beschreibung"];
             }
-            if($lage[$i]==-1){
+            if($lage[$i]==1){
                 $lageTexte[$i] = $viertelbeschreibungTexte[26]["Beschreibung"];
             }
-            if($lage[$i]==0){
+            if($lage[$i]==2){
                 $lageTexte[$i] = $viertelbeschreibungTexte[27]["Beschreibung"];
             }
-            if($lage[$i]==1){
+            if($lage[$i]==3){
                 $lageTexte[$i] = $viertelbeschreibungTexte[28]["Beschreibung"];
             }
-            if($lage[$i]==2){
+            if($lage[$i]==4){
                 $lageTexte[$i] = $viertelbeschreibungTexte[29]["Beschreibung"];
             }
             
@@ -317,45 +324,70 @@ class Markt {
                             <p class="lead"><?php echo $name[0];?></p>
                             <p><?php echo $beschreibung[0] . $gentrifizierungsTexte[0] . $beliebtheitsTexte[0] . $infrastrukturTexte[0] . $kriminalitätsTexte[0] . $lebensstandartTexte[0] . $lageTexte[0]; ?></p>
                         </div>
-                        <div class="col-md-4">
-                                <div class="x_panel">
-                                      <div class="x_content">
-                                           
-                                          <ul class="verticle_bars list-inline">
-                                                                      
-                                            
-                                            <li style="width:30px;">
-                                              <div class="progress vertical bottom">
-                                                <div class="progress-bar progress-bar-dark" role="progressbar" data-transitiongoal="<?php echo $gentrifizierung[0]*20 ?>"></div>
-                                              </div>
-                                            </li>
-                                            <li style="width:30px;">
-                                              <div class="progress vertical  bottom">
-                                                <div class="progress-bar progress-bar-gray" role="progressbar" data-transitiongoal="<?php echo $beliebtheit[0]*20; ?>"></div>
-                                              </div>
-                                            </li>
-                                            <li style="width:30px;">
-                                              <div class="progress vertical  bottom">
-                                                <div class="progress-bar progress-bar-info" role="progressbar" data-transitiongoal="<?php echo $infrastruktur[0]*20; ?>"></div>
-                                              </div>
-                                            </li>
-                                            <li style="width:30px;">
-                                              <div class="progress vertical  bottom">
-                                                <div class="progress-bar progress-bar-success" role="progressbar" data-transitiongoal="<?php echo $kriminalität[0]*20; ?>"></div>
-                                              </div>
-                                            </li>
-                                            <li style="width:30px;">
-                                              <div class="progress vertical bottom" >
-                                                <div class="progress-bar progress-bar-danger" role="progressbar" data-transitiongoal="<?php echo $lebensstandart[0]*20; ?>"></div>
-                                              </div>
-                                            </li>
-                                            <li style="width:30px;">
-                                              <div class="progress vertical bottom">
-                                                <div class="progress-bar progress-bar-success" role="progressbar" data-transitiongoal="<?php echo $lage[0]*20; ?>"></div>
-                                              </div>
-                                            </li>
+                        <div class="col-md-4" >
+                                <div class="x_panel" style="height:60%;">
+                                      <div class="x_content" style="height:50%;">
+                                       <ul class="verticle_bars list-inline">
+                                        <!--Gentrifizierung -->
+                                        <li>
+                                          <div class="progress vertical bottom">
+                                                <div class="progress-bar  progress-bar-dark" role="progressbar" <?php if($gentrifizierung[0]>0){if($gentrifizierung[0]==1){echo "data-transitiongoal='50' style=height:'50%'aria-valuenow='50";}if($gentrifizierung[0]==2){echo "data-transitiongoal='100' style=height:'100%' aria-valuenow='100'";}}; ?> ></div>
+                                           </div>
+                                           <div class="progress vertical" style="margin-top:-20px">
+                                                <div class="progress-bar  progress-bar-dark" role="progressbar" <?php if($gentrifizierung[0]<0){if($gentrifizierung[0]==-1){echo "data-transitiongoal='50' style=height:'50%'aria-valuenow='50";}if($gentrifizierung[0]==-2){echo "data-transitiongoal='100' style=height:'100%'aria-valuenow='100'";}}; ?>></div>
+                                          </div>
+                                        </li>
+                                        <!-- Beliebtheit -->
+                                        <li>
+                                          <div class="progress vertical bottom">
+                                                <div class="progress-bar progress-bar-info" role="progressbar" <?php if($beliebtheit[0]>0){if($beliebtheit[0]==1){echo "data-transitiongoal='50' style=height:'50%'aria-valuenow='50";}if($beliebtheit[0]==2){echo "data-transitiongoal='100' style=height:'100%' aria-valuenow='100'";}}; ?>></div>
+                                          </div>
+                                          <div class="progress vertical"  style="margin-top:-20px">
+                                                 <div class="progress-bar progress-bar-info" role="progressbar" <?php if($beliebtheit[0]<0){if($beliebtheit[0]==-1){echo "data-transitiongoal='50' style=height:'50%'aria-valuenow='50";}if($beliebtheit[0]==-2){echo "data-transitiongoal='100' style=height:'100%' aria-valuenow='100'";}}; ?>></div>
+                                          </div>
+                                        </li>
 
-                                          </ul>
+                                        <!-- Infrastruktur -->
+                                        <li>
+                                          <div class="progress vertical bottom">
+                                            <div class="progress-bar progress-bar-blue" role="progressbar" <?php if($infrastruktur[0]>0){if($infrastruktur[0]==1){echo "data-transitiongoal='50' style=height:'50%'aria-valuenow='50";}if($infrastruktur[0]==2){echo "data-transitiongoal='100' style=height:'100%' aria-valuenow='100'";}}; ?>></div>
+                                          </div>
+                                          <div class="progress vertical" style="margin-top:-20px">
+                                            <div class="progress-bar progress-bar-blue" role="progressbar" <?php if($infrastruktur[0]<0){if($infrastruktur[0]==-1){echo "data-transitiongoal='50' style=height:'50%'aria-valuenow='50";}if($infrastruktur[0]==-2){echo "data-transitiongoal='100' style=height:'100%' aria-valuenow='100'";}}; ?>></div>
+                                          </div>
+                                        </li>
+
+                                        <!-- Kriminalität ---->
+                                        <li>
+                                          <div class="progress vertical bottom">
+                                            <div class="progress-bar progress-bar-success" role="progressbar"<?php if($kriminalität[0]>0){if($kriminalität[0]==1){echo "data-transitiongoal='50' style=height:'50%'aria-valuenow='50";}if($kriminalität[0]==2){echo "data-transitiongoal='100' style=height:'100%' aria-valuenow='100'";}}; ?>></div>
+                                          </div>
+                                          <div class="progress vertical" style="margin-top:-20px">
+                                            <div class="progress-bar progress-bar-success" role="progressbar" <?php if($kriminalität[0]<0){if($kriminalität[0]==-1){echo "data-transitiongoal='50' style=height:'50%'aria-valuenow='50";}if($kriminalität[0]==-2){echo "data-transitiongoal='100' style=height:'100%' aria-valuenow='100'";}}; ?>></div>
+                                          </div>
+                                        </li>
+
+                                        <!-- Lebensstandart ---->
+                                        <li>
+                                          <div class="progress vertical bottom">
+                                            <div class="progress-bar progress-bar-danger" role="progressbar" <?php if($lebensstandart[0]>0){if($lebensstandart[0]==1){echo "data-transitiongoal='50' style=height:'50%'aria-valuenow='50";}if($lebensstandart[0]==2){echo "data-transitiongoal='100' style=height:'100%' aria-valuenow='100'";}}; ?>></div>
+                                          </div>
+                                          <div class="progress vertical" style="margin-top:-20px">
+                                            <div class="progress-bar progress-bar-danger" role="progressbar" <?php if($lebensstandart[0]<0){if($lebensstandart[0]==-1){echo "data-transitiongoal='50' style=height:'50%'aria-valuenow='50";}if($lebensstandart[0]==-2){echo "data-transitiongoal='100' style=height:'100%' aria-valuenow='100'";}}; ?>></div>
+                                          </div>
+                                        </li>
+
+                                        <!-- Lage ---->
+                                        <li>
+                                          <div class="progress vertical bottom">
+                                            <div class="progress-bar progress-bar-success" role="progressbar" <?php if($lage[0]>0){if($lage[0]==1){echo "data-transitiongoal='50' style=height:'50%'aria-valuenow='50";}if($lage[0]==2){echo "data-transitiongoal='100' style=height:'100%' aria-valuenow='100'";}}; ?>></div>
+                                          </div>
+                                          <div class="progress vertical" style="margin-top:-20px">
+                                            <div class="progress-bar progress-bar-success" role="progressbar" <?php if($lage[0]<0){if($lage[0]==-1){echo "data-transitiongoal='50' style=height:'50%'aria-valuenow='50";}if($lage[0]==-2){echo "data-transitiongoal='100' style=height:'100%' aria-valuenow='100'";}}; ?>></div>
+                                          </div>
+                                        </li>
+
+                                      </ul>
                                            
                                         </div>
                                         <ul class="legend list-unstyled" >
@@ -399,9 +431,9 @@ class Markt {
                                 <p><?php echo $beschreibung[$i] . $gentrifizierungsTexte[$i] . $beliebtheitsTexte[$i] . $infrastrukturTexte[$i] . $kriminalitätsTexte[$i] . $lebensstandartTexte[$i] . $lageTexte[$i];?></p>
                             </div>
                             <div class="col-md-4">
-                                <div class="x_panel">
-                                      <div class="x_content">
-                                          <ul class="verticle_bars list-inline">
+                                <div class="x_panel" style="height:60%;">
+                                      <div class="x_content" style="height:50%;">
+                                          <!--<ul class="verticle_bars list-inline">
                                             <li style="width:30px;">
                                               <div class="progress vertical bottom">
                                                 <div class="progress-bar progress-bar-dark" role="progressbar" data-transitiongoal="<?php echo $gentrifizierung[$i]*20; ?>"></div>
@@ -432,8 +464,70 @@ class Markt {
                                                 <div class="progress-bar progress-bar-success" role="progressbar" data-transitiongoal="<?php echo $lage[$i]*20; ?>"></div>
                                               </div>
                                             </li>
-                                          </ul>  
+                                          </ul>  -->
+                                          
+                                        <ul class="verticle_bars list-inline">
+                                        <!--Gentrifizierung -->
+                                        <li>
+                                          <div class="progress vertical bottom">
+                                                <div class="progress-bar  progress-bar-dark" role="progressbar" <?php if($gentrifizierung[$i]>0){if($gentrifizierung[$i]==1){echo "data-transitiongoal='50' style=height:'50%'aria-valuenow='50";}if($gentrifizierung[$i]==2){echo "data-transitiongoal='100' style=height:'100%' aria-valuenow='100'";}}; ?> ></div>
+                                           </div>
+                                           <div class="progress vertical" style="margin-top:-20px">
+                                                <div class="progress-bar  progress-bar-dark" role="progressbar" <?php if($gentrifizierung[$i]<0){if($gentrifizierung[$i]==-1){echo "data-transitiongoal='50' style=height:'50%'aria-valuenow='50";}if($gentrifizierung[$i]==-2){echo "data-transitiongoal='100' style=height:'100%'aria-valuenow='100'";}}; ?>></div>
+                                          </div>
+                                        </li>
+                                        <!-- Beliebtheit -->
+                                        <li>
+                                          <div class="progress vertical bottom">
+                                                <div class="progress-bar progress-bar-info" role="progressbar" <?php if($beliebtheit[$i]>0){if($beliebtheit[$i]==1){echo "data-transitiongoal='50' style=height:'50%'aria-valuenow='50";}if($beliebtheit[$i]==2){echo "data-transitiongoal='100' style=height:'100%' aria-valuenow='100'";}}; ?>></div>
+                                          </div>
+                                          <div class="progress vertical"  style="margin-top:-20px">
+                                                 <div class="progress-bar progress-bar-info" role="progressbar" <?php if($beliebtheit[$i]<0){if($beliebtheit[$i]==-1){echo "data-transitiongoal='50' style=height:'50%'aria-valuenow='50";}if($beliebtheit[$i]==-2){echo "data-transitiongoal='100' style=height:'100%' aria-valuenow='100'";}}; ?>></div>
+                                          </div>
+                                        </li>
+
+                                        <!-- Infrastruktur -->
+                                        <li>
+                                          <div class="progress vertical bottom">
+                                            <div class="progress-bar progress-bar-blue" role="progressbar" <?php if($infrastruktur[$i]>0){if($infrastruktur[$i]==1){echo "data-transitiongoal='50' style=height:'50%'aria-valuenow='50";}if($infrastruktur[$i]==2){echo "data-transitiongoal='100' style=height:'100%' aria-valuenow='100'";}}; ?>></div>
+                                          </div>
+                                          <div class="progress vertical" style="margin-top:-20px">
+                                            <div class="progress-bar progress-bar-blue" role="progressbar" <?php if($infrastruktur[$i]<0){if($infrastruktur[$i]==-1){echo "data-transitiongoal='50' style=height:'50%'aria-valuenow='50";}if($infrastruktur[$i]==-2){echo "data-transitiongoal='100' style=height:'100%' aria-valuenow='100'";}}; ?>></div>
+                                          </div>
+                                        </li>
+
+                                        <!-- Kriminalität ---->
+                                        <li>
+                                          <div class="progress vertical bottom">
+                                            <div class="progress-bar progress-bar-success" role="progressbar"<?php if($kriminalität[$i]>0){if($kriminalität[$i]==1){echo "data-transitiongoal='50' style=height:'50%'aria-valuenow='50";}if($kriminalität[$i]==2){echo "data-transitiongoal='100' style=height:'100%' aria-valuenow='100'";}}; ?>></div>
+                                          </div>
+                                          <div class="progress vertical" style="margin-top:-20px">
+                                            <div class="progress-bar progress-bar-success" role="progressbar" <?php if($kriminalität[$i]<0){if($kriminalität[$i]==-1){echo "data-transitiongoal='50' style=height:'50%'aria-valuenow='50";}if($kriminalität[$i]==-2){echo "data-transitiongoal='100' style=height:'100%' aria-valuenow='100'";}}; ?>></div>
+                                          </div>
+                                        </li>
+
+                                        <!-- Lebensstandart ---->
+                                        <li>
+                                          <div class="progress vertical bottom">
+                                            <div class="progress-bar progress-bar-danger" role="progressbar" <?php if($lebensstandart[$i]>0){if($lebensstandart[$i]==1){echo "data-transitiongoal='50' style=height:'50%'aria-valuenow='50";}if($lebensstandart[$i]==2){echo "data-transitiongoal='100' style=height:'100%' aria-valuenow='100'";}}; ?>></div>
+                                          </div>
+                                          <div class="progress vertical" style="margin-top:-20px">
+                                            <div class="progress-bar progress-bar-danger" role="progressbar" <?php if($lebensstandart[$i]<0){if($lebensstandart[$i]==-1){echo "data-transitiongoal='50' style=height:'50%'aria-valuenow='50";}if($lebensstandart[$i]==-2){echo "data-transitiongoal='100' style=height:'100%' aria-valuenow='100'";}}; ?>></div>
+                                          </div>
+                                        </li>
+
+                                        <!-- Lage ---->
+                                        <li>
+                                          <div class="progress vertical bottom">
+                                            <div class="progress-bar progress-bar-success" role="progressbar" <?php if($lage[$i]>0){if($lage[$i]==1){echo "data-transitiongoal='50' style=height:'50%'aria-valuenow='50";}if($lage[$i]==2){echo "data-transitiongoal='100' style=height:'100%' aria-valuenow='100'";}}; ?>></div>
+                                          </div>
+                                          <div class="progress vertical" style="margin-top:-20px">
+                                            <div class="progress-bar progress-bar-success" role="progressbar" <?php if($lage[$i]<0){if($lage[$i]==-1){echo "data-transitiongoal='50' style=height:'50%'aria-valuenow='50";}if($lage[$i]==-2){echo "data-transitiongoal='100' style=height:'100%' aria-valuenow='100'";}}; ?>></div>
+                                          </div>
+                                        </li>
+                                       </ul>
                                     </div>
+
                                     <ul class="legend list-unstyled" >
                                           <li>
                                             <p><span class="icon"><i class="fa fa-square dark"></i></span> <span class="name">Gentrifizierung: <?php echo $gentrifizierung[$i];?></span>
@@ -461,10 +555,22 @@ class Markt {
                                             </p>
                                           </li>
                                     </ul>
+                                   
                                 </div>
                             </div>
-                        </div>                         
-
+                        </div>       
+                        
+                          <style>
+                              ul.verticle_bars li{
+                                  width: 20px;
+                                  height: 100px;
+                              }
+                          </style>
+                        
+                    <div class="col-md-6 col-sm-12">
+                          
+                    </div>
+                          
                         <?php
                             }
                         ?>
@@ -475,6 +581,8 @@ class Markt {
 
                   </div>
                 </div>
+                
+           
                 
                                 
                 <?php 
