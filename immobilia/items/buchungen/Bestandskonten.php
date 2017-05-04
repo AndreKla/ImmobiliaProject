@@ -20,7 +20,14 @@ class Bestandskonten{
                         <div class="clearfix"></div>
                       </div>
                       <div class="x_content">
-                          <?php API::showBuchungsAufgaben();?>
+                          <?php 
+                            //API::showBuchungsAufgaben();
+                          
+                            echo "<p class='loehne'> - Die Löhne und Gehälter werden überwiesen. Bitte berechnen Sie den Personalaufwand und buchen Sie diesen.</p>";
+                            echo "<p class='miete'> - Mieter überweisen laut Bankauszug die fälligen Jahresmieten. Bitte berechnen Sie zunächst die Mieteinnahmen und buchen Sie diese.</p>";
+                            echo "<p class='abschreibungen'> - Die Gebäude sind planmäßig abzuschreiben. Die Abschreibungswerte sind den Objekten zu entnehmen.</p>";
+                           
+                          ?>
                       </div> 
                     
                      <div class="x_title">

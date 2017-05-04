@@ -273,8 +273,7 @@ class API {
         <?php
     }
 
-<<<<<<< HEAD
-=======
+
     public static function checkCreditZulassung($summes) {
             
             $sid = $_SESSION["SID"];
@@ -460,7 +459,6 @@ class API {
             API::addAusgabe($zuZahlen, "Kredittilgung", "Kredittilgung");
             
     }
->>>>>>> origin/master
 
     public static function createAnlageRequest($id, $name, $beschreibung, $summe, $ertrag, $laufzeit, $risiko) {
         ?>
